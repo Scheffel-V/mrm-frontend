@@ -3,6 +3,12 @@ import { SELECTED_LANGUAGE, INITIAL_ID } from '../app.constants'
 import { TEXTS } from '../ui-texts/texts'
 import { ScriptsService } from '../services/scripts.service'
 import { Location } from '@angular/common';
+import { Router } from '@angular/router'
+
+
+const scripts = [
+  "../../assets/js/sb-admin-2.js"
+]
 
 @Component({
   selector: 'app-base',
@@ -17,10 +23,15 @@ export class BaseComponent implements OnInit {
 
   constructor(
     private scriptsService : ScriptsService,
-    protected location : Location
+    protected location : Location,
+    protected router : Router
   ) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterContentInit(): void {
+    this.loadScripts(scripts)
   }
 
   protected loadScripts(scripts : string[]) : void {
@@ -28,6 +39,14 @@ export class BaseComponent implements OnInit {
       console.log('resolving scripts loading...')
       scripts.forEach(this.scriptsService.loadScript)
     });
+  }
+
+  createCustomer(): void {
+    this.router.navigate(['customers', this.INITIAL_ID])
+  }
+
+  listCustomers(): void {
+    this.router.navigate(['customers'])
   }
 
   backPage(): void {

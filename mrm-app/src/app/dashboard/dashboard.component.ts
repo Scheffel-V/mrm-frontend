@@ -9,8 +9,7 @@ import { Customer } from '../models/customer.model';
 
 const scripts = [
   //'../../assets/js/demo/chart-area-demo.js',
-  //'../../assets/js/demo/chart-pie-demo.js',
-  "../../assets/js/sb-admin-2.js"
+  //'../../assets/js/demo/chart-pie-demo.js'
 ]
 
 @Component({
@@ -23,20 +22,19 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   customers : Customer[] = []
 
   constructor(
+    private customerService : CustomerService,
     scriptsService : ScriptsService,
     location : Location,
-    private router : Router,
-    private customerService : CustomerService
+    router : Router
   ) {
     super(
       scriptsService,
-      location
+      location,
+      router
     )
    }
 
   ngOnInit(): void {
-    this.loadScripts(scripts) 
- 
     this.customerService.getAllCustomers().subscribe(
       customers => {
         this.customers = customers
@@ -44,11 +42,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     )
   }
 
-  createCustomer(): void {
-    this.router.navigate(['customers', this.INITIAL_ID])
-  }
-
-  listCustomers(): void {
-    this.router.navigate(['customers'])
+  ngAfterContentInit(): void {
+    this.loadScripts(scripts)
   }
 }

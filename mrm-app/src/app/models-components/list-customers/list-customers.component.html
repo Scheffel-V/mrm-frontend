@@ -1,28 +1,45 @@
-<h1>Customers</h1>
-
 <div class="alert alert-warning" *ngIf="message">{{ message }}</div>
 
-<div class="container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th style="width: 10%">{{ TEXTS.MODELS.ID }}</th>
-        <th style="width: 10%">{{ TEXTS.MODELS.CUSTOMER.COMPANY_NAME }}</th>
-        <th style="width: 20%">{{ TEXTS.MODELS.CUSTOMER.COMMERCIAL_NAME }}</th>
-        <th style="width: 10%">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let customer of customers">
-        <td>{{ customer.id }}</td>
-        <td>{{ customer.companyName }}</td>
-        <td>{{ customer.commercialName }}</td>
-        <td><button (click)="deleteCustomer(customer.id)" class="btn btn-warning">{{ TEXTS.GENERAL.ACTIONS.DELETE }}</button></td>
-        <td><button (click)="updateCustomer(customer.id)" class="btn btn-success">{{ TEXTS.GENERAL.ACTIONS.UPDATE }}</button></td>
-      </tr>
-    </tbody>
-  </table>
-  <br>
-  <button class="btn btn-success" (click)="createCustomer()">{{ TEXTS.GENERAL.ACTIONS.ADD }}</button>
-  <button class="btn btn-dark"  (click)="backPage()">{{ TEXTS.GENERAL.ACTIONS.BACK_PAGE }}</button>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Customers</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>{{ TEXTS.MODELS.CUSTOMER.COMPANY_NAME }}</th>
+            <th>{{ TEXTS.MODELS.CUSTOMER.COMMERCIAL_NAME }}</th>
+            <th>{{ TEXTS.MODELS.CUSTOMER.CPF }}</th>
+            <th>{{ TEXTS.MODELS.CUSTOMER.CNPJ }}</th>
+            <th>{{ TEXTS.MODELS.CUSTOMER.CITY }}</th>
+            <th>{{ TEXTS.MODELS.CUSTOMER.PHONE_NUMBER }}</th>
+            <th>{{ TEXTS.MODELS.CUSTOMER.EMAIL }}</th>
+            <th>{{ TEXTS.MODELS.CUSTOMER.ACTIVE }}</th>
+            <th>{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customers">
+            <td>{{ customer.companyName }}</td>
+            <td>{{ customer.commercialName }}</td>
+            <td>{{ customer.cpf }}</td>
+            <td>{{ customer.cnpj }}</td>
+            <td>{{ customer.city }}</td>
+            <td>{{ customer.phoneNumber }}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.active }}</td>
+            <td>
+              <button (click)="deleteCustomer(customer.id)" class="btn btn-warning">{{ TEXTS.GENERAL.ACTIONS.DELETE }}</button>
+              <button (click)="updateCustomer(customer.id)" class="btn btn-success">{{ TEXTS.GENERAL.ACTIONS.MORE_INFO }}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <button class="btn btn-success" (click)="createCustomer()">{{ TEXTS.GENERAL.ACTIONS.ADD }}</button>
+      <button class="btn btn-dark"  (click)="backPage()">{{ TEXTS.GENERAL.ACTIONS.BACK_PAGE }}</button>
+    </div>
+  </div>
 </div>

@@ -1,17 +1,75 @@
 <div class="container">
-  <h1>Customer</h1>
-  <div class="alert alert-warning" *ngIf="message">{{ message }}</div>
-  <div class="alert alert-warning" *ngIf="customerForm.dirty && customerForm.invalid">{{ TEXTS.MODELS.FORMS.MESSAGES.ENTER_VALID_VALUES }}</div>
-  
-  <form (ngSubmit)="!customerForm.invalid && saveCustomer()" #customerForm="ngForm">
-    <fieldset class="form-group">
-      <label for="companyName">{{ TEXTS.MODELS.CUSTOMER.COMPANY_NAME }}</label>
-      <input style="width: 30%;" type="text" [(ngModel)]="customer.companyName" class="form-control" name="companyName" required="required">
-      <label for="commercialName">{{ TEXTS.MODELS.CUSTOMER.COMMERCIAL_NAME }}</label>
-      <input style="width: 30%;" type="text" [(ngModel)]="customer.commercialName" class="form-control" name="commercialName" required="required">
-    </fieldset>
-    <button type="submit" class="btn btn-success">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
-  </form>
-  <br>
-  <button (click)="backPage()" class="btn btn-dark">{{ TEXTS.GENERAL.ACTIONS.BACK_PAGE }}</button>
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Create Customer</h1>
+                        </div>
+
+                        <div class="alert alert-warning" *ngIf="message">{{ message }}</div>
+                        <div class="alert alert-warning" *ngIf="customerForm.dirty && customerForm.invalid">{{ TEXTS.MODELS.FORMS.MESSAGES.ENTER_VALID_VALUES }}</div>
+                        
+                        <form class="user" (ngSubmit)="!customerForm.invalid && saveCustomer()" #customerForm="ngForm">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control" [(ngModel)]="customer.companyName" id="costumerCompanyName"
+                                        placeholder="{{ TEXTS.MODELS.CUSTOMER.COMPANY_NAME }}" name="companyName" required="required">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" [(ngModel)]="customer.commercialName" id="costumerCommercialName"
+                                        placeholder="{{ TEXTS.MODELS.CUSTOMER.COMMERCIAL_NAME }}" name="commercialName" required="required">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input type="text" class="form-control" [(ngModel)]="customer.cpf" id="costumerCpf"
+                                    placeholder="{{ TEXTS.MODELS.CUSTOMER.CPF }}" name="cpf" required="required">
+                              </div>
+                              <div class="col-sm-6">
+                                  <input type="text" class="form-control" [(ngModel)]="customer.cnpj" id="costumerCnpj"
+                                      placeholder="{{ TEXTS.MODELS.CUSTOMER.CNPJ }}" name="cnpj" required="required">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <div class="col-sm-6">
+                                  <input type="text" class="form-control" [(ngModel)]="customer.email" id="costumerEmail"
+                                      placeholder="{{ TEXTS.MODELS.CUSTOMER.EMAIL }}" name="email">
+                              </div>
+                              <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input type="text" class="form-control" [(ngModel)]="customer.phoneNumber" id="costumerPhoneNumber"
+                                    placeholder="{{ TEXTS.MODELS.CUSTOMER.PHONE_NUMBER }}" name="phoneNumber" required="required">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input type="text" class="form-control" [(ngModel)]="customer.address" id="costumerAddress"
+                                    placeholder="{{ TEXTS.MODELS.CUSTOMER.ADDRESS }}" name="address" required="required">
+                              </div>
+                              <div class="col-sm-4">
+                                <input type="text" class="form-control" [(ngModel)]="customer.city" id="costumerCity"
+                                    placeholder="{{ TEXTS.MODELS.CUSTOMER.CITY }}" name="city" required="required">
+                              </div>
+                              <div class="col-sm-2">
+                                  <input type="text" class="form-control" [(ngModel)]="customer.number" id="costumerNumber"
+                                      placeholder="{{ TEXTS.MODELS.CUSTOMER.NUMBER }}" name="number" required="required">
+                              </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                        </form>
+
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

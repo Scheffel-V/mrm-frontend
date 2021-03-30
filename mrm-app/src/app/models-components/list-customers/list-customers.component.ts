@@ -6,6 +6,10 @@ import { CustomerService } from '../../services/customer.service'
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { BaseComponent } from 'src/app/base/base.component';
 
+const scripts = [
+  "../../assets/js/demo/datatables-demo.js"
+]
+
 @Component({
   selector: 'app-list-customers',
   templateUrl: './list-customers.component.html',
@@ -13,17 +17,17 @@ import { BaseComponent } from 'src/app/base/base.component';
 })
 export class ListCustomersComponent extends BaseComponent implements OnInit {
 
-  customers : Customer[]
+  customers : Customer[] = []
   message : string
 
   constructor(
     private customerService : CustomerService,
     private activatedRoute : ActivatedRoute,
-    private router : Router,
-    location : Location,
-    scriptService : ScriptsService
+    scriptService : ScriptsService,
+    router : Router,
+    location : Location
   ) {
-    super(scriptService, location)
+    super(scriptService, location, router)
    }
 
   ngOnInit(): void {
@@ -32,6 +36,10 @@ export class ListCustomersComponent extends BaseComponent implements OnInit {
         this.customers = data
       }
     )
+  }
+
+  ngAfterContentInit(): void {
+    this.loadScripts(scripts)
   }
 
   createCustomer(): void {

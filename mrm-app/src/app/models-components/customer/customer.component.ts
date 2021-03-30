@@ -21,10 +21,11 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   constructor(
     private customerService : CustomerService,
     private activatedRoute : ActivatedRoute,
+    scriptsService : ScriptsService,
     location : Location,
-    scriptsService : ScriptsService
+    router : Router
   ) { 
-    super(scriptsService, location)
+    super(scriptsService, location, router)
   }
 
   ngOnInit(): void {
@@ -71,6 +72,10 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   }
 
   deleteCustomer(): void {
-    this.customerService.deleteCustomer(this.customer.id).subscribe()
+    this.customerService.deleteCustomer(this.customer.id).subscribe(
+      response => {
+        this.location.back()
+      }
+    )
   }
 }

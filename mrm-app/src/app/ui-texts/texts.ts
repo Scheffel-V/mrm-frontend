@@ -6,6 +6,7 @@ export const TEXTS = {
                 SAVE : "Save",
                 DELETE : "Delete",
                 UPDATE : "Update",
+                MORE_INFO : "More Information",
                 ADD : "Add",
                 BACK_PAGE : "Back Page"
             },
@@ -14,7 +15,16 @@ export const TEXTS = {
             ID : "Id",
             CUSTOMER : {
                 COMPANY_NAME : "Company Name",
-                COMMERCIAL_NAME : "Commercial Name"
+                COMMERCIAL_NAME : "Commercial Name",
+                CPF : "CPF",
+                CNPJ : "CNPJ",
+                ADDRESS : "Address",
+                NUMBER : "Number",
+                CITY : "City",
+                PHONE_NUMBER : "Phone Number",
+                MOBILE_PHONE_NUMBER : "Mobile Phone Number",
+                EMAIL : "Email",
+                ACTIVE : "Active"
             },
             FORMS : {
               MESSAGES : {
