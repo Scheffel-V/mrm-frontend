@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { CustomerComponent } from './models-components/customer/customer.component';
 import { ListCustomersComponent } from './models-components/list-customers/list-customers.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BaseComponent } from './base/base.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerComponent,
     ListCustomersComponent,
-    DashboardComponent
+    DashboardComponent,
+    BaseComponent
   ],
   imports: [
     BrowserModule,

@@ -3,27 +3,28 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Customer } from '../../models/customer.model'
 import { Location } from '@angular/common';
 import { CustomerService } from '../../services/customer.service'
-import { INITIAL_ID, SELECTED_LANGUAGE } from '../../app.constants'
-import { ModelPage } from '../../interfaces/ModelPage'
-import { TEXTS } from '../../ui-texts/texts'
+import { ScriptsService } from 'src/app/services/scripts.service';
+import { BaseComponent } from 'src/app/base/base.component';
 
 @Component({
   selector: 'app-list-customers',
   templateUrl: './list-customers.component.html',
   styleUrls: ['./list-customers.component.scss']
 })
-export class ListCustomersComponent implements OnInit, ModelPage {
+export class ListCustomersComponent extends BaseComponent implements OnInit {
 
-  TEXTS = TEXTS[SELECTED_LANGUAGE]
   customers : Customer[]
   message : string
 
   constructor(
     private customerService : CustomerService,
     private activatedRoute : ActivatedRoute,
-    private location : Location,
-    private router : Router
-  ) { }
+    private router : Router,
+    location : Location,
+    scriptService : ScriptsService
+  ) {
+    super(scriptService, location)
+   }
 
   ngOnInit(): void {
     this.customerService.getAllCustomers().subscribe(
@@ -34,7 +35,7 @@ export class ListCustomersComponent implements OnInit, ModelPage {
   }
 
   createCustomer(): void {
-    this.router.navigate(['customers', INITIAL_ID])
+    this.router.navigate(['customers', this.INITIAL_ID])
   }
 
   updateCustomer(selectedCustomerId): void {
@@ -56,10 +57,6 @@ export class ListCustomersComponent implements OnInit, ModelPage {
         this.customers = data;
       }
     )
-  }
-
-  backPage(): void {
-    this.location.back()
   }
 }
 

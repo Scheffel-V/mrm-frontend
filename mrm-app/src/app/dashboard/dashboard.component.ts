@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { ScriptsService } from '../services/scripts.service'
+import { BaseComponent } from '../base/base.component'
+import { Router } from '@angular/router'
+import { Location } from '@angular/common';
 
 
 const scripts = [
-  '../assets/js/chart-area-demo.js',
-  '../assets/js/chart-pie-demo.js'
+  '../../assets/js/demo/chart-area-demo.js',
+  '../../assets/js/demo/chart-pie-demo.js'
 ]
 
 @Component({
@@ -11,26 +15,27 @@ const scripts = [
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
-
-  loadAPI: Promise<any>;
-
-  constructor() { }
+export class DashboardComponent extends BaseComponent implements OnInit {
+  constructor(
+    scriptsService : ScriptsService,
+    location : Location,
+    private router : Router
+  ) {
+    super(
+      scriptsService,
+      location
+    )
+   }
 
   ngOnInit(): void {
-    this.loadAPI = new Promise((resolve) => {
-      console.log('resolving promise...');
-      scripts.forEach(this.loadScript)
-    });
+   this.loadScripts([]) 
   }
 
-  public loadScript(source) {
-    console.log('preparing to load...')
-    let node = document.createElement('script');
-    node.src = source;
-    node.type = 'text/javascript';
-    node.async = true;
-    node.charset = 'utf-8';
-    document.getElementsByTagName('head')[0].appendChild(node);
-}
+  createCustomer(): void {
+    this.router.navigate(['customers', this.INITIAL_ID])
+  }
+
+  listCustomers(): void {
+    this.router.navigate(['customers'])
+  }
 }
