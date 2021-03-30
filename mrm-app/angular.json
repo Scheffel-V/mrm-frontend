@@ -30,7 +30,14 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/app/dashboard/vendor/jquery/jquery.min.js",
+              "src/app/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js",
+              "src/app/dashboard/vendor/jquery-easing/jquery.easing.min.js",
+              "src/app/dashboard/js/sb-admin-2.min.js",
+              "src/app/dashboard/vendor/chart.js/Chart.js",
+              "src/app/dashboard/vendor/chart.js/Chart.bundle.js"
+            ]
           },
           "configurations": {
             "production": {
