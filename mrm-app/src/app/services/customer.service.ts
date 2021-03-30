@@ -22,7 +22,6 @@ export class CustomerService {
   }
 
   createCustomer(customer : Customer) : Observable<Customer> {
-    console.log(customer)
     return this.http.post<Customer>(
       `${API_URL}/customers`,
       customer
