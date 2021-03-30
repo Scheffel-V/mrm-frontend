@@ -1,0 +1,27 @@
+<h1>Customers</h1>
+
+<div class="alert alert-warning" *ngIf="message">{{ message }}</div>
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 10%">{{ TEXTS.MODELS.ID }}</th>
+        <th style="width: 10%">{{ TEXTS.MODELS.CUSTOMER.COMPANY_NAME }}</th>
+        <th style="width: 20%">{{ TEXTS.MODELS.CUSTOMER.COMMERCIAL_NAME }}</th>
+        <th style="width: 10%">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{ customer.id }}</td>
+        <td>{{ customer.companyName }}</td>
+        <td>{{ customer.commercialName }}</td>
+        <td><button (click)="deleteCustomer(customer.id)" class="btn btn-warning">{{ TEXTS.GENERAL.ACTIONS.DELETE }}</button></td>
+        <td><button (click)="updateCustomer(customer.id)" class="btn btn-success">{{ TEXTS.GENERAL.ACTIONS.UPDATE }}</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <button class="btn btn-success" (click)="createCustomer()">{{ TEXTS.GENERAL.ACTIONS.ADD }}</button>
+</div>

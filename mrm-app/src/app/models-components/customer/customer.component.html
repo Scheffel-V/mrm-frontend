@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Customer</h1>
+  <div class="alert alert-warning" *ngIf="message">{{ message }}</div>
+  <div class="alert alert-warning" *ngIf="customerForm.dirty && customerForm.invalid">{{ TEXTS.MODELS.FORMS.MESSAGES.ENTER_VALID_VALUES }}</div>
+  
+  <form (ngSubmit)="!customerForm.invalid && saveCustomer()" #customerForm="ngForm">
+    <fieldset class="form-group">
+      <label for="companyName">{{ TEXTS.MODELS.CUSTOMER.COMPANY_NAME }}</label>
+      <input style="width: 30%;" type="text" [(ngModel)]="customer.companyName" class="form-control" name="companyName" required="required">
+      <label for="commercialName">{{ TEXTS.MODELS.CUSTOMER.COMMERCIAL_NAME }}</label>
+      <input style="width: 30%;" type="text" [(ngModel)]="customer.commercialName" class="form-control" name="commercialName" required="required">
+    </fieldset>
+    <button type="submit" class="btn btn-success">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+  </form>
+  <br>
+  <td><button (click)="backPage()" class="btn btn-dark">{{ TEXTS.GENERAL.ACTIONS.BACK_PAGE }}</button></td>
+</div>
