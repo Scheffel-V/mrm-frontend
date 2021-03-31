@@ -10,6 +10,13 @@ const scripts = [
   "../../assets/js/demo/datatables-demo.js"
 ]
 
+class CustomerToDisplay {
+  constructor(
+    public checked : boolean,
+    public customer : Customer
+  ) { }
+}
+
 @Component({
   selector: 'app-list-customers',
   templateUrl: './list-customers.component.html',
@@ -17,10 +24,10 @@ const scripts = [
 })
 export class ListCustomersComponent extends BaseComponent implements OnInit {
 
-  customers : Customer[] = []
+  customersToDisplay : CustomerToDisplay[] = []
   message : string
 
-  constructor(
+  public constructor(
     private customerService : CustomerService,
     private activatedRoute : ActivatedRoute,
     scriptService : ScriptsService,
@@ -30,41 +37,62 @@ export class ListCustomersComponent extends BaseComponent implements OnInit {
     super(scriptService, location, router)
    }
 
-  ngOnInit(): void {
+   public ngOnInit(): void {
     this.customerService.getAllCustomers().subscribe(
       data => {
-        this.customers = data
+        this.displayCustomers(data)
       }
     )
   }
 
-  ngAfterContentInit(): void {
+  public ngAfterContentInit(): void {
     this.loadScripts(scripts)
   }
 
-  createCustomer(): void {
-    this.router.navigate(['customers', this.INITIAL_ID])
-  }
-
-  updateCustomer(selectedCustomerId): void {
+  public updateCustomer(selectedCustomerId : number): void {
     this.router.navigate(['customers', selectedCustomerId])
   }
 
-  deleteCustomer(selectedCustomerId): void {
+  public deleteCustomer(selectedCustomerId : number): void {
     this.customerService.deleteCustomer(selectedCustomerId).subscribe(
-      response => {
+      () => {
         this.message = `Deleted customer!`
         this.refreshCustomers()
       }
     )
   }
 
-  refreshCustomers(): void {
+  public deleteSelectedCustomers(): void {
+    new Promise((resolve) => {
+     this.customersToDisplay
+      .filter(customerToDisplay => customerToDisplay.checked)
+      .forEach((selectedCustomer, index, array) => {
+        this.customerService.deleteCustomer(selectedCustomer.customer.id).subscribe(
+        () => {
+          this.message = `Deleted!`
+          if (index === array.length -1) resolve(true);
+        })
+      })
+    }).then(() => {
+      this.refreshCustomers()
+    });
+  }
+
+  public refreshCustomers(): void {
     this.customerService.getAllCustomers().subscribe(
       data => {
-        this.customers = data;
+        this.displayCustomers(data);
       }
     )
+  }
+
+  public displayCustomers(customers : Customer[]): void {
+    this.customersToDisplay = []
+    customers.forEach((customer) => {
+      this.customersToDisplay.push(
+        new CustomerToDisplay(false, customer)
+      )
+    })
   }
 }
 

@@ -7,7 +7,7 @@ export const TEXTS = {
                 DELETE : "Delete",
                 UPDATE : "Update",
                 MORE_INFO : "More Information",
-                ADD : "Add",
+                ADD : "Add New",
                 BACK_PAGE : "Back Page"
             },
           },

@@ -2315,6 +2315,7 @@ textarea.form-control {
   line-height: 1.5;
   border-radius: 0.35rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -10783,7 +10784,7 @@ a:focus {
   overflow: hidden;
   display: inline-flex;
   align-items: stretch;
-  justify-content: center;
+  justify-content: left;
 }
 
 .btn-icon-split .icon {
@@ -11301,4 +11302,14 @@ footer.sticky-footer .copyright {
 
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
+}
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
 }

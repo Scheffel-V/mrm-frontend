@@ -18,20 +18,25 @@ const scripts = [
 export class BaseComponent implements OnInit {
 
   public TEXTS = TEXTS[SELECTED_LANGUAGE]
+  public router : Router
   private loadAPI: Promise<any>;
   protected INITIAL_ID = INITIAL_ID
 
   constructor(
     private scriptsService : ScriptsService,
     protected location : Location,
-    protected router : Router
-  ) { }
+    router : Router
+  ) {
+    this.router = router
+   }
 
   ngOnInit(): void {
+    console.log("Load dos scripts na base!")
+    this.loadScripts(scripts)
   }
 
-  ngAfterContentInit(): void {
-    this.loadScripts(scripts)
+  goToDashboard(): void {
+    this.router.navigate([''])
   }
 
   protected loadScripts(scripts : string[]) : void {
