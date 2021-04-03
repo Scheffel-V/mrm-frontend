@@ -39,6 +39,7 @@ div.dataTables_wrapper div.dataTables_filter label {
 }
 div.dataTables_wrapper div.dataTables_filter input {
   margin-left: 0.5em;
+  margin-right: 0.5em;
   display: inline-block;
   width: auto;
 }
@@ -206,4 +207,12 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:fir
 }
 div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:last-child {
   padding-right: 0;
+}
+
+td.highlight {
+    background-color: whitesmoke !important;
+}
+
+tr.highlight {
+  background-color: whitesmoke !important;
 }

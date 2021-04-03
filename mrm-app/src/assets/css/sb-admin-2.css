@@ -2315,7 +2315,6 @@ textarea.form-control {
   line-height: 1.5;
   border-radius: 0.35rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -10484,8 +10483,8 @@ a:focus {
   z-index: 1;
 }
 
-.sidebar .sidebar-brand .sidebar-brand-icon i {
-  font-size: 2rem;
+.sidebar .sidebar-brand .sidebar-brand-icon {
+  margin-left: 0.5rem;
 }
 
 .sidebar .sidebar-brand .sidebar-brand-text {
@@ -10534,6 +10533,11 @@ a:focus {
 @media (min-width: 768px) {
   .sidebar {
     width: 14rem !important;
+    transition: ease-in;
+    -webkit-animation-name: growIn;
+    animation-name: growIn;
+    -webkit-animation-duration: 200ms;
+    animation-duration: 200ms;
   }
   .sidebar .nav-item .collapse {
     position: relative;
@@ -10699,6 +10703,11 @@ a:focus {
 
 .sidebar-light #sidebarToggle:hover {
   background-color: #dddfeb;
+}
+
+.sidebar-dark {
+  color: #fff;
+  background: #293042;
 }
 
 .sidebar-dark .sidebar-brand {
@@ -11302,14 +11311,4 @@ footer.sticky-footer .copyright {
 
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
-}
-
-input[type=checkbox]
-{
-  /* Double-sized Checkboxes */
-  -ms-transform: scale(2); /* IE */
-  -moz-transform: scale(2); /* FF */
-  -webkit-transform: scale(2); /* Safari and Chrome */
-  -o-transform: scale(2); /* Opera */
-  padding: 10px;
 }

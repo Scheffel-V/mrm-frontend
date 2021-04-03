@@ -31,7 +31,6 @@ export class BaseComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log("Load dos scripts na base!")
     this.loadScripts(scripts)
   }
 
@@ -41,7 +40,7 @@ export class BaseComponent implements OnInit {
 
   protected loadScripts(scripts : string[]) : void {
     this.loadAPI = new Promise((resolve) => {
-      console.log('resolving scripts loading...')
+      console.log('Loading dynamic scripts...')
       scripts.forEach(this.scriptsService.loadScript)
     });
   }
