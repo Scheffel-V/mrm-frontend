@@ -1,0 +1,81 @@
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.PRODUCT_MODEL }}</h1>
+                        </div>
+                        
+                        <form class="user" (ngSubmit)="!productModelForm.invalid && saveProductModel()" #productModelForm="ngForm">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control" [(ngModel)]="productModel.name" id="productModelName"
+                                        placeholder="{{ TEXTS.MODELS.PRODUCT_MODEL.NAME }}" name="name" required="required" #name="ngModel">
+                                        <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+                                            <div [hidden]="!name.errors.required">
+                                                {{ TEXTS.MODELS.FORMS.PRODUCT_MODEL.NAME_REQUIRED }}
+                                            </div>
+                                          </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" [(ngModel)]="productModel.type" id="productModelType"
+                                        placeholder="{{ TEXTS.MODELS.PRODUCT_MODEL.TYPE }}" name="type" required="required" #type="ngModel">
+                                        <div *ngIf="type.errors && (type.dirty || type.touched)" class="alert alert-danger">
+                                            <div [hidden]="!type.errors.required">
+                                                {{ TEXTS.MODELS.FORMS.PRODUCT_MODEL.TYPE_REQUIRED }}
+                                            </div>
+                                          </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <div class="col-sm-4 mb-3 mb-sm-0">
+                                <input type="text" class="form-control" [(ngModel)]="productModel.power" id="productModelPower"
+                                    placeholder="{{ TEXTS.MODELS.PRODUCT_MODEL.POWER }}" required="required" name="city" #power="ngModel">
+                                <div *ngIf="power.errors && (power.dirty || power.touched)" class="alert alert-danger">
+                                    <div [hidden]="!power.errors.required">
+                                        {{ TEXTS.MODELS.FORMS.PRODUCT_MODEL.POWER_REQUIRED }}
+                                    </div>
+                                </div>
+                                </div>
+                              <div class="col-sm-4 mb-3 mb-sm-0">
+                                <input type="text" class="form-control" [(ngModel)]="productModel.brand" id="productModelBrand"
+                                    placeholder="{{ TEXTS.MODELS.PRODUCT_MODEL.BRAND }}" name="brand" #brand="ngModel">
+                              </div>
+                              <div class="col-sm-4">
+                                  <input type="text" class="form-control" [(ngModel)]="productModel.model" id="productModelModel"
+                                      placeholder="{{ TEXTS.MODELS.PRODUCT_MODEL.MODEL }}" name="model" #model="ngModel">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                  <input type="text" class="form-control" [(ngModel)]="productModel.standardRentalValue" id="productModelStandardRentalValue"
+                                      placeholder="{{ TEXTS.MODELS.PRODUCT_MODEL.STANDARD_RENTAL_VALUE }}" name="standardRentalValue" #standardRentalValue="ngModel">
+                                  </div>
+                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                  <input type="text" class="form-control" [(ngModel)]="productModel.repositionValue" id="productModelRepositionValue"
+                                      placeholder="{{ TEXTS.MODELS.PRODUCT_MODEL.REPOSITION_VALUE }}" name="repositionValue" #repositionValue="ngModel">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" [(ngModel)]="productModel.image" id="productModelImage"
+                                        placeholder="{{ TEXTS.MODELS.PRODUCT_MODEL.IMAGE }}" name="image" #image="ngModel">
+                                </div>
+                              </div>
+
+                            <button type="submit" class="btn btn-success" [disabled]="!productModelForm.form.valid">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                        </form>
+
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

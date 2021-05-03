@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Customer } from '../../models/customer.model'
 import { Location } from '@angular/common';
 import { CustomerService } from '../../services/customer.service'
-import { CUSTOMER_ID_PARAM , INITIAL_ID, SELECTED_LANGUAGE} from '../../app.constants'
+import { CUSTOMER_ID_PARAM , INITIAL_ID } from '../../app.constants'
 import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -19,7 +19,6 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   id : number
   customer : Customer
   customerForm : FormGroup
-
 
   constructor(
     private customerService : CustomerService,
@@ -43,9 +42,9 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   fetchCustomer(): void {
     this.customerService.getCustomer(this.id).subscribe(
       data => {
-        this.customer = data[0]
+        this.customer = data
         // @TODO
-        this.customer.address = data[0].Address
+        //this.customer.address = data[0].Address
       }
     )
   }

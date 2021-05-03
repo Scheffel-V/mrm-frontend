@@ -49,6 +49,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Customers -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -64,19 +65,53 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- Products -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-box"></i>
-                    <span>{{ TEXTS.LEFT_MENU.PRODUCTS }}</span>
+                    <span>{{ TEXTS.LEFT_MENU.PRODUCT_MODELS }}</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <div id="collapseThree" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</h6>
-                        <a class="collapse-item" href="utilities-color.html">{{ TEXTS.LEFT_MENU.ADD_PRODUCT }}</a>
-                        <a class="collapse-item" href="utilities-border.html">{{ TEXTS.LEFT_MENU.LIST_PRODUCTS }}</a>
+                        <a class="collapse-item" (click)="createProductModel()">{{ TEXTS.LEFT_MENU.ADD_PRODUCT_MODEL }}</a>
+                        <a class="collapse-item" (click)="listProductModels()">{{ TEXTS.LEFT_MENU.LIST_PRODUCT_MODELS }}</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Suppliers -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-truck"></i>
+                    <span>{{ TEXTS.LEFT_MENU.SUPPLIERS }}</span>
+                </a>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</h6>
+                        <a class="collapse-item" (click)="createSupplier()">{{ TEXTS.LEFT_MENU.ADD_SUPPLIER }}</a>
+                        <a class="collapse-item" (click)="listSuppliers()">{{ TEXTS.LEFT_MENU.LIST_SUPPLIERS }}</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Rentals -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                    <span>{{ TEXTS.LEFT_MENU.RENTALS }}</span>
+                </a>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</h6>
+                        <a class="collapse-item" (click)="createSupplier()">{{ TEXTS.LEFT_MENU.ADD_RENTAL }}</a>
+                        <a class="collapse-item" (click)="listSuppliers()">{{ TEXTS.LEFT_MENU.LIST_RENTALS }}</a>
                     </div>
                 </div>
             </li>

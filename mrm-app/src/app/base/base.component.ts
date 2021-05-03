@@ -53,6 +53,30 @@ export class BaseComponent implements OnInit {
     this.router.navigate(['customers'])
   }
 
+  createProductModel(): void {
+    this.router.navigate(['productModels', this.INITIAL_ID])
+  }
+
+  listProductModels(): void {
+    this.router.navigate(['productModels'])
+  }
+
+  createSupplier(): void {
+    this.router.navigate(['suppliers', this.INITIAL_ID])
+  }
+
+  listSuppliers(): void {
+    this.router.navigate(['suppliers'])
+  }
+
+  createRental(): void {
+    this.router.navigate(['rentals', this.INITIAL_ID])
+  }
+
+  listRentals(): void {
+    this.router.navigate(['rentals'])
+  }
+
   backPage(): void {
     this.location.back()
   }

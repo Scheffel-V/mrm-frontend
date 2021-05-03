@@ -9,7 +9,12 @@ import { CustomerComponent } from './models-components/customer/customer.compone
 import { ListCustomersComponent } from './models-components/list-customers/list-customers.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BaseComponent } from './base/base.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { ProductModelComponent } from './models-components/product-model/product-model.component';
+import { ListProductModelsComponent } from './models-components/list-product-models/list-product-models.component';
+import { SupplierComponent } from './models-components/supplier/supplier.component';
+import { ListSuppliersComponent } from './models-components/list-suppliers/list-suppliers.component';
+import { StockItemComponent } from './models-components/stock-item/stock-item.component'
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -20,7 +25,12 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     CustomerComponent,
     ListCustomersComponent,
     DashboardComponent,
-    BaseComponent
+    BaseComponent,
+    ProductModelComponent,
+    ListProductModelsComponent,
+    SupplierComponent,
+    ListSuppliersComponent,
+    StockItemComponent
   ],
   imports: [
     BrowserModule,

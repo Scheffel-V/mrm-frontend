@@ -4,7 +4,11 @@ import { BaseComponent } from '../base/base.component'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common';
 import { CustomerService } from '../services/customer.service';
+import { ProductModelService } from '../services/product-model.service';
+import { SupplierService } from '../services/supplier.service';
 import { Customer } from '../models/customer.model';
+import { ProductModel } from '../models/product-model.model';
+import { Supplier } from '../models/supplier.model';
 
 
 const scripts = [
@@ -20,9 +24,13 @@ const scripts = [
 export class DashboardComponent extends BaseComponent implements OnInit {
 
   customers : Customer[] = []
+  productModels : ProductModel[] = []
+  suppliers : Supplier[] = []
 
   constructor(
     private customerService : CustomerService,
+    private productModelService : ProductModelService,
+    private supplierService : SupplierService,
     scriptsService : ScriptsService,
     location : Location,
     router : Router
@@ -40,6 +48,18 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         this.customers = customers
       }
     )
+
+    this.productModelService.getAllProductModels().subscribe(
+      productModels => {
+        this.productModels = productModels
+      }
+    )
+
+    /**this.supplierService.getAllSuppliers().subscribe(
+      suppliers => {
+        this.suppliers = suppliers
+      }
+    )**/
   }
 
   ngAfterContentInit(): void {

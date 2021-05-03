@@ -1,0 +1,91 @@
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.SUPPLIER }}</h1>
+                        </div>
+                        
+                        <form class="user" (ngSubmit)="!supplierForm.invalid && saveSupplier()" #supplierForm="ngForm">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control" [(ngModel)]="supplier.companyName" id="supplierCompanyName"
+                                        placeholder="{{ TEXTS.MODELS.SUPPLIER.COMPANY_NAME }}" name="companyName" required="required" #companyName="ngModel">
+                                        <div *ngIf="companyName.errors && (companyName.dirty || companyName.touched)" class="alert alert-danger">
+                                            <div [hidden]="!companyName.errors.required">
+                                                {{ TEXTS.MODELS.FORMS.SUPPLIER.COMPANY_NAME_REQUIRED }}
+                                            </div>
+                                          </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" mask="000.000.000-00||00.000.000/0000-00" class="form-control" [(ngModel)]="supplier.cnpj" id="supplierCnpj"
+                                        placeholder="{{ TEXTS.MODELS.SUPPLIER.CNPJ }}" name="cnpj" required="required" #cnpj="ngModel">
+                                    <div *ngIf="cnpj.errors && (cnpj.dirty || cnpj.touched)" class="alert alert-danger">
+                                      {{ TEXTS.MODELS.FORMS.SUPPLIER.CNPJ_REQUIRED }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <div class="col-sm-6">
+                                <input type="text" class="form-control" [(ngModel)]="supplier.email" id="supplierEmail"
+                                    placeholder="{{ TEXTS.MODELS.SUPPLIER.EMAIL }}" name="email">
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" mask="''||(00)00000-0000||(00)0000-0000" class="form-control" [(ngModel)]="supplier.phoneNumber" id="supplierPhoneNumber"
+                                    placeholder="{{ TEXTS.MODELS.SUPPLIER.PHONE_NUMBER }}" name="phoneNumber">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <div class="col-sm-2">
+                                <input type="text" class="form-control" mask="00000-000" [(ngModel)]="supplier.address.cep" id="supplierCep"
+                                        placeholder="{{ TEXTS.MODELS.SUPPLIER.CEP }}" required="required" name="cep" #cep="ngModel">
+                                <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
+                                      {{ TEXTS.MODELS.FORMS.SUPPLIER.CEP_REQUIRED }}
+                                </div>
+                              </div>
+                              <div class="col-sm-4 mb-3 mb-sm-0">
+                                <input type="text" class="form-control" [(ngModel)]="supplier.address.city" id="supplierCity"
+                                    placeholder="{{ TEXTS.MODELS.SUPPLIER.CITY }}" required="required" name="city" #city="ngModel">
+                                <div *ngIf="city.errors && (city.dirty || city.touched)" class="alert alert-danger">
+                                    <div [hidden]="!city.errors.required">
+                                        {{ TEXTS.MODELS.FORMS.SUPPLIER.CITY_REQUIRED }}
+                                    </div>
+                                </div>
+                                </div>
+                              <div class="col-sm-4 mb-3 mb-sm-0">
+                                <input type="text" class="form-control" [(ngModel)]="supplier.address.street" id="supplierStreet"
+                                    placeholder="{{ TEXTS.MODELS.SUPPLIER.STREET }}" required="required" name="street" #street="ngModel">
+                                <div *ngIf="street.errors && (street.dirty || street.touched)" class="alert alert-danger">
+                                    <div [hidden]="!street.errors.required">
+                                        {{ TEXTS.MODELS.FORMS.SUPPLIER.STREET_REQUIRED }}
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-2">
+                                  <input type="text" class="form-control" [(ngModel)]="supplier.address.number" id="supplierNumber"
+                                      placeholder="{{ TEXTS.MODELS.SUPPLIER.NUMBER }}" required="required" name="number" #number="ngModel">
+                                  <div *ngIf="number.errors && (number.dirty || number.touched)" class="alert alert-danger">
+                                    <div [hidden]="!number.errors.required">
+                                      {{ TEXTS.MODELS.FORMS.SUPPLIER.NUMBER_REQUIRED }}
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success" [disabled]="!supplierForm.form.valid">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                        </form>
+
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

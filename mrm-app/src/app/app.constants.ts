@@ -12,3 +12,7 @@ export const INITIAL_ID = -1
 
 // Route params
 export const CUSTOMER_ID_PARAM = "customerId"
+export const PRODUCT_MODEL_ID_PARAM = "productModelId"
+export const SUPPLIER_ID_PARAM = "supplierId"
+export const RENTAL_ID_PARAM = "rentalId"
+export const STOCK_ITEM_ID_PARAM = "stockItemId"
