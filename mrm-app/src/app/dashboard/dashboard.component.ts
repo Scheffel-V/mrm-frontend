@@ -9,6 +9,7 @@ import { SupplierService } from '../services/supplier.service';
 import { Customer } from '../models/customer.model';
 import { ProductModel } from '../models/product-model.model';
 import { Supplier } from '../models/supplier.model';
+import { Rental } from '../models/rental.model'
 
 
 const scripts = [
@@ -26,6 +27,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   customers : Customer[] = []
   productModels : ProductModel[] = []
   suppliers : Supplier[] = []
+  rentals : Rental[] = []
 
   constructor(
     private customerService : CustomerService,

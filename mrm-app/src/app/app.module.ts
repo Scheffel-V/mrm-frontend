@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MatSelectModule } from '@angular/material/select';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomerComponent } from './models-components/customer/customer.component';
@@ -14,7 +14,10 @@ import { ProductModelComponent } from './models-components/product-model/product
 import { ListProductModelsComponent } from './models-components/list-product-models/list-product-models.component';
 import { SupplierComponent } from './models-components/supplier/supplier.component';
 import { ListSuppliersComponent } from './models-components/list-suppliers/list-suppliers.component';
-import { StockItemComponent } from './models-components/stock-item/stock-item.component'
+import { StockItemComponent } from './models-components/stock-item/stock-item.component';
+import { RentalComponent } from './models-components/rental/rental.component';
+import { ListRentalsComponent } from './models-components/list-rentals/list-rentals.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -30,7 +33,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ListProductModelsComponent,
     SupplierComponent,
     ListSuppliersComponent,
-    StockItemComponent
+    StockItemComponent,
+    RentalComponent,
+    ListRentalsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatSelectModule,
     NgxMaskModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

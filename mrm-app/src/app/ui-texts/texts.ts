@@ -51,6 +51,16 @@ export const TEXTS = {
               PHONE_NUMBER : "Phone Number",
               EMAIL : "Email"
             },
+            RENTAL : {
+              CUSTOMER : "Customer",
+              START_DATE : "Start Date",
+              END_DATE : "End Date",
+              FISCAL_NOTE : "Fiscal Note",
+              TOTAL_VALUE : "Total Value",
+              STATUS : "Status",
+              APPROVED_DATE : "Approved Date",
+              STOCK_ITEMS : "Stock Items"
+            },
             FORMS : {
               CUSTOMER : {
                 COMPANY_NAME_REQUIRED : "Company name is required.",
@@ -73,6 +83,12 @@ export const TEXTS = {
                 STREET_REQUIRED : "Street is required.",
                 NUMBER_REQUIRED : "Number is required."
               },
+              RENTAL : {
+                CUSTOMER_REQUIRED : "Customer is required.",
+                STOCK_ITEMS_REQUIRED : "Stock Items are required.",
+                START_DATE_REQUIRED : "Start Date is required.",
+                END_DATE_REQUIRED : "End Date is required."
+              }
             }
           },
           LEFT_MENU : {

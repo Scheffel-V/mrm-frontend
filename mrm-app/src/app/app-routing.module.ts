@@ -7,6 +7,8 @@ import { ListProductModelsComponent } from './models-components/list-product-mod
 import { ProductModelComponent } from './models-components/product-model/product-model.component';
 import { SupplierComponent } from './models-components/supplier/supplier.component';
 import { ListSuppliersComponent } from './models-components/list-suppliers/list-suppliers.component';
+import { RentalComponent } from './models-components/rental/rental.component';
+import { ListRentalsComponent } from './models-components/list-rentals/list-rentals.component';
 
 
 const routes: Routes = [
@@ -16,7 +18,9 @@ const routes: Routes = [
   { path: 'productModels', component: ListProductModelsComponent },
   { path: 'productModels/:productModelId', component: ProductModelComponent },
   { path: 'suppliers', component: ListSuppliersComponent },
-  { path: 'suppliers/:supplierId', component: SupplierComponent }
+  { path: 'suppliers/:supplierId', component: SupplierComponent },
+  { path: 'rentals', component: ListRentalsComponent },
+  { path: 'rentals/:rentalId', component: RentalComponent }
 ];
 
 @NgModule({
