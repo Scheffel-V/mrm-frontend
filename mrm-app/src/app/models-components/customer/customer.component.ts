@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Customer } from '../../models/customer.model'
 import { Location } from '@angular/common';
@@ -6,6 +6,8 @@ import { CustomerService } from '../../services/customer.service'
 import { CUSTOMER_ID_PARAM , INITIAL_ID, SELECTED_LANGUAGE} from '../../app.constants'
 import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-customer',
@@ -16,7 +18,8 @@ export class CustomerComponent extends BaseComponent implements OnInit {
 
   id : number
   customer : Customer
-  message : string
+  customerForm : FormGroup
+
 
   constructor(
     private customerService : CustomerService,
@@ -31,7 +34,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params[CUSTOMER_ID_PARAM]
     this.customer = new Customer(this.id)
-    
+
     if (this.id != INITIAL_ID) {
       this.fetchCustomer()
     }
@@ -40,7 +43,9 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   fetchCustomer(): void {
     this.customerService.getCustomer(this.id).subscribe(
       data => {
-        this.customer = data
+        this.customer = data[0]
+        // @TODO
+        this.customer.address = data[0].Address
       }
     )
   }
@@ -56,6 +61,12 @@ export class CustomerComponent extends BaseComponent implements OnInit {
 
   createCustomer(): void {
     delete this.customer['id']
+    //@TODO
+    this.customer["cep"] = this.customer.address.cep
+    this.customer["street"] = this.customer.address.street
+    this.customer["city"] = this.customer.address.city
+    this.customer["number"] = this.customer.address.number
+    delete this.customer["address"]
     this.customerService.createCustomer(this.customer).subscribe(
       data => {
         this.location.back()

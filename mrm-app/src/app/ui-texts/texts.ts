@@ -17,8 +17,9 @@ export const TEXTS = {
                 COMPANY_NAME : "Company Name",
                 COMMERCIAL_NAME : "Commercial Name",
                 CPF : "CPF",
-                CNPJ : "CNPJ",
-                ADDRESS : "Address",
+                CNPJ : "CNPJ/CPF",
+                STREET : "Street",
+                CEP : "CEP",
                 NUMBER : "Number",
                 CITY : "City",
                 PHONE_NUMBER : "Phone Number",
@@ -27,8 +28,13 @@ export const TEXTS = {
                 ACTIVE : "Active"
             },
             FORMS : {
-              MESSAGES : {
-                ENTER_VALID_VALUES : "Enter valid values."
+              CUSTOMER : {
+                COMPANY_NAME_REQUIRED : "Company name is required.",
+                CNPJ_REQUIRED : "CNPJ is required.",
+                CEP_REQUIRED : "CEP is required.",
+                CITY_REQUIRED : "City is required.",
+                STREET_REQUIRED : "Street is required.",
+                NUMBER_REQUIRED : "Number is required."
               }
             }
           },
