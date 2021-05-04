@@ -4,13 +4,13 @@ import { Rental } from '../../models/rental.model'
 import { Location } from '@angular/common';
 import { RentalService } from '../../services/rental.service'
 import { CustomerService } from '../../services/customer.service'
-import { ProductModelService } from '../../services/product-model.service'
+import { StockItemService } from '../../services/stock-item.service'
 import { RENTAL_ID_PARAM , INITIAL_ID } from '../../app.constants'
 import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { FormGroup } from '@angular/forms';
 import { Customer } from '../../models/customer.model';
-import { ProductModel } from '../../models/product-model.model';
+import { StockItem } from '../../models/stock-item.model';
 
 
 @Component({
@@ -24,12 +24,12 @@ export class RentalComponent extends BaseComponent implements OnInit {
   rental : Rental
   rentalForm : FormGroup
   customers : Customer[] = []
-  products : ProductModel[] = []
+  stockItems : StockItem[] = []
 
   constructor(
     private rentalService : RentalService,
     private customerService : CustomerService,
-    private productModelService : ProductModelService,
+    private stockItemService : StockItemService,
     private activatedRoute : ActivatedRoute,
     scriptsService : ScriptsService,
     location : Location,
@@ -47,7 +47,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     }
 
     this.fetchCustomers()
-    this.fetchProductModels()
+    this.fetchProductModelsInInventory()
   }
 
   fetchRental(): void {
@@ -100,10 +100,10 @@ export class RentalComponent extends BaseComponent implements OnInit {
     )
   }
 
-  fetchProductModels(): void {
-    this.productModelService.getAllProductModels().subscribe(
+  fetchProductModelsInInventory(): void {
+    this.stockItemService.getAllStockItemsInInventory().subscribe(
       data => {
-        this.products = data
+        this.stockItems = data
       }
     )
   }

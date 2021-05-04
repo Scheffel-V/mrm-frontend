@@ -17,6 +17,10 @@ export class StockItemService {
     return this.http.get<StockItem[]>(`${API_URL}/stockItems`)
   }
 
+  getAllStockItemsInInventory() : Observable<StockItem[]> {
+    return this.http.get<StockItem[]>(`${API_URL}/stockItems?status=INVENTORY`)
+  }
+
   getStockItem(stockItemId : number) : Observable<StockItem> {
     return this.http.get<StockItem>(`${API_URL}/stockItems/${stockItemId}`)
   }

@@ -14,21 +14,22 @@
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     
-                                    <mat-form-field appearance="fill">
+                                    <mat-form-field style="width:100%" appearance="fill">
                                         <mat-label>Customer</mat-label>
-                                        <mat-select [(ngModel)]="rental.customer" name="rentalCustomer">
-                                            <mat-option *ngFor="let customer of customers" [value]="customer.companyName">
-                                            {{customer.companyName}}
+                                        <mat-select [(ngModel)]="rental.customer" name="rentalCustomer" required>
+                                            <mat-option>--</mat-option>
+                                            <mat-option *ngFor="let customer of customers" [value]="customer">
+                                            {{ customer.companyName }} | {{ customer.commercialName }} | {{ customer.cnpj }}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <mat-form-field appearance="fill">
+                                    <mat-form-field style="width:100%" appearance="fill">
                                         <mat-label>Products</mat-label>
-                                        <mat-select [formControl]="rental.stockItems" multiple>
-                                          <mat-option *ngFor="let product of products" [value]="product.name">{{product.name}}</mat-option>
+                                        <mat-select [(ngModel)]="rental.stockItems" name="rentalStockItems" multiple required>
+                                          <mat-option *ngFor="let stockItem of stockItems" [value]="stockItem">{{ stockItem.productModel.type }} | {{ stockItem.productModel.brand }} | {{ stockItem.productModel.name }} {{ stockItem.productModel.model }} {{ stockItem.productModel.power }}</mat-option>
                                         </mat-select>
                                       </mat-form-field>
                                 </div>
@@ -36,22 +37,28 @@
 
                             <div class="form-group row">
                               <div class="col-sm-4">
-                                  <input type="text" class="form-control" [(ngModel)]="rental.startDate" id="rentalStartDate"
-                                      placeholder="{{ TEXTS.MODELS.RENTAL.START_DATE }}" name="startDate" required="required" #startDate="ngModel">
-                                  <div *ngIf="startDate.errors && (startDate.dirty || startDate.touched)" class="alert alert-danger">
-                                    {{ TEXTS.MODELS.FORMS.RENTAL.START_DATE_REQUIRED }}
-                                  </div>
+                                <mat-form-field style="width:100%" appearance="fill">
+                                    <mat-label>Start date</mat-label>
+                                    <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="rental.startDate" required="required" name="startDate">
+                                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #startDatePicker></mat-datepicker>
+                                  </mat-form-field>
                               </div>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" [(ngModel)]="rental.endDate" id="rentalEndDate"
-                                    placeholder="{{ TEXTS.MODELS.RENTAL.END_DATE }}" name="endDate" required="required" #endDate="ngModel">
-                                <div *ngIf="endDate.errors && (endDate.dirty || endDate.touched)" class="alert alert-danger">
-                                  {{ TEXTS.MODELS.FORMS.RENTAL.END_DATE_REQUIRED }}
-                                </div>
-                            </div>
+                                <mat-form-field style="width:100%" appearance="fill">
+                                    <mat-label>End date</mat-label>
+                                    <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="rental.endDate" required="required" name="endDate">
+                                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #endDatePicker></mat-datepicker>
+                                  </mat-form-field>
+                              </div>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" [(ngModel)]="rental.fiscalNote" id="rentalFiscalNote"
-                                    placeholder="{{ TEXTS.MODELS.RENTAL.FISCAL_NOTE }}" name="fiscalNote">
+                                <mat-form-field style="width:100%" appearance="fill">
+                                    <mat-label>Approved date</mat-label>
+                                    <input matInput [matDatepicker]="approvedDatePicker" [(ngModel)]="rental.approvedDate" name="approvedDate">
+                                    <mat-datepicker-toggle matSuffix [for]="approvedDatePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #approvedDatePicker></mat-datepicker>
+                                </mat-form-field>
                               </div>
                             </div>
 
@@ -64,9 +71,9 @@
                                 <input type="text" class="form-control" [(ngModel)]="rental.status" id="rentalStatus"
                                     placeholder="{{ TEXTS.MODELS.RENTAL.STATUS }}" name="status" #status="ngModel">
                               </div>
-                              <div class="col-sm-4 mb-3 mb-sm-0">
-                                <input type="text" class="form-control" [(ngModel)]="rental.approvedDate" id="rentalApprovedDate"
-                                    placeholder="{{ TEXTS.MODELS.RENTAL.APPROVED_DATE }}" name="approvedDate" #approvedDate="ngModel">
+                              <div class="col-sm-4">
+                                <input type="text" class="form-control" [(ngModel)]="rental.fiscalNote" id="rentalFiscalNote"
+                                    placeholder="{{ TEXTS.MODELS.RENTAL.FISCAL_NOTE }}" name="fiscalNote">
                               </div>
                             </div>
 

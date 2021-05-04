@@ -7,6 +7,7 @@ import { STOCK_ITEM_ID_PARAM , INITIAL_ID } from '../../app.constants'
 import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { FormGroup } from '@angular/forms';
+import { ProductModel } from '../../models/product-model.model';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params[STOCK_ITEM_ID_PARAM]
-    this.stockItem = new StockItem(this.id, -1)
+    this.stockItem = new StockItem(this.id, -1, new ProductModel(-1))
 
     if (this.id != INITIAL_ID) {
       this.fetchStockItem()

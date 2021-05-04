@@ -60,11 +60,11 @@ export class ProductModelComponent extends BaseComponent implements OnInit {
   }
 
   createProductModel(): void {
-    delete this.productModel['id']
     this.productModelService.createProductModel(this.productModel).subscribe(
       data => {
         this.productModel = data
-        let stockItem = new StockItem(-1, this.productModel.id)
+        let stockItem = new StockItem(-1, this.productModel.id, this.productModel)
+        delete stockItem['productModel']
         delete stockItem['id']
         this.stockItemService.createStockItem(stockItem).subscribe(
           data => {

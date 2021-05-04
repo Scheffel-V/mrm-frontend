@@ -59,7 +59,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   }
 
   createCustomer(): void {
-    delete this.customer['id']
+    //delete this.customer['id']
     //@TODO
     this.customer["cep"] = this.customer.address.cep
     this.customer["street"] = this.customer.address.street
