@@ -10,8 +10,10 @@ export class Rental {
         public endDate : Date = null,
         public fiscalNote : string = "",
         public totalValue : number = null,
-        public status : string = "",
-        public approvedDate : Date = null
+        public status : string = "Opened",
+        public approvedDate : Date = null,
+        public leaveDate : Date = null,
+        public arriveDate : Date = null
     ) {
 
     }

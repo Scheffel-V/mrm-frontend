@@ -1,1 +1,81 @@
-Oi!
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.STOCK_ITEM }}</h1>
+                        </div>
+                        
+                        <form class="user" (ngSubmit)="!stockItemForm.invalid && saveStockItem()" #stockItemForm="ngForm">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.name" id="stockItemName"
+                                        placeholder="{{ TEXTS.MODELS.STOCK_ITEM.NAME }}" name="name" required="required" #name="ngModel">
+                                        <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+                                            <div [hidden]="!name.errors.required">
+                                                {{ TEXTS.MODELS.FORMS.STOCK_ITEM.NAME_REQUIRED }}
+                                            </div>
+                                          </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.type" id="stockItemType"
+                                        placeholder="{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}" name="type" required="required" #type="ngModel">
+                                        <div *ngIf="type.errors && (type.dirty || type.touched)" class="alert alert-danger">
+                                            <div [hidden]="!type.errors.required">
+                                                {{ TEXTS.MODELS.FORMS.STOCK_ITEM.TYPE_REQUIRED }}
+                                            </div>
+                                          </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <div class="col-sm-4 mb-3 mb-sm-0">
+                                <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.power" id="stockItemPower"
+                                    placeholder="{{ TEXTS.MODELS.STOCK_ITEM.POWER }}" required="required" name="city" #power="ngModel">
+                                <div *ngIf="power.errors && (power.dirty || power.touched)" class="alert alert-danger">
+                                    <div [hidden]="!power.errors.required">
+                                        {{ TEXTS.MODELS.FORMS.STOCK_ITEM.POWER_REQUIRED }}
+                                    </div>
+                                </div>
+                                </div>
+                              <div class="col-sm-4 mb-3 mb-sm-0">
+                                <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.brand" id="stockItemBrand"
+                                    placeholder="{{ TEXTS.MODELS.STOCK_ITEM.BRAND }}" name="brand" #brand="ngModel">
+                              </div>
+                              <div class="col-sm-4">
+                                  <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.model" id="stockItemModel"
+                                      placeholder="{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}" name="model" #model="ngModel">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                  <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.standardRentalValue" id="stockItemStandardRentalValue"
+                                      placeholder="{{ TEXTS.MODELS.STOCK_ITEM.STANDARD_RENTAL_VALUE }}" name="standardRentalValue" #standardRentalValue="ngModel">
+                                  </div>
+                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                  <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.repositionValue" id="stockItemRepositionValue"
+                                      placeholder="{{ TEXTS.MODELS.STOCK_ITEM.REPOSITION_VALUE }}" name="repositionValue" #repositionValue="ngModel">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.image" id="stockItemImage"
+                                        placeholder="{{ TEXTS.MODELS.STOCK_ITEM.IMAGE }}" name="image" #image="ngModel">
+                                </div>
+                              </div>
+
+                            <button type="submit" class="btn btn-success" [disabled]="!stockItemForm.form.valid">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                        </form>
+
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

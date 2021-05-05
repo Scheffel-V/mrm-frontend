@@ -4,9 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomerComponent } from './models-components/customer/customer.component';
@@ -21,7 +22,13 @@ import { ListSuppliersComponent } from './models-components/list-suppliers/list-
 import { StockItemComponent } from './models-components/stock-item/stock-item.component';
 import { RentalComponent } from './models-components/rental/rental.component';
 import { ListRentalsComponent } from './models-components/list-rentals/list-rentals.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ListStockItemsComponent } from './models-components/list-stock-items/list-stock-items.component'
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
+
+
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -39,7 +46,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ListSuppliersComponent,
     StockItemComponent,
     RentalComponent,
-    ListRentalsComponent
+    ListRentalsComponent,
+    ListStockItemsComponent
   ],
   imports: [
     BrowserModule,
@@ -52,10 +60,16 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
     NgxMaskModule.forRoot(),
     BrowserAnimationsModule,
+    NgxMatSelectSearchModule,
+    MatDividerModule,
+    MatRadioModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

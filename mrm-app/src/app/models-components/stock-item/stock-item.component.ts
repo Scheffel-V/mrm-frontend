@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { StockItem } from '../../models/stock-item.model';
 import { Location } from '@angular/common';
 import { StockItemService } from '../../services/stock-item.service'
+import { ProductModelService } from '../../services/product-model.service'
 import { STOCK_ITEM_ID_PARAM , INITIAL_ID } from '../../app.constants'
 import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
@@ -23,6 +24,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
 
   constructor(
     private stockItemService : StockItemService,
+    private productModelService : ProductModelService,
     private activatedRoute : ActivatedRoute,
     scriptsService : ScriptsService,
     location : Location,
@@ -58,18 +60,31 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   }
 
   createStockItem(): void {
-    delete this.stockItem['id']
-    this.stockItemService.createStockItem(this.stockItem).subscribe(
+    this.productModelService.createProductModel(this.stockItem.productModel).subscribe(
       data => {
-        this.location.back()
+        let stockItem = this.stockItem
+        stockItem.productModelId = data.id
+        delete stockItem['productModel']
+        delete stockItem['id']
+        this.stockItemService.createStockItem(stockItem).subscribe(
+          data => {
+            this.stockItem = data
+            this.listStockItems()
+          }
+        )
       }
     )
   }
 
   updateStockItem(): void {
-    this.stockItemService.updateStockItem(this.stockItem).subscribe(
+    this.productModelService.updateProductModel(this.stockItem.productModel).subscribe(
       data => {
-        this.location.back()
+        this.stockItem.productModel = data
+        this.stockItemService.updateStockItem(this.stockItem).subscribe(
+          data => {
+            this.listStockItems()
+          }
+        )
       }
     )
   }
@@ -77,7 +92,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   deleteStockItem(): void {
     this.stockItemService.deleteStockItem(this.stockItem.id).subscribe(
       response => {
-        this.location.back()
+        this.listStockItems()
       }
     )
   }
@@ -85,7 +100,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   sendToMaintenance() : void {
     this.stockItemService.sendToMaintenance(this.stockItem).subscribe(
       data => {
-        this.location.back()
+        this.listStockItems()
       }
     )
   }
@@ -93,7 +108,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   releaseFromMaintenance() : void {
     this.stockItemService.releaseFromMaintenance(this.stockItem).subscribe(
       data => {
-        this.location.back()
+        this.listStockItems()
       }
     )
   }
@@ -101,7 +116,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   leave() : void {
     this.stockItemService.leave(this.stockItem).subscribe(
       data => {
-        this.location.back()
+        this.listStockItems()
       }
     )
   }
@@ -109,7 +124,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   arrive() : void {
     this.stockItemService.arrive(this.stockItem).subscribe(
       data => {
-        this.location.back()
+        this.listStockItems()
       }
     )
   }

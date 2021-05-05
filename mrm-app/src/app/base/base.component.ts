@@ -45,39 +45,47 @@ export class BaseComponent implements OnInit {
     });
   }
 
-  createCustomer(): void {
+  public createCustomer(): void {
     this.router.navigate(['customers', this.INITIAL_ID])
   }
 
-  listCustomers(): void {
+  public listCustomers(): void {
     this.router.navigate(['customers'])
   }
 
-  createProductModel(): void {
+  public createProductModel(): void {
     this.router.navigate(['productModels', this.INITIAL_ID])
   }
 
-  listProductModels(): void {
+  public listProductModels(): void {
     this.router.navigate(['productModels'])
   }
 
-  createSupplier(): void {
+  public createSupplier(): void {
     this.router.navigate(['suppliers', this.INITIAL_ID])
   }
 
-  listSuppliers(): void {
+  public listSuppliers(): void {
     this.router.navigate(['suppliers'])
   }
 
-  createRental(): void {
+  public createRental(): void {
     this.router.navigate(['rentals', this.INITIAL_ID])
   }
 
-  listRentals(): void {
+  public listRentals(): void {
     this.router.navigate(['rentals'])
   }
 
-  backPage(): void {
+  public createStockItem(): void {
+    this.router.navigate(['stockItems', this.INITIAL_ID])
+  }
+
+  public listStockItems(): void {
+    this.router.navigate(['stockItems'])
+  }
+
+  public backPage(): void {
     this.location.back()
   }
 }

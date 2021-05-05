@@ -1,0 +1,67 @@
+<div class="alert alert-warning" *ngIf="message">{{ message }}</div>
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">{{ TEXTS.PAGES.LIST.STOCK_ITEMS }}</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12">
+            <div class="row">
+              <div class="col-12 col-xl-3 col-sm-6 col-md-6">
+                <a class="btn btn-outline-success d-flex align-items-center justify-content-center" style="width:100%;height:100%;" (click)="createStockItem()">
+                  <span class="text">{{ TEXTS.GENERAL.ACTIONS.ADD }}</span>
+                </a>
+              </div>
+              <div class="col-12 col-xl-3 col-sm-6 col-md-6">
+                <a class="btn btn-outline-warning d-flex align-items-center justify-content-center" style="width:100%;height:100%;" (click)="deleteSelectedStockItems()">
+                  <span class="text">{{ TEXTS.GENERAL.ACTIONS.DELETE_SELECTED }}</span>
+                </a>
+              </div>
+              <div class="col-12 col-xl-3 col-sm-6 col-md-6">
+                <a class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="width:100%;height:100%">
+                  <span class="text">{{ TEXTS.GENERAL.ACTIONS.EXPORT }}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+      <br>
+      <table class="table row-border hover order-column" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th data-orderable="false">{{ TEXTS.GENERAL.ACTIONS.SELECT }}</th>
+            <th data-orderable="false">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</th>
+            <th>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</th>
+            <th>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</th>
+            <th>{{ TEXTS.MODELS.STOCK_ITEM.POWER }}</th>
+            <th>{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stockItemToDisplay of stockItemsToDisplay">
+            <td style="text-align: center;vertical-align: middle;">
+              <input type="checkbox" [(ngModel)]="stockItemToDisplay.checked"/>
+            </td>
+            <td>
+              <a class="btn btn-outline-warning" (click)="deleteStockItem(stockItemToDisplay.stockItem.id)">
+                  <i class="fas fa-trash"></i>
+              </a>
+              <a class="btn btn-outline-info" (click)="updateStockItem(stockItemToDisplay.stockItem.id)">
+                <i class="fas fa-info-circle"></i>
+              </a>
+            </td>
+            <td>{{ stockItemToDisplay.stockItem.productModel.name }}</td>
+            <td>{{ stockItemToDisplay.stockItem.productModel.type }}</td>
+            <td>{{ stockItemToDisplay.stockItem.productModel.power }}</td>
+            <td>{{ stockItemToDisplay.stockItem.productModel.model }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+    </div>
+  </div>
+</div>

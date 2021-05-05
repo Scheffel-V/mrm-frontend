@@ -61,6 +61,17 @@ export const TEXTS = {
               APPROVED_DATE : "Approved Date",
               STOCK_ITEMS : "Stock Items"
             },
+            STOCK_ITEM : {
+              NAME : "Name",
+              TYPE : "Type",
+              POWER : "Power",
+              BRAND : "Brand",
+              MODEL : "Model",
+              STANDARD_RENTAL_VALUE : "Standard Rental Value",
+              REPOSITION_VALUE : "Reposition Value",
+              IMAGE : "Image",
+              VALUE : "Value"
+            },
             FORMS : {
               CUSTOMER : {
                 COMPANY_NAME_REQUIRED : "Company name is required.",
@@ -88,7 +99,12 @@ export const TEXTS = {
                 STOCK_ITEMS_REQUIRED : "Stock Items are required.",
                 START_DATE_REQUIRED : "Start Date is required.",
                 END_DATE_REQUIRED : "End Date is required."
-              }
+              },
+              STOCK_ITEM : {
+                NAME_REQUIRED : "Name is required.",
+                TYPE_REQUIRED : "Type is required.",
+                POWER_REQUIRED : "Power is required."
+              },
             }
           },
           LEFT_MENU : {
@@ -104,7 +120,10 @@ export const TEXTS = {
             LIST_SUPPLIERS : "List Suppliers",
             RENTALS : "Rentals",
             ADD_RENTAL : "Add Rental",
-            LIST_RENTALS : "List Rentals"
+            LIST_RENTALS : "List Rentals",
+            STOCK_ITEMS : "Products",
+            ADD_STOCK_ITEM : "Add Product",
+            LIST_STOCK_ITEMS : "List Stock Items"
           },
           LOGOUT : {
             READY_TO_LEAVE_MESSAGE : "Ready to leave?",
@@ -117,20 +136,23 @@ export const TEXTS = {
               CUSTOMERS : "Customers",
               PRODUCT_MODELS : "Products",
               SUPPLIERS : "Suppliers",
-              RENTALS : "Rentals"
+              RENTALS : "Rentals",
+              STOCK_ITEMS : "Products"
             },
             LIST : {
               CUSTOMERS : "Customers",
               PRODUCT_MODELS : "Products",
               SUPPLIERS : "Suppliers",
               RENTALS : "Rentals",
+              STOCK_ITEMS : "Products",
               TOP_CUSTOMERS : "Top Customers"
             },
             CREATE : {
               CUSTOMER : "Create Customer",
               PRODUCT_MODEL : "Create Product",
               SUPPLIER : "Create Supplier",
-              RENTAL : "Create Rental"
+              RENTAL : "Create Rental",
+              STOCK_ITEM : "Create Product",
             }
           },
           REAL_CUSTOMER : {

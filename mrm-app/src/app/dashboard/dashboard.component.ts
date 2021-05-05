@@ -4,10 +4,10 @@ import { BaseComponent } from '../base/base.component'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common';
 import { CustomerService } from '../services/customer.service';
-import { ProductModelService } from '../services/product-model.service';
+import { StockItemService } from '../services/stock-item.service';
 import { SupplierService } from '../services/supplier.service';
 import { Customer } from '../models/customer.model';
-import { ProductModel } from '../models/product-model.model';
+import { StockItem } from '../models/stock-item.model';
 import { Supplier } from '../models/supplier.model';
 import { Rental } from '../models/rental.model'
 
@@ -25,13 +25,13 @@ const scripts = [
 export class DashboardComponent extends BaseComponent implements OnInit {
 
   customers : Customer[] = []
-  productModels : ProductModel[] = []
+  stockItems : StockItem[] = []
   suppliers : Supplier[] = []
   rentals : Rental[] = []
 
   constructor(
     private customerService : CustomerService,
-    private productModelService : ProductModelService,
+    private stockItemService : StockItemService,
     private supplierService : SupplierService,
     scriptsService : ScriptsService,
     location : Location,
@@ -51,9 +51,9 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       }
     )
 
-    this.productModelService.getAllProductModels().subscribe(
-      productModels => {
-        this.productModels = productModels
+    this.stockItemService.getAllStockItems().subscribe(
+      stockItems => {
+        this.stockItems = stockItems
       }
     )
 
