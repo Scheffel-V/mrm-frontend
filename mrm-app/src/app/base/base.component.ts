@@ -4,6 +4,7 @@ import { TEXTS } from '../ui-texts/texts'
 import { ScriptsService } from '../services/scripts.service'
 import { Location } from '@angular/common';
 import { Router } from '@angular/router'
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 
 const scripts = [
@@ -19,13 +20,14 @@ export class BaseComponent implements OnInit {
 
   public TEXTS = TEXTS[SELECTED_LANGUAGE]
   public router : Router
-  private loadAPI: Promise<any>;
+  protected loadAPI: Promise<any>;
   protected INITIAL_ID = INITIAL_ID
 
   constructor(
-    private scriptsService : ScriptsService,
+    protected scriptsService : ScriptsService,
     protected location : Location,
-    router : Router
+    router : Router,
+    private snackBar: MatSnackBar
   ) {
     this.router = router
    }
@@ -41,7 +43,7 @@ export class BaseComponent implements OnInit {
   protected loadScripts(scripts : string[]) : void {
     this.loadAPI = new Promise((resolve) => {
       console.log('Loading dynamic scripts...')
-      scripts.forEach(this.scriptsService.loadScript)
+      scripts.forEach(ScriptsService.loadScript)
     });
   }
 
@@ -88,4 +90,16 @@ export class BaseComponent implements OnInit {
   public backPage(): void {
     this.location.back()
   }
+
+  public openSnackBar(message: string) {
+    let config = new MatSnackBarConfig();
+    config.panelClass = 'center';
+    config.duration = 2000
+    this.snackBar.open(message, null, config);
+  }
+
+  redirectTo(uri : string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([uri]));
+ }
 }

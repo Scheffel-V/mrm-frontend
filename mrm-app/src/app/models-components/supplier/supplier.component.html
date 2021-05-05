@@ -13,72 +13,83 @@
                         <form class="user" (ngSubmit)="!supplierForm.invalid && saveSupplier()" #supplierForm="ngForm">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control" [(ngModel)]="supplier.companyName" id="supplierCompanyName"
-                                        placeholder="{{ TEXTS.MODELS.SUPPLIER.COMPANY_NAME }}" name="companyName" required="required" #companyName="ngModel">
-                                        <div *ngIf="companyName.errors && (companyName.dirty || companyName.touched)" class="alert alert-danger">
-                                            <div [hidden]="!companyName.errors.required">
-                                                {{ TEXTS.MODELS.FORMS.SUPPLIER.COMPANY_NAME_REQUIRED }}
-                                            </div>
-                                          </div>
+                                    <mat-form-field style="width:100%;" >
+                                        <mat-label>{{ TEXTS.MODELS.SUPPLIER.COMPANY_NAME }}</mat-label>
+                                        <input matInput type="text" [(ngModel)]="supplier.companyName" id="supplierCompanyName"
+                                            name="companyName" required="required" #companyName="ngModel">
+                                        <mat-error *ngIf="companyName.invalid">{{ TEXTS.MODELS.FORMS.SUPPLIER.COMPANY_NAME_REQUIRED }}</mat-error>
+                                    </mat-form-field>
                                 </div>
+
                                 <div class="col-sm-6">
-                                    <input type="text" mask="000.000.000-00||00.000.000/0000-00" class="form-control" [(ngModel)]="supplier.cnpj" id="supplierCnpj"
+                                    <mat-form-field style="width:100%;" >
+                                        <mat-label>{{ TEXTS.MODELS.SUPPLIER.COMMERCIAL_NAME }}</mat-label>
+                                        <input matInput type="text" [(ngModel)]="supplier.commercialName" id="supplierCommercialName"
+                                            name="commercialName" #commercialName="ngModel">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <div class="col-sm-4">
+                                  <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.SUPPLIER.CNPJ }}</mat-label>
+                                    <input type="text" matInput mask="000.000.000-00||00.000.000/0000-00" [(ngModel)]="supplier.cnpj" id="supplierCnpj"
                                         placeholder="{{ TEXTS.MODELS.SUPPLIER.CNPJ }}" name="cnpj" required="required" #cnpj="ngModel">
-                                    <div *ngIf="cnpj.errors && (cnpj.dirty || cnpj.touched)" class="alert alert-danger">
-                                      {{ TEXTS.MODELS.FORMS.SUPPLIER.CNPJ_REQUIRED }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                              <div class="col-sm-6">
-                                <input type="text" class="form-control" [(ngModel)]="supplier.email" id="supplierEmail"
-                                    placeholder="{{ TEXTS.MODELS.SUPPLIER.EMAIL }}" name="email">
+                                        <mat-error *ngIf="cnpj.invalid">{{ TEXTS.MODELS.FORMS.SUPPLIER.CNPJ_REQUIRED }}</mat-error>
+                                  </mat-form-field>
                               </div>
-                              <div class="col-sm-6">
-                                <input type="text" mask="''||(00)00000-0000||(00)0000-0000" class="form-control" [(ngModel)]="supplier.phoneNumber" id="supplierPhoneNumber"
-                                    placeholder="{{ TEXTS.MODELS.SUPPLIER.PHONE_NUMBER }}" name="phoneNumber">
+                              <div class="col-sm-4">
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.SUPPLIER.EMAIL }}</mat-label>
+                                    <input matInput type="email" [(ngModel)]="supplier.email" id="supplierEmail" name="email" #email="ngModel">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-sm-4">
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.SUPPLIER.PHONE_NUMBER }}</mat-label>
+                                    <input matInput type="text" mask="''||(00)00000-0000||(00)0000-0000" [(ngModel)]="supplier.phoneNumber" id="supplierPhoneNumber" name="phoneNumber" #phoneNumber="ngModel">
+                                    <mat-error *ngIf="phoneNumber.invalid">{{ TEXTS.MODELS.FORMS.SUPPLIER.PHONE_NUMBER_INVALID }}</mat-error>
+                                </mat-form-field>
                               </div>
                             </div>
 
                             <div class="form-group row">
                               <div class="col-sm-2">
-                                <input type="text" class="form-control" mask="00000-000" [(ngModel)]="supplier.address.cep" id="supplierCep"
-                                        placeholder="{{ TEXTS.MODELS.SUPPLIER.CEP }}" required="required" name="cep" #cep="ngModel">
-                                <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
-                                      {{ TEXTS.MODELS.FORMS.SUPPLIER.CEP_REQUIRED }}
-                                </div>
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.SUPPLIER.CEP }}</mat-label>
+                                    <input type="text" matInput mask="00000-000" [(ngModel)]="supplier.address.cep" id="supplierCep"
+                                         required="required" name="cep" #cep="ngModel">
+                                    <mat-error *ngIf="cep.invalid">{{ TEXTS.MODELS.FORMS.SUPPLIER.CEP_REQUIRED }}</mat-error>
+                                </mat-form-field>
                               </div>
                               <div class="col-sm-4 mb-3 mb-sm-0">
-                                <input type="text" class="form-control" [(ngModel)]="supplier.address.city" id="supplierCity"
-                                    placeholder="{{ TEXTS.MODELS.SUPPLIER.CITY }}" required="required" name="city" #city="ngModel">
-                                <div *ngIf="city.errors && (city.dirty || city.touched)" class="alert alert-danger">
-                                    <div [hidden]="!city.errors.required">
-                                        {{ TEXTS.MODELS.FORMS.SUPPLIER.CITY_REQUIRED }}
-                                    </div>
-                                </div>
-                                </div>
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.SUPPLIER.CITY }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="supplier.address.city" id="supplierCity"
+                                        required="required" name="city" #city="ngModel">
+                                    <mat-error *ngIf="city.invalid">{{ TEXTS.MODELS.FORMS.SUPPLIER.CITY_REQUIRED }}</mat-error>
+                                </mat-form-field>
+                              </div>
                               <div class="col-sm-4 mb-3 mb-sm-0">
-                                <input type="text" class="form-control" [(ngModel)]="supplier.address.street" id="supplierStreet"
-                                    placeholder="{{ TEXTS.MODELS.SUPPLIER.STREET }}" required="required" name="street" #street="ngModel">
-                                <div *ngIf="street.errors && (street.dirty || street.touched)" class="alert alert-danger">
-                                    <div [hidden]="!street.errors.required">
-                                        {{ TEXTS.MODELS.FORMS.SUPPLIER.STREET_REQUIRED }}
-                                    </div>
-                                </div>
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.SUPPLIER.STREET }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="supplier.address.street" id="supplierStreet"
+                                        required="required" name="street" #street="ngModel">
+                                    <mat-error *ngIf="street.invalid">{{ TEXTS.MODELS.FORMS.SUPPLIER.STREET_REQUIRED }}</mat-error>
+                                </mat-form-field>
                               </div>
                               <div class="col-sm-2">
-                                  <input type="text" class="form-control" [(ngModel)]="supplier.address.number" id="supplierNumber"
-                                      placeholder="{{ TEXTS.MODELS.SUPPLIER.NUMBER }}" required="required" name="number" #number="ngModel">
-                                  <div *ngIf="number.errors && (number.dirty || number.touched)" class="alert alert-danger">
-                                    <div [hidden]="!number.errors.required">
-                                      {{ TEXTS.MODELS.FORMS.SUPPLIER.NUMBER_REQUIRED }}
-                                    </div>
-                                  </div>
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.SUPPLIER.NUMBER }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="supplier.address.number" id="supplierNumber"
+                                        required="required" name="number" #number="ngModel">
+                                    <mat-error *ngIf="number.invalid">{{ TEXTS.MODELS.FORMS.SUPPLIER.NUMBER_REQUIRED }}</mat-error>
+                                </mat-form-field>
                               </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success" [disabled]="!supplierForm.form.valid">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                            <button type="submit" mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
                         </form>
 
                         <hr>

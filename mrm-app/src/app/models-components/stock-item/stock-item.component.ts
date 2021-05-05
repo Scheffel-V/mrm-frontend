@@ -9,6 +9,7 @@ import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { FormGroup } from '@angular/forms';
 import { ProductModel } from '../../models/product-model.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -28,9 +29,10 @@ export class StockItemComponent extends BaseComponent implements OnInit {
     private activatedRoute : ActivatedRoute,
     scriptsService : ScriptsService,
     location : Location,
-    router : Router
+    router : Router,
+    matSnackBar : MatSnackBar
   ) { 
-    super(scriptsService, location, router)
+    super(scriptsService, location, router, matSnackBar)
   }
 
   ngOnInit(): void {
@@ -132,7 +134,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   readyForLeave() : void {
     this.stockItemService.readyForLeave(this.stockItem).subscribe(
       data => {
-        this.location.back()
+        this.listStockItems()
       }
     )
   }

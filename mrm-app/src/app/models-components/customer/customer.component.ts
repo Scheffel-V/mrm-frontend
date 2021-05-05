@@ -7,6 +7,7 @@ import { CUSTOMER_ID_PARAM , INITIAL_ID } from '../../app.constants'
 import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -25,9 +26,10 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     private activatedRoute : ActivatedRoute,
     scriptsService : ScriptsService,
     location : Location,
-    router : Router
+    router : Router,
+    matSnackBar : MatSnackBar
   ) { 
-    super(scriptsService, location, router)
+    super(scriptsService, location, router, matSnackBar)
   }
 
   ngOnInit(): void {
@@ -43,8 +45,6 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     this.customerService.getCustomer(this.id).subscribe(
       data => {
         this.customer = data
-        // @TODO
-        //this.customer.address = data[0].Address
       }
     )
   }
@@ -59,7 +59,6 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   }
 
   createCustomer(): void {
-    //delete this.customer['id']
     //@TODO
     this.customer["cep"] = this.customer.address.cep
     this.customer["street"] = this.customer.address.street
@@ -68,7 +67,8 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     delete this.customer["address"]
     this.customerService.createCustomer(this.customer).subscribe(
       data => {
-        this.location.back()
+        this.openSnackBar("Customer created!")
+        this.listCustomers()
       }
     )
   }
@@ -76,15 +76,29 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   updateCustomer(): void {
     this.customerService.updateCustomer(this.customer).subscribe(
       data => {
-        this.location.back()
+        this.openSnackBar("Customer updated!")
+        this.listCustomers()
       }
     )
   }
 
   deleteCustomer(): void {
+    if (this.customer.active) {
+      this.customer.active = false
+      this.customerService.updateCustomer(this.customer).subscribe(
+        data => {
+          this.openSnackBar("Customer set to inactive.")
+          this.listCustomers()
+        }
+      )
+
+      return
+    }
+
     this.customerService.deleteCustomer(this.customer.id).subscribe(
       response => {
-        this.location.back()
+        this.openSnackBar("Customer deleted.")
+        this.listCustomers()
       }
     )
   }

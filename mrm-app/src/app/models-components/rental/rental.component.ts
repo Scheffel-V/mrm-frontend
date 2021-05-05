@@ -15,6 +15,7 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -48,9 +49,10 @@ export class RentalComponent extends BaseComponent implements OnInit {
     private activatedRoute : ActivatedRoute,
     scriptsService : ScriptsService,
     location : Location,
-    router : Router
+    router : Router,
+    matSnackBar : MatSnackBar
   ) { 
-    super(scriptsService, location, router)
+    super(scriptsService, location, router, matSnackBar)
   }
 
   ngOnInit(): void {

@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { SupplierService } from '../../services/supplier.service'
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { BaseComponent } from 'src/app/base/base.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const scripts = [
   "../../assets/js/demo/datatables-demo.js"
@@ -32,9 +33,10 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
     private activatedRoute : ActivatedRoute,
     scriptService : ScriptsService,
     router : Router,
-    location : Location
+    location : Location,
+    matSnackBar : MatSnackBar
   ) {
-    super(scriptService, location, router)
+    super(scriptService, location, router, matSnackBar)
    }
 
    public ngOnInit(): void {

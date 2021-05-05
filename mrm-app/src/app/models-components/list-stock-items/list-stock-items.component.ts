@@ -5,10 +5,13 @@ import { Location } from '@angular/common';
 import { StockItemService } from '../../services/stock-item.service'
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { BaseComponent } from 'src/app/base/base.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const scripts = [
-  "../../assets/js/demo/datatables-demo.js"
+  "../../assets/js/demo/listStockItemsDataTable.js"
 ]
+
+declare  var $:any;
 
 class StockItemToDisplay {
   constructor(
@@ -32,9 +35,10 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit {
     private activatedRoute : ActivatedRoute,
     scriptService : ScriptsService,
     router : Router,
-    location : Location
+    location : Location,
+    matSnackBar : MatSnackBar
   ) {
-    super(scriptService, location, router)
+    super(scriptService, location, router, matSnackBar)
    }
 
    public ngOnInit(): void {
@@ -45,8 +49,29 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit {
     )
   }
 
-  public ngAfterContentInit(): void {
-    this.loadScripts(scripts)
+  public ngAfterViewInit(): void {
+    this.loadStockItemsTableScript(scripts)
+  }
+
+  private loadStockItemsTableScript(scripts) {
+    $(document).ready(function() {
+      console.log(1)
+      var listStockItemsDataTable = $('#listStockItemsDataTable').DataTable( {
+        "order": [[ 2, "asc" ]]
+      });
+    
+      console.log(2)
+      $('#listStockItemsDataTable tbody').on( 'mouseenter', 'td', function () {
+          var colIdx = listStockItemsDataTable.cell(this).index().column;
+          var rowIdx = listStockItemsDataTable.cell(this).index().row;
+    
+          $( listStockItemsDataTable.cells().nodes() ).removeClass( 'highlight' );
+          $( listStockItemsDataTable.rows().nodes() ).removeClass( 'highlight' );
+          $( listStockItemsDataTable.column( colIdx ).nodes() ).addClass( 'highlight' );
+          $( listStockItemsDataTable.row( rowIdx ).nodes() ).addClass( 'highlight' );
+      } );
+      console.log(3)
+    });
   }
 
   public updateStockItem(selectedStockItemId : number): void {

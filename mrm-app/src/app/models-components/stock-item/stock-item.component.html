@@ -13,58 +13,70 @@
                         <form class="user" (ngSubmit)="!stockItemForm.invalid && saveStockItem()" #stockItemForm="ngForm">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.name" id="stockItemName"
-                                        placeholder="{{ TEXTS.MODELS.STOCK_ITEM.NAME }}" name="name" required="required" #name="ngModel">
-                                        <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
-                                            <div [hidden]="!name.errors.required">
-                                                {{ TEXTS.MODELS.FORMS.STOCK_ITEM.NAME_REQUIRED }}
-                                            </div>
-                                          </div>
+                                    <mat-form-field style="width:100%;" >
+                                        <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</mat-label>
+                                        <input type="text" matInput [(ngModel)]="stockItem.productModel.name" id="stockItemName"
+                                          name="name" required="required" #name="ngModel">
+                                        <mat-error *ngIf="name.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.NAME_REQUIRED }}</mat-error>
+                                    </mat-form-field>
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.type" id="stockItemType"
-                                        placeholder="{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}" name="type" required="required" #type="ngModel">
-                                        <div *ngIf="type.errors && (type.dirty || type.touched)" class="alert alert-danger">
-                                            <div [hidden]="!type.errors.required">
-                                                {{ TEXTS.MODELS.FORMS.STOCK_ITEM.TYPE_REQUIRED }}
-                                            </div>
-                                          </div>
+                                    <mat-form-field style="width:100%;" >
+                                        <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</mat-label>
+                                        <input type="text" matInput [(ngModel)]="stockItem.productModel.type" id="stockItemType"
+                                            name="type" required="required" #type="ngModel">
+                                        <mat-error *ngIf="type.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.TYPE_REQUIRED }}</mat-error>
+                                    </mat-form-field>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                               <div class="col-sm-4 mb-3 mb-sm-0">
-                                <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.power" id="stockItemPower"
-                                    placeholder="{{ TEXTS.MODELS.STOCK_ITEM.POWER }}" required="required" name="city" #power="ngModel">
-                                <div *ngIf="power.errors && (power.dirty || power.touched)" class="alert alert-danger">
-                                    <div [hidden]="!power.errors.required">
-                                        {{ TEXTS.MODELS.FORMS.STOCK_ITEM.POWER_REQUIRED }}
-                                    </div>
-                                </div>
-                                </div>
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.POWER }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="stockItem.productModel.power" id="stockItemPower"
+                                        required="required" name="city" #power="ngModel">
+                                    <mat-error *ngIf="power.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.POWER_REQUIRED }}</mat-error>
+                                </mat-form-field>
+                              </div>
                               <div class="col-sm-4 mb-3 mb-sm-0">
-                                <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.brand" id="stockItemBrand"
-                                    placeholder="{{ TEXTS.MODELS.STOCK_ITEM.BRAND }}" name="brand" #brand="ngModel">
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.BRAND }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="stockItem.productModel.brand" id="stockItemBrand"
+                                        name="brand" #brand="ngModel">
+                                </mat-form-field>
                               </div>
                               <div class="col-sm-4">
-                                  <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.model" id="stockItemModel"
-                                      placeholder="{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}" name="model" #model="ngModel">
+                                  <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="stockItem.productModel.model" id="stockItemModel"
+                                      name="model" #model="ngModel">
+                                  </mat-form-field>
                               </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                  <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.standardRentalValue" id="stockItemStandardRentalValue"
-                                      placeholder="{{ TEXTS.MODELS.STOCK_ITEM.STANDARD_RENTAL_VALUE }}" name="standardRentalValue" #standardRentalValue="ngModel">
-                                  </div>
+                                  <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.STANDARD_RENTAL_VALUE }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="stockItem.productModel.standardRentalValue" id="stockItemStandardRentalValue"
+                                        name="standardRentalValue" #standardRentalValue="ngModel">
+                                  </mat-form-field>
+                                </div>
                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                  <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.repositionValue" id="stockItemRepositionValue"
-                                      placeholder="{{ TEXTS.MODELS.STOCK_ITEM.REPOSITION_VALUE }}" name="repositionValue" #repositionValue="ngModel">
+                                  <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.REPOSITION_VALUE }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="stockItem.productModel.repositionValue" id="stockItemRepositionValue"
+                                      name="repositionValue" #repositionValue="ngModel">
+                                  </mat-form-field>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" [(ngModel)]="stockItem.productModel.image" id="stockItemImage"
-                                        placeholder="{{ TEXTS.MODELS.STOCK_ITEM.IMAGE }}" name="image" #image="ngModel">
+                                    <mat-form-field style="width:100%;" >
+                                        <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.IMAGE }}</mat-label>
+                                        <input type="text" matInput [(ngModel)]="stockItem.productModel.image" id="stockItemImage"
+                                            name="image" #image="ngModel">
+                                    </mat-form-field>
                                 </div>
                               </div>
 

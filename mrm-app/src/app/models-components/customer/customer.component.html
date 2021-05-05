@@ -13,77 +13,83 @@
                         <form class="user" (ngSubmit)="!customerForm.invalid && saveCustomer()" #customerForm="ngForm">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control" [(ngModel)]="customer.companyName" id="customerCompanyName"
-                                        placeholder="{{ TEXTS.MODELS.CUSTOMER.COMPANY_NAME }}" name="companyName" required="required" #companyName="ngModel">
-                                        <div *ngIf="companyName.errors && (companyName.dirty || companyName.touched)" class="alert alert-danger">
-                                            <div [hidden]="!companyName.errors.required">
-                                                {{ TEXTS.MODELS.FORMS.CUSTOMER.COMPANY_NAME_REQUIRED }}
-                                            </div>
-                                          </div>
+                                    <mat-form-field style="width:100%;" >
+                                        <mat-label>{{ TEXTS.MODELS.CUSTOMER.COMPANY_NAME }}</mat-label>
+                                        <input matInput type="text" [(ngModel)]="customer.companyName" id="customerCompanyName"
+                                            name="companyName" required="required" #companyName="ngModel">
+                                        <mat-error *ngIf="companyName.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.COMPANY_NAME_REQUIRED }}</mat-error>
+                                    </mat-form-field>
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" [(ngModel)]="customer.commercialName" id="customerCommercialName"
-                                        placeholder="{{ TEXTS.MODELS.CUSTOMER.COMMERCIAL_NAME }}" name="commercialName">
+                                    <mat-form-field style="width:100%;" >
+                                        <mat-label>{{ TEXTS.MODELS.CUSTOMER.COMMERCIAL_NAME }}</mat-label>
+                                        <input matInput type="text" [(ngModel)]="customer.commercialName" id="customerCommercialName"
+                                            name="commercialName" #commercialName="ngModel">
+                                    </mat-form-field>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                               <div class="col-sm-4">
-                                  <input type="text" mask="000.000.000-00||00.000.000/0000-00" class="form-control" [(ngModel)]="customer.cnpj" id="customerCnpj"
-                                      placeholder="{{ TEXTS.MODELS.CUSTOMER.CNPJ }}" name="cnpj" required="required" #cnpj="ngModel">
-                                  <div *ngIf="cnpj.errors && (cnpj.dirty || cnpj.touched)" class="alert alert-danger">
-                                    {{ TEXTS.MODELS.FORMS.CUSTOMER.CNPJ_REQUIRED }}
-                                  </div>
+                                  <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.CUSTOMER.CNPJ }}</mat-label>
+                                    <input type="text" matInput mask="000.000.000-00||00.000.000/0000-00" [(ngModel)]="customer.cnpj" id="customerCnpj"
+                                        placeholder="{{ TEXTS.MODELS.CUSTOMER.CNPJ }}" name="cnpj" required="required" #cnpj="ngModel">
+                                        <mat-error *ngIf="cnpj.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.CNPJ_REQUIRED }}</mat-error>
+                                  </mat-form-field>
                               </div>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" [(ngModel)]="customer.email" id="customerEmail"
-                                    placeholder="{{ TEXTS.MODELS.CUSTOMER.EMAIL }}" name="email">
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.CUSTOMER.EMAIL }}</mat-label>
+                                    <input matInput type="email" [(ngModel)]="customer.email" id="customerEmail" name="email" #email="ngModel">
+                                </mat-form-field>
                               </div>
                               <div class="col-sm-4">
-                                <input type="text" mask="''||(00)00000-0000||(00)0000-0000" class="form-control" [(ngModel)]="customer.phoneNumber" id="customerPhoneNumber"
-                                    placeholder="{{ TEXTS.MODELS.CUSTOMER.PHONE_NUMBER }}" name="phoneNumber">
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.CUSTOMER.PHONE_NUMBER }}</mat-label>
+                                    <input matInput type="text" mask="''||(00)00000-0000||(00)0000-0000" [(ngModel)]="customer.phoneNumber" id="customerPhoneNumber" name="phoneNumber" #phoneNumber="ngModel">
+                                    <mat-error *ngIf="phoneNumber.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.PHONE_NUMBER_INVALID }}</mat-error>
+                                </mat-form-field>
                               </div>
                             </div>
 
                             <div class="form-group row">
                               <div class="col-sm-2">
-                                <input type="text" class="form-control" mask="00000-000" [(ngModel)]="customer.address.cep" id="customerCep"
-                                        placeholder="{{ TEXTS.MODELS.CUSTOMER.CEP }}" required="required" name="cep" #cep="ngModel">
-                                <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
-                                      {{ TEXTS.MODELS.FORMS.CUSTOMER.CEP_REQUIRED }}
-                                </div>
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.CUSTOMER.CEP }}</mat-label>
+                                    <input type="text" matInput mask="00000-000" [(ngModel)]="customer.address.cep" id="customerCep"
+                                         required="required" name="cep" #cep="ngModel">
+                                    <mat-error *ngIf="cep.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.CEP_REQUIRED }}</mat-error>
+                                </mat-form-field>
                               </div>
                               <div class="col-sm-4 mb-3 mb-sm-0">
-                                <input type="text" class="form-control" [(ngModel)]="customer.address.city" id="customerCity"
-                                    placeholder="{{ TEXTS.MODELS.CUSTOMER.CITY }}" required="required" name="city" #city="ngModel">
-                                <div *ngIf="city.errors && (city.dirty || city.touched)" class="alert alert-danger">
-                                    <div [hidden]="!city.errors.required">
-                                        {{ TEXTS.MODELS.FORMS.CUSTOMER.CITY_REQUIRED }}
-                                    </div>
-                                </div>
-                                </div>
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.CUSTOMER.CITY }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="customer.address.city" id="customerCity"
+                                        required="required" name="city" #city="ngModel">
+                                    <mat-error *ngIf="city.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.CITY_REQUIRED }}</mat-error>
+                                </mat-form-field>
+                              </div>
                               <div class="col-sm-4 mb-3 mb-sm-0">
-                                <input type="text" class="form-control" [(ngModel)]="customer.address.street" id="customerStreet"
-                                    placeholder="{{ TEXTS.MODELS.CUSTOMER.STREET }}" required="required" name="street" #street="ngModel">
-                                <div *ngIf="street.errors && (street.dirty || street.touched)" class="alert alert-danger">
-                                    <div [hidden]="!street.errors.required">
-                                        {{ TEXTS.MODELS.FORMS.CUSTOMER.STREET_REQUIRED }}
-                                    </div>
-                                </div>
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.CUSTOMER.STREET }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="customer.address.street" id="customerStreet"
+                                        required="required" name="street" #street="ngModel">
+                                    <mat-error *ngIf="street.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.STREET_REQUIRED }}</mat-error>
+                                </mat-form-field>
                               </div>
                               <div class="col-sm-2">
-                                  <input type="text" class="form-control" [(ngModel)]="customer.address.number" id="customerNumber"
-                                      placeholder="{{ TEXTS.MODELS.CUSTOMER.NUMBER }}" required="required" name="number" #number="ngModel">
-                                  <div *ngIf="number.errors && (number.dirty || number.touched)" class="alert alert-danger">
-                                    <div [hidden]="!number.errors.required">
-                                      {{ TEXTS.MODELS.FORMS.CUSTOMER.NUMBER_REQUIRED }}
-                                    </div>
-                                  </div>
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.CUSTOMER.NUMBER }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="customer.address.number" id="customerNumber"
+                                        required="required" name="number" #number="ngModel">
+                                    <mat-error *ngIf="number.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.NUMBER_REQUIRED }}</mat-error>
+                                </mat-form-field>
                               </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success" [disabled]="!customerForm.form.valid">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                            <button type="submit" mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
                         </form>
 
                         <hr>

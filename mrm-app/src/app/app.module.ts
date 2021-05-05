@@ -27,6 +27,9 @@ import { ListStockItemsComponent } from './models-components/list-stock-items/li
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { JqueryDatatableDirective } from './directives/jquery-datatable.directive';
+
 
 
 
@@ -47,7 +50,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     StockItemComponent,
     RentalComponent,
     ListRentalsComponent,
-    ListStockItemsComponent
+    ListStockItemsComponent,
+    JqueryDatatableDirective
   ],
   imports: [
     BrowserModule,
@@ -65,7 +69,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     BrowserAnimationsModule,
     NgxMatSelectSearchModule,
     MatDividerModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

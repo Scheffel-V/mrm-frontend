@@ -42,6 +42,7 @@ export const TEXTS = {
             },
             SUPPLIER : {
               COMPANY_NAME : "Company Name",
+              COMMERCIAL_NAME : "Commercial Name",
               CPF : "CPF",
               CNPJ : "CNPJ/CPF",
               STREET : "Street",
@@ -75,11 +76,13 @@ export const TEXTS = {
             FORMS : {
               CUSTOMER : {
                 COMPANY_NAME_REQUIRED : "Company name is required.",
-                CNPJ_REQUIRED : "CNPJ is required.",
+                CNPJ_REQUIRED : "CNPJ or CPF is required.",
                 CEP_REQUIRED : "CEP is required.",
                 CITY_REQUIRED : "City is required.",
                 STREET_REQUIRED : "Street is required.",
-                NUMBER_REQUIRED : "Number is required."
+                NUMBER_REQUIRED : "Number is required.",
+                EMAIL_INVALID : "This email is invalid.",
+                PHONE_NUMBER_INVALID : "This phone number is invalid."
               },
               PRODUCT_MODEL : {
                 NAME_REQUIRED : "Name is required.",
@@ -98,7 +101,8 @@ export const TEXTS = {
                 CUSTOMER_REQUIRED : "Customer is required.",
                 STOCK_ITEMS_REQUIRED : "Stock Items are required.",
                 START_DATE_REQUIRED : "Start Date is required.",
-                END_DATE_REQUIRED : "End Date is required."
+                END_DATE_REQUIRED : "End Date is required.",
+                TOTAL_VALUE_REQUIRED : "Total value is required."
               },
               STOCK_ITEM : {
                 NAME_REQUIRED : "Name is required.",

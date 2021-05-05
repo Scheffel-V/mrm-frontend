@@ -10,6 +10,7 @@ import { Customer } from '../models/customer.model';
 import { StockItem } from '../models/stock-item.model';
 import { Supplier } from '../models/supplier.model';
 import { Rental } from '../models/rental.model'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 const scripts = [
@@ -35,12 +36,14 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     private supplierService : SupplierService,
     scriptsService : ScriptsService,
     location : Location,
-    router : Router
+    router : Router,
+    matSnackBar : MatSnackBar
   ) {
     super(
       scriptsService,
       location,
-      router
+      router,
+      matSnackBar
     )
    }
 

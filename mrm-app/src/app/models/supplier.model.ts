@@ -4,6 +4,7 @@ export class Supplier {
     constructor(
         public id : number,
         public companyName : string = "",
+        public commercialName : string = "",
         public cpf : string = "",
         public cnpj : string = "",
         public address : Address = new Address(),
