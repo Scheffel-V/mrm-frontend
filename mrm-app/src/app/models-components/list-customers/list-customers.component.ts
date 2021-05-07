@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Customer } from '../../models/customer.model'
 import { Location } from '@angular/common';
@@ -6,12 +6,11 @@ import { CustomerService } from '../../services/customer.service'
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { BaseComponent } from 'src/app/base/base.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
-const scripts = [
-  "../../assets/js/demo/listCustomersDataTable.js"
-]
-
-declare  var $:any;
 
 class CustomerToDisplay {
   constructor(
@@ -25,10 +24,17 @@ class CustomerToDisplay {
   templateUrl: './list-customers.component.html',
   styleUrls: ['./list-customers.component.scss']
 })
-export class ListCustomersComponent extends BaseComponent implements OnInit {
+export class ListCustomersComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   customersToDisplay : CustomerToDisplay[] = []
+  customers : Customer[] = []
+  public displayedColumns = ['select', 'actions', 'companyName', 'commercialName', 'cnpj', 'city', 'phoneNumber', 'email', 'active'];
+  public dataSource = new MatTableDataSource<CustomerToDisplay>();
+  showOnlyActive : boolean = true
   message : string
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   public constructor(
     private customerService : CustomerService,
@@ -41,47 +47,37 @@ export class ListCustomersComponent extends BaseComponent implements OnInit {
     super(scriptsService, location, router, matSnackBar)
    }
 
-   public ngOnInit(): void {
+  public ngOnInit(): void {
     this.customerService.getAllCustomers().subscribe(
       data => {
-        this.displayCustomers(data)
+        this.customers = data
+        this.displayCustomers(this.filterActiveCustomers())
       }
     )
   }
 
-  public ngAfterContentInit(): void {
-    this.loadCustomerTableScript(scripts)
-  }
-
-  private loadCustomerTableScript(scripts) {
-    // Call the dataTables jQuery plugin
-
-    $(document).ready(function() {
-      console.log(1)
-      var listCustomersDataTable = $('#listCustomersDataTable').DataTable( {
-        "order": [[ 2, "asc" ]]
-      });
-      console.log(2)
-
-      console.log("BINDING CJSGOMET")
-      $('#listCustomersDataTable tbody').on( 'mouseenter', 'td', function () {
-          var colIdx = listCustomersDataTable.cell(this).index().column;
-          var rowIdx = listCustomersDataTable.cell(this).index().row;
-
-          $( listCustomersDataTable.cells().nodes() ).removeClass( 'highlight' );
-          $( listCustomersDataTable.rows().nodes() ).removeClass( 'highlight' );
-          $( listCustomersDataTable.column( colIdx ).nodes() ).addClass( 'highlight' );
-          $( listCustomersDataTable.row( rowIdx ).nodes() ).addClass( 'highlight' );
-      } );
-      console.log(3)
-    });
+  public ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      return item['customer'][property]
+    }
+    this.dataSource.filterPredicate = (data, filter: string)  => {
+      const accumulator = (currentTerm, key) => {
+        return key === 'customer' ? currentTerm + data.customer.companyName + data.customer.commercialName + data.customer.cnpj : currentTerm + data[key];
+      };
+      const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+      // Transform the filter by converting it to lowercase and removing whitespace.
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    };
   }
 
   public updateCustomer(selectedCustomerId : number): void {
     this.router.navigate(['customers', selectedCustomerId])
   }
 
-  deleteCustomer(selectedCustomerId : number): void {
+  public deleteCustomer(selectedCustomerId : number): void {
     let customer = this.getCustomer(selectedCustomerId)
     if (customer.active) {
       customer.active = false
@@ -132,7 +128,8 @@ export class ListCustomersComponent extends BaseComponent implements OnInit {
   public refreshCustomers(): void {
     this.customerService.getAllCustomers().subscribe(
       data => {
-        this.displayCustomers(data);
+        this.customers = data
+        this.displayCustomers(this.filterActiveCustomers());
       }
     )
   }
@@ -144,24 +141,30 @@ export class ListCustomersComponent extends BaseComponent implements OnInit {
         new CustomerToDisplay(false, customer)
       )
     })
+    this.dataSource.data = this.customersToDisplay
   }
 
   public isCustomerActive(customerId : number) {
     let customers = this.customersToDisplay.filter((customerToDisplay => customerToDisplay.customer.id === customerId))
-    if (customers.length > 0) {
-      return customers[0].customer.active
-    }
-
-    return false
+    return customers.length > 0 ? customers[0].customer.active : null
   }
 
   public getCustomer(customerId : number) {
     let customers = this.customersToDisplay.filter((customerToDisplay => customerToDisplay.customer.id === customerId))
-    if (customers.length > 0) {
-      return customers[0].customer
-    }
+    return customers.length > 0 ? customers[0].customer : null
+  }
 
-    return null
+  public filterActiveCustomers() {
+    return this.showOnlyActive ? this.customers.filter((customer => customer.active === this.showOnlyActive)) : this.customers
+  }
+
+  public doFilter(value : string) {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
+  public showOnlyActiveToggleChange(event : MatSlideToggleChange) {
+    this.showOnlyActive = event.checked
+    this.displayCustomers(this.filterActiveCustomers())
   }
 }
 

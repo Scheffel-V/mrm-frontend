@@ -28,8 +28,14 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { JqueryDatatableDirective } from './directives/jquery-datatable.directive';
-
+import { MatCardModule } from '@angular/material/card';
+import { MatSortModule } from '@angular/material/sort';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 
@@ -70,7 +76,14 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     NgxMatSelectSearchModule,
     MatDividerModule,
     MatRadioModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatSortModule,
+    FlexLayoutModule,
+    MatPaginatorModule,
+    MatSlideToggleModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
