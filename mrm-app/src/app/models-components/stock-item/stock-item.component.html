@@ -57,14 +57,14 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                <div class="col-sm-2 mb-3 mb-sm-0">
                                   <mat-form-field style="width:100%;" >
                                     <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.STANDARD_RENTAL_VALUE }}</mat-label>
                                     <input type="text" matInput [(ngModel)]="stockItem.productModel.standardRentalValue" id="stockItemStandardRentalValue"
                                         name="standardRentalValue" #standardRentalValue="ngModel">
                                   </mat-form-field>
                                 </div>
-                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                <div class="col-sm-2 mb-3 mb-sm-0">
                                   <mat-form-field style="width:100%;" >
                                     <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.REPOSITION_VALUE }}</mat-label>
                                     <input type="text" matInput [(ngModel)]="stockItem.productModel.repositionValue" id="stockItemRepositionValue"
@@ -78,7 +78,21 @@
                                             name="image" #image="ngModel">
                                     </mat-form-field>
                                 </div>
+                              <div class="col-sm-4">
+                                <mat-form-field style="width:100%" >
+                                    <mat-label>Supplier</mat-label>
+                                    <mat-select [(ngModel)]="stockItem.supplier" name="stockItemSupplier" #supplier="ngModel">
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="supplierFilterControl" placeholderLabel="Find supplier..." 
+                                            noEntriesFoundLabel="'no matching supplier found'"></ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option *ngFor="let supplier of filteredSuppliers | async" [value]="supplier">
+                                        {{ supplier.companyName }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                               </div>
+                            </div>
                             <br>
                             <button type="submit" mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
                         </form>

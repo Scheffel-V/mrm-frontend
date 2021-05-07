@@ -42,7 +42,7 @@ export const TEXTS = {
               POWER : "Power",
               BRAND : "Brand",
               MODEL : "Model",
-              STANDARD_RENTAL_VALUE : "Standard Rental Value",
+              STANDARD_RENTAL_VALUE : "Standard Value",
               REPOSITION_VALUE : "Reposition Value",
               IMAGE : "Image"
             },
@@ -75,7 +75,7 @@ export const TEXTS = {
               POWER : "Power",
               BRAND : "Brand",
               MODEL : "Model",
-              STANDARD_RENTAL_VALUE : "Standard Rental Value",
+              STANDARD_RENTAL_VALUE : "Standard Value",
               REPOSITION_VALUE : "Reposition Value",
               IMAGE : "Image",
               VALUE : "Value"
