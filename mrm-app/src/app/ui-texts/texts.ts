@@ -11,8 +11,13 @@ export const TEXTS = {
                 BACK_PAGE : "Back Page",
                 SELECT : "Select",
                 DELETE_SELECTED : "Delete Selected",
-                EXPORT : "Export"
+                EXPORT : "Export",
+                SEARCH : "Search"
             },
+            LABELS : {
+              ACTIVE : "Active",
+              INACTIVE : "Inactive"
+            }
           },
           MODELS : {
             ID : "Id",

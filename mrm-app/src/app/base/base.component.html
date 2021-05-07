@@ -140,13 +140,13 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                    
-                    <a class="btn btn-primary btn-icon-split" *ngIf="router.url != '/'" (click)="backPage()">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-arrow-left"></i>
-                        </span>
-                        <span class="text">{{ TEXTS.GENERAL.ACTIONS.BACK_PAGE }}</span>
-                    </a>
+
+                    <button mat-raised-button (click)="backPage()" [color]="backButtonColor" (mouseover)="backButtonColor = 'primary'" (mouseout)="backButtonColor = 'basic'">
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <i class="material-icons" style="padding-right: 5px !important;">arrow_back_ios</i>
+                            {{ TEXTS.GENERAL.ACTIONS.BACK_PAGE }}
+                        </div>
+                    </button>
                 </nav>
                 <!-- End of Topbar -->
 

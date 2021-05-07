@@ -36,6 +36,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getPortuguesePaginator } from './ui-texts/portuguese-paginator'
 
 
 
@@ -86,7 +88,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatSlideToggleModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: MatPaginatorIntl, useValue: getPortuguesePaginator() }
   ],
   bootstrap: [AppComponent]
 })

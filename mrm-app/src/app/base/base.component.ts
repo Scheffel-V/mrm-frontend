@@ -22,6 +22,7 @@ export class BaseComponent implements OnInit {
   public router : Router
   protected loadAPI: Promise<any>;
   protected INITIAL_ID = INITIAL_ID
+  backButtonColor : string = "basic"
 
   constructor(
     protected scriptsService : ScriptsService,

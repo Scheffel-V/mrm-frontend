@@ -15,7 +15,9 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 class CustomerToDisplay {
   constructor(
     public checked : boolean,
-    public customer : Customer
+    public customer : Customer,
+    public trashButtonColor : string = "basic",
+    public infoButtonColor : string = "basic"
   ) { }
 }
 
@@ -32,6 +34,10 @@ export class ListCustomersComponent extends BaseComponent implements OnInit, Aft
   public dataSource = new MatTableDataSource<CustomerToDisplay>();
   showOnlyActive : boolean = true
   message : string
+  saveButtonColor = "primary"
+  deleteSelectedButtonColor = "basic"
+  topCustomersButtonColor = "basic"
+  exportButtonColor = "basic"
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
