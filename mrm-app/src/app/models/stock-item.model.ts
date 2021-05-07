@@ -7,6 +7,7 @@ export class StockItem {
         public productModel : ProductModel,
         public status : string = "INVENTORY",
         public comment : string = "",
+        public active : boolean = true
     ) {
 
     }

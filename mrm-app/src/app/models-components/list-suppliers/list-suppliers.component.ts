@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Supplier } from '../../models/supplier.model'
 import { Location } from '@angular/common';
@@ -6,6 +6,10 @@ import { SupplierService } from '../../services/supplier.service'
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { BaseComponent } from 'src/app/base/base.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 const scripts = [
   "../../assets/js/demo/datatables-demo.js"
@@ -26,7 +30,17 @@ class SupplierToDisplay {
 export class ListSuppliersComponent extends BaseComponent implements OnInit {
 
   suppliersToDisplay : SupplierToDisplay[] = []
+  suppliers : Supplier[] = []
+  public displayedColumns = ['select', 'actions', 'companyName', 'cnpj', 'city', 'phoneNumber', 'email', 'active'];
+  public dataSource = new MatTableDataSource<SupplierToDisplay>();
+  showOnlyActive : boolean = true
   message : string
+  saveButtonColor = "primary"
+  deleteSelectedButtonColor = "basic"
+  exportButtonColor = "basic"
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   public constructor(
     private supplierService : SupplierService,
@@ -42,13 +56,37 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
    public ngOnInit(): void {
     this.supplierService.getAllSuppliers().subscribe(
       data => {
+        this.suppliers = data
         this.displaySuppliers(data)
       }
     )
   }
 
-  public ngAfterContentInit(): void {
-    this.loadScripts(scripts)
+  public ngAfterViewInit(): void {
+    this.setPaginator()
+    this.setSorter()
+    this.setFilter()
+  }
+
+  private setPaginator() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  private setSorter() {
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      return item['supplier'][property]
+    }
+  }
+
+  private setFilter() {
+    this.dataSource.filterPredicate = (data, filter: string)  => {
+      const accumulator = (currentTerm, key) => {
+        return key === 'supplier' ? currentTerm + data.supplier.companyName + data.supplier.cnpj : currentTerm + data[key];
+      };
+      const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    };
   }
 
   public updateSupplier(selectedSupplierId : number): void {
@@ -58,7 +96,7 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
   public deleteSupplier(selectedSupplierId : number): void {
     this.supplierService.deleteSupplier(selectedSupplierId).subscribe(
       () => {
-        this.message = `Deleted Supplier!`
+        this.openSnackBar("Supplier deleted.")
         this.refreshSuppliers()
       }
     )
@@ -71,11 +109,11 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
       .forEach((selectedSupplier, index, array) => {
         this.supplierService.deleteSupplier(selectedSupplier.supplier.id).subscribe(
         () => {
-          this.message = `Deleted!`
           if (index === array.length -1) resolve(true);
         })
       })
     }).then(() => {
+      this.openSnackBar("Suppliers deleted.")
       this.refreshSuppliers()
     });
   }
@@ -83,6 +121,7 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
   public refreshSuppliers(): void {
     this.supplierService.getAllSuppliers().subscribe(
       data => {
+        this.suppliers = data
         this.displaySuppliers(data);
       }
     )
@@ -97,4 +136,16 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
     })
   }
 
+  public filterActiveSuppliers() {
+    return this.showOnlyActive ? this.suppliers.filter((supplier => supplier.active === this.showOnlyActive)) : this.suppliers
+  }
+
+  public doFilter(value : string) {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
+  public showOnlyActiveToggleChange(event : MatSlideToggleChange) {
+    this.showOnlyActive = event.checked
+    this.displaySuppliers(this.filterActiveSuppliers())
+  }
 }

@@ -21,12 +21,12 @@
           <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12">  
             <div fxLayout="row wrap" fxLayoutAlign="center center">
               <div>
-                <button class="mr-2 mb-2" mat-raised-button [color]="saveButtonColor" (mouseover)="saveButtonColor = 'basic'" (mouseout)="saveButtonColor = 'primary'">
+                <button class="mr-2 mb-2" mat-raised-button (click)="createCustomer()" [color]="saveButtonColor" (mouseover)="saveButtonColor = 'basic'" (mouseout)="saveButtonColor = 'primary'">
                 {{ TEXTS.GENERAL.ACTIONS.ADD }}
                 </button>
               </div>
               <div>
-                <button class="mr-2 mb-2" mat-raised-button [color]="deleteSelectedButtonColor" (mouseover)="deleteSelectedButtonColor = 'accent'" (mouseout)="deleteSelectedButtonColor = 'basic'">
+                <button class="mr-2 mb-2" mat-raised-button (click)="deleteSelectedCustomers()" [color]="deleteSelectedButtonColor" (mouseover)="deleteSelectedButtonColor = 'accent'" (mouseout)="deleteSelectedButtonColor = 'basic'">
                   {{ TEXTS.GENERAL.ACTIONS.DELETE_SELECTED }}
                 </button>
               </div>
@@ -45,7 +45,7 @@
         </div>
     </div>
       <br>
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table style="width: 100%;"  mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef>
             <div fxLayout="row wrap" fxLayoutAlign="center center">

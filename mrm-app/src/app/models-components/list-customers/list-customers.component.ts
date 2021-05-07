@@ -63,17 +63,27 @@ export class ListCustomersComponent extends BaseComponent implements OnInit, Aft
   }
 
   public ngAfterViewInit(): void {
+    this.setPaginator()
+    this.setSorter()
+    this.setFilter()
+  }
+
+  private setPaginator() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  }
+
+  private setSorter() {
     this.dataSource.sortingDataAccessor = (item, property) => {
       return item['customer'][property]
     }
+  }
+
+  private setFilter() {
     this.dataSource.filterPredicate = (data, filter: string)  => {
       const accumulator = (currentTerm, key) => {
         return key === 'customer' ? currentTerm + data.customer.companyName + data.customer.commercialName + data.customer.cnpj : currentTerm + data[key];
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
-      // Transform the filter by converting it to lowercase and removing whitespace.
       const transformedFilter = filter.trim().toLowerCase();
       return dataStr.indexOf(transformedFilter) !== -1;
     };
@@ -148,11 +158,6 @@ export class ListCustomersComponent extends BaseComponent implements OnInit, Aft
       )
     })
     this.dataSource.data = this.customersToDisplay
-  }
-
-  public isCustomerActive(customerId : number) {
-    let customers = this.customersToDisplay.filter((customerToDisplay => customerToDisplay.customer.id === customerId))
-    return customers.length > 0 ? customers[0].customer.active : null
   }
 
   public getCustomer(customerId : number) {

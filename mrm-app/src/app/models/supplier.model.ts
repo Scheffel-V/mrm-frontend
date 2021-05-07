@@ -9,7 +9,8 @@ export class Supplier {
         public cnpj : string = "",
         public address : Address = new Address(),
         public phoneNumber : string = "",
-        public email : string = ""
+        public email : string = "",
+        public active : boolean = true
     ) {
 
     }

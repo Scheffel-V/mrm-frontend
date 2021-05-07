@@ -1,73 +1,111 @@
 <div class="alert alert-warning" *ngIf="message">{{ message }}</div>
 
-<div class="card shadow mb-4">
-  <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">{{ TEXTS.PAGES.LIST.RENTALS }}</h6>
-  </div>
+<mat-card>
+  <mat-card-title>
+    <div fxLayout fxLayoutAlign="center center">
+      {{ TEXTS.PAGES.LIST.RENTALS }}
+    </div>
+  </mat-card-title>
   <div class="card-body">
     <div class="table-responsive">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row"> 
           <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12">
-            <div class="row">
-              <div class="col-12 col-xl-3 col-sm-6 col-md-6">
-                <a class="btn btn-outline-success d-flex align-items-center justify-content-center" style="width:100%;height:100%;" (click)="createRental()">
-                  <span class="text">{{ TEXTS.GENERAL.ACTIONS.ADD }}</span>
-                </a>
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+              <mat-slide-toggle (change)="showOnlyActiveToggleChange($event)" [checked]="showOnlyActive" style="padding-right:40px;">{{ TEXTS.GENERAL.LABELS.ACTIVE }}</mat-slide-toggle>
+              <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="{{ TEXTS.GENERAL.ACTIONS.SEARCH }}">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12">  
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+              <div>
+                <button class="mr-2 mb-2" mat-raised-button (click)="createRental()" [color]="saveButtonColor" (mouseover)="saveButtonColor = 'basic'" (mouseout)="saveButtonColor = 'primary'">
+                {{ TEXTS.GENERAL.ACTIONS.ADD }}
+                </button>
               </div>
-              <div class="col-12 col-xl-3 col-sm-6 col-md-6">
-                <a class="btn btn-outline-warning d-flex align-items-center justify-content-center" style="width:100%;height:100%;" (click)="deleteSelectedRentals()">
-                  <span class="text">{{ TEXTS.GENERAL.ACTIONS.DELETE_SELECTED }}</span>
-                </a>
+              <div>
+                <button class="mr-2 mb-2" mat-raised-button (click)="deleteSelectedRentals()" [color]="deleteSelectedButtonColor" (mouseover)="deleteSelectedButtonColor = 'accent'" (mouseout)="deleteSelectedButtonColor = 'basic'">
+                  {{ TEXTS.GENERAL.ACTIONS.DELETE_SELECTED }}
+                </button>
               </div>
-              <div class="col-12 col-xl-3 col-sm-6 col-md-6">
-                <a class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="width:100%;height:100%">
-                  <span class="text">{{ TEXTS.GENERAL.ACTIONS.EXPORT }}</span>
-                </a>
+              <div>
+                <button class="mr-2 mb-2" mat-raised-button [color]="exportButtonColor" (mouseover)="exportButtonColor = 'primary'" (mouseout)="exportButtonColor = 'basic'">
+                  {{ TEXTS.GENERAL.ACTIONS.EXPORT }}
+                </button>
               </div>
             </div>
           </div>
         </div>
     </div>
       <br>
-      <table class="table row-border hover order-column" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-          <tr>
-            <th data-orderable="false">{{ TEXTS.GENERAL.ACTIONS.SELECT }}</th>
-            <th data-orderable="false">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</th>
-            <th>{{ TEXTS.MODELS.RENTAL.CUSTOMER }}</th>
-            <th>{{ TEXTS.MODELS.RENTAL.START_DATE }}</th>
-            <th>{{ TEXTS.MODELS.RENTAL.END_DATE }}</th>
-            <th>{{ TEXTS.MODELS.RENTAL.FISCAL_NOTE }}</th>
-            <th>{{ TEXTS.MODELS.RENTAL.TOTAL_VALUE }}</th>
-            <th>{{ TEXTS.MODELS.RENTAL.STATUS }}</th>
-            <th>{{ TEXTS.MODELS.RENTAL.APPROVED_DATE }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let rentalToDisplay of rentalsToDisplay">
-            <td style="text-align: center;vertical-align: middle;">
-              <input type="checkbox" [(ngModel)]="rentalToDisplay.checked"/>
-            </td>
-            <td>
-              <a class="btn btn-outline-warning" (click)="deleteRental(rentalToDisplay.rental.id)">
-                  <i class="fas fa-trash"></i>
-              </a>
-              <a class="btn btn-outline-info" (click)="updateRental(rentalToDisplay.rental.id)">
-                <i class="fas fa-info-circle"></i>
-              </a>
-            </td>
-            <td>{{ rentalToDisplay.rental.customer.id }}</td>
-            <td>{{ rentalToDisplay.rental.startDate }}</td>
-            <td>{{ rentalToDisplay.rental.endDate }}</td>
-            <td>{{ rentalToDisplay.rental.fiscalNote }}</td>
-            <td>{{ rentalToDisplay.rental.totalValue }}</td>
-            <td>{{ rentalToDisplay.rental.status }}</td>
-            <td>{{ rentalToDisplay.rental.approvedDate }}</td>
-          </tr>
-        </tbody>
+      <table style="width: 100%;"  mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+              {{ TEXTS.GENERAL.ACTIONS.SELECT }}
+            </div>
+            
+          </th>
+          <td mat-cell *matCellDef="let rentalToDisplay">
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+              <mat-checkbox [(ngModel)]="rentalToDisplay.checked" [checked]="rentalToDisplay.checked"></mat-checkbox>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay">
+            <button mat-flat-button color="basic" [color]="rentalToDisplay.trashButtonColor" (mouseover)="rentalToDisplay.trashButtonColor = 'accent'" (mouseout)="rentalToDisplay.trashButtonColor = 'basic'" (click)="deleteRental(rentalToDisplay.rental.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+            <button mat-flat-button color="basic" [color]="rentalToDisplay.infoButtonColor" (mouseover)="rentalToDisplay.infoButtonColor = 'primary'" (mouseout)="rentalToDisplay.infoButtonColor = 'basic'" (click)="updateRental(rentalToDisplay.rental.id)">
+              <mat-icon class="fas fa-info"></mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="customer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ TEXTS.MODELS.RENTAL.CUSTOMER }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.customer}} </td>
+        </ng-container>
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ TEXTS.MODELS.RENTAL.START_DATE }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.startDate}} </td>
+        </ng-container>
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.END_DATE }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.endDate}} </td>
+        </ng-container>
+        <ng-container matColumnDef="fiscalNote">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.FISCAL_NOTE }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.address.fiscalNote}} </td>
+        </ng-container>
+        <ng-container matColumnDef="totalValue">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.TOTAL_VALUE }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.totalValue}} </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.STATUS }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.status}} </td>
+        </ng-container>
+        <ng-container matColumnDef="approvedDate">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.APPROVED_DATE }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.approvedDate}} </td>
+        </ng-container>
+        <ng-container matColumnDef="active">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.ACTIVE }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay">
+            <span *ngIf="rentalToDisplay.rental.active" class="badge badge-success">{{ TEXTS.GENERAL.LABELS.ACTIVE }}</span>
+            <span *ngIf="rentalToDisplay.rental.active == false" class="badge badge-warning">{{ TEXTS.GENERAL.LABELS.INACTIVE }}</span>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10, 20]">
+      </mat-paginator>
       <br>
     </div>
   </div>
-</div>
+</mat-card>

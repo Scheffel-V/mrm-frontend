@@ -1,67 +1,99 @@
 <div class="alert alert-warning" *ngIf="message">{{ message }}</div>
 
-<div class="card shadow mb-4">
-  <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">{{ TEXTS.PAGES.LIST.STOCK_ITEMS }}</h6>
-  </div>
+<mat-card>
+  <mat-card-title>
+    <div fxLayout fxLayoutAlign="center center">
+      {{ TEXTS.PAGES.LIST.STOCK_ITEMS }}
+    </div>
+  </mat-card-title>
   <div class="card-body">
     <div class="table-responsive">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row"> 
           <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12">
-            <div class="row">
-              <div class="col-12 col-xl-3 col-sm-6 col-md-6">
-                <a class="btn btn-outline-success d-flex align-items-center justify-content-center" style="width:100%;height:100%;" (click)="createStockItem()">
-                  <span class="text">{{ TEXTS.GENERAL.ACTIONS.ADD }}</span>
-                </a>
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+              <mat-slide-toggle (change)="showOnlyActiveToggleChange($event)" [checked]="showOnlyActive" style="padding-right:40px;">{{ TEXTS.GENERAL.LABELS.ACTIVE }}</mat-slide-toggle>
+              <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="{{ TEXTS.GENERAL.ACTIONS.SEARCH }}">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12">  
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+              <div>
+                <button class="mr-2 mb-2" mat-raised-button (click)="createStockItem()" [color]="saveButtonColor" (mouseover)="saveButtonColor = 'basic'" (mouseout)="saveButtonColor = 'primary'">
+                {{ TEXTS.GENERAL.ACTIONS.ADD }}
+                </button>
               </div>
-              <div class="col-12 col-xl-3 col-sm-6 col-md-6">
-                <a class="btn btn-outline-warning d-flex align-items-center justify-content-center" style="width:100%;height:100%;" (click)="deleteSelectedStockItems()">
-                  <span class="text">{{ TEXTS.GENERAL.ACTIONS.DELETE_SELECTED }}</span>
-                </a>
+              <div>
+                <button class="mr-2 mb-2" mat-raised-button (click)="deleteSelectedStockItems()" [color]="deleteSelectedButtonColor" (mouseover)="deleteSelectedButtonColor = 'accent'" (mouseout)="deleteSelectedButtonColor = 'basic'">
+                  {{ TEXTS.GENERAL.ACTIONS.DELETE_SELECTED }}
+                </button>
               </div>
-              <div class="col-12 col-xl-3 col-sm-6 col-md-6">
-                <a class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="width:100%;height:100%">
-                  <span class="text">{{ TEXTS.GENERAL.ACTIONS.EXPORT }}</span>
-                </a>
+              <div>
+                <button class="mr-2 mb-2" mat-raised-button [color]="exportButtonColor" (mouseover)="exportButtonColor = 'primary'" (mouseout)="exportButtonColor = 'basic'">
+                  {{ TEXTS.GENERAL.ACTIONS.EXPORT }}
+                </button>
               </div>
             </div>
           </div>
         </div>
     </div>
       <br>
-      <table class="table row-border hover order-column" id="listStockItemsDataTable" width="100%" cellspacing="0">
-        <thead>
-          <tr>
-            <th data-orderable="false">{{ TEXTS.GENERAL.ACTIONS.SELECT }}</th>
-            <th data-orderable="false">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</th>
-            <th>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</th>
-            <th>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</th>
-            <th>{{ TEXTS.MODELS.STOCK_ITEM.POWER }}</th>
-            <th>{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let stockItemToDisplay of stockItemsToDisplay">
-            <td style="text-align: center;vertical-align: middle;">
-              <input type="checkbox" [(ngModel)]="stockItemToDisplay.checked"/>
-            </td>
-            <td>
-              <a class="btn btn-outline-warning" (click)="deleteStockItem(stockItemToDisplay.stockItem.id)">
-                  <i class="fas fa-trash"></i>
-              </a>
-              <a class="btn btn-outline-info" (click)="updateStockItem(stockItemToDisplay.stockItem.id)">
-                <i class="fas fa-info-circle"></i>
-              </a>
-            </td>
-            <td>{{ stockItemToDisplay.stockItem.productModel.name }}</td>
-            <td>{{ stockItemToDisplay.stockItem.productModel.type }}</td>
-            <td>{{ stockItemToDisplay.stockItem.productModel.power }}</td>
-            <td>{{ stockItemToDisplay.stockItem.productModel.model }}</td>
-          </tr>
-        </tbody>
+      <table style="width: 100%;" mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+              {{ TEXTS.GENERAL.ACTIONS.SELECT }}
+            </div>
+            
+          </th>
+          <td mat-cell *matCellDef="let stockItemToDisplay">
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+              <mat-checkbox [(ngModel)]="stockItemToDisplay.checked" [checked]="stockItemToDisplay.checked"></mat-checkbox>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</th>
+          <td mat-cell *matCellDef="let stockItemToDisplay">
+            <button mat-flat-button color="basic" [color]="stockItemToDisplay.trashButtonColor" (mouseover)="stockItemToDisplay.trashButtonColor = 'accent'" (mouseout)="stockItemToDisplay.trashButtonColor = 'basic'" (click)="deleteStockItem(stockItemToDisplay.stockItem.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+            <button mat-flat-button color="basic" [color]="stockItemToDisplay.infoButtonColor" (mouseover)="stockItemToDisplay.infoButtonColor = 'primary'" (mouseout)="stockItemToDisplay.infoButtonColor = 'basic'" (click)="updateStockItem(stockItemToDisplay.stockItem.id)">
+              <mat-icon class="fas fa-info"></mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</th>
+          <td mat-cell *matCellDef="let stockItemToDisplay"> {{stockItemToDisplay.stockItem.productModel.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</th>
+          <td mat-cell *matCellDef="let stockItemToDisplay"> {{stockItemToDisplay.stockItem.productModel.type}} </td>
+        </ng-container>
+        <ng-container matColumnDef="power">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.POWER }}</th>
+          <td mat-cell *matCellDef="let stockItemToDisplay"> {{stockItemToDisplay.stockItem.productModel.power}} </td>
+        </ng-container>
+        <ng-container matColumnDef="model">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}</th>
+          <td mat-cell *matCellDef="let stockItemToDisplay"> {{stockItemToDisplay.stockItem.productModel.model}} </td>
+        </ng-container>
+        <ng-container matColumnDef="active">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.ACTIVE }}</th>
+          <td mat-cell *matCellDef="let stockItemToDisplay">
+            <span *ngIf="stockItemToDisplay.stockItem.active" class="badge badge-success">{{ TEXTS.GENERAL.LABELS.ACTIVE }}</span>
+            <span *ngIf="stockItemToDisplay.stockItem.active == false" class="badge badge-warning">{{ TEXTS.GENERAL.LABELS.INACTIVE }}</span>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10, 20]">
+      </mat-paginator>
       <br>
     </div>
   </div>
-</div>
+</mat-card>

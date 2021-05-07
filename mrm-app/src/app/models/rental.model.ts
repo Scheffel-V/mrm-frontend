@@ -13,7 +13,8 @@ export class Rental {
         public status : string = "Opened",
         public approvedDate : Date = null,
         public leaveDate : Date = null,
-        public arriveDate : Date = null
+        public arriveDate : Date = null,
+        public active : boolean = true
     ) {
 
     }
