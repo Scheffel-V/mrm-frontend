@@ -20,6 +20,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   id : number
   customer : Customer
   customerForm : FormGroup
+  searchCnpjButtonColor : string = "basic"
 
   constructor(
     private customerService : CustomerService,
@@ -101,5 +102,28 @@ export class CustomerComponent extends BaseComponent implements OnInit {
         this.listCustomers()
       }
     )
+  }
+
+  searchCnpj() {
+    if (this.customer.cnpj) {
+      this.customerService.searchCnpj(this.customer.cnpj).subscribe(
+        data => {
+          if (data['error']) {
+            this.openSnackBar("CNPJ/CPF not found.")
+            return
+          }
+          this.customer.companyName = data['RAZAO SOCIAL']
+          this.customer.commercialName = data['NOME FANTASIA']
+          this.customer.companyName = data['RAZAO SOCIAL']
+          this.customer.email = data['EMAIL']
+          this.customer.phoneNumber = data['DDD'] + data['TELEFONE']
+          this.customer.address.cep = data['CEP']
+          this.customer.address.street = data['TIPO LOGRADOURO'] + data['LOGRADOURO']
+          this.customer.address.city = data['MUNICIPIO']
+          this.customer.address.number = data['NUMERO']
+          this.customer.address.neighborhood = data['BAIRRO']
+        }
+      )
+    }
   }
 }

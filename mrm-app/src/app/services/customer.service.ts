@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { API_URL } from '../app.constants';
 import { Observable } from 'rxjs';
 import { Customer } from '../models/customer.model'
@@ -38,5 +38,9 @@ export class CustomerService {
   deleteCustomer(customerId : number) {
     //@TODO: handle de erros
     return this.http.delete(`${API_URL}/customers/${customerId}`)
+  }
+
+  searchCnpj(cnpj : string) {
+    return this.http.get(`https://api-publica.speedio.com.br/buscarcnpj?cnpj=${cnpj}`)
   }
 }

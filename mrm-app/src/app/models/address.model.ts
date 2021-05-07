@@ -7,6 +7,7 @@ export class Address {
         public city : string = "",
         public number : string = "",
         public street : string = "",
+        public neighborhood : string = "",
         public createdAt : Date = new Date(),
         public updatedAt : Date = new Date()
     ) {

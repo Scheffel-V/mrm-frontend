@@ -40,4 +40,8 @@ export class SupplierService {
     //@TODO: handle de erros
     return this.http.delete(`${API_URL}/Suppliers/${supplierId}`)
   }
+
+  searchCnpj(cnpj : string) {
+    return this.http.get(`https://api-publica.speedio.com.br/buscarcnpj?cnpj=${cnpj}`)
+  }
 }

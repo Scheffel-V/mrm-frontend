@@ -33,7 +33,8 @@ export const TEXTS = {
               PHONE_NUMBER : "Phone Number",
               MOBILE_PHONE_NUMBER : "Mobile Phone Number",
               EMAIL : "Email",
-              ACTIVE : "Active"
+              ACTIVE : "Active",
+              NEIGHBORHOOD : "Neighborhood"
             },
             PRODUCT_MODEL : {
               NAME : "Name",
@@ -55,7 +56,8 @@ export const TEXTS = {
               NUMBER : "Number",
               CITY : "City",
               PHONE_NUMBER : "Phone Number",
-              EMAIL : "Email"
+              EMAIL : "Email",
+              NEIGHBORHOOD : "Neighborhood"
             },
             RENTAL : {
               CUSTOMER : "Customer",
@@ -85,6 +87,7 @@ export const TEXTS = {
                 CEP_REQUIRED : "CEP is required.",
                 CITY_REQUIRED : "City is required.",
                 STREET_REQUIRED : "Street is required.",
+                NEIGHBORHOOD_REQUIRED : "Neighborhood is required.",
                 NUMBER_REQUIRED : "Number is required.",
                 EMAIL_INVALID : "This email is invalid.",
                 PHONE_NUMBER_INVALID : "This phone number is invalid."
@@ -100,7 +103,8 @@ export const TEXTS = {
                 CEP_REQUIRED : "CEP is required.",
                 CITY_REQUIRED : "City is required.",
                 STREET_REQUIRED : "Street is required.",
-                NUMBER_REQUIRED : "Number is required."
+                NUMBER_REQUIRED : "Number is required.",
+                NEIGHBORHOOD_REQUIRED : "Neighborhood is required."
               },
               RENTAL : {
                 CUSTOMER_REQUIRED : "Customer is required.",

@@ -32,12 +32,21 @@
 
                             <div class="form-group row">
                               <div class="col-sm-4">
-                                  <mat-form-field style="width:100%;" >
-                                    <mat-label>{{ TEXTS.MODELS.CUSTOMER.CNPJ }}</mat-label>
-                                    <input type="text" matInput mask="000.000.000-00||00.000.000/0000-00" [(ngModel)]="customer.cnpj" id="customerCnpj"
-                                        placeholder="{{ TEXTS.MODELS.CUSTOMER.CNPJ }}" name="cnpj" required="required" #cnpj="ngModel">
-                                        <mat-error *ngIf="cnpj.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.CNPJ_REQUIRED }}</mat-error>
-                                  </mat-form-field>
+                                <div class="form-group row">
+                                    <div class="col-sm-8">
+                                        <mat-form-field style="width:100%;" >
+                                            <mat-label>{{ TEXTS.MODELS.CUSTOMER.CNPJ }}</mat-label>
+                                            <input type="text" matInput mask="000.000.000-00||00.000.000/0000-00" [(ngModel)]="customer.cnpj" id="customerCnpj"
+                                                placeholder="{{ TEXTS.MODELS.CUSTOMER.CNPJ }}" name="cnpj" required="required" #cnpj="ngModel">
+                                            <mat-error *ngIf="cnpj.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.CNPJ_REQUIRED }}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button mat-mini-fab style="margin-left: -15px !important;" [color]="searchCnpjButtonColor" (mouseover)="searchCnpjButtonColor = 'primary'" (mouseout)="searchCnpjButtonColor = 'basic'" (click)="searchCnpj()">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
                               </div>
                               <div class="col-sm-4">
                                 <mat-form-field style="width:100%;" >
@@ -63,12 +72,20 @@
                                     <mat-error *ngIf="cep.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.CEP_REQUIRED }}</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-sm-4 mb-3 mb-sm-0">
+                              <div class="col-sm-2 mb-3 mb-sm-0">
                                 <mat-form-field style="width:100%;" >
                                     <mat-label>{{ TEXTS.MODELS.CUSTOMER.CITY }}</mat-label>
                                     <input type="text" matInput [(ngModel)]="customer.address.city" id="customerCity"
                                         required="required" name="city" #city="ngModel">
                                     <mat-error *ngIf="city.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.CITY_REQUIRED }}</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-sm-2 mb-3 mb-sm-0">
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.CUSTOMER.NEIGHBORHOOD }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="customer.address.neighborhood" id="customerNeighborhood"
+                                        required="required" name="neighborhood" #city="ngModel">
+                                    <mat-error *ngIf="city.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.NEIGHBORHOOD_REQUIRED }}</mat-error>
                                 </mat-form-field>
                               </div>
                               <div class="col-sm-4 mb-3 mb-sm-0">
