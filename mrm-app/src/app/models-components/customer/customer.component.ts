@@ -116,7 +116,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
           this.customer.commercialName = data['NOME FANTASIA']
           this.customer.companyName = data['RAZAO SOCIAL']
           this.customer.email = data['EMAIL']
-          this.customer.phoneNumber = data['DDD'] + data['TELEFONE']
+          this.customer.mobilePhone = data['DDD'] + data['TELEFONE']
           this.customer.address.cep = data['CEP']
           this.customer.address.street = data['TIPO LOGRADOURO'] + data['LOGRADOURO']
           this.customer.address.city = data['MUNICIPIO']

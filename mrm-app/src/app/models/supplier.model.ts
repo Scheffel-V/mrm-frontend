@@ -8,9 +8,10 @@ export class Supplier {
         public cpf : string = "",
         public cnpj : string = "",
         public address : Address = new Address(),
-        public phoneNumber : string = "",
+        public mobilePhone : string = "",
         public email : string = "",
-        public active : boolean = true
+        public active : boolean = true,
+        public comment : string = ""
     ) {
 
     }

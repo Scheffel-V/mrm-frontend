@@ -37,6 +37,7 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit, Af
   saveButtonColor = "primary"
   deleteSelectedButtonColor = "basic"
   topStockItemsButtonColor = "basic"
+  topStockButtonColor = "basic"
   exportButtonColor = "basic"
 
   @ViewChild(MatSort) sort: MatSort;
@@ -81,7 +82,7 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit, Af
   private setFilter() {
     this.dataSource.filterPredicate = (data, filter: string)  => {
       const accumulator = (currentTerm, key) => {
-        return key === 'stockItem' ? currentTerm + data.stockItem.productModel.name + data.stockItem.productModel.type + data.stockItem.productModel.model + data.stockItem.productModel.brand + + data.stockItem.productModel.power : currentTerm + data[key];
+        return key === 'stockItem' ? currentTerm + data.stockItem.name + data.stockItem.type + data.stockItem.model + data.stockItem.brand + + data.stockItem.power : currentTerm + data[key];
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       const transformedFilter = filter.trim().toLowerCase();

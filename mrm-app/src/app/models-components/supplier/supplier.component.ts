@@ -103,7 +103,7 @@ export class SupplierComponent extends BaseComponent implements OnInit {
           this.supplier.commercialName = data['NOME FANTASIA']
           this.supplier.companyName = data['RAZAO SOCIAL']
           this.supplier.email = data['EMAIL']
-          this.supplier.phoneNumber = data['DDD'] + data['TELEFONE']
+          this.supplier.mobilePhone = data['DDD'] + data['TELEFONE']
           this.supplier.address.cep = data['CEP']
           this.supplier.address.street = data['TIPO LOGRADOURO'] + data['LOGRADOURO']
           this.supplier.address.city = data['MUNICIPIO']

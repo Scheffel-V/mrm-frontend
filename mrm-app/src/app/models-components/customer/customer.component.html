@@ -57,8 +57,8 @@
                               <div class="col-sm-4">
                                 <mat-form-field style="width:100%;" >
                                     <mat-label>{{ TEXTS.MODELS.CUSTOMER.PHONE_NUMBER }}</mat-label>
-                                    <input matInput type="text" mask="''||(00)00000-0000||(00)0000-0000" [(ngModel)]="customer.phoneNumber" id="customerPhoneNumber" name="phoneNumber" #phoneNumber="ngModel">
-                                    <mat-error *ngIf="phoneNumber.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.PHONE_NUMBER_INVALID }}</mat-error>
+                                    <input matInput type="text" mask="''||(00)00000-0000||(00)0000-0000" [(ngModel)]="customer.mobilePhone" id="customerPhoneNumber" name="mobilePhone" #mobilePhone="ngModel">
+                                    <mat-error *ngIf="mobilePhone.invalid">{{ TEXTS.MODELS.FORMS.CUSTOMER.PHONE_NUMBER_INVALID }}</mat-error>
                                 </mat-form-field>
                               </div>
                             </div>

@@ -12,10 +12,11 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Customer } from '../../models/customer.model';
 import { StockItem } from '../../models/stock-item.model';
 import { ReplaySubject, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
-import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { takeUntil } from 'rxjs/operators';
+import { MatSelect } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ItemRental } from '../../models/item-rental.model';
 
 
 
@@ -57,7 +58,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params[RENTAL_ID_PARAM]
-    this.rental = new Rental(this.id, null, [])
+    this.rental = new Rental(this.id, null, null, [], [])
 
     if (this.id != INITIAL_ID) {
       this.fetchRental()
@@ -176,7 +177,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     }
     
     this.filteredStockItems.next(
-      this.stockItems.filter(stockItem => stockItem.productModel.name.toLowerCase().indexOf(search) > -1)
+      this.stockItems.filter(stockItem => stockItem.name.toLowerCase().indexOf(search) > -1)
     );
   }
 
@@ -186,35 +187,34 @@ export class RentalComponent extends BaseComponent implements OnInit {
     switch (this.durationMode) {
       case "2":
         if (this.rental.startDate != null) {
-          this.rental.endDate = new Date()
-          this.rental.endDate.setDate(this.rental.startDate.getDate() + 15)
+          this.rental.endDate = new Date(this.rental.startDate)
+          this.rental.endDate.setDate(this.rental.startDate.getDate() + 14)
         }
         break
       case "3":
         if (this.rental.startDate != null) {
-          this.rental.endDate = new Date()
-          this.rental.endDate.setDate(this.rental.startDate.getDate() + 30)
+          this.rental.endDate = new Date(this.rental.startDate)
+          this.rental.endDate.setDate(this.rental.startDate.getDate() + 29)
         }
         break
     }
   }
 
   stockItemSelectChange(stockItems : StockItem[]) {
-    this.rental.stockItems = stockItems
-
-    this.fillTotalValue(stockItems)
+    this.rental.itemRentals = this.createItemRentalsFromStockItems(stockItems)
+    this.fillTotalValue(this.rental.itemRentals)
   }
 
-  stockItemValueChange(value : number, currentStockItem : StockItem) {
-    let newStockItems : StockItem[] = this.rental.stockItems
+  itemRentalValueChange(value : number, currentItemRental : ItemRental) {
+    let newItems : ItemRental[] = this.rental.itemRentals
 
-    for (let i = 0; i < newStockItems.length; i++) {
-      if (newStockItems[i].id === currentStockItem.id) {
-        newStockItems[i].productModel.standardRentalValue = value
+    for (let i = 0; i < newItems.length; i++) {
+      if (newItems[i].id === currentItemRental.id) {
+        newItems[i].value = value
       }
     }
 
-    this.fillTotalValue(newStockItems)
+    this.fillTotalValue(newItems)
   }
 
   startDateChange(startDate : Date)  {
@@ -224,18 +224,29 @@ export class RentalComponent extends BaseComponent implements OnInit {
       return
     }
 
-    this.rental.endDate = new Date()
-    this.rental.endDate.setDate(startDate.getDate() + ((this.durationMode === "2") ? 15 : 30))
+    this.rental.endDate = new Date(startDate)
+    this.rental.endDate.setDate(startDate.getDate() + ((this.durationMode === "2") ? 14 : 29))
   }
 
-  fillTotalValue(stockItems : StockItem[]) {
+  fillTotalValue(items : ItemRental[]) {
     let totalValue = 0
-    let stockItem : StockItem
+    let itemRental : ItemRental
     
-    for (stockItem of stockItems) {
-      totalValue = totalValue + stockItem.productModel.standardRentalValue
+    for (itemRental of items) {
+      totalValue = totalValue + itemRental.value
     }
 
-    this.rental.totalValue = totalValue
+    this.rental.value = totalValue
+  }
+
+  createItemRentalsFromStockItems(stockItems : StockItem[]) {
+    let itemRentals = []
+    let stockItem : StockItem
+
+    for (stockItem of stockItems) {
+      itemRentals.push(new ItemRental(-1, null, null, stockItem.rentValue, stockItem, stockItem.id, this.id, ""))
+    }
+
+    return itemRentals
   }
 }

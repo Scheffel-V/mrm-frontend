@@ -15,8 +15,6 @@ import { ListCustomersComponent } from './models-components/list-customers/list-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BaseComponent } from './base/base.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { ProductModelComponent } from './models-components/product-model/product-model.component';
-import { ListProductModelsComponent } from './models-components/list-product-models/list-product-models.component';
 import { SupplierComponent } from './models-components/supplier/supplier.component';
 import { ListSuppliersComponent } from './models-components/list-suppliers/list-suppliers.component';
 import { StockItemComponent } from './models-components/stock-item/stock-item.component';
@@ -30,7 +28,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { JqueryDatatableDirective } from './directives/jquery-datatable.directive';
 import { MatCardModule } from '@angular/material/card';
 import { MatSortModule } from '@angular/material/sort';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -38,6 +35,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getPortuguesePaginator } from './ui-texts/portuguese-paginator'
+import { ChartsModule, WavesModule } from 'angular-bootstrap-md';
+import { MonthProfitChartComponent } from './charts/month-profit-chart/month-profit-chart.component'
 
 
 
@@ -51,15 +50,13 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ListCustomersComponent,
     DashboardComponent,
     BaseComponent,
-    ProductModelComponent,
-    ListProductModelsComponent,
     SupplierComponent,
     ListSuppliersComponent,
     StockItemComponent,
     RentalComponent,
     ListRentalsComponent,
     ListStockItemsComponent,
-    JqueryDatatableDirective
+    MonthProfitChartComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +82,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatSortModule,
     FlexLayoutModule,
     MatPaginatorModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    ChartsModule,
+    WavesModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },

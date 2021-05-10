@@ -13,11 +13,6 @@ import { Rental } from '../models/rental.model'
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
-const scripts = [
-  //'../../assets/js/demo/chart-area-demo.js',
-  //'../../assets/js/demo/chart-pie-demo.js'
-]
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -54,20 +49,17 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       }
     )
 
+    /**
     this.stockItemService.getAllStockItems().subscribe(
       stockItems => {
         this.stockItems = stockItems
       }
-    )
+    ) */
 
     /**this.supplierService.getAllSuppliers().subscribe(
       suppliers => {
         this.suppliers = suppliers
       }
     )**/
-  }
-
-  ngAfterContentInit(): void {
-    this.loadScripts(scripts)
   }
 }

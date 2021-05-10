@@ -158,7 +158,8 @@ export const TEXTS = {
               SUPPLIERS : "Suppliers",
               RENTALS : "Rentals",
               STOCK_ITEMS : "Products",
-              TOP_CUSTOMERS : "Top Customers"
+              TOP_CUSTOMERS : "Top Customers",
+              TOP_STOCK_ITEMS : "Top Products"
             },
             CREATE : {
               CUSTOMER : "Create Customer",

@@ -15,7 +15,7 @@
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <mat-form-field style="width:100%;" >
                                         <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</mat-label>
-                                        <input type="text" matInput [(ngModel)]="stockItem.productModel.name" id="stockItemName"
+                                        <input type="text" matInput [(ngModel)]="stockItem.name" id="stockItemName"
                                           name="name" required="required" #name="ngModel">
                                         <mat-error *ngIf="name.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.NAME_REQUIRED }}</mat-error>
                                     </mat-form-field>
@@ -24,7 +24,7 @@
                                 <div class="col-sm-6">
                                     <mat-form-field style="width:100%;" >
                                         <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</mat-label>
-                                        <input type="text" matInput [(ngModel)]="stockItem.productModel.type" id="stockItemType"
+                                        <input type="text" matInput [(ngModel)]="stockItem.type" id="stockItemType"
                                             name="type" required="required" #type="ngModel">
                                         <mat-error *ngIf="type.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.TYPE_REQUIRED }}</mat-error>
                                     </mat-form-field>
@@ -35,7 +35,7 @@
                               <div class="col-sm-4 mb-3 mb-sm-0">
                                 <mat-form-field style="width:100%;" >
                                     <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.POWER }}</mat-label>
-                                    <input type="text" matInput [(ngModel)]="stockItem.productModel.power" id="stockItemPower"
+                                    <input type="text" matInput [(ngModel)]="stockItem.power" id="stockItemPower"
                                         required="required" name="city" #power="ngModel">
                                     <mat-error *ngIf="power.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.POWER_REQUIRED }}</mat-error>
                                 </mat-form-field>
@@ -43,14 +43,14 @@
                               <div class="col-sm-4 mb-3 mb-sm-0">
                                 <mat-form-field style="width:100%;" >
                                     <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.BRAND }}</mat-label>
-                                    <input type="text" matInput [(ngModel)]="stockItem.productModel.brand" id="stockItemBrand"
+                                    <input type="text" matInput [(ngModel)]="stockItem.brand" id="stockItemBrand"
                                         name="brand" #brand="ngModel">
                                 </mat-form-field>
                               </div>
                               <div class="col-sm-4">
                                   <mat-form-field style="width:100%;" >
                                     <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}</mat-label>
-                                    <input type="text" matInput [(ngModel)]="stockItem.productModel.model" id="stockItemModel"
+                                    <input type="text" matInput [(ngModel)]="stockItem.model" id="stockItemModel"
                                       name="model" #model="ngModel">
                                   </mat-form-field>
                               </div>
@@ -60,21 +60,21 @@
                                 <div class="col-sm-2 mb-3 mb-sm-0">
                                   <mat-form-field style="width:100%;" >
                                     <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.STANDARD_RENTAL_VALUE }}</mat-label>
-                                    <input type="text" matInput [(ngModel)]="stockItem.productModel.standardRentalValue" id="stockItemStandardRentalValue"
+                                    <input type="text" matInput [(ngModel)]="stockItem.rentValue" id="stockItemStandardRentalValue"
                                         name="standardRentalValue" #standardRentalValue="ngModel">
                                   </mat-form-field>
                                 </div>
                                 <div class="col-sm-2 mb-3 mb-sm-0">
                                   <mat-form-field style="width:100%;" >
                                     <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.REPOSITION_VALUE }}</mat-label>
-                                    <input type="text" matInput [(ngModel)]="stockItem.productModel.repositionValue" id="stockItemRepositionValue"
+                                    <input type="text" matInput [(ngModel)]="stockItem.replacementCost" id="stockItemRepositionValue"
                                       name="repositionValue" #repositionValue="ngModel">
                                   </mat-form-field>
                                 </div>
                                 <div class="col-sm-4">
                                     <mat-form-field style="width:100%;" >
                                         <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.IMAGE }}</mat-label>
-                                        <input type="text" matInput [(ngModel)]="stockItem.productModel.image" id="stockItemImage"
+                                        <input type="text" matInput [(ngModel)]="stockItem.image" id="stockItemImage"
                                             name="image" #image="ngModel">
                                     </mat-form-field>
                                 </div>
