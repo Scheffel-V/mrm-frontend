@@ -60,12 +60,6 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   }
 
   createCustomer(): void {
-    //@TODO
-    this.customer["cep"] = this.customer.address.cep
-    this.customer["street"] = this.customer.address.street
-    this.customer["city"] = this.customer.address.city
-    this.customer["number"] = this.customer.address.number
-    delete this.customer["address"]
     this.customerService.createCustomer(this.customer).subscribe(
       data => {
         this.openSnackBar("Customer created!")
@@ -112,9 +106,8 @@ export class CustomerComponent extends BaseComponent implements OnInit {
             this.openSnackBar("CNPJ/CPF not found.")
             return
           }
-          this.customer.companyName = data['RAZAO SOCIAL']
+          this.customer.name = data['RAZAO SOCIAL']
           this.customer.commercialName = data['NOME FANTASIA']
-          this.customer.companyName = data['RAZAO SOCIAL']
           this.customer.email = data['EMAIL']
           this.customer.mobilePhone = data['DDD'] + data['TELEFONE']
           this.customer.address.cep = data['CEP']

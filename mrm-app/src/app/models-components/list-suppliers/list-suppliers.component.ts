@@ -18,7 +18,9 @@ const scripts = [
 class SupplierToDisplay {
   constructor(
     public checked : boolean,
-    public supplier : Supplier
+    public supplier : Supplier,
+    public trashButtonColor : string = "basic",
+    public infoButtonColor : string = "basic"
   ) { }
 }
 
@@ -57,7 +59,7 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
     this.supplierService.getAllSuppliers().subscribe(
       data => {
         this.suppliers = data
-        this.displaySuppliers(data)
+        this.displaySuppliers(this.filterActiveSuppliers())
       }
     )
   }
@@ -81,7 +83,7 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
   private setFilter() {
     this.dataSource.filterPredicate = (data, filter: string)  => {
       const accumulator = (currentTerm, key) => {
-        return key === 'supplier' ? currentTerm + data.supplier.companyName + data.supplier.cnpj : currentTerm + data[key];
+        return key === 'supplier' ? currentTerm + data.supplier.name + data.supplier.cnpj : currentTerm + data[key];
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       const transformedFilter = filter.trim().toLowerCase();
@@ -93,9 +95,22 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
     this.router.navigate(['suppliers', selectedSupplierId])
   }
 
-  public deleteSupplier(selectedSupplierId : number): void {
-    this.supplierService.deleteSupplier(selectedSupplierId).subscribe(
-      () => {
+  deleteSupplier(selectedSupplierId : number): void {
+    let selectedSupplier = this.getSupplier(selectedSupplierId)
+    if (selectedSupplier.active) {
+      selectedSupplier.active = false
+      this.supplierService.updateSupplier(selectedSupplier).subscribe(
+        data => {
+          this.openSnackBar("Supplier set to inactive.")
+          this.refreshSuppliers()
+        }
+      )
+
+      return
+    }
+
+    this.supplierService.deleteSupplier(selectedSupplier.id).subscribe(
+      response => {
         this.openSnackBar("Supplier deleted.")
         this.refreshSuppliers()
       }
@@ -105,17 +120,32 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
   public deleteSelectedSuppliers(): void {
     new Promise((resolve) => {
      this.suppliersToDisplay
-      .filter(SupplierToDisplay => SupplierToDisplay.checked)
+      .filter(supplierToDisplay => supplierToDisplay.checked)
       .forEach((selectedSupplier, index, array) => {
-        this.supplierService.deleteSupplier(selectedSupplier.supplier.id).subscribe(
-        () => {
-          if (index === array.length -1) resolve(true);
-        })
+        if (selectedSupplier.supplier.active) {
+          selectedSupplier.supplier.active = false
+          this.supplierService.updateSupplier(selectedSupplier.supplier).subscribe(
+            () => {
+              if (index === array.length -1) resolve(true);
+            }
+          )
+        } else {
+          this.supplierService.deleteSupplier(selectedSupplier.supplier.id).subscribe(
+            () => {
+              if (index === array.length -1) resolve(true);
+            }
+          )
+        }
       })
     }).then(() => {
       this.openSnackBar("Suppliers deleted.")
       this.refreshSuppliers()
     });
+  }
+
+  public getSupplier(supplierId : number) {
+    let suppliers = this.suppliersToDisplay.filter((supplierToDisplay => supplierToDisplay.supplier.id === supplierId))
+    return suppliers.length > 0 ? suppliers[0].supplier : null
   }
 
   public refreshSuppliers(): void {
@@ -134,6 +164,7 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
         new SupplierToDisplay(false, supplier)
       )
     })
+    this.dataSource.data = this.suppliersToDisplay
   }
 
   public filterActiveSuppliers() {

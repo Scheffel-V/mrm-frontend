@@ -61,16 +61,9 @@ export class SupplierComponent extends BaseComponent implements OnInit {
   }
 
   createSupplier(): void {
-    delete this.supplier['id']
-    //@TODO
-    this.supplier["cep"] = this.supplier.address.cep
-    this.supplier["street"] = this.supplier.address.street
-    this.supplier["city"] = this.supplier.address.city
-    this.supplier["number"] = this.supplier.address.number
-    delete this.supplier["address"]
     this.supplierService.createSupplier(this.supplier).subscribe(
       data => {
-        this.location.back()
+        this.listSuppliers()
       }
     )
   }
@@ -78,15 +71,28 @@ export class SupplierComponent extends BaseComponent implements OnInit {
   updateSupplier(): void {
     this.supplierService.updateSupplier(this.supplier).subscribe(
       data => {
-        this.location.back()
+        this.listSuppliers()
       }
     )
   }
 
   deleteSupplier(): void {
+    if (this.supplier.active) {
+      this.supplier.active = false
+      this.supplierService.updateSupplier(this.supplier).subscribe(
+        data => {
+          this.openSnackBar("Supplier set to inactive.")
+          this.listSuppliers()
+        }
+      )
+
+      return
+    }
+
     this.supplierService.deleteSupplier(this.supplier.id).subscribe(
       response => {
-        this.location.back()
+        this.openSnackBar("Supplier deleted.")
+        this.listSuppliers()
       }
     )
   }
@@ -99,9 +105,8 @@ export class SupplierComponent extends BaseComponent implements OnInit {
             this.openSnackBar("CNPJ/CPF not found.")
             return
           }
-          this.supplier.companyName = data['RAZAO SOCIAL']
+          this.supplier.name = data['RAZAO SOCIAL']
           this.supplier.commercialName = data['NOME FANTASIA']
-          this.supplier.companyName = data['RAZAO SOCIAL']
           this.supplier.email = data['EMAIL']
           this.supplier.mobilePhone = data['DDD'] + data['TELEFONE']
           this.supplier.address.cep = data['CEP']

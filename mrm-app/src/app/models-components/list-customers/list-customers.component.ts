@@ -81,7 +81,7 @@ export class ListCustomersComponent extends BaseComponent implements OnInit, Aft
   private setFilter() {
     this.dataSource.filterPredicate = (data, filter: string)  => {
       const accumulator = (currentTerm, key) => {
-        return key === 'customer' ? currentTerm + data.customer.companyName + data.customer.commercialName + data.customer.cnpj : currentTerm + data[key];
+        return key === 'customer' ? currentTerm + data.customer.name + data.customer.commercialName + data.customer.cnpj : currentTerm + data[key];
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       const transformedFilter = filter.trim().toLowerCase();

@@ -15,7 +15,7 @@ export class StockItem {
         public lastMaintenance : Date = null,
         public acquisitionDate : Date = null,
         public needsMaintenance : boolean = false,
-        public image : string = "",
+        public imageURL : string = "",
         public status : string = "INVENTORY",
         public supplierId : number = null,
         public supplier : Supplier = new Supplier(-1),

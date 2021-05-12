@@ -16,7 +16,8 @@ export const TEXTS = {
             },
             LABELS : {
               ACTIVE : "Active",
-              INACTIVE : "Inactive"
+              INACTIVE : "Inactive",
+              NONE : "None"
             }
           },
           MODELS : {
@@ -57,7 +58,8 @@ export const TEXTS = {
               CITY : "City",
               PHONE_NUMBER : "Phone Number",
               EMAIL : "Email",
-              NEIGHBORHOOD : "Neighborhood"
+              NEIGHBORHOOD : "Neighborhood",
+              ACTIVE : "Active"
             },
             RENTAL : {
               CUSTOMER : "Customer",
@@ -78,7 +80,11 @@ export const TEXTS = {
               STANDARD_RENTAL_VALUE : "Standard Value",
               REPOSITION_VALUE : "Reposition Value",
               IMAGE : "Image",
-              VALUE : "Value"
+              VALUE : "Value",
+              CODE : "Code",
+              SUPPLIER : "Supplier",
+              SUPPLIER_NAME : "Supplier Name",
+              ACTIVE : "Active"
             },
             FORMS : {
               CUSTOMER : {
@@ -116,7 +122,8 @@ export const TEXTS = {
               STOCK_ITEM : {
                 NAME_REQUIRED : "Name is required.",
                 TYPE_REQUIRED : "Type is required.",
-                POWER_REQUIRED : "Power is required."
+                POWER_REQUIRED : "Power is required.",
+                CODE_REQUIRED : "Code is required."
               },
             }
           },

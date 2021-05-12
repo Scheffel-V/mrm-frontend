@@ -28,6 +28,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   suppliers : Supplier[] = []
 
   supplierFilterControl : FormControl = new FormControl()
+  supplierSelectControl : FormControl = new FormControl()
   filteredSuppliers : ReplaySubject<Supplier[]> = new ReplaySubject<Supplier[]>(1)
   protected _onDestroy = new Subject<void>();
   @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
@@ -59,6 +60,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
     this.stockItemService.getStockItem(this.id).subscribe(
       data => {
         this.stockItem = data
+        this.supplierSelectControl.setValue(this.stockItem.supplier.id)
       }
     )
   }
@@ -74,6 +76,8 @@ export class StockItemComponent extends BaseComponent implements OnInit {
 
   createStockItem(): void {
     delete this.stockItem['id']
+    this.stockItem.rentValue = +this.stockItem.rentValue
+    this.stockItem.replacementCost = +this.stockItem.replacementCost
     this.stockItemService.createStockItem(this.stockItem).subscribe(
       data => {
         this.stockItem = data
@@ -83,6 +87,10 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   }
 
   updateStockItem(): void {
+    if (!this.stockItem.supplierId) {
+      this.stockItem.supplierId = null
+    }
+
     this.stockItemService.updateStockItem(this.stockItem).subscribe(
       data => {
         this.listStockItems()
@@ -139,9 +147,9 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   }
 
   fetchSuppliers(): void {
-    this.supplierService.getAllSuppliers().subscribe(
+    this.supplierService.getAllActiveSuppliers().subscribe(
       data => {
-        this.suppliers = data
+        this.suppliers = this.filterActiveSuppliers(data)
         this.filteredSuppliers.next(this.suppliers.slice())
 
         this.supplierFilterControl.valueChanges
@@ -151,6 +159,10 @@ export class StockItemComponent extends BaseComponent implements OnInit {
           });
       }
     )
+  }
+
+  public filterActiveSuppliers(suppliers : Supplier[]) {
+    return suppliers.filter((supplier => supplier.active === true))
   }
 
   filterSuppliers() {
@@ -167,7 +179,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
     }
     
     this.filteredSuppliers.next(
-      this.suppliers.filter(supplier => supplier.companyName.toLowerCase().indexOf(search) > -1)
+      this.suppliers.filter(supplier => supplier.name.toLowerCase().indexOf(search) > -1)
     );
   }
 

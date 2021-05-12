@@ -18,6 +18,10 @@ export class SupplierService {
     return this.http.get<Supplier[]>(`${API_URL}/suppliers`)
   }
 
+  getAllActiveSuppliers() : Observable<Supplier[]> {
+    return this.http.get<Supplier[]>(`${API_URL}/suppliers?active=true`)
+  }
+
   getSupplier(supplierId : number) : Observable<Supplier> {
     return this.http.get<Supplier>(`${API_URL}/suppliers/${supplierId}`)
   }
@@ -38,7 +42,7 @@ export class SupplierService {
 
   deleteSupplier(supplierId : number) {
     //@TODO: handle de erros
-    return this.http.delete(`${API_URL}/Suppliers/${supplierId}`)
+    return this.http.delete(`${API_URL}/suppliers/${supplierId}`)
   }
 
   searchCnpj(cnpj : string) {

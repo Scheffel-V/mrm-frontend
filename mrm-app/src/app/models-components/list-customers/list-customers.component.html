@@ -1,5 +1,3 @@
-<div class="alert alert-warning" *ngIf="message">{{ message }}</div>
-
 <mat-card>
   <mat-card-title>
     <div fxLayout fxLayoutAlign="center center">
@@ -72,7 +70,7 @@
         </ng-container>
         <ng-container matColumnDef="companyName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ TEXTS.MODELS.CUSTOMER.COMPANY_NAME }}</th>
-          <td mat-cell *matCellDef="let customerToDisplay"> {{customerToDisplay.customer.companyName}} </td>
+          <td mat-cell *matCellDef="let customerToDisplay"> {{customerToDisplay.customer.name}} </td>
         </ng-container>
         <ng-container matColumnDef="commercialName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ TEXTS.MODELS.CUSTOMER.COMMERCIAL_NAME }}</th>

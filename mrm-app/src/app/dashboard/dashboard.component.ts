@@ -49,17 +49,17 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       }
     )
 
-    /**
+    
     this.stockItemService.getAllStockItems().subscribe(
       stockItems => {
         this.stockItems = stockItems
       }
-    ) */
+    )
 
-    /**this.supplierService.getAllSuppliers().subscribe(
+    this.supplierService.getAllSuppliers().subscribe(
       suppliers => {
         this.suppliers = suppliers
       }
-    )**/
+    )
   }
 }

@@ -30,7 +30,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
 
   rentalsToDisplay : RentalToDisplay[] = []
   rentals : Rental[] = []
-  public displayedColumns = ['select', 'actions', 'customer', 'startDate', 'endDate', 'fiscalNote', 'totalValue', 'status', 'approvedDate', 'active'];
+  public displayedColumns = ['select', 'actions', 'status', 'customer', 'startDate', 'endDate', 'fiscalNote', 'totalValue', 'approvedDate'];
   public dataSource = new MatTableDataSource<RentalToDisplay>();
   showOnlyActive : boolean = true
   message : string
@@ -57,7 +57,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.rentalService.getAllRentals().subscribe(
       data => {
         this.rentals = data
-        this.displayRentals(this.filterActiveRentals())
+        this.displayRentals(this.rentals)
       }
     )
   }
@@ -81,7 +81,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   private setFilter() {
     this.dataSource.filterPredicate = (data, filter: string)  => {
       const accumulator = (currentTerm, key) => {
-        return key === 'rental' ? currentTerm + data.rental.customer.companyName + data.rental.fiscalNote + data.rental.status : currentTerm + data[key];
+        return key === 'rental' ? currentTerm + data.rental.customer.name + data.rental.fiscalNote + data.rental.status : currentTerm + data[key];
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       const transformedFilter = filter.trim().toLowerCase();

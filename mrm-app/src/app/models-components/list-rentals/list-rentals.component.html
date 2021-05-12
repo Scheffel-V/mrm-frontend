@@ -65,40 +65,36 @@
             </button>
           </td>
         </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.STATUS }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay">
+            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.status == 'Opened'" class="badge badge-success">{{ rentalToDisplay.rental.status }}</span>
+            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.status == 'Approved'" class="badge badge-success">{{ rentalToDisplay.rental.status }}</span>
+          </td>
+        </ng-container>
         <ng-container matColumnDef="customer">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ TEXTS.MODELS.RENTAL.CUSTOMER }}</th>
-          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.customer}} </td>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.customer.name}} </td>
         </ng-container>
         <ng-container matColumnDef="startDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ TEXTS.MODELS.RENTAL.START_DATE }}</th>
-          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.startDate}} </td>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.startDate | date: 'dd/MM/yyyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="endDate">
           <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.END_DATE }}</th>
-          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.endDate}} </td>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.endDate | date: 'dd/MM/yyyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="fiscalNote">
           <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.FISCAL_NOTE }}</th>
-          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.address.fiscalNote}} </td>
+          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.fiscalNote}} </td>
         </ng-container>
         <ng-container matColumnDef="totalValue">
           <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.TOTAL_VALUE }}</th>
           <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.totalValue}} </td>
         </ng-container>
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.STATUS }}</th>
-          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.status}} </td>
-        </ng-container>
         <ng-container matColumnDef="approvedDate">
           <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.APPROVED_DATE }}</th>
           <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.approvedDate}} </td>
-        </ng-container>
-        <ng-container matColumnDef="active">
-          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.ACTIVE }}</th>
-          <td mat-cell *matCellDef="let rentalToDisplay">
-            <span *ngIf="rentalToDisplay.rental.active" class="badge badge-success">{{ TEXTS.GENERAL.LABELS.ACTIVE }}</span>
-            <span *ngIf="rentalToDisplay.rental.active == false" class="badge badge-warning">{{ TEXTS.GENERAL.LABELS.INACTIVE }}</span>
-          </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

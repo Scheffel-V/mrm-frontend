@@ -14,29 +14,29 @@ export class RentalService {
   ) { }
 
   getAllRentals() : Observable<Rental[]> {
-    return this.http.get<Rental[]>(`${API_URL}/rentals`)
+    return this.http.get<Rental[]>(`${API_URL}/rentContracts`)
   }
 
   getRental(rentalId : number) : Observable<Rental> {
-    return this.http.get<Rental>(`${API_URL}/rentals/${rentalId}`)
+    return this.http.get<Rental>(`${API_URL}/rentContracts/${rentalId}`)
   }
 
   createRental(rental : Rental) : Observable<Rental> {
     return this.http.post<Rental>(
-      `${API_URL}/rentals`,
+      `${API_URL}/rentContracts`,
       rental
     )
   }
 
   updateRental(rental : Rental) : Observable<Rental> {
     return this.http.put<Rental>(
-      `${API_URL}/rentals/${rental.id}`,
+      `${API_URL}/rentContracts/${rental.id}`,
       rental
     )
   }
 
   deleteRental(rentalId : number) {
     //@TODO: handle de erros
-    return this.http.delete(`${API_URL}/rentals/${rentalId}`)
+    return this.http.delete(`${API_URL}/rentContracts/${rentalId}`)
   }
 }

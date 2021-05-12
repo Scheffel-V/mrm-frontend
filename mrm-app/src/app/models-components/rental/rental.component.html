@@ -15,32 +15,32 @@
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <mat-form-field style="width:100%" >
                                         <mat-label>Customer</mat-label>
-                                        <mat-select [(ngModel)]="rental.customer" name="rentalCustomer" required="required" #customer="ngModel">
+                                        <mat-select [(ngModel)]="rental.customer" [formControl]="customerSelectControl" name="rentalCustomer" required="required">
                                             <mat-option>
                                                 <ngx-mat-select-search [formControl]="customerFilterControl" placeholderLabel="Find customer..." 
                                                 noEntriesFoundLabel="'no matching customer found'"></ngx-mat-select-search>
                                             </mat-option>
-                                            <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
-                                            {{ customer.companyName }}
+                                            <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer.id">
+                                            {{ customer.name }}
                                             </mat-option>
                                         </mat-select>
-                                        <mat-error *ngIf="customer.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.CUSTOMER_REQUIRED }}</mat-error>
+                                        <mat-error *ngIf="customerSelectControl.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.CUSTOMER_REQUIRED }}</mat-error>
                                     </mat-form-field>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <mat-form-field style="width:100%" >
                                         <mat-label>Products</mat-label>
-                                        <mat-select [ngModel]="rental.itemRentals" name="rentalStockItems" (selectionChange)="stockItemSelectChange($event.value)"  multiple required #stockItems="ngModel">
+                                        <mat-select [ngModel]="selectedStockItems" [formControl]="stockItemSelectControl" name="rentalStockItems" (selectionChange)="stockItemSelectChange($event.value)"  multiple required>
                                           <mat-option>
                                               <ngx-mat-select-search [formControl]="stockItemFilterControl" placeholderLabel="Find products..." 
                                               noEntriesFoundLabel="'no matching products found'"></ngx-mat-select-search>
                                           </mat-option>
-                                          <mat-option *ngFor="let stockItem of filteredStockItems | async" [value]="stockItem">
+                                          <mat-option *ngFor="let stockItem of filteredStockItems | async" [value]="stockItem.id">
                                               {{ stockItem.name }}
                                           </mat-option>
                                         </mat-select>
-                                        <mat-error *ngIf="stockItems.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.STOCK_ITEMS_REQUIRED }}</mat-error>
+                                        <mat-error *ngIf="stockItemSelectControl.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.STOCK_ITEMS_REQUIRED }}</mat-error>
                                       </mat-form-field>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                                         <td>{{ itemRental.stockItem.model }}</td>
                                         <td>
                                             <mat-form-field style="width:100%;margin: -1.25em;">
-                                                <input matInput type="number" (ngModelChange)="itemRentalValueChange($event, itemRental)" [ngModel]="itemRental.value" name="{{itemRental.stockItem.name}}" required="required">
+                                                <input matInput (ngModelChange)="itemRentalValueChange($event, itemRental)" [ngModel]="itemRental.value" name="{{itemRental.stockItem.name}}" required="required">
                                             </mat-form-field>
                                         </td>
                                     </tr>

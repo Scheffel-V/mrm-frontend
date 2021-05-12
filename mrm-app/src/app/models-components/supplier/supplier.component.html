@@ -15,9 +15,9 @@
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <mat-form-field style="width:100%;" >
                                         <mat-label>{{ TEXTS.MODELS.SUPPLIER.COMPANY_NAME }}</mat-label>
-                                        <input matInput type="text" [(ngModel)]="supplier.companyName" id="supplierCompanyName"
-                                            name="companyName" required="required" #companyName="ngModel">
-                                        <mat-error *ngIf="companyName.invalid">{{ TEXTS.MODELS.FORMS.SUPPLIER.COMPANY_NAME_REQUIRED }}</mat-error>
+                                        <input matInput type="text" [(ngModel)]="supplier.name" id="supplierCompanyName"
+                                            name="name" required="required" #name="ngModel">
+                                        <mat-error *ngIf="name.invalid">{{ TEXTS.MODELS.FORMS.SUPPLIER.COMPANY_NAME_REQUIRED }}</mat-error>
                                     </mat-form-field>
                                 </div>
 

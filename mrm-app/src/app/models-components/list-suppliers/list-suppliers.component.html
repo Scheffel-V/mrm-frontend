@@ -67,7 +67,7 @@
         </ng-container>
         <ng-container matColumnDef="companyName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ TEXTS.MODELS.SUPPLIER.COMPANY_NAME }}</th>
-          <td mat-cell *matCellDef="let supplierToDisplay"> {{supplierToDisplay.supplier.companyName}} </td>
+          <td mat-cell *matCellDef="let supplierToDisplay"> {{supplierToDisplay.supplier.name}} </td>
         </ng-container>
         <ng-container matColumnDef="cnpj">
           <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.SUPPLIER.CNPJ }}</th>

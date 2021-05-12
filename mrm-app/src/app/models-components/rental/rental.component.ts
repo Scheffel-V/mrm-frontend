@@ -32,13 +32,16 @@ export class RentalComponent extends BaseComponent implements OnInit {
   rentalForm : FormGroup
   customers : Customer[] = []
   stockItems : StockItem[] = []
+  selectedStockItems : StockItem[] = []
   durationMode : string = "1"
 
+  customerSelectControl : FormControl = new FormControl()
   customerFilterControl : FormControl = new FormControl()
   filteredCustomers : ReplaySubject<Customer[]> = new ReplaySubject<Customer[]>(1)
   protected _onDestroy = new Subject<void>();
   @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
 
+  stockItemSelectControl : FormControl = new FormControl()
   stockItemFilterControl : FormControl = new FormControl()
   filteredStockItems : ReplaySubject<StockItem[]> = new ReplaySubject<StockItem[]>(1)
   @ViewChild('multiSelect', { static: true }) multiSelect: MatSelect;
@@ -72,6 +75,8 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.rentalService.getRental(this.id).subscribe(
       data => {
         this.rental = data
+        this.customerSelectControl.setValue(this.rental.customer.id)
+        this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
       }
     )
   }
@@ -86,7 +91,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   createRental(): void {
-    delete this.rental['id']
+    this.rental.customerId = this.rental.customer.id
     this.rentalService.createRental(this.rental).subscribe(
       data => {
         this.location.back()
@@ -113,7 +118,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   fetchCustomers(): void {
     this.customerService.getAllCustomers().subscribe(
       data => {
-        this.customers = data
+        this.customers = this.filterActiveCustomers(data)
         this.filteredCustomers.next(this.customers.slice())
 
         this.customerFilterControl.valueChanges
@@ -140,6 +145,10 @@ export class RentalComponent extends BaseComponent implements OnInit {
     )
   }
 
+  getStockItemsIdsFromItemRentals(itemRentals : ItemRental[]) {
+    return itemRentals.map(({ stockItem }) => stockItem.id);
+  }
+
   ngOnDestroy() {
     this._onDestroy.next();
     this._onDestroy.complete();
@@ -159,7 +168,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     }
     
     this.filteredCustomers.next(
-      this.customers.filter(customer => customer.companyName.toLowerCase().indexOf(search) > -1)
+      this.customers.filter(customer => customer.name.toLowerCase().indexOf(search) > -1)
     );
   }
 
@@ -200,8 +209,8 @@ export class RentalComponent extends BaseComponent implements OnInit {
     }
   }
 
-  stockItemSelectChange(stockItems : StockItem[]) {
-    this.rental.itemRentals = this.createItemRentalsFromStockItems(stockItems)
+  stockItemSelectChange(stockItemsIds : number[]) {
+    this.rental.itemRentals = this.createItemRentalsFromStockItemsIds(stockItemsIds)
     this.fillTotalValue(this.rental.itemRentals)
   }
 
@@ -233,20 +242,26 @@ export class RentalComponent extends BaseComponent implements OnInit {
     let itemRental : ItemRental
     
     for (itemRental of items) {
-      totalValue = totalValue + itemRental.value
+      totalValue = totalValue + (+itemRental.value)
     }
 
     this.rental.value = totalValue
   }
 
-  createItemRentalsFromStockItems(stockItems : StockItem[]) {
+  createItemRentalsFromStockItemsIds(stockItemsIds : number[]) {
     let itemRentals = []
     let stockItem : StockItem
 
-    for (stockItem of stockItems) {
-      itemRentals.push(new ItemRental(-1, null, null, stockItem.rentValue, stockItem, stockItem.id, this.id, ""))
+    for (stockItem of this.stockItems) {
+      if (stockItemsIds.find(id => id === stockItem.id)) {
+        itemRentals.push(new ItemRental(stockItem.id, null, null, stockItem.rentValue, stockItem, stockItem.id, this.id, ""))
+      }
     }
 
     return itemRentals
+  }
+
+  public filterActiveCustomers(customers : Customer[]) {
+    return customers.filter((customer => customer.active === true))
   }
 }
