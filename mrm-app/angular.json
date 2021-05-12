@@ -33,12 +33,8 @@
             ],
             "scripts": [
               "src/assets/vendor/jquery/jquery.js",
-              "src/assets/vendor/datatables/jquery.dataTables.js",
-              "src/assets/vendor/datatables/dataTables.bootstrap4.js",
               "src/assets/vendor/bootstrap/js/bootstrap.bundle.js",
-              "src/assets/vendor/jquery-easing/jquery.easing.js",
-              "src/assets/vendor/chart.js/Chart.js",
-              "src/assets/vendor/chart.js/Chart.bundle.js"
+              "src/assets/vendor/jquery-easing/jquery.easing.js"
             ]
           },
           "configurations": {
