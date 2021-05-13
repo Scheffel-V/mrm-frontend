@@ -39,7 +39,9 @@ import { ChartsModule, WavesModule } from 'angular-bootstrap-md';
 import { MonthProfitChartComponent } from './charts/month-profit-chart/month-profit-chart.component';
 import { CreatedRentalComponent } from './models-components/created-rental/created-rental.component'
 import { MatMenuModule } from '@angular/material/menu';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { InvoiceComponent } from './models-components/invoice/invoice.component'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -59,7 +61,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ListRentalsComponent,
     ListStockItemsComponent,
     MonthProfitChartComponent,
-    CreatedRentalComponent
+    CreatedRentalComponent,
+    InvoiceComponent
   ],
   imports: [
     BrowserModule,
@@ -88,12 +91,15 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatSlideToggleModule,
     ChartsModule,
     WavesModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MatPaginatorIntl, useValue: getPortuguesePaginator() }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [InvoiceComponent]
 })
 export class AppModule { }

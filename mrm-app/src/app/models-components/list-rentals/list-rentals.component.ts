@@ -10,12 +10,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
+import { InvoiceComponent } from '../invoice/invoice.component';
 
 
 class RentalToDisplay {
   constructor(
     public checked : boolean,
     public rental : Rental,
+    public progressIndicator : number = null,
     public trashButtonColor : string = "basic",
     public infoButtonColor : string = "basic"
   ) { }
@@ -46,6 +49,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     private rentalService : RentalService,
     private activatedRoute : ActivatedRoute,
     scriptsService : ScriptsService,
+    private matDialog : MatDialog,
     router : Router,
     location : Location,
     matSnackBar : MatSnackBar
@@ -75,7 +79,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     for (rental of this.rentals) {
       rental.startDate = new Date(rental.startDate)
       rental.endDate = new Date(rental.endDate)
-      rental.period = rental.endDate.getDate() - rental.startDate.getDate() + 1
+      rental.period = Math.ceil(Math.abs(rental.endDate.getTime() - rental.startDate.getTime()) / (1000 * 60 * 60 * 24))
     }
   }
 
@@ -165,7 +169,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.rentalsToDisplay = []
     rentals.forEach((rental) => {
       this.rentalsToDisplay.push(
-        new RentalToDisplay(false, rental)
+        new RentalToDisplay(false, rental, this.getRentalProgressIndicatorValue(rental))
       )
     })
     this.dataSource.data = this.rentalsToDisplay
@@ -184,9 +188,24 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 
+  getRentalProgressIndicatorValue(rental : Rental) {
+    return (Math.ceil(Math.abs((new Date()).getTime() - rental.startDate.getTime()) / (1000 * 60 * 60 * 24))) * 20
+  }
+
   public showOnlyActiveToggleChange(event : MatSlideToggleChange) {
     this.showOnlyActive = event.checked
     this.displayRentals(this.filterActiveRentals())
+  }
+
+  public openInvoice(rentalId : number) : void {
+    const dialogConfig = new MatDialogConfig()
+    dialogConfig.disableClose = true
+    dialogConfig.autoFocus = false
+    dialogConfig.width = "60%"
+    dialogConfig.data = {
+      dataKey : this.getRental(rentalId)
+    }
+    this.matDialog.open(InvoiceComponent, dialogConfig)
   }
 }
 

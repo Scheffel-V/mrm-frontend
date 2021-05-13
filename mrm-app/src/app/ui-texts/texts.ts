@@ -69,6 +69,8 @@ export const TEXTS = {
               TOTAL_VALUE : "Value",
               STATUS : "Status",
               APPROVED_DATE : "Approved Date",
+              PAYMENT_DUE_DATE : "Payment Due Date",
+              PAYMENT_TYPE : "Payment Type",
               STOCK_ITEMS : "Stock Items",
               PERIOD : "Period"
             },
@@ -126,6 +128,10 @@ export const TEXTS = {
                 POWER_REQUIRED : "Power is required.",
                 CODE_REQUIRED : "Code is required."
               },
+              INVOICE : {
+                PAYMENT_DUE_DATE : "Payment Due Date",
+                PAYMENT_DUE_DATE_REQUIRED : "Payment due date is required."
+              }
             }
           },
           LEFT_MENU : {
@@ -178,6 +184,9 @@ export const TEXTS = {
             },
             UPDATE : {
               RENTAL : "Rental"
+            },
+            INVOICE : {
+              INVOICE : "Invoice"
             }
           },
           REAL_CUSTOMER : {

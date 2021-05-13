@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { RentalService } from '../../services/rental.service'
 import { CustomerService } from '../../services/customer.service'
 import { StockItemService } from '../../services/stock-item.service'
+import { ItemRentalService } from '../../services/item-rental.service'
 import { RENTAL_ID_PARAM , INITIAL_ID } from '../../app.constants'
 import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
@@ -35,6 +36,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   stockItems : StockItem[] = []
   selectedStockItems : StockItem[] = []
   durationMode : string = "1"
+  isPeriodEditable = false
   displayedColumns = ['name', 'type', 'power', 'model', 'value']
   public dataSource = new MatTableDataSource<ItemRental>();
 
@@ -53,6 +55,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     private rentalService : RentalService,
     private customerService : CustomerService,
     private stockItemService : StockItemService,
+    private itemRentalService : ItemRentalService,
     private activatedRoute : ActivatedRoute,
     scriptsService : ScriptsService,
     location : Location,
@@ -78,6 +81,11 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.rentalService.getRental(this.id).subscribe(
       data => {
         this.rental = data
+        this.rental.startDate = new Date(this.rental.startDate)
+        this.rental.endDate = new Date(this.rental.endDate)
+        this.rental.approvalDate = this.rental.approvalDate == null ? null : new Date(this.rental.approvalDate)
+        this.rental.paymentDueDate = this.rental.paymentDueDate == null ? null : new Date(this.rental.paymentDueDate)
+        this.updatePeriod()
         this.customerSelectControl.setValue(this.rental.customer.id)
         this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
         this.dataSource.data = this.rental.itemRentals
@@ -95,7 +103,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   createRental(): void {
-    this.rental.customerId = this.rental.customer.id
+    this.removeIdFromItemsRentals()
     this.rentalService.createRental(this.rental).subscribe(
       data => {
         this.location.back()
@@ -104,6 +112,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   updateRental(): void {
+    this.updateItemRentals()
     this.rentalService.updateRental(this.rental).subscribe(
       data => {
         this.location.back()
@@ -117,6 +126,21 @@ export class RentalComponent extends BaseComponent implements OnInit {
         this.location.back()
       }
     )
+  }
+
+  updateItemRentals(): void {
+    this.rental.itemRentals.forEach(
+      (itemRental) => {
+        this.itemRentalService.updateItemRental(itemRental).subscribe()
+    })
+  }
+
+  removeIdFromItemsRentals(): void {
+    let itemRental : ItemRental
+    
+    for (itemRental of this.rental.itemRentals) {
+      delete itemRental['id']
+    }
   }
 
   fetchCustomers(): void {
@@ -198,19 +222,26 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.durationMode = event.value;
 
     switch (this.durationMode) {
+      case "1":
+        this.isPeriodEditable = true
+        break
       case "2":
+        this.isPeriodEditable = false
         if (this.rental.startDate != null) {
           this.rental.endDate = new Date(this.rental.startDate)
-          this.rental.endDate.setDate(this.rental.startDate.getDate() + 14)
+          this.rental.endDate.setDate(this.rental.startDate.getDate() + 15)
         }
         break
       case "3":
+        this.isPeriodEditable = false
         if (this.rental.startDate != null) {
           this.rental.endDate = new Date(this.rental.startDate)
-          this.rental.endDate.setDate(this.rental.startDate.getDate() + 29)
+          this.rental.endDate.setDate(this.rental.startDate.getDate() + 30)
         }
         break
     }
+
+    this.updatePeriod()
   }
 
   stockItemSelectChange(stockItemsIds : number[]) {
@@ -239,7 +270,17 @@ export class RentalComponent extends BaseComponent implements OnInit {
     }
 
     this.rental.endDate = new Date(startDate)
-    this.rental.endDate.setDate(startDate.getDate() + ((this.durationMode === "2") ? 14 : 29))
+    this.rental.endDate.setDate(startDate.getDate() + ((this.durationMode === "2") ? 15 : 30))
+    this.updatePeriod()
+  }
+
+  endDateChange(endDate : Date) {
+    this.rental.endDate = endDate
+    this.updatePeriod()
+  }
+
+  updatePeriod(): void {
+    this.rental.period = Math.ceil(Math.abs(this.rental.endDate.getTime() - this.rental.startDate.getTime()) / (1000 * 60 * 60 * 24))
   }
 
   fillTotalValue(items : ItemRental[]) {

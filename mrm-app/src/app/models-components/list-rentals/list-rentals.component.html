@@ -66,11 +66,10 @@
               <span class="material-icons">menu</span>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>Overview</button>
-              <button mat-menu-item>Invoice</button>
+              <button mat-menu-item (click)="openInvoice(rentalToDisplay.rental.id)">Invoice</button>
               <button mat-menu-item>Payed</button>
-
             </mat-menu>
+            <mat-progress-spinner [diameter]="40" *ngIf="rentalToDisplay.progressIndicator" mode="determinate" [(value)]="rentalToDisplay.progressIndicator"></mat-progress-spinner>
           </td>
         </ng-container>
         <ng-container matColumnDef="status">
