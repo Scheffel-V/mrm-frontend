@@ -30,7 +30,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
 
   rentalsToDisplay : RentalToDisplay[] = []
   rentals : Rental[] = []
-  public displayedColumns = ['select', 'actions', 'status', 'customer', 'startDate', 'endDate', 'fiscalNote', 'totalValue', 'approvedDate'];
+  public displayedColumns = ['select', 'actions', 'status', 'customer', 'period', 'startDate', 'endDate', 'fiscalNote', 'totalValue'];
   public dataSource = new MatTableDataSource<RentalToDisplay>();
   showOnlyActive : boolean = true
   message : string
@@ -57,6 +57,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.rentalService.getAllRentals().subscribe(
       data => {
         this.rentals = data
+        this.setRentalsPeriods()
         this.displayRentals(this.rentals)
       }
     )
@@ -66,6 +67,16 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.setPaginator()
     this.setSorter()
     this.setFilter()
+  }
+
+  private setRentalsPeriods() {
+    let rental : Rental
+
+    for (rental of this.rentals) {
+      rental.startDate = new Date(rental.startDate)
+      rental.endDate = new Date(rental.endDate)
+      rental.period = rental.endDate.getDate() - rental.startDate.getDate() + 1
+    }
   }
 
   private setPaginator() {

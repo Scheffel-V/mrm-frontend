@@ -36,7 +36,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getPortuguesePaginator } from './ui-texts/portuguese-paginator'
 import { ChartsModule, WavesModule } from 'angular-bootstrap-md';
-import { MonthProfitChartComponent } from './charts/month-profit-chart/month-profit-chart.component'
+import { MonthProfitChartComponent } from './charts/month-profit-chart/month-profit-chart.component';
+import { CreatedRentalComponent } from './models-components/created-rental/created-rental.component'
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -56,7 +58,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     RentalComponent,
     ListRentalsComponent,
     ListStockItemsComponent,
-    MonthProfitChartComponent
+    MonthProfitChartComponent,
+    CreatedRentalComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatPaginatorModule,
     MatSlideToggleModule,
     ChartsModule,
-    WavesModule
+    WavesModule,
+    MatMenuModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },

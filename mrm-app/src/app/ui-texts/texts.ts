@@ -65,11 +65,12 @@ export const TEXTS = {
               CUSTOMER : "Customer",
               START_DATE : "Start Date",
               END_DATE : "End Date",
-              FISCAL_NOTE : "Fiscal Note",
-              TOTAL_VALUE : "Total Value",
+              INVOICE : "Invoice",
+              TOTAL_VALUE : "Value",
               STATUS : "Status",
               APPROVED_DATE : "Approved Date",
-              STOCK_ITEMS : "Stock Items"
+              STOCK_ITEMS : "Stock Items",
+              PERIOD : "Period"
             },
             STOCK_ITEM : {
               NAME : "Name",
@@ -174,6 +175,9 @@ export const TEXTS = {
               SUPPLIER : "Create Supplier",
               RENTAL : "Create Rental",
               STOCK_ITEM : "Create Product",
+            },
+            UPDATE : {
+              RENTAL : "Rental"
             }
           },
           REAL_CUSTOMER : {

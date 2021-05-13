@@ -3,11 +3,17 @@
     <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
+            <button mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+            <button mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+            <button mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+            <button mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+            <button mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+            <button mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.RENTAL }}</h1>
+                            <h1 class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.UPDATE.RENTAL }}</h1>
                         </div>
                         
                         <form class="user" (ngSubmit)="!rentalForm.invalid && saveRental()" #rentalForm="ngForm">
@@ -50,33 +56,29 @@
                             <div class="text-center">
                                 <h1 class="h5 text-gray-900 mb-4">Selected Products</h1>
                             </div>
-                            <table mat-table [dataSource]="dataSource" style="width: 100%;" id="dataTable">
-                                <ng-container matColumnDef="name">
-                                    <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</th>
-                                    <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.name}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="type">
-                                    <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</th>
-                                    <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.type}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="power">
-                                    <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.POWER }}</th>
-                                    <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.power}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="model">
-                                    <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}</th>
-                                    <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.model}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="value">
-                                    <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.VALUE }}</th>
-                                    <td mat-cell *matCellDef="let itemRental">
-                                        <mat-form-field style="width:100%;margin: -1.25em;">
-                                            <input matInput type="text" mask="separator.2" thousandSeparator="." prefix="R$" (ngModelChange)="itemRentalValueChange($event, itemRental)" [ngModel]="itemRental.value" name="{{itemRental.stockItem.name}}" required="required">
-                                        </mat-form-field>
-                                    </td>
-                                </ng-container>
-                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            <table class="table row-border hover order-column" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                    <th>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</th>
+                                    <th>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</th>
+                                    <th>{{ TEXTS.MODELS.STOCK_ITEM.POWER }}</th>
+                                    <th>{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}</th>
+                                    <th>{{ TEXTS.MODELS.STOCK_ITEM.VALUE }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let itemRental of rental.itemRentals">
+                                        <td>{{ itemRental.stockItem.name }}</td>
+                                        <td>{{ itemRental.stockItem.type }}</td>
+                                        <td>{{ itemRental.stockItem.power }}</td>
+                                        <td>{{ itemRental.stockItem.model }}</td>
+                                        <td>
+                                            <mat-form-field style="width:100%;margin: -1.25em;">
+                                                <input matInput (ngModelChange)="itemRentalValueChange($event, itemRental)" [ngModel]="itemRental.value" name="{{itemRental.stockItem.name}}" required="required">
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                             <br>
                             <mat-divider></mat-divider>

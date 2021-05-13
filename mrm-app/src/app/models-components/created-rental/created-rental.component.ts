@@ -17,16 +17,14 @@ import { MatSelect } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ItemRental } from '../../models/item-rental.model';
-import { MatTableDataSource } from '@angular/material/table';
-
 
 
 @Component({
-  selector: 'app-rental',
-  templateUrl: './rental.component.html',
-  styleUrls: ['./rental.component.scss']
+  selector: 'app-created-rental',
+  templateUrl: './created-rental.component.html',
+  styleUrls: ['./created-rental.component.scss']
 })
-export class RentalComponent extends BaseComponent implements OnInit {
+export class CreatedRentalComponent extends BaseComponent implements OnInit {
 
   id : number
   rental : Rental
@@ -35,8 +33,6 @@ export class RentalComponent extends BaseComponent implements OnInit {
   stockItems : StockItem[] = []
   selectedStockItems : StockItem[] = []
   durationMode : string = "1"
-  displayedColumns = ['name', 'type', 'power', 'model', 'value']
-  public dataSource = new MatTableDataSource<ItemRental>();
 
   customerSelectControl : FormControl = new FormControl()
   customerFilterControl : FormControl = new FormControl()
@@ -80,7 +76,6 @@ export class RentalComponent extends BaseComponent implements OnInit {
         this.rental = data
         this.customerSelectControl.setValue(this.rental.customer.id)
         this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
-        this.dataSource.data = this.rental.itemRentals
       }
     )
   }
@@ -215,7 +210,6 @@ export class RentalComponent extends BaseComponent implements OnInit {
 
   stockItemSelectChange(stockItemsIds : number[]) {
     this.rental.itemRentals = this.createItemRentalsFromStockItemsIds(stockItemsIds)
-    this.dataSource.data = this.rental.itemRentals
     this.fillTotalValue(this.rental.itemRentals)
   }
 
