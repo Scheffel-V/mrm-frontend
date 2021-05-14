@@ -9,17 +9,22 @@ export class Rental {
         public customerId : number = null,
         public itemRentals : ItemRental[],
         public additives : Additive[],
-        public durationMode : string = "",
+        public durationMode : string = null,
         public startDate : Date = new Date(),
         public endDate : Date = null,
         public period : number = null,
         public approvalDate : Date = null,
         public paymentDueDate : Date = null,
+        public paymentType : string = null,
         public paidAt : Date = null,
-        public fiscalNote : string = "",
+        public invoiceNumber : string = null,
+        public contractNumber : string = null,
         public value : number = null,
-        public status : string = "Opened",
-        public active : boolean = true
+        public status : string = "Approved",
+        public receiptUrl : string = null,
+        public contractUrl : string = null,
+        public active : boolean = true,
+        public comment : string = null,
     ) {
 
     }

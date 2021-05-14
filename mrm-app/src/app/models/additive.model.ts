@@ -7,7 +7,7 @@ export class Additive {
         public approvalDate : Date = null,
         public paymentDueDate : Date = null,
         public paidAt : Date = null,
-        public fiscalNote : string = "",
+        public invoiceNumber : string = null,
         public value : number = null,
         public status : string = "Opened",
         public comment : string = "",

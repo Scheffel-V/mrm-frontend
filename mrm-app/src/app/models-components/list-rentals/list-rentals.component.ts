@@ -35,7 +35,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
 
   rentalsToDisplay : RentalToDisplay[] = []
   rentals : Rental[] = []
-  public displayedColumns = ['select', 'actions', 'status', 'fiscalNote', 'customer', 'period', 'startDate', 'endDate', 'progress', 'totalValue'];
+  public displayedColumns = ['select', 'actions', 'status', 'invoice', 'customer', 'period', 'startDate', 'endDate', 'progress', 'totalValue'];
   public dataSource = new MatTableDataSource<RentalToDisplay>();
   showOnlyActive : boolean = true
   message : string
@@ -100,7 +100,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   private setFilter() {
     this.dataSource.filterPredicate = (data, filter: string)  => {
       const accumulator = (currentTerm, key) => {
-        return key === 'rental' ? currentTerm + data.rental.customer.name + data.rental.fiscalNote + data.rental.status : currentTerm + data[key];
+        return key === 'rental' ? currentTerm + data.rental.customer.name + data.rental.invoiceNumber + data.rental.status : currentTerm + data[key];
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       const transformedFilter = filter.trim().toLowerCase();

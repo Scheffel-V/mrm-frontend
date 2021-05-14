@@ -1,79 +1,3 @@
-<!-- Content Row -->
-<div class="row">
-
-    <!-- Customers -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-animated-primary shadow h-100" (click)="listCustomers()">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            {{ TEXTS.PAGES.DASHBOARD.CUSTOMERS }}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ customers.length }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-fw fa-users fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- STOCK ITEMS -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-animated-success shadow h-100" (click)="listStockItems()">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            {{ TEXTS.PAGES.DASHBOARD.STOCK_ITEMS }}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stockItems.length }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-fw fa-box fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        <!-- SUPPLIERS -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-animated-info shadow h-100" (click)="listSuppliers()">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                {{ TEXTS.PAGES.DASHBOARD.SUPPLIERS }}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ suppliers.length }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-truck fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- RENTALS -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-animated-warning shadow h-100" (click)="listRentals()">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                {{ TEXTS.PAGES.DASHBOARD.RENTALS }}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ rentals.length }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-shopping-cart fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-</div>
-
 <div class="row">
     <div class="col-xl-3">
         <mat-card class="dashboard-card">
@@ -106,10 +30,10 @@
                     <h1 class="value-text">35</h1>
                 </mat-card-title>
                 <div mat-card-avatar class="card-icon">
-                    <mat-icon color="accent" class="avatar-icon">microwave</mat-icon>
+                    <mat-icon color="primary" class="avatar-icon">microwave</mat-icon>
                 </div>
             </mat-card-header>
-            <mat-progress-bar color="accent" mode="determinate" value="40"></mat-progress-bar>
+            <mat-progress-bar color="primary" mode="determinate" value="40"></mat-progress-bar>
             <br>
             <h3 class="title-text">Máquinas Alugadas</h3>
             <p class="difference-text">
@@ -123,15 +47,130 @@
         </mat-card>
     </div>
     <div class="col-xl-3">
-        <mat-card>Simple card</mat-card>
+        <mat-card class="dashboard-card">
+            <mat-card-header class="card-header-center">
+                <mat-card-title>
+                    <h1 class="value-text">15</h1>
+                </mat-card-title>
+                <div mat-card-avatar class="card-icon">
+                    <mat-icon color="primary" class="avatar-icon">groups</mat-icon>
+                </div>
+            </mat-card-header>
+            <mat-progress-bar color="primary" mode="determinate" value="40"></mat-progress-bar>
+            <br>
+            <h3 class="title-text">Clientes Ativos</h3>
+            <p class="difference-text">
+                <span
+                    [ngClass]="{ 'green-text': isIncrease, 'red-text': !isIncrease }">{{ isIncrease ? '+' : '-' }}{{ percentValue | percent:'2.1-2' }}
+                    <mat-icon *ngIf="isIncrease">arrow_upward</mat-icon>
+                    <mat-icon *ngIf="!isIncrease">arrow_downward</mat-icon>
+                </span>
+                <span class="duration">desde o mês passado</span>
+            </p>
+        </mat-card>
     </div>
     <div class="col-xl-3">
-        <mat-card>Simple card</mat-card>
+        <mat-card class="dashboard-card">
+            <mat-card-header class="card-header-center">
+                <mat-card-title>
+                    <h1 class="value-text">35</h1>
+                </mat-card-title>
+                <div mat-card-avatar class="card-icon">
+                    <mat-icon color="primary" class="avatar-icon">shopping_cart</mat-icon>
+                </div>
+            </mat-card-header>
+            <mat-progress-bar color="primary" mode="determinate" value="40"></mat-progress-bar>
+            <br>
+            <h3 class="title-text">Aluguéis Ativos</h3>
+            <p class="difference-text">
+                <span
+                    [ngClass]="{ 'green-text': isIncrease, 'red-text': !isIncrease }">{{ isIncrease ? '+' : '-' }}{{ percentValue | percent:'2.1-2' }}
+                    <mat-icon *ngIf="isIncrease">arrow_upward</mat-icon>
+                    <mat-icon *ngIf="!isIncrease">arrow_downward</mat-icon>
+                </span>
+                <span class="duration">desde o mês passado</span>
+            </p>
+        </mat-card>
     </div>
 </div>
 
+<br>
+
+<!-- Content Row -->
 <div class="row">
+    <!-- Customers -->
     <div class="col-xl-6">
-        <app-month-profit-chart></app-month-profit-chart>
+        <div class="row">
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-animated-primary shadow h-100" (click)="listCustomers()">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    {{ TEXTS.PAGES.DASHBOARD.CUSTOMERS }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ customers.length }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-fw fa-users fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- STOCK ITEMS -->
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-animated-success shadow h-100" (click)="listStockItems()">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    {{ TEXTS.PAGES.DASHBOARD.STOCK_ITEMS }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stockItems.length }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-fw fa-box fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- SUPPLIERS -->
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-animated-info shadow h-100" (click)="listSuppliers()">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    {{ TEXTS.PAGES.DASHBOARD.SUPPLIERS }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ suppliers.length }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-fw fa-truck fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- RENTALS -->
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-animated-warning shadow h-100" (click)="listRentals()">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    {{ TEXTS.PAGES.DASHBOARD.RENTALS }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ rentals.length }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-fw fa-shopping-cart fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+
     </div>
 </div>

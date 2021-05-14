@@ -37,7 +37,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.rental = this.data.dataKey
-    this.rental.fiscalNote = "1"
+    this.rental.invoiceNumber = "1"
   }
 
   close() : void {
