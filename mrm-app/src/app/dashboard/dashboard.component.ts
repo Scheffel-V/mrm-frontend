@@ -24,6 +24,10 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   stockItems : StockItem[] = []
   suppliers : Supplier[] = []
   rentals : Rental[] = []
+  isIncrease : boolean = true
+  percentValue : number = 0.10
+  color : string = "primary"
+  isCurrency : boolean = true
 
   constructor(
     private customerService : CustomerService,

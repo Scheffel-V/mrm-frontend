@@ -44,11 +44,15 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
     this.dialogRef.close()
   }
 
-  saveRental(): void {
+  saveRental() : void {
     this.rentalService.updateRental(this.rental).subscribe(
       data => {
         this.close()
       }
     )
+  }
+
+  onCancel() : void {
+    this.close()
   }
 }

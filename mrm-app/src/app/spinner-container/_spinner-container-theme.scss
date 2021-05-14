@@ -1,0 +1,18 @@
+@mixin spinner-container-theme($theme) {
+
+	$primary: map-get($theme, primary);
+	$accent: map-get($theme, accent);
+	$warn: map-get($theme, warn);
+
+	.spinner-background {
+		.spinner-container.mat-primary & {
+			color: mat-color($primary);
+		}
+		.spinner-container.mat-accent & {
+			color: mat-color($accent);
+		}
+		.spinner-container.mat-warn & {
+			color: mat-color($warn);
+		}
+	}
+}

@@ -1,0 +1,9 @@
+<div class="spinner-value" *ngIf="displayWith">{{displayWith(value)}}</div>
+<div class="spinner-background"></div>
+<mat-progress-spinner 
+    [color]="color" 
+    [diameter]="diameter" 
+    mode="determinate" 
+    [strokeWidth]="strokeWidth" 
+    [value]="value">
+</mat-progress-spinner>

@@ -42,6 +42,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { InvoiceComponent } from './models-components/invoice/invoice.component'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpinnerContainer } from './spinner-container/spinner-container';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -62,7 +67,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ListStockItemsComponent,
     MonthProfitChartComponent,
     CreatedRentalComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    SpinnerContainer
   ],
   imports: [
     BrowserModule,
@@ -93,7 +99,10 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     WavesModule,
     MatMenuModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatGridListModule,
+    MatProgressBarModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
@@ -102,4 +111,10 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
   bootstrap: [AppComponent],
   entryComponents: [InvoiceComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    iconRegistry.addSvgIconSet(
+      domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')
+    );
+  }
+ }

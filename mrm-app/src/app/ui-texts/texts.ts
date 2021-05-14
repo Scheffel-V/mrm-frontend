@@ -12,7 +12,8 @@ export const TEXTS = {
                 SELECT : "Select",
                 DELETE_SELECTED : "Delete Selected",
                 EXPORT : "Export",
-                SEARCH : "Search"
+                SEARCH : "Search",
+                CANCEL : "Cancel"
             },
             LABELS : {
               ACTIVE : "Active",
@@ -72,7 +73,8 @@ export const TEXTS = {
               PAYMENT_DUE_DATE : "Payment Due Date",
               PAYMENT_TYPE : "Payment Type",
               STOCK_ITEMS : "Stock Items",
-              PERIOD : "Period"
+              PERIOD : "Period",
+              PROGRESS : "Progress"
             },
             STOCK_ITEM : {
               NAME : "Name",

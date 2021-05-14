@@ -75,6 +75,62 @@
 </div>
 
 <div class="row">
+    <div class="col-xl-3">
+        <mat-card class="dashboard-card">
+            <mat-card-header class="card-header-center">
+                <mat-card-title>
+                    <h1 class="value-text" *ngIf="isCurrency">{{'1000' | currency:'R$':'symbol':'0.0' }}</h1>
+                    <h1 class="value-text" *ngIf="!isCurrency">1000</h1>
+                </mat-card-title>
+                <div mat-card-avatar class="card-icon">
+                    <mat-icon [color]="color" class="avatar-icon">paid</mat-icon>
+                </div>
+            </mat-card-header>
+            <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+            <br>
+            <h3 class="title-text">Faturamento</h3>
+            <p class="difference-text">
+                <span
+                    [ngClass]="{ 'green-text': isIncrease, 'red-text': !isIncrease }">{{ isIncrease ? '+' : '-' }}{{ percentValue | percent:'2.1-2' }}
+                    <mat-icon *ngIf="isIncrease">arrow_upward</mat-icon>
+                    <mat-icon *ngIf="!isIncrease">arrow_downward</mat-icon>
+                </span>
+                <span class="duration">desde o mês passado</span>
+            </p>
+        </mat-card>
+    </div>
+    <div class="col-xl-3">
+        <mat-card class="dashboard-card">
+            <mat-card-header class="card-header-center">
+                <mat-card-title>
+                    <h1 class="value-text">35</h1>
+                </mat-card-title>
+                <div mat-card-avatar class="card-icon">
+                    <mat-icon color="accent" class="avatar-icon">microwave</mat-icon>
+                </div>
+            </mat-card-header>
+            <mat-progress-bar color="accent" mode="determinate" value="40"></mat-progress-bar>
+            <br>
+            <h3 class="title-text">Máquinas Alugadas</h3>
+            <p class="difference-text">
+                <span
+                    [ngClass]="{ 'green-text': isIncrease, 'red-text': !isIncrease }">{{ isIncrease ? '+' : '-' }}{{ percentValue | percent:'2.1-2' }}
+                    <mat-icon *ngIf="isIncrease">arrow_upward</mat-icon>
+                    <mat-icon *ngIf="!isIncrease">arrow_downward</mat-icon>
+                </span>
+                <span class="duration">desde o mês passado</span>
+            </p>
+        </mat-card>
+    </div>
+    <div class="col-xl-3">
+        <mat-card>Simple card</mat-card>
+    </div>
+    <div class="col-xl-3">
+        <mat-card>Simple card</mat-card>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-xl-6">
         <app-month-profit-chart></app-month-profit-chart>
     </div>

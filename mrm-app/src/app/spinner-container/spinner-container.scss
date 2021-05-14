@@ -1,0 +1,23 @@
+:host {
+    display: block;
+    position: relative;
+    
+      .spinner-value, .spinner-background {
+          position: absolute;
+          width: inherit;
+          height: inherit;
+      }
+  
+      .spinner-value {
+          text-align: center;
+          overflow: hidden;
+      }
+  
+      .spinner-background {
+          opacity: .12;
+          box-sizing: border-box;
+          border-radius: 50%;
+          border-style: solid;
+      }
+  }
+  

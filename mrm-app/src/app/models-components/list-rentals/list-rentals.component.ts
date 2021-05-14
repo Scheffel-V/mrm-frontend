@@ -18,7 +18,9 @@ class RentalToDisplay {
   constructor(
     public checked : boolean,
     public rental : Rental,
-    public progressIndicator : number = null,
+    public invoiceValue : string = null,
+    public progressIndicatorValue : number = null,
+    public progressIndicatorColor : string = "warn",
     public trashButtonColor : string = "basic",
     public infoButtonColor : string = "basic"
   ) { }
@@ -33,7 +35,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
 
   rentalsToDisplay : RentalToDisplay[] = []
   rentals : Rental[] = []
-  public displayedColumns = ['select', 'actions', 'status', 'customer', 'period', 'startDate', 'endDate', 'fiscalNote', 'totalValue'];
+  public displayedColumns = ['select', 'actions', 'status', 'fiscalNote', 'customer', 'period', 'startDate', 'endDate', 'progress', 'totalValue'];
   public dataSource = new MatTableDataSource<RentalToDisplay>();
   showOnlyActive : boolean = true
   message : string
@@ -80,6 +82,8 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
       rental.startDate = new Date(rental.startDate)
       rental.endDate = new Date(rental.endDate)
       rental.period = Math.ceil(Math.abs(rental.endDate.getTime() - rental.startDate.getTime()) / (1000 * 60 * 60 * 24))
+      rental.paymentDueDate = rental.paymentDueDate ? new Date(rental.paymentDueDate) : null
+      rental.paidAt = rental.paidAt ? new Date(rental.paidAt) : null
     }
   }
 
@@ -169,7 +173,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.rentalsToDisplay = []
     rentals.forEach((rental) => {
       this.rentalsToDisplay.push(
-        new RentalToDisplay(false, rental, this.getRentalProgressIndicatorValue(rental))
+        new RentalToDisplay(false, rental, this.getRentalInvoiceValue(rental) ,this.getRentalProgressIndicatorValue(rental), this.getRentalProgressIndicatorColor(rental))
       )
     })
     this.dataSource.data = this.rentalsToDisplay
@@ -189,8 +193,37 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   }
 
   getRentalProgressIndicatorValue(rental : Rental) {
-    return (Math.ceil(Math.abs((new Date()).getTime() - rental.startDate.getTime()) / (1000 * 60 * 60 * 24))) * 20
+    return new Date().getTime() <= rental.startDate.getTime() ? 
+      0 : Math.ceil(((Math.ceil(Math.abs(new Date().getTime() - rental.startDate.getTime()) / (1000 * 60 * 60 * 24))) / rental.period) * 100)
   }
+
+  getRentalProgressIndicatorColor(rental : Rental) {
+    return (this.getRentalProgressIndicatorValue(rental) >= 75) ? "warn" : "primary"
+  }
+
+  getRentalInvoiceValue(rental : Rental) : string {
+    if(rental.paidAt) {
+      return "paid"
+    }
+
+    if (!rental.paymentDueDate) {
+      return "notInvoiced"
+    }
+
+    if (!rental.paidAt) {
+      if (this.isInvoiceOverdue(rental)) {
+        return "overdue"
+      }
+
+      return "invoiced"
+    }
+
+    return "paid"
+  }
+
+  isInvoiceOverdue(rental : Rental) {
+    return rental.paymentDueDate ? new Date().getTime() > rental.paymentDueDate.getTime() : false
+  } 
 
   public showOnlyActiveToggleChange(event : MatSlideToggleChange) {
     this.showOnlyActive = event.checked
@@ -206,6 +239,10 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
       dataKey : this.getRental(rentalId)
     }
     this.matDialog.open(InvoiceComponent, dialogConfig)
+  }
+
+  spinnerValue(value) {
+    return value + "%";
   }
 }
 

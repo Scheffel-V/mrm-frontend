@@ -1,5 +1,4 @@
 <div class="container">
-
     <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
@@ -63,6 +62,7 @@
                               </div>
                             </div>
                             <button type="submit" mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                            <button mat-raised-button color="basic" (click)="onCancel()">{{ TEXTS.GENERAL.ACTIONS.CANCEL }}</button>
                         </form>
 
                         <hr>
