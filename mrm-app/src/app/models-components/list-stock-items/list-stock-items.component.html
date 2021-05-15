@@ -63,10 +63,10 @@
           <th mat-header-cell *matHeaderCellDef>{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</th>
           <td mat-cell *matCellDef="let stockItemToDisplay">
             <button mat-flat-button color="basic" [color]="stockItemToDisplay.trashButtonColor" (mouseover)="stockItemToDisplay.trashButtonColor = 'accent'" (mouseout)="stockItemToDisplay.trashButtonColor = 'basic'" (click)="deleteStockItem(stockItemToDisplay.stockItem.id)">
-              <i class="fas fa-trash"></i>
+              <mat-icon>delete</mat-icon>
             </button>
             <button mat-flat-button color="basic" [color]="stockItemToDisplay.infoButtonColor" (mouseover)="stockItemToDisplay.infoButtonColor = 'primary'" (mouseout)="stockItemToDisplay.infoButtonColor = 'basic'" (click)="updateStockItem(stockItemToDisplay.stockItem.id)">
-              <mat-icon class="fas fa-info"></mat-icon>
+              <mat-icon>info</mat-icon>
             </button>
           </td>
         </ng-container>

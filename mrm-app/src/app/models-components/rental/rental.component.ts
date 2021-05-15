@@ -85,6 +85,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
         this.rental.endDate = new Date(this.rental.endDate)
         this.rental.approvalDate = this.rental.approvalDate == null ? null : new Date(this.rental.approvalDate)
         this.rental.paymentDueDate = this.rental.paymentDueDate == null ? null : new Date(this.rental.paymentDueDate)
+        this.prepareCurrenciesToDisplay()
         this.updatePeriod()
         this.customerSelectControl.setValue(this.rental.customer.id)
         this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
@@ -94,6 +95,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   saveRental(): void {
+    this.prepareCurrenciesToSaveRental()
     if (this.id == INITIAL_ID) {
       this.createRental()
       return
@@ -106,7 +108,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.removeIdFromItemsRentals()
     this.rentalService.createRental(this.rental).subscribe(
       data => {
-        this.location.back()
+        this.listRentals()
       }
     )
   }
@@ -115,7 +117,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.updateItemRentals()
     this.rentalService.updateRental(this.rental).subscribe(
       data => {
-        this.location.back()
+        this.listRentals()
       }
     )
   }
@@ -123,7 +125,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   deleteRental(): void {
     this.rentalService.deleteRental(this.rental.id).subscribe(
       response => {
-        this.location.back()
+        this.listRentals()
       }
     )
   }
@@ -132,6 +134,20 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.rental.itemRentals.forEach(
       (itemRental) => {
         this.itemRentalService.updateItemRental(itemRental).subscribe()
+    })
+  }
+
+  prepareCurrenciesToSaveRental() {
+    this.rental.value = this.prepareCurrencyForOperations(this.rental.value)
+    this.rental.itemRentals.forEach((itemRental) => {
+      itemRental.value = this.prepareCurrencyForOperations(itemRental.value)
+    })
+  }
+
+  prepareCurrenciesToDisplay() {
+    this.rental.value = this.prepareCurrencyToDisplay(this.rental.value)
+    this.rental.itemRentals.forEach((itemRental) => {
+      itemRental.value = this.prepareCurrencyToDisplay(itemRental.value)
     })
   }
 
@@ -250,12 +266,12 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.fillTotalValue(this.rental.itemRentals)
   }
 
-  itemRentalValueChange(value : number, currentItemRental : ItemRental) {
+  itemRentalValueChange(value : string, currentItemRental : ItemRental) {
     let newItems : ItemRental[] = this.rental.itemRentals
 
     for (let i = 0; i < newItems.length; i++) {
       if (newItems[i].id === currentItemRental.id) {
-        newItems[i].value = value
+        newItems[i].value = this.formatCurrency(value)
       }
     }
 
@@ -288,10 +304,10 @@ export class RentalComponent extends BaseComponent implements OnInit {
     let itemRental : ItemRental
     
     for (itemRental of items) {
-      totalValue = totalValue + (+itemRental.value)
+      totalValue = totalValue + this.prepareCurrencyForOperations(itemRental.value)
     }
 
-    this.rental.value = totalValue
+    this.rental.value = this.prepareCurrencyToDisplay(Math.round(totalValue * 100) / 100)
   }
 
   createItemRentalsFromStockItemsIds(stockItemsIds : number[]) {
@@ -300,11 +316,40 @@ export class RentalComponent extends BaseComponent implements OnInit {
 
     for (stockItem of this.stockItems) {
       if (stockItemsIds.find(id => id === stockItem.id)) {
-        itemRentals.push(new ItemRental(stockItem.id, null, null, stockItem.rentValue, stockItem, stockItem.id, this.id, ""))
+        itemRentals.push(this.createItemRentalOrReturnExisting(stockItem))
       }
     }
 
     return itemRentals
+  }
+
+  createItemRentalOrReturnExisting(stockItem : StockItem) : ItemRental {
+    let itemRental = this.findItemRentalById(stockItem.id)
+    return itemRental ? itemRental : new ItemRental(stockItem.id, null, null, this.prepareCurrencyToDisplay(stockItem.rentValue), stockItem, stockItem.id, this.id, "")
+  }
+
+  findItemRentalById(itemRentalId : number) : ItemRental {
+    let itemRental : ItemRental
+
+    for (itemRental of this.rental.itemRentals) {
+      if (itemRental.id === itemRentalId) {
+        return itemRental
+      }
+    }
+
+    return null
+  }
+
+  formatCurrency(value : string) : string {
+    return value.replace(".", ",")
+  }
+
+  prepareCurrencyToDisplay(value : any) : string {
+    return (typeof(value) === "string") ? value : value.toString().replace(".", ",")
+  }
+
+  prepareCurrencyForOperations(value : any) : number {
+    return (typeof(value) === "number") ? value : +(value.replace(".", "").replace(",", "."))
   }
 
   public filterActiveCustomers(customers : Customer[]) {

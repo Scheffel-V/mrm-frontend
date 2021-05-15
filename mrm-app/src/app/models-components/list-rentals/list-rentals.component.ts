@@ -64,6 +64,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
       data => {
         this.rentals = data
         this.setRentalsPeriods()
+        this.prepareRentalsCurrenciesToDisplay()
         this.displayRentals(this.rentals)
       }
     )
@@ -73,6 +74,20 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.setPaginator()
     this.setSorter()
     this.setFilter()
+  }
+
+  prepareRentalsCurrenciesToDisplay() {
+    this.rentals.forEach((rental) => {
+      this.prepareCurrenciesToDisplay(rental)
+    })
+  }
+
+  prepareCurrenciesToDisplay(rental) {
+    rental.value = this.prepareCurrencyToDisplay(rental.value)
+  }
+
+  prepareCurrencyToDisplay(value : any) : string {
+    return (typeof(value) === "string") ? value : value.toString().replace(".", ",")
   }
 
   private setRentalsPeriods() {
@@ -113,20 +128,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   }
 
   public deleteRental(selectedRentalId : number): void {
-    let rental = this.getRental(selectedRentalId)
-    if (rental.active) {
-      rental.active = false
-      this.rentalService.updateRental(rental).subscribe(
-        data => {
-          this.openSnackBar("Rental set to inactive.")
-          this.refreshRentals()
-        }
-      )
-
-      return
-    }
-
-    this.rentalService.deleteRental(rental.id).subscribe(
+    this.rentalService.deleteRental(selectedRentalId).subscribe(
       response => {
         this.openSnackBar("Rental deleted.")
         this.refreshRentals()
@@ -139,20 +141,11 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
      this.rentalsToDisplay
       .filter(rentalToDisplay => rentalToDisplay.checked)
       .forEach((selectedRental, index, array) => {
-        if (selectedRental.rental.active) {
-          selectedRental.rental.active = false
-          this.rentalService.updateRental(selectedRental.rental).subscribe(
-            () => {
-              if (index === array.length -1) resolve(true);
-            }
-          )
-        } else {
           this.rentalService.deleteRental(selectedRental.rental.id).subscribe(
             () => {
               if (index === array.length -1) resolve(true);
             }
           )
-        }
       })
     }).then(() => {
       this.openSnackBar("Rentals deleted.")
@@ -164,6 +157,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.rentalService.getAllRentals().subscribe(
       data => {
         this.rentals = data
+        this.setRentalsPeriods()
         this.displayRentals(this.filterActiveRentals());
       }
     )
@@ -173,7 +167,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.rentalsToDisplay = []
     rentals.forEach((rental) => {
       this.rentalsToDisplay.push(
-        new RentalToDisplay(false, rental, this.getRentalInvoiceValue(rental) ,this.getRentalProgressIndicatorValue(rental), this.getRentalProgressIndicatorColor(rental))
+        new RentalToDisplay(false, rental, this.getRentalInvoiceValue(rental), this.getRentalProgressIndicatorValue(rental), this.getRentalProgressIndicatorColor(rental))
       )
     })
     this.dataSource.data = this.rentalsToDisplay
@@ -185,7 +179,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   }
 
   public filterActiveRentals() {
-    return this.showOnlyActive ? this.rentals.filter((rental => rental.active === this.showOnlyActive)) : this.rentals
+    return this.showOnlyActive ? this.rentals : this.rentals
   }
 
   public doFilter(value : string) {

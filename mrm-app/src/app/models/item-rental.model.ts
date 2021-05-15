@@ -5,7 +5,7 @@ export class ItemRental {
         public id : number,
         public leftAt : Date = null,
         public ReturnedAt : Date = null,
-        public value : number = null,
+        public value : any = null,
         public stockItem : StockItem = null,
         public stockItemId : number = null,
         public rentContractId : number = null,

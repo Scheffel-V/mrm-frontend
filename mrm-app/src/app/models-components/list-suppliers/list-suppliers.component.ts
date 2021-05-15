@@ -152,7 +152,7 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
     this.supplierService.getAllSuppliers().subscribe(
       data => {
         this.suppliers = data
-        this.displaySuppliers(data);
+        this.displaySuppliers(this.filterActiveSuppliers());
       }
     )
   }

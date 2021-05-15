@@ -19,7 +19,7 @@ export class Rental {
         public paidAt : Date = null,
         public invoiceNumber : string = null,
         public contractNumber : string = null,
-        public value : number = null,
+        public value : any = null,
         public status : string = "Approved",
         public receiptUrl : string = null,
         public contractUrl : string = null,

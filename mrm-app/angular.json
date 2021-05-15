@@ -35,7 +35,8 @@
             "scripts": [
               "src/assets/vendor/jquery/jquery.js",
               "src/assets/vendor/bootstrap/js/bootstrap.bundle.js",
-              "src/assets/vendor/jquery-easing/jquery.easing.js"
+              "src/assets/vendor/jquery-easing/jquery.easing.js",
+              "src/assets/js/sb-admin-2.js"
             ]
           },
           "configurations": {

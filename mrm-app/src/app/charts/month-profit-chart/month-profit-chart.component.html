@@ -1,12 +1,13 @@
-<div style="display: block">
-    <canvas mdbChart
-        [chartType]="chartType"
-        [datasets]="chartDatasets"
-        [labels]="chartLabels"
-        [colors]="chartColors"
-        [options]="chartOptions"
-        [legend]="true"
-        (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)">
+<div style="display: block;">
+    <canvas baseChart width="400" height="400"
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins"
+      height="auto"
+      width="auto">
     </canvas>
-</div>
+  </div>

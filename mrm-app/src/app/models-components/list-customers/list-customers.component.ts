@@ -30,7 +30,7 @@ export class ListCustomersComponent extends BaseComponent implements OnInit, Aft
 
   customersToDisplay : CustomerToDisplay[] = []
   customers : Customer[] = []
-  public displayedColumns = ['select', 'actions', 'companyName', 'commercialName', 'cnpj', 'city', 'phoneNumber', 'email', 'active'];
+  public displayedColumns = ['select', 'actions', 'companyName', 'commercialName', 'cnpj', 'city', 'phoneNumber', 'active'];
   public dataSource = new MatTableDataSource<CustomerToDisplay>();
   showOnlyActive : boolean = true
   message : string

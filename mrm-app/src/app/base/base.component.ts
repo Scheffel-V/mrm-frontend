@@ -8,7 +8,6 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 
 const scripts = [
-  "../../assets/js/sb-admin-2.js"
 ]
 
 @Component({

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-month-profit-chart',
@@ -6,36 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./month-profit-chart.component.scss']
 })
 export class MonthProfitChartComponent implements OnInit {
+  public lineChartData: ChartDataSets[] = [
+    { data: [40000, 45000, 48000, 43000, 50000], label: 'Faturamento' },
+  ];
+  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May'];
+  public lineChartOptions: (ChartOptions & { annotation: any }) = {
+    responsive: true,
+    annotation: true
+  };
+  public lineChartColors: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(0,255,0,0.5)',
+    },
+  ];
+  public lineChartLegend = true;
+  public lineChartType = 'line';
+  public lineChartPlugins = [];
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
-  public chartType: string = 'line';
-
-  public chartDatasets: Array<any> = [
-    { data: [35000,26500, 28000, 33000, 13000], label: 'Para faturar' },
-    { data: [23000, 20000, 25000, 30000, 8000], label: 'Faturado' }
-  ];
-
-  public chartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May'];
-
-  public chartColors: Array<any> = [
-    {
-      backgroundColor: 'rgba(20, 101, 246, .3)',
-      borderColor: 'rgba(20, 101, 246, .9)',
-      borderWidth: 2,
-    },
-    {
-      backgroundColor: 'rgba(20, 253, 0, .5)',
-      borderColor: 'rgba(20, 253, 0, .9)',
-      borderWidth: 2,
-    }
-  ];
-
-  public chartOptions: any = {
-    responsive: true
-  };
-  public chartClicked(e: any): void { }
-  public chartHovered(e: any): void { }
 }

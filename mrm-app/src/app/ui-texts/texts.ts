@@ -152,7 +152,7 @@ export const TEXTS = {
             LIST_RENTALS : "List Rentals",
             STOCK_ITEMS : "Products",
             ADD_STOCK_ITEM : "Add Product",
-            LIST_STOCK_ITEMS : "List Stock Items"
+            LIST_STOCK_ITEMS : "List Products"
           },
           LOGOUT : {
             READY_TO_LEAVE_MESSAGE : "Ready to leave?",

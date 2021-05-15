@@ -60,6 +60,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
     this.stockItemService.getStockItem(this.id).subscribe(
       data => {
         this.stockItem = data
+        this.stockItem.rentValue = data.rentValue.toString().replace(".", ",")
         this.supplierSelectControl.setValue(this.stockItem.supplier.id)
       }
     )

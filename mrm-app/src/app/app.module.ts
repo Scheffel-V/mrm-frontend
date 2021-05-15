@@ -35,7 +35,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getPortuguesePaginator } from './ui-texts/portuguese-paginator'
-import { ChartsModule, WavesModule } from 'angular-bootstrap-md';
 import { MonthProfitChartComponent } from './charts/month-profit-chart/month-profit-chart.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -46,8 +45,14 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NgChartjsModule } from 'ng-chartjs';
+import { ChartsModule } from 'ng2-charts';
+import localePt from '@angular/common/locales/pt';
+import {registerLocaleData} from '@angular/common';
+import {LOCALE_ID, DEFAULT_CURRENCY_CODE} from '@angular/core';
 
 
+registerLocaleData(localePt, 'pt');
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 
@@ -94,17 +99,19 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatPaginatorModule,
     MatSlideToggleModule,
     ChartsModule,
-    WavesModule,
     MatMenuModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     MatIconModule,
     MatGridListModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgChartjsModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-    { provide: MatPaginatorIntl, useValue: getPortuguesePaginator() }
+    { provide: MatPaginatorIntl, useValue: getPortuguesePaginator() },
+    { provide: LOCALE_ID, useValue: 'pt' },
+    { provide:  DEFAULT_CURRENCY_CODE, useValue: 'BRL' }
   ],
   bootstrap: [AppComponent],
   entryComponents: [InvoiceComponent]

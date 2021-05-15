@@ -9,7 +9,7 @@ export class StockItem {
         public power : string = "",
         public brand : string = "",
         public model : string = "",
-        public rentValue : number = null,
+        public rentValue : any = null,
         public replacementCost : number = null,
         public numberOfUses : number = null,
         public lastMaintenance : Date = null,

@@ -127,7 +127,11 @@
         </ng-container>
         <ng-container matColumnDef="totalValue">
           <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.TOTAL_VALUE }}</th>
-          <td mat-cell *matCellDef="let rentalToDisplay"> {{rentalToDisplay.rental.value}} </td>
+          <td mat-cell *matCellDef="let rentalToDisplay">
+            <mat-form-field style="width:100%;margin: -5.5em;">
+              <input readonly [ngModel]="rentalToDisplay.rental.value" matInput type="text" mask="separator.2" thousandSeparator="." prefix="R$">
+            </mat-form-field>
+          </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
