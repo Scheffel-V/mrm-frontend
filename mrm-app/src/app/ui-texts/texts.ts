@@ -201,7 +201,8 @@ export const TEXTS = {
               ACTIONS : "Ações",
               DELETE : "Deletar",
               UPDATE : "Atualizar",
-              ADD : "Adicionar"
+              ADD : "Adicionar",
+              EXPORT : "Exportar"
             }
           },
           MODELS : {

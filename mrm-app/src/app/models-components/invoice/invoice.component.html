@@ -63,6 +63,10 @@
                             </div>
                             <button type="submit" mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
                             <button mat-raised-button color="basic" (click)="onCancel()">{{ TEXTS.GENERAL.ACTIONS.CANCEL }}</button>
+                            <button mat-raised-button color="basic" (click)="onExport(rental.id)">
+                                <mat-icon>picture_as_pdf</mat-icon>
+                                {{ TEXTS.GENERAL.ACTIONS.EXPORT }}
+                            </button>
                         </form>
 
                         <hr>

@@ -13,6 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { InvoicePdfService } from '../../services/invoicePdf.service';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
     scriptsService : ScriptsService,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    private invoicePdfService : InvoicePdfService
   ) { 
     super(scriptsService, location, router, matSnackBar)
   }
@@ -54,5 +56,9 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
 
   onCancel() : void {
     this.close()
+  }
+
+  onExport(invoiceId: number) : void {
+    this.invoicePdfService.generateInvoicePdf(invoiceId);
   }
 }
