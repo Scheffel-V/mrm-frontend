@@ -71,7 +71,7 @@
                                     <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.VALUE }}</th>
                                     <td mat-cell *matCellDef="let itemRental">
                                         <mat-form-field style="width:100%;margin: -1.25em;">
-                                            <input matInput type="text" mask="separator.2" thousandSeparator="," prefix="R$" (ngModelChange)="itemRentalValueChange($event, itemRental)" [ngModel]="itemRental.value" name="{{itemRental.stockItem.name}}" required="required">
+                                            <input matInput type="text" mask="separator.2" thousandSeparator="." prefix="R$" (ngModelChange)="itemRentalValueChange($event, itemRental)" [ngModel]="itemRental.value" name="{{itemRental.stockItem.name}}" required="required">
                                         </mat-form-field>
                                     </td>
                                 </ng-container>
