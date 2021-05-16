@@ -76,6 +76,10 @@
                 <mat-icon>attach_money</mat-icon>
                 <span>Paid</span>
               </button>
+              <button mat-menu-item (click)="exportContract(rentalToDisplay.rental.id)">
+                <mat-icon>article</mat-icon>
+                <span>Export Contract</span>
+              </button>
             </mat-menu>
       </td>
         </ng-container>
