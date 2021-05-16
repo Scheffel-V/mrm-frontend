@@ -12,6 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
 import { InvoiceComponent } from '../invoice/invoice.component';
+import { ContractPDFService } from '../../services/contract-pdf.service';
 
 
 class RentalToDisplay {
@@ -54,7 +55,8 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     private matDialog : MatDialog,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    private contractPDFService : ContractPDFService
   ) {
     super(scriptsService, location, router, matSnackBar)
    }
@@ -74,6 +76,10 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.setPaginator()
     this.setSorter()
     this.setFilter()
+  }
+
+  exportContract(rentalId: number): void {
+    this.contractPDFService.generateContract(rentalId);
   }
 
   prepareRentalsCurrenciesToDisplay() {
