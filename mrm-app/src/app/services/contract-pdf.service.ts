@@ -258,14 +258,14 @@ export class ContractPDFService {
               [
                 {
                   text: 'Código',
-                  fillColor: '#Dbcfed',
+                  fillColor: '#A0E7E5',
                   border: [false, true, false, true],
                   margin: [0, 5, 0, 5],
                   textTransform: 'uppercase',
                 },
                 {
                   text: 'Nome do item',
-                  fillColor: '#Dbcfed',
+                  fillColor: '#A0E7E5',
                   border: [false, true, false, true],
                   margin: [0, 5, 0, 5],
                   textTransform: 'uppercase',
@@ -274,7 +274,7 @@ export class ContractPDFService {
                   text: 'Valor do item',
                   border: [false, true, false, true],
                   alignment: 'right',
-                  fillColor: '#Dbcfed',
+                  fillColor: '#A0E7E5',
                   margin: [0, 5, 0, 5],
                   textTransform: 'uppercase',
                 },
