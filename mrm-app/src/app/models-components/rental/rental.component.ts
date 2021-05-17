@@ -193,9 +193,8 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   getStockItemsInInventory(stockItems : StockItem[]) {
-    return stockItems.filter((stockItem) => {
-      stockItem.status == "INVENTORY"
-    })
+    return stockItems.filter(stockItem =>
+      stockItem.status === "INVENTORY")
   }
 
   getStockItemsIdsFromItemRentals(itemRentals : ItemRental[]) {
