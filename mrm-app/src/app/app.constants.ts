@@ -1,4 +1,4 @@
-export const API_URL = "https://6f270925f51c.ngrok.io/api"
+export const API_URL = "http://localhost:3134/api"
 export const AUTHENTICATION_URL = "http://localhost:8080/authenticate"
 export const AUTHENTICATED_TOKEN = 'token'
 export const AUTHENTICATED_USER_USERNAME = 'authenticateUserUsername'
