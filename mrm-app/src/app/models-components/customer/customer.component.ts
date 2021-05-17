@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Customer } from '../../models/customer.model'
 import { Location } from '@angular/common';
@@ -8,7 +8,22 @@ import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Rental } from '../../models/rental.model';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
+class RentalToDisplay {
+  constructor(
+    public checked : boolean,
+    public rental : Rental,
+    public invoiceValue : string = null,
+    public progressIndicatorValue : number = null,
+    public progressIndicatorColor : string = "warn",
+    public trashButtonColor : string = "basic",
+    public infoButtonColor : string = "basic"
+  ) { }
+}
 
 @Component({
   selector: 'app-customer',
@@ -19,8 +34,16 @@ export class CustomerComponent extends BaseComponent implements OnInit {
 
   id : number
   customer : Customer
+  rentals : Rental[] = []
+  displayedColumns = ['actions', 'status', 'invoice', 'invoiceNumber', 'period', 'startDate', 'endDate', 'progress', 'totalValue'];
+  rentalsToDisplay : RentalToDisplay[] = []
   customerForm : FormGroup
   searchCnpjButtonColor : string = "basic"
+
+  public dataSource = new MatTableDataSource<RentalToDisplay>();
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private customerService : CustomerService,
@@ -34,7 +57,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.activatedRoute.snapshot.params[CUSTOMER_ID_PARAM]
+    this.id = +this.activatedRoute.snapshot.params[CUSTOMER_ID_PARAM]
     this.customer = new Customer(this.id)
 
     if (this.id != INITIAL_ID) {
@@ -46,6 +69,10 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     this.customerService.getCustomer(this.id).subscribe(
       data => {
         this.customer = data
+        this.rentals = this.customer.rentContracts
+        this.setRentalsPeriods()
+        this.prepareRentalsCurrenciesToDisplay()
+        this.displayRentals(this.rentals)
       }
     )
   }
@@ -119,4 +146,79 @@ export class CustomerComponent extends BaseComponent implements OnInit {
       )
     }
   }
+
+  public displayRentals(rentals : Rental[]): void {
+    this.rentalsToDisplay = []
+    rentals.forEach((rental) => {
+      this.rentalsToDisplay.push(
+        new RentalToDisplay(false, rental, rental.invoiceStatus, this.getRentalProgressIndicatorValue(rental), this.getRentalProgressIndicatorColor(rental))
+      )
+    })
+    this.dataSource.data = this.rentalsToDisplay
+  }
+
+  public updateRental(selectedRentalId : number): void {
+    this.router.navigate(['rentals', selectedRentalId])
+  }
+
+
+  prepareRentalsCurrenciesToDisplay() {
+    this.rentals.forEach((rental) => {
+      this.prepareCurrenciesToDisplay(rental)
+    })
+  }
+
+  prepareCurrenciesToDisplay(rental) {
+    rental.value = this.prepareCurrencyToDisplay(rental.value)
+  }
+
+  prepareCurrencyToDisplay(value : any) : string {
+    return (typeof(value) === "string") ? value : value.toString().replace(".", ",")
+  }
+
+  setRentalsPeriods() {
+    let rental : Rental
+
+    for (rental of this.rentals) {
+      rental.startDate = new Date(rental.startDate)
+      rental.endDate = new Date(rental.endDate)
+      rental.period = Math.ceil(Math.abs(rental.endDate.getTime() - rental.startDate.getTime()) / (1000 * 60 * 60 * 24))
+      rental.paymentDueDate = rental.paymentDueDate ? new Date(rental.paymentDueDate) : null
+      rental.paidAt = rental.paidAt ? new Date(rental.paidAt) : null
+    }
+  }
+
+  private setPaginator() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  private setSorter() {
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      return item['rental'][property]
+    }
+  }
+
+  private setFilter() {
+    this.dataSource.filterPredicate = (data, filter: string)  => {
+      const accumulator = (currentTerm, key) => {
+        return key === 'rental' ? currentTerm + data.rental.customer.name + data.rental.invoiceNumber + data.rental.status : currentTerm + data[key];
+      };
+      const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    };
+  }
+
+  getRentalProgressIndicatorValue(rental : Rental) {
+    return new Date().getTime() <= rental.startDate.getTime() ? 
+      0 : Math.ceil(((Math.ceil(Math.abs(new Date().getTime() - rental.startDate.getTime()) / (1000 * 60 * 60 * 24))) / rental.period) * 100)
+  }
+
+  getRentalProgressIndicatorColor(rental : Rental) {
+    return (this.getRentalProgressIndicatorValue(rental) >= 75) ? "warn" : "primary"
+  }
+
+  isInvoiceOverdue(rental : Rental) {
+    return rental.paymentDueDate ? new Date().getTime() > rental.paymentDueDate.getTime() : false
+  } 
 }
