@@ -72,7 +72,7 @@
                 <mat-icon>payment</mat-icon>
                 <span>Invoice</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="payInvoice(rentalToDisplay.rental.id)">
                 <mat-icon>attach_money</mat-icon>
                 <span>Paid</span>
               </button>
@@ -86,18 +86,24 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.STATUS }}</th>
           <td mat-cell *matCellDef="let rentalToDisplay">
-            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.status == 'Approved'" class="badge badge-success">{{ rentalToDisplay.rental.status }}</span>
-            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.status == 'On Going'" class="badge badge-primary">{{ rentalToDisplay.rental.status }}</span>
-            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.status == 'Finished'" class="badge badge-warn">{{ rentalToDisplay.rental.status }}</span>
+            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.status == 'APPROVED'" class="badge badge-success">{{ rentalToDisplay.rental.status }}</span>
+            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.status == 'ON GOING'" class="badge badge-primary">{{ rentalToDisplay.rental.status }}</span>
+            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.status == 'FINISHED'" class="badge badge-warn">{{ rentalToDisplay.rental.status }}</span>
           </td>
         </ng-container>
         <ng-container matColumnDef="invoice">
-          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.INVOICE }}</th>
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.INVOICE_STATUS }}</th>
           <td mat-cell *matCellDef="let rentalToDisplay">
-            <span style="font-size: 15px;" *ngIf="rentalToDisplay.invoiceValue == 'paid'" class="badge badge-success">{{ rentalToDisplay.rental.fiscalNote }}</span>
-            <span style="font-size: 15px;" *ngIf="rentalToDisplay.invoiceValue == 'notInvoiced'" class="badge badge-accent">Pendente</span>
-            <span style="font-size: 15px;" *ngIf="rentalToDisplay.invoiceValue == 'overdue'" class="badge badge-warn">{{ rentalToDisplay.rental.fiscalNote }}</span>
-            <span style="font-size: 15px;" *ngIf="rentalToDisplay.invoiceValue == 'invoiced'" class="badge badge-primary">{{ rentalToDisplay.rental.fiscalNote }}</span>
+            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.invoiceStatus == 'PAID'" class="badge badge-success">Pago</span>
+            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.invoiceStatus == 'PENDING'" class="badge badge-accent">Pendente</span>
+            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.invoiceStatus == 'OVERDUE'" class="badge badge-warn">Vencido</span>
+            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.invoiceStatus == 'INVOICED'" class="badge badge-primary">Faturado</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="invoiceNumber">
+          <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.INVOICE_NUMBER }}</th>
+          <td mat-cell *matCellDef="let rentalToDisplay">
+            <span style="font-size: 15px;" *ngIf="rentalToDisplay.rental.invoiceNumber">{{ rentalToDisplay.rental.invoiceNumber }}</span>
           </td>
         </ng-container>
         <ng-container matColumnDef="customer">
@@ -132,7 +138,7 @@
         <ng-container matColumnDef="totalValue">
           <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.RENTAL.TOTAL_VALUE }}</th>
           <td mat-cell *matCellDef="let rentalToDisplay">
-            <mat-form-field style="width:100%;margin: -5.5em;">
+            <mat-form-field style="width:100%;margin: -4em;">
               <input readonly [ngModel]="rentalToDisplay.rental.value" matInput type="text" mask="separator.2" thousandSeparator="." prefix="R$">
             </mat-form-field>
           </td>

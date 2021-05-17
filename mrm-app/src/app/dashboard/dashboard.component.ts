@@ -11,6 +11,7 @@ import { StockItem } from '../models/stock-item.model';
 import { Supplier } from '../models/supplier.model';
 import { Rental } from '../models/rental.model'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RentalService } from '../services/rental.service';
 
 
 @Component({
@@ -21,9 +22,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DashboardComponent extends BaseComponent implements OnInit {
 
   customers : Customer[] = []
+  activeCustomers : Customer[] = []
   stockItems : StockItem[] = []
+  activeStockItemsCounter : number = 0
   suppliers : Supplier[] = []
   rentals : Rental[] = []
+  activeRentals : Rental[] = []
+  currentMonthRevenue : number = 0
+  lastMonthRevenue : number = 0
   isIncrease : boolean = true
   percentValue : number = 0.10
   color : string = "primary"
@@ -33,6 +39,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     private customerService : CustomerService,
     private stockItemService : StockItemService,
     private supplierService : SupplierService,
+    private rentalService : RentalService,
     scriptsService : ScriptsService,
     location : Location,
     router : Router,
@@ -65,5 +72,45 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         this.suppliers = suppliers
       }
     )
+
+    this.rentalService.getAllRentals().subscribe(
+      rentals => {
+        this.rentals = rentals
+      }
+    )
+
+    this.customerService.getAllCustomersWithActiveContract().subscribe(
+      customers => {
+        this.activeCustomers = customers
+      }
+    )
+
+    this.rentalService.getAllActiveRentals().subscribe(
+      rentals => {
+        this.activeRentals = rentals
+        this.getStockItemCount()
+      }
+    )
+
+    this.rentalService.getRevenue().subscribe(
+      revenue => {
+        this.currentMonthRevenue = revenue['current_month_revenue']
+        this.lastMonthRevenue = revenue['last_month_revenue']
+      }
+    )
+  }
+
+  getStockItemCount() {
+    this.rentals.forEach((rental) => {
+      if (rental.status !== "FINISHED") {
+        this.rentalService.getRental(rental.id).subscribe((data) => {
+          let activeRental = data
+
+          activeRental.itemRentals.forEach((_) => {
+            this.activeStockItemsCounter = this.activeStockItemsCounter + 1
+          })
+        })
+      }
+    })
   }
 }

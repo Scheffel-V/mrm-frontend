@@ -1,43 +1,39 @@
 import { Component, OnInit, Inject } from '@angular/core'
 import { MatDialogRef } from '@angular/material/dialog'
-import { RentalService } from '../../services/rental.service'
-import { Rental } from '../../models/rental.model'
+import { AdditiveService } from '../../services/additive.service'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { BaseComponent } from 'src/app/base/base.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { InvoicePdfService } from '../../services/invoicePdf.service';
 import { Additive } from '../../models/additive.model';
 
 
 @Component({
-  selector: 'app-invoice',
-  templateUrl: './invoice.component.html',
-  styleUrls: ['./invoice.component.scss']
+  selector: 'app-additive-invoice',
+  templateUrl: './additive-invoice.component.html',
+  styleUrls: ['./additive-invoice.component.scss']
 })
-export class InvoiceComponent extends BaseComponent implements OnInit {
-  rental : Rental
+export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
   additive : Additive
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data : any,
-    private rentalService : RentalService,
-    public dialogRef : MatDialogRef<InvoiceComponent>,
+    private additiveService : AdditiveService,
+    public dialogRef : MatDialogRef<AdditiveInvoiceComponent>,
     scriptsService : ScriptsService,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar,
-    private invoicePdfService : InvoicePdfService
+    matSnackBar : MatSnackBar
   ) { 
     super(scriptsService, location, router, matSnackBar)
   }
 
   ngOnInit(): void {
-    this.rental = this.data.rental
     this.additive = this.data.additive
-    this.rental.installments = this.rental.installments.toString()
+    this.additive = this.data.additive
+    this.additive.installments = this.additive.installments.toString()
     this.prepareCurrenciesToDisplay()
   }
 
@@ -45,10 +41,10 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
     this.dialogRef.close()
   }
 
-  saveRental() : void {
-    this.rental.invoiceStatus = "INVOICED"
+  saveAdditive() : void {
+    this.additive.invoiceStatus = "INVOICED"
     this.prepareCurrenciesToSaveInvoice()
-    this.rentalService.updateRental(this.rental).subscribe(
+    this.additiveService.updateAdditive(this.additive).subscribe(
       data => {
         this.close()
       }
@@ -56,7 +52,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
   }
 
   prepareCurrenciesToDisplay() {
-    this.rental.value = this.prepareCurrencyToDisplay(this.rental.value)
+    this.additive.value = this.prepareCurrencyToDisplay(this.additive.value)
   }
 
   prepareCurrencyToDisplay(value : any) : string {
@@ -64,7 +60,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
   }
 
   prepareCurrenciesToSaveInvoice() {
-    this.rental.value = (typeof(this.rental.value) === "number") ? this.rental.value : +(this.rental.value.replace(",", "."))
+    this.additive.value = (typeof(this.additive.value) === "number") ? this.additive.value : +(this.additive.value.replace(",", "."))
   }
 
   prepareCurrencyForOperations(value : any) : number {
@@ -73,9 +69,5 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
 
   onCancel() : void {
     this.close()
-  }
-
-  onExport(invoiceId: number) : void {
-    this.invoicePdfService.generateInvoicePdf(invoiceId);
   }
 }

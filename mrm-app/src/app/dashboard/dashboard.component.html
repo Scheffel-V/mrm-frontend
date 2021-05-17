@@ -1,10 +1,9 @@
 <div class="row">
     <div class="col-xl-3">
-        <mat-card class="dashboard-card">
+        <mat-card class="dashboard-card" style="height: 100%;">
             <mat-card-header class="card-header-center">
                 <mat-card-title>
-                    <h1 class="value-text" *ngIf="isCurrency">{{'1000' | currency:'R$':'symbol':'0.0' }}</h1>
-                    <h1 class="value-text" *ngIf="!isCurrency">1000</h1>
+                    <h1 class="value-text">{{ currentMonthRevenue | currency:'R$':'symbol':'0.0' }}</h1>
                 </mat-card-title>
                 <div mat-card-avatar class="card-icon">
                     <mat-icon [color]="color" class="avatar-icon">paid</mat-icon>
@@ -24,10 +23,10 @@
         </mat-card>
     </div>
     <div class="col-xl-3">
-        <mat-card class="dashboard-card">
+        <mat-card class="dashboard-card" style="height: 100%;">
             <mat-card-header class="card-header-center">
                 <mat-card-title>
-                    <h1 class="value-text">35</h1>
+                    <h1 class="value-text">{{ activeStockItemsCounter }}</h1>
                 </mat-card-title>
                 <div mat-card-avatar class="card-icon">
                     <mat-icon color="primary" class="avatar-icon">settings_applications</mat-icon>
@@ -36,21 +35,13 @@
             <mat-progress-bar color="primary" mode="determinate" value="40"></mat-progress-bar>
             <br>
             <h3 class="title-text">Máquinas Alugadas</h3>
-            <p class="difference-text">
-                <span
-                    [ngClass]="{ 'green-text': isIncrease, 'red-text': !isIncrease }">{{ isIncrease ? '+' : '-' }}{{ percentValue | percent:'2.1-2' }}
-                    <mat-icon *ngIf="isIncrease">arrow_upward</mat-icon>
-                    <mat-icon *ngIf="!isIncrease">arrow_downward</mat-icon>
-                </span>
-                <span class="duration">desde o mês passado</span>
-            </p>
         </mat-card>
     </div>
     <div class="col-xl-3">
-        <mat-card class="dashboard-card">
+        <mat-card class="dashboard-card" style="height: 100%;">
             <mat-card-header class="card-header-center">
                 <mat-card-title>
-                    <h1 class="value-text">15</h1>
+                    <h1 class="value-text">{{ activeCustomers.length }}</h1>
                 </mat-card-title>
                 <div mat-card-avatar class="card-icon">
                     <mat-icon color="primary" class="avatar-icon">groups</mat-icon>
@@ -59,21 +50,13 @@
             <mat-progress-bar color="primary" mode="determinate" value="40"></mat-progress-bar>
             <br>
             <h3 class="title-text">Clientes Ativos</h3>
-            <p class="difference-text">
-                <span
-                    [ngClass]="{ 'green-text': isIncrease, 'red-text': !isIncrease }">{{ isIncrease ? '+' : '-' }}{{ percentValue | percent:'2.1-2' }}
-                    <mat-icon *ngIf="isIncrease">arrow_upward</mat-icon>
-                    <mat-icon *ngIf="!isIncrease">arrow_downward</mat-icon>
-                </span>
-                <span class="duration">desde o mês passado</span>
-            </p>
         </mat-card>
     </div>
     <div class="col-xl-3">
-        <mat-card class="dashboard-card">
+        <mat-card class="dashboard-card" style="height: 100%;">
             <mat-card-header class="card-header-center">
                 <mat-card-title>
-                    <h1 class="value-text">35</h1>
+                    <h1 class="value-text">{{ activeRentals.length }}</h1>
                 </mat-card-title>
                 <div mat-card-avatar class="card-icon">
                     <mat-icon color="primary" class="avatar-icon">shopping_cart</mat-icon>
@@ -82,14 +65,6 @@
             <mat-progress-bar color="primary" mode="determinate" value="40"></mat-progress-bar>
             <br>
             <h3 class="title-text">Aluguéis Ativos</h3>
-            <p class="difference-text">
-                <span
-                    [ngClass]="{ 'green-text': isIncrease, 'red-text': !isIncrease }">{{ isIncrease ? '+' : '-' }}{{ percentValue | percent:'2.1-2' }}
-                    <mat-icon *ngIf="isIncrease">arrow_upward</mat-icon>
-                    <mat-icon *ngIf="!isIncrease">arrow_downward</mat-icon>
-                </span>
-                <span class="duration">desde o mês passado</span>
-            </p>
         </mat-card>
     </div>
 </div>

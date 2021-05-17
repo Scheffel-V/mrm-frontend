@@ -1,0 +1,208 @@
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 *ngIf="rental.id == -1" class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.RENTAL }}</h1>
+                            <h1 *ngIf="rental.id != -1" class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.RENTAL_2 }}</h1>
+                        </div>
+                        
+                        <form class="user" (ngSubmit)="!rentalForm.invalid && saveRental()" #rentalForm="ngForm">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <mat-form-field style="width:100%" >
+                                        <mat-label>Customer</mat-label>
+                                        <mat-select [(ngModel)]="rental.customerId" [formControl]="customerSelectControl" name="rentalCustomer" required="required">
+                                            <mat-option>
+                                                <ngx-mat-select-search [formControl]="customerFilterControl" placeholderLabel="Find customer..." 
+                                                noEntriesFoundLabel="'no matching customer found'"></ngx-mat-select-search>
+                                            </mat-option>
+                                            <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer.id">
+                                            {{ customer.name }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="customerSelectControl.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.CUSTOMER_REQUIRED }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <mat-form-field style="width:100%" >
+                                        <mat-label>Products</mat-label>
+                                        <mat-select [ngModel]="selectedStockItems" [formControl]="stockItemSelectControl" name="rentalStockItems" (selectionChange)="stockItemSelectChange($event.value)"  multiple required>
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="stockItemFilterControl" placeholderLabel="Find products..." 
+                                            noEntriesFoundLabel="'no matching products found'"></ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option *ngFor="let stockItem of filteredStockItems | async" [value]="stockItem.id">
+                                            {{ stockItem.name }}
+                                        </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="stockItemSelectControl.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.STOCK_ITEMS_REQUIRED }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <br>
+                            <mat-divider></mat-divider>
+                            <br>
+                            <div class="text-center">
+                                <h1 class="h5 text-gray-900 mb-4">Selected Products</h1>
+                            </div>
+                            <table mat-table [dataSource]="dataSource" style="width: 100%;" id="dataTable">
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</th>
+                                    <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.name}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="type">
+                                    <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</th>
+                                    <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.type}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="power">
+                                    <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.POWER }}</th>
+                                    <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.power}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="model">
+                                    <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}</th>
+                                    <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.model}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="value">
+                                    <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.VALUE }}</th>
+                                    <td mat-cell *matCellDef="let itemRental">
+                                        <mat-form-field style="width:100%;margin: -1.25em;">
+                                            <input matInput type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" (ngModelChange)="itemRentalValueChange($event, itemRental)" [ngModel]="itemRental.value" name="{{itemRental.stockItem.name}}" required="required">
+                                        </mat-form-field>
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <br>
+                            <br>
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label class="h5 text-gray-900 mb-2" id="duration-group-label">Select duration mode</label>
+                                    <mat-radio-group aria-labelledby="duration-group-label" [(ngModel)]="rental.durationMode" name="durationModeRadioGroup">
+                                        <mat-radio-button value="CUSTOM" (change)="durationRadioChange($event)" name="durationModeOne">Custom duration</mat-radio-button>
+                                        <br>
+                                        <mat-radio-button value="15DAYS" (change)="durationRadioChange($event)" name="durationModeTwo">15 days</mat-radio-button>
+                                        <br>
+                                        <mat-radio-button value="30DAYS" (change)="durationRadioChange($event)" name="durationModeThree">30 days</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col-sm-12" style="padding: 0em;">
+                                    <mat-form-field style="width:100%" >
+                                        <mat-label>Start date</mat-label>
+                                        <input matInput [matDatepicker]="startDatePicker" (dateChange)="startDateChange($event.value)" [ngModel]="rental.startDate" required="required" name="startDate" #startDate="ngModel">
+                                        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #startDatePicker></mat-datepicker>
+                                        <mat-error *ngIf="startDate.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.START_DATE_REQUIRED }}</mat-error>
+                                    </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-12" style="padding: 0em;">
+                                        <mat-form-field style="width:100%;" >
+                                            <mat-label>End date</mat-label>
+                                            <input matInput [matDatepicker]="endDatePicker" (dateChange)="endDateChange($event.value)" [(ngModel)]="rental.endDate" required="required" name="endDate" #endDate="ngModel">
+                                            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #endDatePicker></mat-datepicker>
+                                            <mat-error *ngIf="endDate.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.END_DATE_REQUIRED }}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col-sm-12" style="padding: 0em;">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <mat-form-field style="width:100%">
+                                                    <mat-label>{{ TEXTS.MODELS.RENTAL.PERIOD }}</mat-label>
+                                                    <input matInput type="number" readonly [(ngModel)]="rental.period" id="period" name="period">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <mat-form-field style="width:100%">
+                                                    <mat-label>{{ TEXTS.MODELS.RENTAL.WORKING_HOURS }}</mat-label>
+                                                    <mat-select [(ngModel)]="rental.workingHours" id="workingHours" name="workingHours" #workingHours="ngModel">
+                                                        <mat-option value="8H">8 Horas</mat-option>
+                                                        <mat-option value="24H">24 Horas</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="padding: 0em;">
+                                        <mat-form-field style="width:100%">
+                                            <mat-label>{{ TEXTS.MODELS.RENTAL.STATUS }}</mat-label>
+                                            <mat-select [(ngModel)]="rental.status" id="rentalStatus" name="status" #status="ngModel">
+                                                <mat-option value="APPROVED">Aprovado</mat-option>
+                                                <mat-option value="ON GOING">Em Andamento</mat-option>
+                                                <mat-option value="FINISHED">Finalizado</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                <mat-form-field style="width:100%">
+                                    <mat-label>Frete</mat-label>
+                                    <mat-select [(ngModel)]="rental.deliveryMode" id="deliveryMode" name="deliveryMode" #deliveryMode="ngModel">
+                                        <mat-option value="PICKUP">Retirar</mat-option>
+                                        <mat-option value="DELIVERY">Enviar </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                <mat-form-field style="width:100%">
+                                    <mat-label>Custo do Frete</mat-label>
+                                    <input matInput type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" (ngModelChange)="shippingCostChange($event)" [ngModel]="rental.deliveryCost" id="deliveryCost" name="deliveryCost" #deliveryCost="ngModel">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-form-field style="width:100%">
+                                    <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE_STATUS }}</mat-label>
+                                    <mat-select [(ngModel)]="rental.invoiceStatus" id="invoiceStatus" name="invoiceStatus" #invoiceStatus="ngModel">
+                                        <mat-option value="PENDING">Pendente</mat-option>
+                                        <mat-option value="INVOICED">Faturado</mat-option>
+                                        <mat-option value="PAID">Pago</mat-option>
+                                        <mat-option value="OVERDUE">Em Aberto</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <mat-form-field style="width:100%">
+                                        <mat-label>{{ TEXTS.MODELS.RENTAL.TOTAL_VALUE }}</mat-label>
+                                        <input matInput type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" [(ngModel)]="rental.value" id="rentalTotalValue" name="totalValue" required="required" #totalValue="ngModel">
+                                        <mat-error *ngIf="totalValue.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.TOTAL_VALUE_REQUIRED }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-4">
+                                    <mat-form-field style="width:100%;" >
+                                        <mat-label>Paid At</mat-label>
+                                        <input matInput [matDatepicker]="paidAtPicker" [(ngModel)]="rental.paidAt" name="paidAt" #paidAt="ngModel">
+                                        <mat-datepicker-toggle matSuffix [for]="paidAtPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #paidAtPicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-4">
+                                    <mat-form-field style="width: 100%;">
+                                        <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE }}</mat-label>
+                                        <input matInput type="number" [(ngModel)]="rental.invoiceNumber" id="rentalFiscalNote" name="invoiceNumber">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button [disabled]="rentalForm.invalid" type="submit" mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                        </form>
+
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

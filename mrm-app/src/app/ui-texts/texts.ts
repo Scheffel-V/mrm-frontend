@@ -66,6 +66,8 @@ export const TEXTS = {
               CUSTOMER : "Customer",
               START_DATE : "Start Date",
               END_DATE : "End Date",
+              INVOICE_NUMBER : "Invoice Number",
+              INVOICE_STATUS : "Invoice Status",
               INVOICE : "Invoice",
               TOTAL_VALUE : "Value",
               STATUS : "Status",
@@ -74,7 +76,25 @@ export const TEXTS = {
               PAYMENT_TYPE : "Payment Type",
               STOCK_ITEMS : "Stock Items",
               PERIOD : "Period",
-              PROGRESS : "Progress"
+              PROGRESS : "Progress",
+              INSTALLMENTS : "Installments",
+              WORKING_HOURS : "Working Hours"
+            },
+            ADDITIVE : {
+              CUSTOMER : "Customer",
+              START_DATE : "Start Date",
+              END_DATE : "End Date",
+              INVOICE : "Invoice",
+              INVOICE_STATUS : "Invoice Status",
+              INVOICE_NUMBER : "Invoice Number",
+              TOTAL_VALUE : "Value",
+              PAYMENT_DUE_DATE : "Payment Due Date",
+              PAYMENT_TYPE : "Payment Type",
+              STOCK_ITEMS : "Stock Items",
+              PERIOD : "Period",
+              PROGRESS : "Progress",
+              INSTALLMENTS : "Installments",
+              WORKING_HOURS : "Working Hours"
             },
             STOCK_ITEM : {
               NAME : "Name",
@@ -82,6 +102,10 @@ export const TEXTS = {
               POWER : "Power",
               BRAND : "Brand",
               MODEL : "Model",
+              PRESSURE : "Pressure",
+              THROUGHPUT : "Throughput",
+              VOLTAGE : "Voltage",
+              SERIAL_NUMBER : "Serial Number",
               STANDARD_RENTAL_VALUE : "Standard Value",
               REPOSITION_VALUE : "Reposition Value",
               IMAGE : "Image",
@@ -118,6 +142,13 @@ export const TEXTS = {
                 NEIGHBORHOOD_REQUIRED : "Neighborhood is required."
               },
               RENTAL : {
+                CUSTOMER_REQUIRED : "Customer is required.",
+                STOCK_ITEMS_REQUIRED : "Stock Items are required.",
+                START_DATE_REQUIRED : "Start Date is required.",
+                END_DATE_REQUIRED : "End Date is required.",
+                TOTAL_VALUE_REQUIRED : "Total value is required."
+              },
+              ADDITIVE : {
                 CUSTOMER_REQUIRED : "Customer is required.",
                 STOCK_ITEMS_REQUIRED : "Stock Items are required.",
                 START_DATE_REQUIRED : "Start Date is required.",
@@ -175,13 +206,19 @@ export const TEXTS = {
               RENTALS : "Rentals",
               STOCK_ITEMS : "Products",
               TOP_CUSTOMERS : "Top Customers",
-              TOP_STOCK_ITEMS : "Top Products"
+              TOP_STOCK_ITEMS : "Top Products",
+              ADDITIVES : "Additives"
             },
             CREATE : {
               CUSTOMER : "Create Customer",
               PRODUCT_MODEL : "Create Product",
               SUPPLIER : "Create Supplier",
               RENTAL : "Create Rental",
+              RENTAL_2 : "Rental",
+              OVERVIEW : "Overview",
+              ADDITIVES : "Additives",
+              ADDITIVE : "Create Additive",
+              ADDITIVE_2 : "Additive",
               STOCK_ITEM : "Create Product",
             },
             UPDATE : {

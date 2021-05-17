@@ -43,4 +43,8 @@ export class CustomerService {
   searchCnpj(cnpj : string) {
     return this.http.get(`https://api-publica.speedio.com.br/buscarcnpj?cnpj=${cnpj}`)
   }
+
+  getAllCustomersWithActiveContract() : Observable<Customer[]> {
+    return this.http.get<Customer[]>(`${API_URL}/customers/with_active_contracts`)
+  }
 }

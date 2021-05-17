@@ -1,0 +1,90 @@
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 *ngIf="additive.id == -1" class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.ADDITIVE }}</h1>
+                            <h1 *ngIf="additive.id != -1" class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.ADDITIVE_2 }}</h1>
+                        </div>
+                        
+                        <form class="user" (ngSubmit)="!additiveForm.invalid && saveRental()" #additiveForm="ngForm">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <div class="col-sm-12" style="padding: 0em;">
+                                        <mat-form-field style="width:100%" >
+                                            <mat-label>Start date</mat-label>
+                                            <input matInput [matDatepicker]="startDatePicker" (dateChange)="startDateChange($event.value)" [ngModel]="additive.startDate" required="required" name="startDate" #startDate="ngModel">
+                                            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #startDatePicker></mat-datepicker>
+                                            <mat-error *ngIf="startDate.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.START_DATE_REQUIRED }}</mat-error>
+                                        </mat-form-field>
+                                        </div>
+                                        <div class="col-sm-12" style="padding: 0em;">
+                                            <mat-form-field style="width:100%;" >
+                                                <mat-label>End date</mat-label>
+                                                <input matInput [matDatepicker]="endDatePicker" (dateChange)="endDateChange($event.value)" [(ngModel)]="additive.endDate" required="required" name="endDate" #endDate="ngModel">
+                                                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                                <mat-datepicker #endDatePicker></mat-datepicker>
+                                                <mat-error *ngIf="endDate.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.END_DATE_REQUIRED }}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="col-sm-12" style="padding: 0em;">
+                                        <mat-form-field style="width:100%">
+                                            <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE_STATUS }}</mat-label>
+                                            <mat-select [(ngModel)]="additive.invoiceStatus" id="invoiceStatus" name="invoiceStatus" #invoiceStatus="ngModel">
+                                                <mat-option value="PENDING">Pendente</mat-option>
+                                                <mat-option value="INVOICED">Faturado</mat-option>
+                                                <mat-option value="PAID">Pago</mat-option>
+                                                <mat-option value="OVERDUE">Em Aberto</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-12" style="padding: 0em;">
+                                        <mat-form-field style="width:100%;" >
+                                            <mat-label>Paid At</mat-label>
+                                            <input matInput [matDatepicker]="paidAtPicker" [(ngModel)]="additive.paidAt" name="paidAt" #paidAt="ngModel">
+                                            <mat-datepicker-toggle matSuffix [for]="paidAtPicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #paidAtPicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <mat-form-field style="width:100%">
+                                        <mat-label>{{ TEXTS.MODELS.RENTAL.TOTAL_VALUE }}</mat-label>
+                                        <input matInput type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" [(ngModel)]="additive.value" id="additiveTotalValue" name="totalValue" required="required" #totalValue="ngModel">
+                                        <mat-error *ngIf="totalValue.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.TOTAL_VALUE_REQUIRED }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field style="width: 100%;">
+                                        <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE }}</mat-label>
+                                        <input matInput type="number" [(ngModel)]="additive.invoiceNumber" id="additiveFiscalNote" name="invoiceNumber">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field style="width:100%">
+                                        <mat-label>{{ TEXTS.MODELS.RENTAL.PERIOD }}</mat-label>
+                                        <input matInput type="number" readonly [(ngModel)]="additive.period" id="period" name="period">
+                                    </mat-form-field>   
+                                </div>
+                            </div>
+                            <button [disabled]="additiveForm.invalid" type="submit" mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                            <button mat-raised-button type="button" color="basic" (click)="onCancel()">{{ TEXTS.GENERAL.ACTIONS.CANCEL }}</button>
+                        </form>
+
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

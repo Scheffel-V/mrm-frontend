@@ -60,13 +60,14 @@ export class StockItemComponent extends BaseComponent implements OnInit {
     this.stockItemService.getStockItem(this.id).subscribe(
       data => {
         this.stockItem = data
-        this.stockItem.rentValue = data.rentValue.toString().replace(".", ",")
+        this.prepareCurrenciesToDisplay()
         this.supplierSelectControl.setValue(this.stockItem.supplier.id)
       }
     )
   }
 
   saveStockItem(): void {
+    this.prepareCurrenciesToSaveStockItem()
     if (this.id == INITIAL_ID) {
       this.createStockItem()
       return
@@ -187,5 +188,27 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   ngOnDestroy() {
     this._onDestroy.next();
     this._onDestroy.complete();
+  }
+
+  prepareCurrenciesToSaveStockItem() {
+    this.stockItem.rentValue = this.prepareCurrencyForOperations(this.stockItem.rentValue)
+    this.stockItem.replacementCost = this.prepareCurrencyForOperations(this.stockItem.replacementCost)
+  }
+
+  prepareCurrenciesToDisplay() {
+    this.stockItem.rentValue = this.prepareCurrencyToDisplay(this.stockItem.rentValue)
+    this.stockItem.replacementCost = this.prepareCurrencyToDisplay(this.stockItem.replacementCost)
+  }
+
+  formatCurrency(value : string) : string {
+    return value.replace(".", ",")
+  }
+
+  prepareCurrencyToDisplay(value : any) : string {
+    return value ? ((typeof(value) === "string") ? value : value.toString().replace(".", ",")) : null
+  }
+
+  prepareCurrencyForOperations(value : any) : number {
+    return value ? ((typeof(value) === "number") ? value : +(value.replace(",", "."))) : null
   }
 }

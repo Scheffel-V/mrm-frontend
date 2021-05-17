@@ -1,4 +1,5 @@
 import { Address } from "./address.model";
+import { StockItem } from "./stock-item.model"
 
 export class Supplier {
     constructor(
@@ -10,7 +11,8 @@ export class Supplier {
         public mobilePhone : string = "",
         public email : string = "",
         public active : boolean = true,
-        public comment : string = ""
+        public comment : string = "",
+        public stockItems : StockItem[] = []
     ) {
 
     }

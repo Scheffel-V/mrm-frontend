@@ -71,6 +71,36 @@
                             <div class="form-group row">
                                 <div class="col-sm-3 mb-3 mb-sm-0">
                                   <mat-form-field style="width:100%;" >
+                                      <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.PRESSURE }}</mat-label>
+                                      <input type="text" matInput [(ngModel)]="stockItem.pressure" id="stockItemPressure"
+                                        name="pressure" #pressure="ngModel">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                  <mat-form-field style="width:100%;" >
+                                      <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.THROUGHPUT }}</mat-label>
+                                      <input type="text" matInput [(ngModel)]="stockItem.throughput" id="stockItemThroughput"
+                                          name="throughput" #throughput="ngModel">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field style="width:100%;" >
+                                      <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.VOLTAGE }}</mat-label>
+                                      <input type="text" matInput [(ngModel)]="stockItem.voltage" id="stockItemVoltage"
+                                        name="voltage" #voltage="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                  <mat-form-field style="width:100%;" >
+                                      <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.SERIAL_NUMBER }}</mat-label>
+                                      <input type="text" matInput [(ngModel)]="stockItem.serialNumber" id="stockItemSerialNumber"
+                                          name="serialNumber" #serialNumber="ngModel">
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                  <mat-form-field style="width:100%;" >
                                     <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.STANDARD_RENTAL_VALUE }}</mat-label>
                                     <input type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" [(ngModel)]="stockItem.rentValue" id="stockItemStandardRentalValue"
                                         name="standardRentalValue" #standardRentalValue="ngModel">

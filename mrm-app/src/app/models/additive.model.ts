@@ -7,11 +7,18 @@ export class Additive {
         public approvalDate : Date = null,
         public paymentDueDate : Date = null,
         public paidAt : Date = null,
-        public invoiceNumber : string = null,
-        public value : number = null,
+        public contractNumber : number = null,
+        public contractUrl : string = null,
+        public invoiceNumber : number = null,
+        public paymentType : string = null,
+        public paymentComment : string = null,
+        public period : number = null,
+        public invoiceStatus : string = "PENDING",
+        public invoiceUrl : string = null,
+        public value : any = null,
+        public installments : any = "1",
         public status : string = "Opened",
         public comment : string = "",
-        public active : boolean = true
     ) {
 
     }

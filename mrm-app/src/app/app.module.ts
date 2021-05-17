@@ -50,6 +50,12 @@ import { ChartsModule } from 'ng2-charts';
 import localePt from '@angular/common/locales/pt';
 import {registerLocaleData} from '@angular/common';
 import {LOCALE_ID, DEFAULT_CURRENCY_CODE} from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ListAdditivesComponent } from './models-components/list-additives/list-additives.component';
+import { CreateAdditiveComponent } from './models-components/create-additive/create-additive.component';
+import { CreateRentalComponent } from './models-components/create-rental/create-rental.component';
+import { AdditiveInvoiceComponent } from './models-components/additive-invoice/additive-invoice.component';
+
 
 
 registerLocaleData(localePt, 'pt');
@@ -71,7 +77,11 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ListStockItemsComponent,
     MonthProfitChartComponent,
     InvoiceComponent,
-    SpinnerContainer
+    SpinnerContainer,
+    ListAdditivesComponent,
+    CreateAdditiveComponent,
+    CreateRentalComponent,
+    AdditiveInvoiceComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +115,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatIconModule,
     MatGridListModule,
     MatProgressBarModule,
-    NgChartjsModule
+    NgChartjsModule,
+    MatTabsModule 
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },

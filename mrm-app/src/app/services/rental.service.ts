@@ -39,4 +39,12 @@ export class RentalService {
     //@TODO: handle de erros
     return this.http.delete(`${API_URL}/rentContracts/${rentalId}`)
   }
+
+  getAllActiveRentals() : Observable<Rental[]> {
+    return this.http.get<Rental[]>(`${API_URL}/rentContracts/active`)
+  }
+
+  getRevenue() : Observable<Object> {
+    return this.http.get<Object>(`${API_URL}/rentContracts/revenue`)
+  }
 }

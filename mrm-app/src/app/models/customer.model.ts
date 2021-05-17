@@ -1,4 +1,5 @@
 import { Address } from "./address.model";
+import { Rental } from "./rental.model"
 
 export class Customer {
     constructor(
@@ -10,7 +11,8 @@ export class Customer {
         public mobilePhone : string = "",
         public email : string = "",
         public active : boolean = true,
-        public comment : string = ""
+        public comment : string = "",
+        public rentContracts : Rental[] = []
     ) {
         
     }

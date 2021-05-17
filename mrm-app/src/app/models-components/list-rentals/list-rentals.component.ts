@@ -36,7 +36,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
 
   rentalsToDisplay : RentalToDisplay[] = []
   rentals : Rental[] = []
-  public displayedColumns = ['select', 'actions', 'status', 'invoice', 'customer', 'period', 'startDate', 'endDate', 'progress', 'totalValue'];
+  public displayedColumns = ['select', 'actions', 'status', 'invoice', 'invoiceNumber', 'customer', 'period', 'startDate', 'endDate', 'progress', 'totalValue'];
   public dataSource = new MatTableDataSource<RentalToDisplay>();
   showOnlyActive : boolean = true
   message : string
@@ -66,6 +66,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
       data => {
         this.rentals = data
         this.setRentalsPeriods()
+        this.setOverdueInvoices()
         this.prepareRentalsCurrenciesToDisplay()
         this.displayRentals(this.rentals)
       }
@@ -106,6 +107,15 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
       rental.paymentDueDate = rental.paymentDueDate ? new Date(rental.paymentDueDate) : null
       rental.paidAt = rental.paidAt ? new Date(rental.paidAt) : null
     }
+  }
+
+  setOverdueInvoices() {
+    this.rentals.forEach((rental) => {
+      if (rental.invoiceStatus == "INVOICED" && (new Date() > rental.paymentDueDate)) {
+        rental.invoiceStatus = "OVERDUE"
+        this.rentalService.updateRental(rental).subscribe()
+      }
+    })
   }
 
   private setPaginator() {
@@ -173,7 +183,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.rentalsToDisplay = []
     rentals.forEach((rental) => {
       this.rentalsToDisplay.push(
-        new RentalToDisplay(false, rental, this.getRentalInvoiceValue(rental), this.getRentalProgressIndicatorValue(rental), this.getRentalProgressIndicatorColor(rental))
+        new RentalToDisplay(false, rental, rental.invoiceStatus, this.getRentalProgressIndicatorValue(rental), this.getRentalProgressIndicatorColor(rental))
       )
     })
     this.dataSource.data = this.rentalsToDisplay
@@ -201,26 +211,6 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     return (this.getRentalProgressIndicatorValue(rental) >= 75) ? "warn" : "primary"
   }
 
-  getRentalInvoiceValue(rental : Rental) : string {
-    if(rental.paidAt) {
-      return "paid"
-    }
-
-    if (!rental.paymentDueDate) {
-      return "notInvoiced"
-    }
-
-    if (!rental.paidAt) {
-      if (this.isInvoiceOverdue(rental)) {
-        return "overdue"
-      }
-
-      return "invoiced"
-    }
-
-    return "paid"
-  }
-
   isInvoiceOverdue(rental : Rental) {
     return rental.paymentDueDate ? new Date().getTime() > rental.paymentDueDate.getTime() : false
   } 
@@ -236,13 +226,32 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     dialogConfig.autoFocus = false
     dialogConfig.width = "60%"
     dialogConfig.data = {
-      dataKey : this.getRental(rentalId)
+      rental : this.getRental(rentalId),
+      additive : null
     }
-    this.matDialog.open(InvoiceComponent, dialogConfig)
+    this.matDialog.open(InvoiceComponent, dialogConfig).afterClosed().subscribe(
+      data => {
+        this.prepareRentalsCurrenciesToDisplay()
+      }
+    )
   }
 
   spinnerValue(value) {
     return value + "%";
+  }
+
+  payInvoice(rentalId : number) {
+    let rental = this.getRental(rentalId)
+
+    rental.paidAt = new Date()
+    rental.invoiceStatus = "PAID"
+
+    this.rentalService.updateRental(rental).subscribe(
+      data => {
+        rental = data
+        this.openSnackBar("Invoice paid!")
+      }
+    )
   }
 }
 

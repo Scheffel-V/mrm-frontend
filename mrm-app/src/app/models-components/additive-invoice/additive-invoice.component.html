@@ -9,13 +9,13 @@
                             <h1 class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.INVOICE.INVOICE }}</h1>
                         </div>
                         
-                        <form class="user" (ngSubmit)="!rentalForm.invalid && saveRental()" #rentalForm="ngForm">
+                        <form class="user" (ngSubmit)="!additiveForm.invalid && saveAdditive()" #additiveForm="ngForm">
                             <div class="form-group row">
                                 <div class="col-sm-4">
                                     <div class="col-sm-12" style="padding: 0em;">
                                     <mat-form-field style="width:100%" >
-                                        <mat-label>{{ TEXTS.MODELS.RENTAL.PAYMENT_DUE_DATE }}</mat-label>
-                                        <input matInput [matDatepicker]="paymentDueDatePicker"  [(ngModel)]="rental.paymentDueDate" required="required" name="paymentDueDate" #paymentDueDate="ngModel">
+                                        <mat-label>{{ TEXTS.MODELS.ADDITIVE.PAYMENT_DUE_DATE }}</mat-label>
+                                        <input matInput [matDatepicker]="paymentDueDatePicker"  [(ngModel)]="additive.paymentDueDate" required="required" name="paymentDueDate" #paymentDueDate="ngModel">
                                         <mat-datepicker-toggle matSuffix [for]="paymentDueDatePicker"></mat-datepicker-toggle>
                                         <mat-datepicker #paymentDueDatePicker></mat-datepicker>
                                         <mat-error *ngIf="paymentDueDate.invalid">{{ TEXTS.MODELS.FORMS.INVOICE.PAYMENT_DUE_DATE_REQUIRED }}</mat-error>
@@ -24,8 +24,8 @@
                                 </div>
                                 <div class="col-sm-4 mb-3 mb-sm-0">
                                     <mat-form-field style="width:100%">
-                                        <mat-label>{{ TEXTS.MODELS.RENTAL.PAYMENT_TYPE }}</mat-label>
-                                        <mat-select [(ngModel)]="rental.paymentType" required id="rentalStatus" name="status" #status="ngModel">
+                                        <mat-label>{{ TEXTS.MODELS.ADDITIVE.PAYMENT_TYPE }}</mat-label>
+                                        <mat-select [(ngModel)]="additive.paymentType" required id="additiveStatus" name="status" #status="ngModel">
                                             <mat-option value="Opened">Boleto</mat-option>
                                             <mat-option value="Approved">Depósito</mat-option>
                                             <mat-option value="Payed">Cartão de Crédito</mat-option>
@@ -35,8 +35,8 @@
                                   </div>
                                   <div class="col-sm-4">
                                     <mat-form-field style="width:100%">
-                                        <mat-label>{{ TEXTS.MODELS.RENTAL.INSTALLMENTS }}</mat-label>
-                                        <mat-select [(ngModel)]="rental.installments" required id="installments" name="installments" #installments="ngModel">
+                                        <mat-label>{{ TEXTS.MODELS.ADDITIVE.INSTALLMENTS }}</mat-label>
+                                        <mat-select [(ngModel)]="additive.installments" required id="installments" name="installments" #installments="ngModel">
                                             <mat-option value="1">À Vista</mat-option>
                                             <mat-option value="2">2x</mat-option>
                                             <mat-option value="3">3x</mat-option>
@@ -57,9 +57,9 @@
                             <div class="form-group row">
                               <div class="col-sm-4 mb-3 mb-sm-0">
                                 <mat-form-field style="width:100%">
-                                    <mat-label>{{ TEXTS.MODELS.RENTAL.TOTAL_VALUE }}</mat-label>
-                                    <input matInput type="text" mask="separator.2" thousandSeparator="." prefix="R$" [(ngModel)]="rental.value" id="rentalTotalValue" name="totalValue" required="required" #totalValue="ngModel">
-                                    <mat-error *ngIf="totalValue.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.TOTAL_VALUE_REQUIRED }}</mat-error>
+                                    <mat-label>{{ TEXTS.MODELS.ADDITIVE.TOTAL_VALUE }}</mat-label>
+                                    <input matInput type="text" mask="separator.2" thousandSeparator="." prefix="R$" [(ngModel)]="additive.value" id="additiveTotalValue" name="totalValue" required="required" #totalValue="ngModel">
+                                    <mat-error *ngIf="totalValue.invalid">{{ TEXTS.MODELS.FORMS.ADDITIVE.TOTAL_VALUE_REQUIRED }}</mat-error>
                                 </mat-form-field>
                               </div>
                               <div class="col-sm-4 mb-3 mb-sm-0">
@@ -67,17 +67,13 @@
                               </div>
                               <div class="col-sm-4">
                                 <mat-form-field style="width:100%">
-                                    <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE }}</mat-label>
-                                    <input matInput readonly type="number" [(ngModel)]="rental.invoiceNumber" id="rentalFiscalNote" name="invoiceNumber">
+                                    <mat-label>{{ TEXTS.MODELS.ADDITIVE.INVOICE }}</mat-label>
+                                    <input matInput readonly type="number" [(ngModel)]="additive.invoiceNumber" id="additiveFiscalNote" name="invoiceNumber">
                                 </mat-form-field>
                               </div>
                             </div>
                             <button type="submit" mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
                             <button type="button" mat-raised-button color="basic" (click)="onCancel()">{{ TEXTS.GENERAL.ACTIONS.CANCEL }}</button>
-                            <button type="button" mat-raised-button color="basic" (click)="onExport(rental.id)">
-                                <mat-icon>picture_as_pdf</mat-icon>
-                                {{ TEXTS.GENERAL.ACTIONS.EXPORT }}
-                            </button>
                         </form>
 
                         <hr>

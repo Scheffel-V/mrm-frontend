@@ -23,11 +23,11 @@ import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
-  selector: 'app-rental',
-  templateUrl: './rental.component.html',
-  styleUrls: ['./rental.component.scss']
+  selector: 'app-create-rental',
+  templateUrl: './create-rental.component.html',
+  styleUrls: ['./create-rental.component.scss']
 })
-export class RentalComponent extends BaseComponent implements OnInit {
+export class CreateRentalComponent extends BaseComponent implements OnInit {
 
   id : number
   rental : Rental = new Rental(-1, null, null, [], [])
@@ -66,12 +66,8 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.activatedRoute.snapshot.params[RENTAL_ID_PARAM]
+    this.id = -1
     this.rental = new Rental(this.id, null, null, [], [])
-
-    if (this.id != INITIAL_ID) {
-      this.fetchRental()
-    }
 
     this.fetchCustomers()
     this.fetchStockItemsInInventory()
@@ -143,7 +139,6 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.rental.itemRentals.forEach((itemRental) => {
       itemRental.value = this.prepareCurrencyForOperations(itemRental.value)
     })
-    this.rental.deliveryCost = this.prepareCurrencyForOperations(this.rental.deliveryCost)
   }
 
   prepareCurrenciesToDisplay() {
@@ -178,7 +173,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   fetchStockItemsInInventory(): void {
-    this.stockItemService.getAllStockItems().subscribe(
+    this.stockItemService.getAllStockItemsInInventory().subscribe(
       data => {
         this.stockItems = this.getStockItemsInInventory(data)
         this.filteredStockItems.next(this.stockItems.slice())
@@ -193,9 +188,8 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   getStockItemsInInventory(stockItems : StockItem[]) {
-    return stockItems.filter((stockItem) => {
-      stockItem.status == "INVENTORY"
-    })
+    return stockItems.filter(stockItem =>
+      stockItem.status === "INVENTORY")
   }
 
   getStockItemsIdsFromItemRentals(itemRentals : ItemRental[]) {
@@ -317,9 +311,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   updatePeriod(): void {
-    if (this.rental.endDate && this.rental.startDate) {
-      this.rental.period = Math.ceil(Math.abs(this.rental.endDate.getTime() - this.rental.startDate.getTime()) / (1000 * 60 * 60 * 24))
-    }
+    this.rental.period = Math.ceil(Math.abs(this.rental.endDate.getTime() - this.rental.startDate.getTime()) / (1000 * 60 * 60 * 24))
   }
 
   fillTotalValue() {
@@ -374,11 +366,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   prepareCurrencyForOperations(value : any) : number {
-    if (typeof(value) === "number") {
-      return value
-    }
-
-    return (value.match(/,/g) || []).length == 0 ? +value : +(value.replace(".", "").replace(",", "."))
+    return (typeof(value) === "number") ? value : +(value.replace(".", "").replace(",", "."))
   }
 
   public filterActiveCustomers(customers : Customer[]) {
