@@ -76,6 +76,12 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
   }
 
   onExport(invoiceId: number) : void {
-    this.invoicePdfService.generateInvoicePdfByRental(invoiceId);
+    this.rental.invoiceStatus = "INVOICED"
+    this.prepareCurrenciesToSaveInvoice()
+    this.rentalService.updateRental(this.rental).subscribe(
+      data => {
+        this.invoicePdfService.generateInvoicePdfByRental(invoiceId)
+      }
+    )
   }
 }

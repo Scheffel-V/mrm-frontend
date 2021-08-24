@@ -74,7 +74,12 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
   }
 
   onExport(additiveId: number) : void {
-    console.log(additiveId);
-    this.invoicePdfService.generateInvoicePdfByAdditive(additiveId);
+    this.additive.invoiceStatus = "INVOICED"
+    this.prepareCurrenciesToSaveInvoice()
+    this.additiveService.updateAdditive(this.additive).subscribe(
+      data => {
+        this.invoicePdfService.generateInvoicePdfByAdditive(additiveId)
+      }
+    )
   }
 }

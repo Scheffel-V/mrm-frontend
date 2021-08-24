@@ -63,6 +63,10 @@ export class ContractPDFService {
 
 
   async generateContract(rentalId: number) {
+    this.totalItemsAmount = 0.0;
+    this.customer = null;
+    this.rental = null;
+    this.items = [];
     await this.lazyLoadPDFLibraries();
    
     try {
