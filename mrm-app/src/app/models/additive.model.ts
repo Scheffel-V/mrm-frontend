@@ -19,6 +19,7 @@ export class Additive {
         public installments : any = "1",
         public status : string = "Opened",
         public comment : string = "",
+        public deliveryCost : number = 0
     ) {
 
     }

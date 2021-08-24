@@ -7,6 +7,7 @@ import { ScriptsService } from 'src/app/services/scripts.service';
 import { BaseComponent } from 'src/app/base/base.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { InvoicePdfService } from '../../services/invoicePdf.service';
 import { Additive } from '../../models/additive.model';
 
 
@@ -25,7 +26,8 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
     scriptsService : ScriptsService,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    private invoicePdfService : InvoicePdfService
   ) { 
     super(scriptsService, location, router, matSnackBar)
   }
@@ -69,5 +71,10 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
 
   onCancel() : void {
     this.close()
+  }
+
+  onExport(additiveId: number) : void {
+    console.log(additiveId);
+    this.invoicePdfService.generateInvoicePdfByAdditive(additiveId);
   }
 }
