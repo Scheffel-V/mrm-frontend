@@ -197,7 +197,11 @@ export const TEXTS = {
               PRODUCT_MODELS : "Products",
               SUPPLIERS : "Suppliers",
               RENTALS : "Rentals",
-              STOCK_ITEMS : "Products"
+              STOCK_ITEMS : "Products",
+              REVENUE : "Revenue",
+              RENTED_MACHINES : "Rented Machines",
+              ACTIVE_CUSTOMERS : "Active Customers",
+              ACTIVE_RENTS : "Active Rents"
             },
             LIST : {
               CUSTOMERS : "Customers",

@@ -373,6 +373,10 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   prepareCurrencyForOperations(value : any) : number {
+    if (!value) {
+      return 0
+    }
+
     if (typeof(value) === "number") {
       return value
     }

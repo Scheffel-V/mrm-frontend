@@ -11,15 +11,7 @@
             </mat-card-header>
             <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
             <br>
-            <h3 class="title-text">Faturamento</h3>
-            <p class="difference-text">
-                <span
-                    [ngClass]="{ 'green-text': isIncrease, 'red-text': !isIncrease }">{{ isIncrease ? '+' : '-' }}{{ percentValue | percent:'2.1-2' }}
-                    <mat-icon *ngIf="isIncrease">arrow_upward</mat-icon>
-                    <mat-icon *ngIf="!isIncrease">arrow_downward</mat-icon>
-                </span>
-                <span class="duration">desde o mês passado</span>
-            </p>
+            <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.REVENUE }}</h3>
         </mat-card>
     </div>
     <div class="col-xl-3">
@@ -34,7 +26,7 @@
             </mat-card-header>
             <mat-progress-bar color="primary" mode="determinate" value="40"></mat-progress-bar>
             <br>
-            <h3 class="title-text">Máquinas Alugadas</h3>
+            <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.RENTED_MACHINES }}</h3>
         </mat-card>
     </div>
     <div class="col-xl-3">
@@ -49,7 +41,7 @@
             </mat-card-header>
             <mat-progress-bar color="primary" mode="determinate" value="40"></mat-progress-bar>
             <br>
-            <h3 class="title-text">Clientes Ativos</h3>
+            <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.ACTIVE_CUSTOMERS }}</h3>
         </mat-card>
     </div>
     <div class="col-xl-3">
@@ -64,7 +56,7 @@
             </mat-card-header>
             <mat-progress-bar color="primary" mode="determinate" value="40"></mat-progress-bar>
             <br>
-            <h3 class="title-text">Aluguéis Ativos</h3>
+            <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.ACTIVE_RENTS }}</h3>
         </mat-card>
     </div>
 </div>
@@ -147,6 +139,6 @@
     </div>
     <div class="col-xl-6">
         <!-- Area Chart -->
-        <app-month-profit-chart></app-month-profit-chart>
+       <!--  <app-month-profit-chart></app-month-profit-chart> -->
     </div>
 </div>

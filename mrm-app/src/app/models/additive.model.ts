@@ -15,7 +15,7 @@ export class Additive {
         public period : number = null,
         public invoiceStatus : string = "PENDING",
         public invoiceUrl : string = null,
-        public value : any = null,
+        public value : any = 0,
         public installments : any = "1",
         public status : string = "Opened",
         public comment : string = "",
