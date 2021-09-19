@@ -58,7 +58,7 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit, Af
     this.stockItemService.getAllStockItems().subscribe(
       data => {
         this.stockItems = data
-        this.displayStockItems(data)
+        this.displayStockItems(this.filterActiveStockItems())
       }
     )
   }
@@ -146,7 +146,7 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit, Af
     this.stockItemService.getAllStockItems().subscribe(
       data => {
         this.stockItems = data
-        this.displayStockItems(data);
+        this.displayStockItems(this.filterActiveStockItems());
       }
     )
   }
