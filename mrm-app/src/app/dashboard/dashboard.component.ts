@@ -81,7 +81,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
     this.customerService.getAllCustomersWithActiveContract().subscribe(
       customers => {
-        this.activeCustomers = customers
+        this.activeCustomers = this.filterDuplicateCustomers(customers)
       }
     )
 
@@ -112,5 +112,13 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         })
       }
     })
+  }
+
+  filterDuplicateCustomers(customers): Customer[] {
+    return customers.filter((customer, index, self) => 
+      index === self.findIndex((t) => (
+        t.cnpj === customer.cnpj
+      ))
+    )
   }
 }

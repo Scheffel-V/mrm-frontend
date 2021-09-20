@@ -267,11 +267,13 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
 
     rental.paidAt = new Date()
     rental.invoiceStatus = "PAID"
+    this.prepareCurrenciesToSaveRental(rental)
 
     this.rentalService.updateRental(rental).subscribe(
       data => {
         rental = data
         this.openSnackBar("Invoice paid!")
+        this.prepareRentalsCurrenciesToDisplay()
       }
     )
   }
