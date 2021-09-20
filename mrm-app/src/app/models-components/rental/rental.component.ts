@@ -116,6 +116,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
 
   updateRental(): void {
     this.updateItemRentals()
+    this.updatePaidAt()
     this.rentalService.updateRental(this.rental).subscribe(
       data => {
         this.listRentals()
@@ -136,6 +137,12 @@ export class RentalComponent extends BaseComponent implements OnInit {
       (itemRental) => {
         this.itemRentalService.updateItemRental(itemRental).subscribe()
     })
+  }
+
+  updatePaidAt(): void {
+    if (this.rental.invoiceStatus !== "PAID") {
+      this.rental.paidAt = null
+    }
   }
 
   prepareCurrenciesToSaveRental() {
