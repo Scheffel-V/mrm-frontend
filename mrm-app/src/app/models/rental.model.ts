@@ -31,6 +31,7 @@ export class Rental {
         public workingHours : string = "8H",
         public installments : string = "1",
         public comment : string = null,
+        public active : boolean = true
     ) {
 
     }

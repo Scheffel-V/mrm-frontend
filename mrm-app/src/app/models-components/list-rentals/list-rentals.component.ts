@@ -68,7 +68,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
         this.setRentalsPeriods()
         this.setOverdueInvoices()
         this.prepareRentalsCurrenciesToDisplay()
-        this.displayRentals(this.rentals)
+        this.displayRentals(this.filterActiveRentals())
       }
     )
   }
@@ -144,6 +144,19 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   }
 
   public deleteRental(selectedRentalId : number): void {
+    let rental = this.getRental(selectedRentalId)
+    if (rental.active) {
+      rental.active = false
+      this.rentalService.updateRental(rental).subscribe(
+        data => {
+          this.openSnackBar("Rental set to inactive.")
+          this.refreshRentals()
+        }
+      )
+
+      return
+    }
+
     this.rentalService.deleteRental(selectedRentalId).subscribe(
       response => {
         this.openSnackBar("Rental deleted.")
@@ -195,7 +208,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   }
 
   public filterActiveRentals() {
-    return this.showOnlyActive ? this.rentals : this.rentals
+    return this.showOnlyActive ? this.rentals.filter((rental => rental.active === this.showOnlyActive)) : this.rentals
   }
 
   public doFilter(value : string) {
