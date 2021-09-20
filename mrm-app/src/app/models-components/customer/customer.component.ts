@@ -17,9 +17,6 @@ class RentalToDisplay {
   constructor(
     public checked : boolean,
     public rental : Rental,
-    public invoiceValue : string = null,
-    public progressIndicatorValue : number = null,
-    public progressIndicatorColor : string = "warn",
     public trashButtonColor : string = "basic",
     public infoButtonColor : string = "basic"
   ) { }
@@ -35,7 +32,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   id : number
   customer : Customer
   rentals : Rental[] = []
-  displayedColumns = ['actions', 'status', 'invoice', 'invoiceNumber', 'period', 'startDate', 'endDate', 'progress', 'totalValue'];
+  displayedColumns = ['actions', 'status', 'invoice', 'invoiceNumber', 'period', 'startDate', 'endDate', 'totalValue', 'active'];
   rentalsToDisplay : RentalToDisplay[] = []
   customerForm : FormGroup
   searchCnpjButtonColor : string = "basic"
@@ -63,6 +60,12 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     if (this.id != INITIAL_ID) {
       this.fetchCustomer()
     }
+  }
+
+  public ngAfterViewInit(): void {
+    this.setPaginator()
+    this.setSorter()
+    this.setFilter()
   }
 
   fetchCustomer(): void {
@@ -151,7 +154,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     this.rentalsToDisplay = []
     rentals.forEach((rental) => {
       this.rentalsToDisplay.push(
-        new RentalToDisplay(false, rental, rental.invoiceStatus, this.getRentalProgressIndicatorValue(rental), this.getRentalProgressIndicatorColor(rental))
+        new RentalToDisplay(false, rental)
       )
     })
     this.dataSource.data = this.rentalsToDisplay
@@ -207,15 +210,6 @@ export class CustomerComponent extends BaseComponent implements OnInit {
       const transformedFilter = filter.trim().toLowerCase();
       return dataStr.indexOf(transformedFilter) !== -1;
     };
-  }
-
-  getRentalProgressIndicatorValue(rental : Rental) {
-    return new Date().getTime() <= rental.startDate.getTime() ? 
-      0 : Math.ceil(((Math.ceil(Math.abs(new Date().getTime() - rental.startDate.getTime()) / (1000 * 60 * 60 * 24))) / rental.period) * 100)
-  }
-
-  getRentalProgressIndicatorColor(rental : Rental) {
-    return (this.getRentalProgressIndicatorValue(rental) >= 75) ? "warn" : "primary"
   }
 
   isInvoiceOverdue(rental : Rental) {

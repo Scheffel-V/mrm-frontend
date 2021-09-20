@@ -78,7 +78,8 @@ export const TEXTS = {
               PERIOD : "Period",
               PROGRESS : "Progress",
               INSTALLMENTS : "Installments",
-              WORKING_HOURS : "Working Hours"
+              WORKING_HOURS : "Working Hours",
+              ACTIVE : "Active"
             },
             ADDITIVE : {
               CUSTOMER : "Customer",
