@@ -139,6 +139,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
     this.rental.itemRentals.forEach((itemRental) => {
       itemRental.value = this.prepareCurrencyForOperations(itemRental.value)
     })
+    this.rental.deliveryCost = this.prepareCurrencyForOperations(this.rental.deliveryCost)
   }
 
   prepareCurrenciesToDisplay() {
@@ -358,7 +359,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
   }
 
   formatCurrency(value : string) : string {
-    return value.replace(".", ",")
+    return typeof(value) === "number" ? value : value.replace(".", ",")
   }
 
   prepareCurrencyToDisplay(value : any) : string {

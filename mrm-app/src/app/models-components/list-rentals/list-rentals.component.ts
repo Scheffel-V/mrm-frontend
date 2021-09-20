@@ -147,6 +147,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     let rental = this.getRental(selectedRentalId)
     if (rental.active) {
       rental.active = false
+      this.prepareCurrenciesToSaveRental(rental)
       this.rentalService.updateRental(rental).subscribe(
         data => {
           this.openSnackBar("Rental set to inactive.")
@@ -247,6 +248,14 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
         this.prepareRentalsCurrenciesToDisplay()
       }
     )
+  }
+
+  prepareCurrenciesToSaveRental(rental) {
+    rental.value = this.prepareCurrencyForOperations(rental.value)
+  }
+
+  prepareCurrencyForOperations(value : any) : number {
+    return (typeof(value) === "number") ? value : +(value.replace(".", "").replace(",", "."))
   }
 
   spinnerValue(value) {

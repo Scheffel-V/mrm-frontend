@@ -64,7 +64,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
   }
 
   prepareCurrenciesToSaveInvoice() {
-    this.rental.value = (typeof(this.rental.value) === "number") ? this.rental.value : +(this.rental.value.replace(",", "."))
+    this.rental.value = this.prepareCurrencyForOperations(this.rental.value)
   }
 
   prepareCurrencyForOperations(value : any) : number {
@@ -81,6 +81,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
     this.rentalService.updateRental(this.rental).subscribe(
       data => {
         this.invoicePdfService.generateInvoicePdfByRental(invoiceId)
+        this.prepareCurrenciesToDisplay()
       }
     )
   }

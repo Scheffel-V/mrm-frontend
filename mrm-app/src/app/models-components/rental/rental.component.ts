@@ -365,7 +365,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   formatCurrency(value : string) : string {
-    return value.replace(".", ",")
+    return typeof(value) === "number" ? value : value.replace(".", ",")
   }
 
   prepareCurrencyToDisplay(value : any) : string {
