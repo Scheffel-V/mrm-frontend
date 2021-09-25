@@ -227,7 +227,10 @@ export const TEXTS = {
               STOCK_ITEM : "Create Product",
             },
             UPDATE : {
-              RENTAL : "Rental"
+              RENTAL : "Rental",
+              CUSTOMER : "Customer",
+              STOCK_ITEM : "Product",
+              SUPPLIER : "Supplier",
             },
             INVOICE : {
               INVOICE : "Invoice"
