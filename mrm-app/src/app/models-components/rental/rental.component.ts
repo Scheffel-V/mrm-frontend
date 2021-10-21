@@ -133,9 +133,17 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   updateItemRentals(): void {
-    this.rental.itemRentals.forEach(
+    let newItemRentals = this.getNewItemRentals()
+    let oldItemRentals = this.getOldItemRentals()
+
+    oldItemRentals.forEach(
       (itemRental) => {
         this.itemRentalService.updateItemRental(itemRental).subscribe()
+    })
+
+    newItemRentals.forEach(
+      (itemRental) => {
+        this.itemRentalService.createItemRental(itemRental).subscribe()
     })
   }
 
@@ -143,6 +151,18 @@ export class RentalComponent extends BaseComponent implements OnInit {
     if (this.rental.invoiceStatus !== "PAID") {
       this.rental.paidAt = null
     }
+  }
+
+  getNewItemRentals(): ItemRental[] {
+    return this.rental.itemRentals.filter(itemRental => {
+      return this.stockItems.map(({ id }) => id).indexOf(itemRental.id) !== -1
+    })
+  }
+
+  getOldItemRentals(): ItemRental[] {
+    return this.rental.itemRentals.filter(itemRental => {
+      return this.stockItems.map(({ id }) => id).indexOf(itemRental.id) === -1
+    })
   }
 
   prepareCurrenciesToSaveRental() {
@@ -276,9 +296,18 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   stockItemSelectChange(stockItemsIds : number[]) {
-    this.rental.itemRentals = this.createItemRentalsFromStockItemsIds(stockItemsIds)
+    let newItemRentals = this.createItemRentalsFromStockItemsIds(stockItemsIds)
+    this.rental.itemRentals = this.joinNewAndOldItemRentals(newItemRentals)
     this.dataSource.data = this.rental.itemRentals
     this.fillTotalValue()
+  }
+
+  joinNewAndOldItemRentals(newItemRentals : ItemRental[]) : ItemRental[] {
+    let oldItemRentals : ItemRental[] = this.rental.itemRentals.filter(itemRental => {
+      return this.stockItems.map(({ id }) => id).indexOf(itemRental.id) === -1
+    })
+
+    return oldItemRentals.concat(newItemRentals)
   }
 
   itemRentalValueChange(value : string, currentItemRental : ItemRental) {

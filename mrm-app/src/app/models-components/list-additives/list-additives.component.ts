@@ -84,6 +84,8 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
         this.rental.approvalDate = this.rental.approvalDate == null ? null : new Date(this.rental.approvalDate)
         this.rental.paymentDueDate = this.rental.paymentDueDate == null ? null : new Date(this.rental.paymentDueDate)
         this.rental.paidAt = this.rental.paidAt == null ? null : new Date(this.rental.paidAt)
+        this.setAdditivesPeriods()
+        this.setOverdueInvoices()
         this.prepareAdditivesCurrenciesToDisplay()
         this.displayAdditives(this.rental.additives)
       }
@@ -109,7 +111,7 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
     return (typeof(value) === "string") ? value : value.toString().replace(".", ",")
   }
 
-  private setAdditivesPeriods() {
+  setAdditivesPeriods() {
     let additive : Additive
 
     for (additive of this.rental.additives) {
@@ -123,7 +125,7 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
 
   setOverdueInvoices() {
     this.rental.additives.forEach((additive) => {
-      if (additive.invoiceStatus == "INVOICED" && (new Date() > additive.paymentDueDate)) {
+      if (additive.invoiceStatus == "INVOICED" && (new Date().getTime() > additive.paymentDueDate.getTime())) {
         additive.invoiceStatus = "OVERDUE"
         this.rentalService.updateRental(this.rental).subscribe()
       }
@@ -224,22 +226,22 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
 
   getAdditiveInvoiceValue(additive : Additive) : string {
     if(additive.paidAt) {
-      return "paid"
+      return "PAID"
     }
 
     if (!additive.paymentDueDate) {
-      return "notInvoiced"
+      return "PENDING"
     }
 
     if (!additive.paidAt) {
       if (this.isInvoiceOverdue(additive)) {
-        return "overdue"
+        return "OVERDUE"
       }
 
-      return "invoiced"
+      return "INVOICED"
     }
 
-    return "paid"
+    return "PAID"
   }
 
   isInvoiceOverdue(additive : Additive) {
