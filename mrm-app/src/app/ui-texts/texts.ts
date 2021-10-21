@@ -115,7 +115,9 @@ export const TEXTS = {
               CODE : "Code",
               SUPPLIER : "Supplier",
               SUPPLIER_NAME : "Supplier Name",
-              ACTIVE : "Active"
+              ACTIVE : "Active",
+              STATUS : "Status",
+              NUMBER_OF_USES : "Number of Uses"
             },
             FORMS : {
               CUSTOMER : {

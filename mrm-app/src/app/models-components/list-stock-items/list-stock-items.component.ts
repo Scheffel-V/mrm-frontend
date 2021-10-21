@@ -30,7 +30,7 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit, Af
 
   stockItemsToDisplay : StockItemToDisplay[] = []
   stockItems : StockItem[] = []
-  public displayedColumns = ['select', 'actions', 'name', 'type', 'power', 'model', 'active'];
+  public displayedColumns = ['select', 'actions', 'status', 'name', 'type', 'power', 'model', 'active'];
   public dataSource = new MatTableDataSource<StockItemToDisplay>();
   showOnlyActive : boolean = true
   message : string

@@ -60,6 +60,8 @@ export class StockItemComponent extends BaseComponent implements OnInit {
     this.stockItemService.getStockItem(this.id).subscribe(
       data => {
         this.stockItem = data
+        this.stockItem.acquisitionDate = this.stockItem.acquisitionDate == null ? null : new Date(this.stockItem.acquisitionDate)
+        this.stockItem.lastMaintenance = this.stockItem.lastMaintenance == null ? null : new Date(this.stockItem.lastMaintenance)
         this.prepareCurrenciesToDisplay()
         this.supplierSelectControl.setValue(this.stockItem.supplier.id)
       }
