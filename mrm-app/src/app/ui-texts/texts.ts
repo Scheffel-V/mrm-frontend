@@ -70,6 +70,7 @@ export const TEXTS = {
               INVOICE_STATUS : "Invoice Status",
               INVOICE : "Invoice",
               TOTAL_VALUE : "Value",
+              TOTAL_VALUE_WITH_ADDITIVE : "Total Value with Additives",
               STATUS : "Status",
               APPROVED_DATE : "Approved Date",
               PAYMENT_DUE_DATE : "Payment Due Date",

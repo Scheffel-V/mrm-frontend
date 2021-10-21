@@ -117,7 +117,7 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
     for (additive of this.rental.additives) {
       additive.startDate = new Date(additive.startDate)
       additive.endDate = new Date(additive.endDate)
-      additive.period = Math.ceil(Math.abs(additive.endDate.getTime() - additive.startDate.getTime()) / (1000 * 60 * 60 * 24))
+      additive.period = Math.ceil(Math.abs(additive.endDate.getTime() - additive.startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1
       additive.paymentDueDate = additive.paymentDueDate ? new Date(additive.paymentDueDate) : null
       additive.paidAt = additive.paidAt ? new Date(additive.paidAt) : null
     }

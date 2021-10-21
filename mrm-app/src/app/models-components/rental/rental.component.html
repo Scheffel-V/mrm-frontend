@@ -163,7 +163,7 @@
                                             <input matInput type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" (ngModelChange)="shippingCostChange($event)" [ngModel]="rental.deliveryCost" id="deliveryCost" name="deliveryCost">
                                         </mat-form-field>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-2">
                                         <mat-form-field style="width:100%">
                                             <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE_STATUS }}</mat-label>
                                             <mat-select [(ngModel)]="rental.invoiceStatus" id="invoiceStatus" name="invoiceStatus" #invoiceStatus="ngModel">
@@ -172,6 +172,12 @@
                                                 <mat-option value="PAID">Pago</mat-option>
                                                 <mat-option value="OVERDUE">Em Aberto</mat-option>
                                             </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <mat-form-field style="width: 100%;">
+                                            <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE }}</mat-label>
+                                            <input matInput type="number" [(ngModel)]="rental.invoiceNumber" id="rentalFiscalNote" name="invoiceNumber">
                                         </mat-form-field>
                                     </div>
                                     </div>
@@ -184,17 +190,17 @@
                                             </mat-form-field>
                                         </div>
                                         <div class="col-sm-4">
+                                            <mat-form-field style="width:100%">
+                                                <mat-label>{{ TEXTS.MODELS.RENTAL.TOTAL_VALUE_WITH_ADDITIVE }}</mat-label>
+                                                <input matInput type="text" readonly matInput mask="separator.2" thousandSeparator="." prefix="R$" [ngModel]="totalValueWithAdditives" id="rentalTotalValueWithAdditives" name="totalValueWithAdditives">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-sm-4">
                                             <mat-form-field style="width:100%;" >
                                                 <mat-label>Paid At</mat-label>
                                                 <input matInput [matDatepicker]="paidAtPicker" [(ngModel)]="rental.paidAt" name="paidAt" #paidAt="ngModel">
                                                 <mat-datepicker-toggle matSuffix [for]="paidAtPicker"></mat-datepicker-toggle>
                                                 <mat-datepicker #paidAtPicker></mat-datepicker>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <mat-form-field style="width: 100%;">
-                                                <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE }}</mat-label>
-                                                <input matInput type="number" [(ngModel)]="rental.invoiceNumber" id="rentalFiscalNote" name="invoiceNumber">
                                             </mat-form-field>
                                         </div>
                                     </div>

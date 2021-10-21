@@ -38,6 +38,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   durationMode : string = "CUSTOM"
   isPeriodEditable = false
   displayedColumns = ['name', 'type', 'power', 'model', 'value']
+  totalValueWithAdditives : any = 0
   public dataSource = new MatTableDataSource<ItemRental>();
 
   customerSelectControl : FormControl = new FormControl(this.rental.customerId, [Validators.required])
@@ -86,6 +87,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
         this.rental.approvalDate = this.rental.approvalDate == null ? null : new Date(this.rental.approvalDate)
         this.rental.paymentDueDate = this.rental.paymentDueDate == null ? null : new Date(this.rental.paymentDueDate)
         this.rental.paidAt = this.rental.paidAt == null ? null : new Date(this.rental.paidAt)
+        this.setTotalValueWithAdditives()
         this.prepareCurrenciesToDisplay()
         this.updatePeriod()
         this.customerSelectControl.setValue(this.rental.customer.id)
@@ -165,6 +167,14 @@ export class RentalComponent extends BaseComponent implements OnInit {
     })
   }
 
+  setTotalValueWithAdditives() {
+    this.totalValueWithAdditives = this.rental.value
+
+    this.rental.additives.forEach(additive => {
+      this.totalValueWithAdditives += additive.value
+    })
+  }
+
   prepareCurrenciesToSaveRental() {
     this.rental.value = this.prepareCurrencyForOperations(this.rental.value)
     this.rental.itemRentals.forEach((itemRental) => {
@@ -178,6 +188,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.rental.itemRentals.forEach((itemRental) => {
       itemRental.value = this.prepareCurrencyToDisplay(itemRental.value)
     })
+    this.totalValueWithAdditives = this.prepareCurrencyToDisplay(this.totalValueWithAdditives)
     this.rental.deliveryCost = this.prepareCurrencyToDisplay(this.rental.deliveryCost)
   }
 
