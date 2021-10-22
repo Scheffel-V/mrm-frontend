@@ -79,6 +79,7 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
     this.rentalService.getRental(this.id).subscribe(
       data => {
         this.rental = data
+        this.rental.additives = this.rental.additives.reverse()
         this.rental.startDate = new Date(this.rental.startDate)
         this.rental.endDate = new Date(this.rental.endDate)
         this.rental.approvalDate = this.rental.approvalDate == null ? null : new Date(this.rental.approvalDate)

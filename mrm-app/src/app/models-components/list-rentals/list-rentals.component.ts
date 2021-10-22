@@ -68,6 +68,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.rentalService.getAllRentals().subscribe(
       data => {
         this.rentals = data
+        this.rentals = this.rentals.reverse()
         this.setRentalsPeriods()
         this.setOverdueInvoices()
         this.prepareRentalsCurrenciesToDisplay()
