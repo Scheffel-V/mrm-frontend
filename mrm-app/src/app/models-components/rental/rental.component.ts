@@ -37,7 +37,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   selectedStockItems : StockItem[] = []
   durationMode : string = "CUSTOM"
   isPeriodEditable = false
-  displayedColumns = ['name', 'type', 'power', 'model', 'value']
+  displayedColumns = ['name', 'status', 'type', 'power', 'value']
   totalValueWithAdditives : any = 0
   public dataSource = new MatTableDataSource<ItemRental>();
 

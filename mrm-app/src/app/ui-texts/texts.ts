@@ -18,7 +18,7 @@ export const TEXTS = {
             LABELS : {
               ACTIVE : "Active",
               INACTIVE : "Inactive",
-              NONE : "None"
+              NONE : "-"
             }
           },
           MODELS : {

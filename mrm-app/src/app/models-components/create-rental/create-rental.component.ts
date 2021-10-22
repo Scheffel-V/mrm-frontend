@@ -37,7 +37,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
   selectedStockItems : StockItem[] = []
   durationMode : string = "CUSTOM"
   isPeriodEditable = false
-  displayedColumns = ['name', 'type', 'power', 'model', 'value']
+  displayedColumns = ['name', 'status', 'type', 'power', 'value']
   public dataSource = new MatTableDataSource<ItemRental>();
 
   customerSelectControl : FormControl = new FormControl(this.rental.customerId, [Validators.required])

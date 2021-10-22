@@ -36,7 +36,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
 
   rentalsToDisplay : RentalToDisplay[] = []
   rentals : Rental[] = []
-  public displayedColumns = ['select', 'actions', 'status', 'invoice', 'invoiceNumber', 'customer', 'period', 'startDate', 'endDate', 'progress', 'totalValue'];
+  public displayedColumns = ['select', 'actions', 'status', 'invoice', 'invoiceNumber', 'customer', 'totalValue', 'startDate', 'endDate', 'period', 'progress'];
   public dataSource = new MatTableDataSource<RentalToDisplay>();
   showOnlyActive : boolean = true
   message : string
@@ -44,6 +44,9 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   deleteSelectedButtonColor = "basic"
   topRentalsButtonColor = "basic"
   exportButtonColor = "basic"
+  rentalStatusSelectValue = ""
+  invoiceStatusSelectValue = ""
+  searchBarValue = ""
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -119,11 +122,16 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   }
 
   private setPaginator() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator
   }
 
   private setSorter() {
+    this.dataSource.sort = this.sort
     this.dataSource.sortingDataAccessor = (item, property) => {
+      if (property === 'customer') {
+        return item['rental']['customer']['name']
+      }
+
       return item['rental'][property]
     }
   }
@@ -213,7 +221,18 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   }
 
   public doFilter(value : string) {
-    this.dataSource.filter = value.trim().toLocaleLowerCase();
+    this.searchBarValue = value.trim().toLocaleLowerCase()
+    this.dataSource.filter = this.searchBarValue + this.rentalStatusSelectValue + this.invoiceStatusSelectValue
+  }
+
+  public doFilterForRentalStatus(value : string) {
+    this.rentalStatusSelectValue = value ? value.trim().toLocaleLowerCase() : ""
+    this.dataSource.filter = this.rentalStatusSelectValue + this.invoiceStatusSelectValue + this.searchBarValue
+  }
+
+  public doFilterForInvoiceStatus(value : string) {
+    this.invoiceStatusSelectValue = value ? value.trim().toLocaleLowerCase() : ""
+    this.dataSource.filter = this.rentalStatusSelectValue + this.invoiceStatusSelectValue + this.searchBarValue
   }
 
   getRentalProgressIndicatorValue(rental : Rental) {
@@ -228,11 +247,6 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
   isInvoiceOverdue(rental : Rental) {
     return rental.paymentDueDate ? new Date().getTime() > rental.paymentDueDate.getTime() : false
   } 
-
-  public showOnlyActiveToggleChange(event : MatSlideToggleChange) {
-    this.showOnlyActive = event.checked
-    this.displayRentals(this.filterActiveRentals())
-  }
 
   public openInvoice(rentalId : number) : void {
     const dialogConfig = new MatDialogConfig()

@@ -58,6 +58,16 @@
                                             <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</th>
                                             <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.name}} </td>
                                         </ng-container>
+                                        <ng-container matColumnDef="status">
+                                            <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.STATUS }}</th>
+                                            <td mat-cell *matCellDef="let itemRental">
+                                              <span style="font-size: 15px;" *ngIf="itemRental.stockItem.status == 'INVENTORY'" class="badge badge-success">Estoque</span>
+                                              <span style="font-size: 15px;" *ngIf="itemRental.stockItem.status == 'MAINTENANCE'" class="badge badge-warn">Manutenção</span>
+                                              <span style="font-size: 15px;" *ngIf="itemRental.stockItem.status == 'RENTED'" class="badge badge-accent">Alugado</span>
+                                              <span style="font-size: 15px;" *ngIf="itemRental.stockItem.status == 'READY_FOR_RENTAL'" class="badge badge-accent">Pronto para Sair</span>
+                                              <span style="font-size: 15px;" *ngIf="itemRental.stockItem.status == 'CUSTOMER'" class="badge badge-primary">Com um cliente</span>
+                                            </td>
+                                        </ng-container>
                                         <ng-container matColumnDef="type">
                                             <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</th>
                                             <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.type}} </td>
@@ -65,10 +75,6 @@
                                         <ng-container matColumnDef="power">
                                             <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.POWER }}</th>
                                             <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.power}} </td>
-                                        </ng-container>
-                                        <ng-container matColumnDef="model">
-                                            <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}</th>
-                                            <td mat-cell *matCellDef="let itemRental"> {{itemRental.stockItem.model}} </td>
                                         </ng-container>
                                         <ng-container matColumnDef="value">
                                             <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM.VALUE }}</th>
