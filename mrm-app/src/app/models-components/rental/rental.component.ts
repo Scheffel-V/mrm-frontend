@@ -21,6 +21,14 @@ import { ItemRental } from '../../models/item-rental.model';
 import { MatTableDataSource } from '@angular/material/table';
 
 
+class ItemRentalToDisplay {
+  constructor(
+    public checked : boolean,
+    public itemRental : ItemRental,
+    public trashButtonColor : string = "basic",
+    public infoButtonColor : string = "basic"
+  ) { }
+}
 
 @Component({
   selector: 'app-rental',
@@ -37,9 +45,11 @@ export class RentalComponent extends BaseComponent implements OnInit {
   selectedStockItems : StockItem[] = []
   durationMode : string = "CUSTOM"
   isPeriodEditable = false
-  displayedColumns = ['name', 'status', 'type', 'power', 'value']
+  displayedColumns = ['actions', 'name', 'status', 'type', 'power', 'value']
   totalValueWithAdditives : any = 0
-  public dataSource = new MatTableDataSource<ItemRental>();
+  public dataSource = new MatTableDataSource<ItemRentalToDisplay>();
+  itemRentalsToDisplay : ItemRentalToDisplay[] = []
+  itemRentalsSelectedToRemove : ItemRental[] = []
 
   customerSelectControl : FormControl = new FormControl(this.rental.customerId, [Validators.required])
   customerFilterControl : FormControl = new FormControl()
@@ -92,13 +102,19 @@ export class RentalComponent extends BaseComponent implements OnInit {
         this.updatePeriod()
         this.customerSelectControl.setValue(this.rental.customer.id)
         this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
-        this.dataSource.data = this.rental.itemRentals
+        this.displayItemRentals(this.rental.itemRentals)
       }
     )
   }
 
   saveRental(): void {
     this.prepareCurrenciesToSaveRental()
+
+    this.itemRentalsSelectedToRemove.forEach(itemRentalToRemove => {
+      this.itemRentalService.deleteItemRental(itemRentalToRemove.id).subscribe()
+      this.stockItemService.updateStockItem(itemRentalToRemove.stockItem).subscribe()
+    })
+
     if (this.id == INITIAL_ID) {
       this.createRental()
       return
@@ -308,8 +324,26 @@ export class RentalComponent extends BaseComponent implements OnInit {
 
   stockItemSelectChange(stockItemsIds : number[]) {
     let newItemRentals = this.createItemRentalsFromStockItemsIds(stockItemsIds)
+
+    this.itemRentalsSelectedToRemove.forEach(itemRentalToRemove => {
+      if (newItemRentals.find(itemRental => {
+        return itemRental.stockItem.id === itemRentalToRemove.stockItem.id
+      })) {
+        if (itemRentalToRemove.stockItem.status === 'INVENTORY') {
+          itemRentalToRemove.stockItem.status = 'RENTED'
+          this.stockItems = this.stockItems.filter(stockItem => stockItem.id !== itemRentalToRemove.stockItem.id)
+        }
+    
+        this.itemRentalsSelectedToRemove = this.itemRentalsSelectedToRemove.filter(itemRentalToRemoveAux => itemRentalToRemoveAux.stockItem.id !== itemRentalToRemove.stockItem.id)
+        this.rental.itemRentals.push(itemRentalToRemove)
+        newItemRentals = newItemRentals.filter(itemRental => itemRental.stockItem.id !== itemRentalToRemove.stockItem.id)
+        this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
+        this.filterStockItems()
+      }
+   })
+
     this.rental.itemRentals = this.joinNewAndOldItemRentals(newItemRentals)
-    this.dataSource.data = this.rental.itemRentals
+    this.displayItemRentals(this.rental.itemRentals)
     this.fillTotalValue()
   }
 
@@ -429,6 +463,31 @@ export class RentalComponent extends BaseComponent implements OnInit {
     }
 
     return (value.match(/,/g) || []).length == 0 ? +value : +(value.replace(".", "").replace(",", "."))
+  }
+
+  removeStockItemFromRental(itemRental : ItemRental) {
+    if (itemRental.stockItem.status === 'RENTED') {
+      itemRental.stockItem.status = 'INVENTORY'
+      this.stockItems.push(itemRental.stockItem)
+    }
+
+    this.itemRentalsSelectedToRemove.push(itemRental)
+    
+    this.rental.itemRentals = this.rental.itemRentals.filter(itemRentalAux => itemRentalAux.id !== itemRental.id)
+    this.displayItemRentals(this.rental.itemRentals)
+    this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
+    this.filterStockItems()
+    this.fillTotalValue()
+  }
+  
+  public displayItemRentals(itemRentals : ItemRental[]): void {
+    this.itemRentalsToDisplay = []
+    itemRentals.forEach((itemRental) => {
+      this.itemRentalsToDisplay.push(
+        new ItemRentalToDisplay(false, itemRental)
+      )
+    })
+    this.dataSource.data = this.itemRentalsToDisplay
   }
 
   public filterActiveCustomers(customers : Customer[]) {
