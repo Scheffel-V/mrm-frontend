@@ -11,12 +11,12 @@ export class ImageService {
 
   constructor(private http: HttpClient) {}
 
-  public uploadImage(image: File): Observable<Object> {
+  public uploadImage(stockItemId : number, image: File): Observable<Object> {
     const formData = new FormData();
 
     formData.append('image', image);
 
-    return this.http.post(`${API_URL}/image`, formData)
+    return this.http.post(`${API_URL}/image/${stockItemId}`, formData)
   }
 
   public getImage(stockItemId : number): Observable<Blob> {

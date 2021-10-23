@@ -97,6 +97,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
     this.stockItemService.createStockItem(this.stockItem).subscribe(
       data => {
         this.stockItem = data
+        this.uploadFile()
         this.listStockItems()
       }
     )
@@ -109,6 +110,8 @@ export class StockItemComponent extends BaseComponent implements OnInit {
 
     this.stockItemService.updateStockItem(this.stockItem).subscribe(
       data => {
+        this.stockItem = data
+        this.uploadFile()
         this.listStockItems()
       }
     )
@@ -234,18 +237,26 @@ export class StockItemComponent extends BaseComponent implements OnInit {
 
       this.selectedFile = new ImageSnippet(event.target.result, file);
 
-      this.selectedFile.pending = true;
-      this.imageService.uploadImage(this.selectedFile.file).subscribe(
-        (res) => {
-          this.stockItem.imageURL = res['path']
-          this.onImageUploadSuccess();
-        },
-        (err) => {
-          this.onImageUploadError();
-        })
-    });
+      this.selectedFile.pending = true
+      this.imageToShow = event.target.result
+    })
 
     reader.readAsDataURL(file);
+  }
+
+  uploadFile() {
+    if (!this.selectedFile || !this.selectedFile.file) {
+      return
+    }
+
+    this.imageService.uploadImage(this.stockItem.id, this.selectedFile.file).subscribe(
+      (res) => {
+        this.stockItem.imageURL = res['path']
+        this.onImageUploadSuccess();
+      },
+      (err) => {
+        this.onImageUploadError();
+      })
   }
 
   createImageFromBlob(image: Blob) {
