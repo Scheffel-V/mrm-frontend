@@ -62,10 +62,9 @@
                                   </mat-form-field>
                               </div>
                               <div class="col-sm-3">
-                                <mat-form-field style="width:100%;" >
-                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.IMAGE }}</mat-label>
-                                    <input type="text" matInput [(ngModel)]="stockItem.imageURL" id="stockItemImage"
-                                        name="image" #image="ngModel">
+                                <mat-form-field style="width:100%">
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.NUMBER_OF_USES }}</mat-label>
+                                    <input matInput type="number" [(ngModel)]="stockItem.numberOfUses" id="numberOfUses" name="numberOfUses">
                                 </mat-form-field>
                               </div>
                             </div>
@@ -162,10 +161,33 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-sm-3 mb-3 mb-sm-0">
-                                    <mat-form-field style="width:100%">
-                                        <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.NUMBER_OF_USES }}</mat-label>
-                                        <input matInput type="number" [(ngModel)]="stockItem.numberOfUses" id="numberOfUses" name="numberOfUses">
-                                    </mat-form-field>
+                                      <label class="image-upload-container btn btn-bwm">
+                                        <input #imageInput
+                                               type="file"
+                                               accept="image/*"
+                                               (change)="processFile(imageInput)">
+                                      </label>
+                                      <img [src]="imageToShow"
+                                            alt="Imagem não encontrada."
+                                            *ngIf="!isImageLoading; else noImageFound"
+                                            style="max-width: 200px; max-height: 200px;">
+                                      <ng-template #noImageFound>
+                                          <img src="fallbackImage.png" alt="Fallbackimage">
+                                      </ng-template>
+
+                                      <div *ngIf="selectedFile" class="img-preview-container">
+
+                                        <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
+                                             [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+                                        </div>
+                                      
+                                        <div *ngIf="selectedFile.pending" class="img-loading-overlay">
+                                          <div class="img-spinning-circle"></div>
+                                        </div>
+                                      
+                                        <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
+                                        <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
+                                      </div>
                                 </div>
                             </div>
                             <br>
