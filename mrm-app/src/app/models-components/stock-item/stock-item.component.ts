@@ -4,6 +4,7 @@ import { StockItem } from '../../models/stock-item.model';
 import { Location } from '@angular/common';
 import { StockItemService } from '../../services/stock-item.service'
 import { SupplierService } from '../../services/supplier.service'
+import { ImageService } from '../../services/image.service'
 import { STOCK_ITEM_ID_PARAM , INITIAL_ID } from '../../app.constants'
 import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
@@ -14,6 +15,13 @@ import { Supplier } from '../../models/supplier.model';
 import { MatSelect } from '@angular/material/select';
 import { takeUntil } from 'rxjs/operators';
 
+
+class ImageSnippet {
+  pending: boolean = false
+  status: string = 'init'
+  constructor(public src: string, public file: File) {}
+}
+  
 
 @Component({
   selector: 'app-stock-item',
@@ -26,7 +34,9 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   stockItem : StockItem
   stockItemForm : FormGroup
   suppliers : Supplier[] = []
-
+  selectedFile : any
+  imageToShow: any;
+  isImageLoading: boolean
   supplierFilterControl : FormControl = new FormControl()
   supplierSelectControl : FormControl = new FormControl()
   filteredSuppliers : ReplaySubject<Supplier[]> = new ReplaySubject<Supplier[]>(1)
@@ -36,6 +46,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   constructor(
     private stockItemService : StockItemService,
     private supplierService : SupplierService,
+    private imageService : ImageService,
     private activatedRoute : ActivatedRoute,
     scriptsService : ScriptsService,
     location : Location,
@@ -63,6 +74,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
         this.stockItem.acquisitionDate = this.stockItem.acquisitionDate == null ? null : new Date(this.stockItem.acquisitionDate)
         this.stockItem.lastMaintenance = this.stockItem.lastMaintenance == null ? null : new Date(this.stockItem.lastMaintenance)
         this.prepareCurrenciesToDisplay()
+        this.getImageFromService()
         this.supplierSelectControl.setValue(this.stockItem.supplier.id)
       }
     )
@@ -212,5 +224,60 @@ export class StockItemComponent extends BaseComponent implements OnInit {
 
   prepareCurrencyForOperations(value : any) : number {
     return value ? ((typeof(value) === "number") ? value : +(value.replace(",", "."))) : null
+  }
+
+  processFile(imageInput: any) {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+
+      this.selectedFile = new ImageSnippet(event.target.result, file);
+
+      this.selectedFile.pending = true;
+      this.imageService.uploadImage(this.selectedFile.file).subscribe(
+        (res) => {
+          this.stockItem.imageURL = res['path']
+          this.onImageUploadSuccess();
+        },
+        (err) => {
+          this.onImageUploadError();
+        })
+    });
+
+    reader.readAsDataURL(file);
+  }
+
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+       this.imageToShow = reader.result;
+    }, false);
+ 
+    if (image) {
+       reader.readAsDataURL(image);
+    }
+ }
+
+ getImageFromService() {
+    this.isImageLoading = true;
+    this.imageService.getImage(this.stockItem.id).subscribe(data => {
+      this.createImageFromBlob(data);
+      this.isImageLoading = false;
+    }, error => {
+      this.isImageLoading = false;
+      console.log(error);
+    });
+  }
+
+  private onImageUploadSuccess() {
+    this.selectedFile.pending = false;
+    this.selectedFile.status = 'ok';
+  }
+
+  private onImageUploadError() {
+    this.selectedFile.pending = false;
+    this.selectedFile.status = 'fail';
+    this.selectedFile.src = '';
   }
 }
