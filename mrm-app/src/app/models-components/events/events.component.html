@@ -1,0 +1,41 @@
+<mat-card>
+    <mat-card-title>
+        <div fxLayout fxLayoutAlign="center center">
+        {{ TEXTS.PAGES.EVENTS.EVENTS }}
+        </div>
+    </mat-card-title>
+    <table style="width: 100%;" mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM_EVENT.DATE }}</th>
+            <td mat-cell *matCellDef="let stockItemEvent">{{this.prepareDateToDisplay(stockItemEvent.createdAt)}}</td>
+        </ng-container>
+        <ng-container matColumnDef="item">
+            <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM_EVENT.STOCK_ITEM_NAME }}</th>
+            <td mat-cell *matCellDef="let stockItemEvent">{{stockItemEvent.stockItem.name}} - {{stockItemEvent.stockItem.code}}</td>
+        </ng-container>
+        <ng-container matColumnDef="event">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let stockItemEvent">
+                <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'INVENTORY'" class="badge badge-success">
+                    Retornou ao {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
+                </span>
+                <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'MAINTENANCE'" class="badge badge-warn">
+                    Movido para {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
+                </span>
+                <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'RENTED'" class="badge badge-accent">
+                    {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
+                </span>
+                <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'READY_FOR_RENTAL'" class="badge badge-accent">
+                    {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
+                </span>
+                <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'CUSTOMER'" class="badge badge-primary">
+                    Saiu para o {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
+                </span>    
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10, 20]">
+    </mat-paginator>
+</mat-card>

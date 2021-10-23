@@ -35,10 +35,12 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link">
-                    <i class="fas fa-fw fa-home"></i>
-                    <span (click)="goToDashboard()">{{ TEXTS.LEFT_MENU.DASHBOARD }}</span>
+                    <span (click)="goToDashboard()">
+                        <i class="fas fa-fw fa-home"></i>
+                        <span>{{ TEXTS.LEFT_MENU.DASHBOARD }}</span>
+                    </span>
                 </a>
             </li>
 
@@ -119,6 +121,13 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+            <!-- Events -->
+            <li class="nav-item">
+                <a class="nav-link" (click)="events()">
+                    <i class="fas fa-fw fa-bell"></i>
+                    <span>{{ TEXTS.LEFT_MENU.EVENTS }}</span>
+                </a>
+            </li>
         </ul>
         <!-- End of Sidebar -->
 

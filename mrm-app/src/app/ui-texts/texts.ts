@@ -119,6 +119,12 @@ export const TEXTS = {
               STATUS : "Status",
               NUMBER_OF_USES : "Number of Uses"
             },
+            STOCK_ITEM_EVENT : {
+              STOCK_ITEM_NAME : "Item",
+              STATUS : "Status",
+              COMMENT : "Comment",
+              DATE : "Date"
+            },
             FORMS : {
               CUSTOMER : {
                 COMPANY_NAME_REQUIRED : "Company name is required.",
@@ -187,7 +193,8 @@ export const TEXTS = {
             LIST_RENTALS : "List Rentals",
             STOCK_ITEMS : "Products",
             ADD_STOCK_ITEM : "Add Product",
-            LIST_STOCK_ITEMS : "List Products"
+            LIST_STOCK_ITEMS : "List Products",
+            EVENTS : "Events"
           },
           LOGOUT : {
             READY_TO_LEAVE_MESSAGE : "Ready to leave?",
@@ -237,6 +244,9 @@ export const TEXTS = {
             },
             INVOICE : {
               INVOICE : "Invoice"
+            },
+            EVENTS : {
+              EVENTS : "Events"
             }
           },
           REAL_CUSTOMER : {

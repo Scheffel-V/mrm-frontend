@@ -87,6 +87,10 @@ export class BaseComponent implements OnInit {
     this.router.navigate(['stockItems'])
   }
 
+  public events(): void {
+    this.router.navigate(['events'])
+  }
+
   public backPage(): void {
     this.location.back()
   }

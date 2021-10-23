@@ -55,6 +55,7 @@ import { ListAdditivesComponent } from './models-components/list-additives/list-
 import { CreateAdditiveComponent } from './models-components/create-additive/create-additive.component';
 import { CreateRentalComponent } from './models-components/create-rental/create-rental.component';
 import { AdditiveInvoiceComponent } from './models-components/additive-invoice/additive-invoice.component';
+import { EventsComponent } from './models-components/events/events.component';
 
 
 
@@ -81,7 +82,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ListAdditivesComponent,
     CreateAdditiveComponent,
     CreateRentalComponent,
-    AdditiveInvoiceComponent
+    AdditiveInvoiceComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,
