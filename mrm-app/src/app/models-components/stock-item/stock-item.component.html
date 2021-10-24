@@ -12,30 +12,68 @@
                         </div>
                         
                         <form class="user" (ngSubmit)="!stockItemForm.invalid && saveStockItem()" #stockItemForm="ngForm">
+                            
                             <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <mat-form-field style="width:100%;" >
-                                        <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</mat-label>
-                                        <input type="text" matInput [(ngModel)]="stockItem.name" id="stockItemName"
-                                          name="name" required="required" #name="ngModel">
-                                        <mat-error *ngIf="name.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.NAME_REQUIRED }}</mat-error>
-                                    </mat-form-field>
+
+                                <div class="col-sm-9">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 mb-12 mb-sm-0">
+                                            <mat-form-field style="width:100%;" >
+                                                <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</mat-label>
+                                                <input type="text" matInput [(ngModel)]="stockItem.name" id="stockItemName"
+                                                name="name" required="required" #name="ngModel">
+                                                <mat-error *ngIf="name.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.NAME_REQUIRED }}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <mat-form-field style="width:100%;" >
+                                                <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.CODE }}</mat-label>
+                                                <input type="text" matInput [(ngModel)]="stockItem.code" id="stockItemCode"
+                                                    name="code" required="required" #code="ngModel">
+                                                <mat-error *ngIf="type.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.CODE_REQUIRED }}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <mat-form-field style="width:100%;" >
+                                                <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</mat-label>
+                                                <input type="text" matInput [(ngModel)]="stockItem.type" id="stockItemType"
+                                                    name="type" required="required" #type="ngModel">
+                                                <mat-error *ngIf="type.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.TYPE_REQUIRED }}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <mat-form-field style="width:100%;" >
-                                        <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.CODE }}</mat-label>
-                                        <input type="text" matInput [(ngModel)]="stockItem.code" id="stockItemCode"
-                                            name="code" required="required" #code="ngModel">
-                                        <mat-error *ngIf="type.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.CODE_REQUIRED }}</mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-sm-3">
-                                    <mat-form-field style="width:100%;" >
-                                        <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</mat-label>
-                                        <input type="text" matInput [(ngModel)]="stockItem.type" id="stockItemType"
-                                            name="type" required="required" #type="ngModel">
-                                        <mat-error *ngIf="type.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.TYPE_REQUIRED }}</mat-error>
-                                    </mat-form-field>
+                                <div class="col-sm-3" style="display: flex; justify-content: center;">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input #imageInput type="file" id="selectedFile" style="display: none;" accept="image/*" (change)="processFile(imageInput)"/>
+                                            <img [src]="imageToShow"
+                                                    alt="Imagem não encontrada."
+                                                    *ngIf="!isImageLoading; else noImageFound"
+                                                    style="max-width: 150px; max-height: 150px;"
+                                                    (click)="imageInput.click()"
+                                                    (mouseover)="hover=true" (mouseleave)="hover=false">
+                                            <ng-template #noImageFound>
+                                                <img src="fallbackImage.png" alt="Fallbackimage">
+                                            </ng-template>
+
+                                            <div *ngIf="selectedFile" class="img-preview-container">
+
+                                                <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
+                                                    [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+                                                </div>
+                                            
+                                                <div *ngIf="selectedFile.pending" class="img-loading-overlay">
+                                                <div class="img-spinning-circle"></div>
+                                                </div>
+                                            
+                                                <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
+                                                <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -70,28 +108,28 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-3 mb-3 mb-sm-0">
-                                  <mat-form-field style="width:100%;" >
+                                  <mat-form-field style="width:100%;">
                                       <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.PRESSURE }}</mat-label>
                                       <input type="text" matInput [(ngModel)]="stockItem.pressure" id="stockItemPressure"
                                         name="pressure" #pressure="ngModel">
                                   </mat-form-field>
                                 </div>
                                 <div class="col-sm-3 mb-3 mb-sm-0">
-                                  <mat-form-field style="width:100%;" >
+                                  <mat-form-field style="width:100%;">
                                       <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.THROUGHPUT }}</mat-label>
                                       <input type="text" matInput [(ngModel)]="stockItem.throughput" id="stockItemThroughput"
                                           name="throughput" #throughput="ngModel">
                                   </mat-form-field>
                                 </div>
                                 <div class="col-sm-3">
-                                    <mat-form-field style="width:100%;" >
+                                    <mat-form-field style="width:100%;">
                                       <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.VOLTAGE }}</mat-label>
                                       <input type="text" matInput [(ngModel)]="stockItem.voltage" id="stockItemVoltage"
                                         name="voltage" #voltage="ngModel">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-sm-3">
-                                  <mat-form-field style="width:100%;" >
+                                  <mat-form-field style="width:100%;">
                                       <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.SERIAL_NUMBER }}</mat-label>
                                       <input type="text" matInput [(ngModel)]="stockItem.serialNumber" id="stockItemSerialNumber"
                                           name="serialNumber" #serialNumber="ngModel">
@@ -159,35 +197,6 @@
                                             <mat-option value="CUSTOMER">With a Customer</mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                </div>
-                                <div class="col-sm-3 mb-3 mb-sm-0">
-                                      <label class="image-upload-container btn btn-bwm">
-                                        <input #imageInput
-                                               type="file"
-                                               accept="image/*"
-                                               (change)="processFile(imageInput)">
-                                      </label>
-                                      <img [src]="imageToShow"
-                                            alt="Imagem não encontrada."
-                                            *ngIf="!isImageLoading; else noImageFound"
-                                            style="max-width: 200px; max-height: 200px;">
-                                      <ng-template #noImageFound>
-                                          <img src="fallbackImage.png" alt="Fallbackimage">
-                                      </ng-template>
-
-                                      <div *ngIf="selectedFile" class="img-preview-container">
-
-                                        <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
-                                             [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
-                                        </div>
-                                      
-                                        <div *ngIf="selectedFile.pending" class="img-loading-overlay">
-                                          <div class="img-spinning-circle"></div>
-                                        </div>
-                                      
-                                        <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
-                                        <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
-                                      </div>
                                 </div>
                             </div>
                             <br>

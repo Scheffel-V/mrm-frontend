@@ -42,6 +42,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   filteredSuppliers : ReplaySubject<Supplier[]> = new ReplaySubject<Supplier[]>(1)
   protected _onDestroy = new Subject<void>();
   @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
+  hover = false
 
   constructor(
     private stockItemService : StockItemService,
