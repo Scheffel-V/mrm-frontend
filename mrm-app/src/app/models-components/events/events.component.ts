@@ -77,5 +77,4 @@ export class EventsComponent extends BaseComponent implements OnInit {
   public prepareDateToDisplay(date : Date) {
     return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " - " + date.getHours() + ":" + date.getMinutes()
   }
-
 }

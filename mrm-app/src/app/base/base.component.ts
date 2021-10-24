@@ -91,6 +91,10 @@ export class BaseComponent implements OnInit {
     this.router.navigate(['events'])
   }
 
+  public showStockItem(stockItemId) {
+    this.router.navigate(['stockItems', stockItemId])
+  }
+
   public backPage(): void {
     this.location.back()
   }

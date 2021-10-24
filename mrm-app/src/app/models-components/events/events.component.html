@@ -11,7 +11,11 @@
         </ng-container>
         <ng-container matColumnDef="item">
             <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM_EVENT.STOCK_ITEM_NAME }}</th>
-            <td mat-cell *matCellDef="let stockItemEvent">{{stockItemEvent.stockItem.name}} - {{stockItemEvent.stockItem.code}}</td>
+            <td mat-cell *matCellDef="let stockItemEvent">
+                <button class="mr-2 mb-2" mat-raised-button color="primary" (click)="showStockItem(stockItemEvent.stockItem.id)">
+                    {{stockItemEvent.stockItem.name}} - {{stockItemEvent.stockItem.code}}
+                  </button>
+            </td>
         </ng-container>
         <ng-container matColumnDef="event">
             <th mat-header-cell *matHeaderCellDef></th>
