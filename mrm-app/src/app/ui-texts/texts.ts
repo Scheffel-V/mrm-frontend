@@ -194,7 +194,8 @@ export const TEXTS = {
             STOCK_ITEMS : "Products",
             ADD_STOCK_ITEM : "Add Product",
             LIST_STOCK_ITEMS : "List Products",
-            EVENTS : "Events"
+            EVENTS : "Events",
+            INVENTORY : "Inventory"
           },
           LOGOUT : {
             READY_TO_LEAVE_MESSAGE : "Ready to leave?",
@@ -247,6 +248,9 @@ export const TEXTS = {
             },
             EVENTS : {
               EVENTS : "Events"
+            },
+            INVENTORY : {
+              INVENTORY : "Inventory"
             }
           },
           REAL_CUSTOMER : {

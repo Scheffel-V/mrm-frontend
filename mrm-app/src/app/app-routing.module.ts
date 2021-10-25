@@ -11,6 +11,7 @@ import { StockItemComponent } from './models-components/stock-item/stock-item.co
 import { ListStockItemsComponent } from './models-components/list-stock-items/list-stock-items.component';
 import { CreateRentalComponent } from './models-components/create-rental/create-rental.component';
 import { EventsComponent } from './models-components/events/events.component';
+import { InventoryComponent } from './inventory/inventory.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'rentals/:rentalId', component: RentalComponent },
   { path: 'stockItems', component: ListStockItemsComponent },
   { path: 'stockItems/:stockItemId', component: StockItemComponent },
-  { path: 'events', component: EventsComponent }
+  { path: 'events', component: EventsComponent },
+  { path: 'inventory', component: InventoryComponent }
 ];
 
 @NgModule({

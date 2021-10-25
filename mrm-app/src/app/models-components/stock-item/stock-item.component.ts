@@ -35,7 +35,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   stockItemForm : FormGroup
   suppliers : Supplier[] = []
   selectedFile : any
-  imageToShow: any;
+  imageToShow: any
   isImageLoading: boolean
   supplierFilterControl : FormControl = new FormControl()
   supplierSelectControl : FormControl = new FormControl()

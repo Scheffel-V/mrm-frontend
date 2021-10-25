@@ -41,3 +41,8 @@ td, th {
 .mat-icon{
   font-family: 'Material Icons' !important;
 }
+
+
+.green-progress .mat-progress-bar-fill::after {
+    background-color: rgb(107, 207, 107) !important;
+}

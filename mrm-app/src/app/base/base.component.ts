@@ -91,6 +91,10 @@ export class BaseComponent implements OnInit {
     this.router.navigate(['events'])
   }
 
+  public inventory(): void {
+    this.router.navigate(['inventory'])
+  }
+
   public showStockItem(stockItemId) {
     this.router.navigate(['stockItems', stockItemId])
   }
