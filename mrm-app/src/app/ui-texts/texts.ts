@@ -80,7 +80,9 @@ export const TEXTS = {
               PROGRESS : "Progress",
               INSTALLMENTS : "Installments",
               WORKING_HOURS : "Working Hours",
-              ACTIVE : "Active"
+              ACTIVE : "Active",
+              CONTRACT : "Contract",
+              ADDITIVE_NUMBER : "Additive Number"
             },
             ADDITIVE : {
               CUSTOMER : "Customer",
@@ -96,7 +98,8 @@ export const TEXTS = {
               PERIOD : "Period",
               PROGRESS : "Progress",
               INSTALLMENTS : "Installments",
-              WORKING_HOURS : "Working Hours"
+              WORKING_HOURS : "Working Hours",
+              ADDITIVE_NUMBER : "Number"
             },
             STOCK_ITEM : {
               NAME : "Name",
@@ -195,7 +198,8 @@ export const TEXTS = {
             ADD_STOCK_ITEM : "Add Product",
             LIST_STOCK_ITEMS : "List Products",
             EVENTS : "Events",
-            INVENTORY : "Inventory"
+            INVENTORY : "Inventory",
+            INVOICES : "Invoices"
           },
           LOGOUT : {
             READY_TO_LEAVE_MESSAGE : "Ready to leave?",
@@ -251,6 +255,9 @@ export const TEXTS = {
             },
             INVENTORY : {
               INVENTORY : "Inventory"
+            },
+            INVOICES : {
+              INVOICES : "Invoices"
             }
           },
           REAL_CUSTOMER : {

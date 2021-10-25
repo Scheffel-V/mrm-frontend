@@ -1,6 +1,7 @@
 export class Additive {
     constructor(
         public id : number,
+        public additiveNumber: number = null,
         public rentContractId : number = null,
         public startDate : Date = null,
         public endDate : Date = null,

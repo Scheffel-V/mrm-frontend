@@ -41,7 +41,7 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
   rental : Rental = null  
   additivesToDisplay : AdditiveToDisplay[] = []
   additives : Additive[] = []
-  public displayedColumns = ['select', 'actions', 'status', 'invoice', 'invoiceNumber', 'period', 'startDate', 'endDate', 'progress', 'totalValue'];
+  public displayedColumns = ['select', 'actions', 'additiveNumber' ,'status', 'invoice', 'invoiceNumber', 'totalValue', 'startDate', 'endDate', 'period', 'progress'];
   public dataSource = new MatTableDataSource<AdditiveToDisplay>();
   showOnlyActive : boolean = true
   message : string
@@ -118,7 +118,7 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
     for (additive of this.rental.additives) {
       additive.startDate = new Date(additive.startDate)
       additive.endDate = new Date(additive.endDate)
-      additive.period = Math.ceil(Math.abs(additive.endDate.getTime() - additive.startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1
+      additive.period = Math.ceil(Math.abs(additive.endDate.getTime() - additive.startDate.getTime()) / (1000 * 60 * 60 * 24))
       additive.paymentDueDate = additive.paymentDueDate ? new Date(additive.paymentDueDate) : null
       additive.paidAt = additive.paidAt ? new Date(additive.paidAt) : null
     }
@@ -182,7 +182,9 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
         this.rental.approvalDate = this.rental.approvalDate == null ? null : new Date(this.rental.approvalDate)
         this.rental.paymentDueDate = this.rental.paymentDueDate == null ? null : new Date(this.rental.paymentDueDate)
         this.rental.paidAt = this.rental.paidAt == null ? null : new Date(this.rental.paidAt)
+        this.rental.additives = this.rental.additives.reverse()
         this.displayAdditives(this.rental.additives)
+        this.setAdditivesPeriods()
         this.prepareAdditivesCurrenciesToDisplay()
       }
     )

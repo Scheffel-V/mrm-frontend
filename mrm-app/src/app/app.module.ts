@@ -59,6 +59,7 @@ import { EventsComponent } from './models-components/events/events.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { InvoicesComponent } from './invoices/invoices.component';
 
 
 registerLocaleData(localePt, 'pt');
@@ -86,7 +87,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     CreateRentalComponent,
     AdditiveInvoiceComponent,
     EventsComponent,
-    InventoryComponent
+    InventoryComponent,
+    InvoicesComponent
   ],
   imports: [
     BrowserModule,

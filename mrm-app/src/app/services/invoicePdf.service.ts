@@ -257,31 +257,27 @@ export class InvoicePdfService {
     this.additiveNumber = latestAdditiveId;
   }
 
-  renderAdditive() {
-    if (this.additiveNumber !== -1) {
-      return {
-        columns: [
-          {
-            text: 'Número do Aditivo',
-            color: '#aaaaab',
-            bold: true,
-            fontSize: 10,
-            alignment: 'right',
-            width: '*',
-          },
-          {
-            text: this.additiveNumber,
-            bold: true,
-            color: '#333333',
-            fontSize: 10,
-            alignment: 'right',
-            width: 100,
-          },
-        ],
-      };
-    } else{
-      return {};
-    }
+  renderAdditive(additive : Additive) {
+    return {
+      columns: [
+        {
+          text: 'Número do Aditivo',
+          color: '#aaaaab',
+          bold: true,
+          fontSize: 10,
+          alignment: 'right',
+          width: '*',
+        },
+        {
+          text: this.additive.additiveNumber,
+          bold: true,
+          color: '#333333',
+          fontSize: 10,
+          alignment: 'right',
+          width: 100,
+        },
+      ],
+    };
   }
 
   renderPaymentDueDate(invoice) {
@@ -358,7 +354,6 @@ export class InvoicePdfService {
                       },
                     ],
                   },
-                  this.renderAdditive(),
                   {
                     columns: [
                       {
@@ -760,7 +755,7 @@ export class InvoicePdfService {
                       },
                     ],
                   },
-                  this.renderAdditive(),
+                  this.renderAdditive(additive),
                   {
                     columns: [
                       {
