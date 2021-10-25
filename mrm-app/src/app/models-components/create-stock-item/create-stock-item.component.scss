@@ -1,0 +1,15 @@
+
+/* Opacity #2 */
+img {
+	background: #531abc;
+}
+
+img {
+	opacity: 1;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+
+img:hover {
+    opacity: .5;
+}

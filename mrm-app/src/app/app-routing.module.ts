@@ -13,18 +13,24 @@ import { CreateRentalComponent } from './models-components/create-rental/create-
 import { EventsComponent } from './models-components/events/events.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { InvoicesComponent } from "./invoices/invoices.component";
+import { CreateCustomerComponent } from './models-components/create-customer/create-customer.component';
+import { CreateStockItemComponent } from './models-components/create-stock-item/create-stock-item.component';
+import { CreateSupplierComponent } from './models-components/create-supplier/create-supplier.component';
 
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'customers', component: ListCustomersComponent },
+  { path: 'customers/-1', component: CreateCustomerComponent },
   { path: 'customers/:customerId', component: CustomerComponent },
   { path: 'suppliers', component: ListSuppliersComponent },
+  { path: 'suppliers/-1', component: CreateSupplierComponent },
   { path: 'suppliers/:supplierId', component: SupplierComponent },
   { path: 'rentals', component: ListRentalsComponent },
   { path: 'rentals/-1', component: CreateRentalComponent },
   { path: 'rentals/:rentalId', component: RentalComponent },
   { path: 'stockItems', component: ListStockItemsComponent },
+  { path: 'stockItems/-1', component: CreateStockItemComponent },
   { path: 'stockItems/:stockItemId', component: StockItemComponent },
   { path: 'events', component: EventsComponent },
   { path: 'inventory', component: InventoryComponent },

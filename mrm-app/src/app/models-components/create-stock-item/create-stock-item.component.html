@@ -1,0 +1,213 @@
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4" *ngIf="id==-1">{{ TEXTS.PAGES.CREATE.STOCK_ITEM }}</h1>
+                            <h1 class="h4 text-gray-900 mb-4" *ngIf="id!=-1">{{ TEXTS.PAGES.UPDATE.STOCK_ITEM }}</h1>
+                        </div>
+                        
+                        <form class="user" (ngSubmit)="!stockItemForm.invalid && saveStockItem()" #stockItemForm="ngForm">
+                            
+                            <div class="form-group row">
+
+                                <div class="col-sm-9">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 mb-12 mb-sm-0">
+                                            <mat-form-field style="width:100%;" >
+                                                <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.NAME }}</mat-label>
+                                                <input type="text" matInput [(ngModel)]="stockItem.name" id="stockItemName"
+                                                name="name" required="required" #name="ngModel">
+                                                <mat-error *ngIf="name.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.NAME_REQUIRED }}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <mat-form-field style="width:100%;" >
+                                                <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.CODE }}</mat-label>
+                                                <input type="text" matInput [(ngModel)]="stockItem.code" id="stockItemCode"
+                                                    name="code" required="required" #code="ngModel">
+                                                <mat-error *ngIf="type.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.CODE_REQUIRED }}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <mat-form-field style="width:100%;" >
+                                                <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.TYPE }}</mat-label>
+                                                <input type="text" matInput [(ngModel)]="stockItem.type" id="stockItemType"
+                                                    name="type" required="required" #type="ngModel">
+                                                <mat-error *ngIf="type.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.TYPE_REQUIRED }}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" style="display: flex; justify-content: center;">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input #imageInput type="file" id="selectedFile" style="display: none;" accept="image/*" (change)="processFile(imageInput)"/>
+                                            <img [src]="imageToShow"
+                                                    alt="Imagem não encontrada."
+                                                    *ngIf="!isImageLoading; else noImageFound"
+                                                    style="max-width: 150px; max-height: 150px;"
+                                                    (click)="imageInput.click()"
+                                                    (mouseover)="hover=true" (mouseleave)="hover=false">
+                                            <ng-template #noImageFound>
+                                                <img src="fallbackImage.png" alt="Fallbackimage">
+                                            </ng-template>
+
+                                            <div *ngIf="selectedFile" class="img-preview-container">
+
+                                                <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
+                                                    [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+                                                </div>
+                                            
+                                                <div *ngIf="selectedFile.pending" class="img-loading-overlay">
+                                                <div class="img-spinning-circle"></div>
+                                                </div>
+                                            
+                                                <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
+                                                <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-3 mb-3 mb-sm-0">
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.POWER }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="stockItem.power" id="stockItemPower"
+                                        required="required" name="city" #power="ngModel">
+                                    <mat-error *ngIf="power.invalid">{{ TEXTS.MODELS.FORMS.STOCK_ITEM.POWER_REQUIRED }}</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-sm-3 mb-3 mb-sm-0">
+                                <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.BRAND }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="stockItem.brand" id="stockItemBrand"
+                                        name="brand" #brand="ngModel">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-sm-3">
+                                  <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.MODEL }}</mat-label>
+                                    <input type="text" matInput [(ngModel)]="stockItem.model" id="stockItemModel"
+                                      name="model" #model="ngModel">
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-sm-3">
+                                <mat-form-field style="width:100%">
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.NUMBER_OF_USES }}</mat-label>
+                                    <input matInput type="number" [(ngModel)]="stockItem.numberOfUses" id="numberOfUses" name="numberOfUses">
+                                </mat-form-field>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                  <mat-form-field style="width:100%;">
+                                      <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.PRESSURE }}</mat-label>
+                                      <input type="text" matInput [(ngModel)]="stockItem.pressure" id="stockItemPressure"
+                                        name="pressure" #pressure="ngModel">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                  <mat-form-field style="width:100%;">
+                                      <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.THROUGHPUT }}</mat-label>
+                                      <input type="text" matInput [(ngModel)]="stockItem.throughput" id="stockItemThroughput"
+                                          name="throughput" #throughput="ngModel">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field style="width:100%;">
+                                      <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.VOLTAGE }}</mat-label>
+                                      <input type="text" matInput [(ngModel)]="stockItem.voltage" id="stockItemVoltage"
+                                        name="voltage" #voltage="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                  <mat-form-field style="width:100%;">
+                                      <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.SERIAL_NUMBER }}</mat-label>
+                                      <input type="text" matInput [(ngModel)]="stockItem.serialNumber" id="stockItemSerialNumber"
+                                          name="serialNumber" #serialNumber="ngModel">
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                  <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.STANDARD_RENTAL_VALUE }}</mat-label>
+                                    <input type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" [(ngModel)]="stockItem.rentValue" id="stockItemStandardRentalValue"
+                                        name="standardRentalValue" #standardRentalValue="ngModel">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                  <mat-form-field style="width:100%;" >
+                                    <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.REPOSITION_VALUE }}</mat-label>
+                                    <input type="text" mask="separator.2" thousandSeparator="." prefix="R$" matInput [(ngModel)]="stockItem.replacementCost" id="stockItemRepositionValue"
+                                      name="repositionValue" #repositionValue="ngModel">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-6">
+                                    <mat-form-field style="width:100%" >
+                                        <mat-label>Supplier</mat-label>
+                                        <mat-select [(ngModel)]="stockItem.supplierId" [formControl]="supplierSelectControl" name="stockItemSupplierForm" id="stockItemSupplierForm">
+                                            <mat-option>
+                                                <ngx-mat-select-search [formControl]="supplierFilterControl" placeholderLabel="Find supplier..." 
+                                                noEntriesFoundLabel="'no matching supplier found'"></ngx-mat-select-search>
+                                            </mat-option>
+                                            <mat-option>
+                                                {{ TEXTS.GENERAL.LABELS.NONE }}
+                                            </mat-option>
+                                            <mat-option *ngFor="let supplier of filteredSuppliers | async" [value]="supplier.id">
+                                            {{ supplier.name }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                    <mat-form-field style="width:100%;" >
+                                        <mat-label>Acquisition Date</mat-label>
+                                        <input matInput [matDatepicker]="acquisitionDatePicker" [(ngModel)]="stockItem.acquisitionDate" name="acquisitionDate" #acquisitionDate="ngModel">
+                                        <mat-datepicker-toggle matSuffix [for]="acquisitionDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #acquisitionDatePicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                    <mat-form-field style="width:100%;" >
+                                        <mat-label>Last Maintenance</mat-label>
+                                        <input matInput [matDatepicker]="lastMaintenancePicker" [(ngModel)]="stockItem.lastMaintenance" name="lastMaintenance" #lastMaintenance="ngModel">
+                                        <mat-datepicker-toggle matSuffix [for]="lastMaintenancePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #lastMaintenancePicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                    <mat-form-field style="width:100%">
+                                        <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.STATUS }}</mat-label>
+                                        <mat-select [(ngModel)]="stockItem.status" id="stockItemStatus" name="stockItemStatus" #stockItemStatus="ngModel">
+                                            <mat-option value="INVENTORY">Inventory</mat-option>
+                                            <mat-option value="MAINTENANCE">Maintenance</mat-option>
+                                            <mat-option value="RENTED">Rented</mat-option>
+                                            <mat-option value="READY_FOR_RENTAL">Ready for Rental</mat-option>
+                                            <mat-option value="CUSTOMER">With a Customer</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                        </form>
+
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
