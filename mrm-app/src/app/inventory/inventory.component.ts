@@ -18,6 +18,8 @@ class StockItemToDisplay {
     public stockItem : StockItem,
     public image: any,
     public customerName : string = "",
+    public customerId : string = "",
+    public rentalId : string = "",
     public trashButtonColor : string = "basic",
     public infoButtonColor : string = "basic"
   ) { }
@@ -38,7 +40,7 @@ export class InventoryComponent extends BaseComponent implements OnInit {
   isImageLoading: boolean
   showOnlyActive = true
   breakpoint: number;
-  stockItemStatusSelectValue: any;
+  stockItemStatusSelectValue: any = "";
   searchBarValue: any;
 
   constructor(
@@ -65,6 +67,24 @@ export class InventoryComponent extends BaseComponent implements OnInit {
     )
   }
 
+  public ngAfterViewInit(): void {
+    this.setFilter()
+  }
+
+  private setFilter() {
+    this.dataSource.filterPredicate = (data, filter: string)  => {
+      const accumulator = (currentTerm, key) => {
+        if (key === 'checked' || key === 'image') {
+          return currentTerm
+        }
+        return key === 'stockItem' ? currentTerm + data.stockItem.name + data.stockItem.code + data.stockItem.model + data.stockItem.power + data.stockItem.status : currentTerm;
+      };
+      const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    };
+  }
+
   public doFilter(value : string) {
     this.searchBarValue = value.trim().toLocaleLowerCase()
     this.dataSource.filter = this.searchBarValue + this.stockItemStatusSelectValue
@@ -80,7 +100,7 @@ export class InventoryComponent extends BaseComponent implements OnInit {
       let rentals : Rental[] = data
       rentals.forEach(rental => {
         rental.itemRentals.forEach(itemRental => {
-          this.updateStockItemToDisplayList(itemRental.stockItemId, rental.customer.name)
+          this.updateStockItemToDisplayList(itemRental.stockItemId, rental.customer, rental.id)
         })
       })
     })
@@ -133,10 +153,12 @@ export class InventoryComponent extends BaseComponent implements OnInit {
   this.dataSource.data = this.stockItemsToDisplay
  }
 
- updateStockItemToDisplayList(stockItemId, customerName) {
+ updateStockItemToDisplayList(stockItemId, customer, rentalId) {
   this.stockItemsToDisplay.forEach(stockItemToDisplay => {
     if (stockItemToDisplay.stockItem.id === stockItemId) {
-      stockItemToDisplay.customerName = customerName
+      stockItemToDisplay.customerName = customer.name
+      stockItemToDisplay.customerId = customer.id
+      stockItemToDisplay.rentalId = rentalId
     }
   })
   this.dataSource.data = this.stockItemsToDisplay
@@ -148,5 +170,17 @@ export class InventoryComponent extends BaseComponent implements OnInit {
 
   onResize(event) {
     this.breakpoint = (event.target.innerWidth <= 400) ? 1 : 4;
+  }
+
+  seeStockItem(stockItemId : number) {
+    this.router.navigate(['stockItems', stockItemId])
+  }
+
+  seeRental(rentalId : number) {
+    this.router.navigate(['rentals', rentalId])
+  }
+
+  seeCustomer(customerId : number) {
+    this.router.navigate(['customers', customerId])
   }
 }

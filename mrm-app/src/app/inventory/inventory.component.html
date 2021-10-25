@@ -25,7 +25,7 @@
 <mat-card>
     <mat-card-content>
         <div class="row">
-            <div class="col-sm-3 mb-3 mb-sm-0" style="padding: 10px" *ngFor="let stockItemToDisplay of stockItemsToDisplay; trackBy: trackItem">
+            <div class="col-sm-3 mb-3 mb-sm-0" style="padding: 10px" *ngFor="let stockItemToDisplay of dataSource.filteredData; trackBy: trackItem">
 
                         
                             <mat-card class="z-depth">
@@ -34,8 +34,7 @@
                                     <mat-card-subtitle>{{stockItemToDisplay.stockItem.code}}</mat-card-subtitle>
                                 </mat-card-header>
                                   <img mat-card-image src="{{stockItemToDisplay.image}}"
-                                        alt="Imagem não encontrada."
-                                        >
+                                        alt="Imagem não encontrada.">
                                     <ng-template #noImageFound>
                                         <img mat-card-lg-image src="fallbackImage.png" alt="Fallbackimage">
                                     </ng-template>
@@ -45,12 +44,15 @@
                                             <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'RENTED'" class="badge badge-accent">Alugado para o cliente</span>
                                             <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'READY_FOR_RENTAL'" class="badge badge-accent">Pronto para ir ao cliente</span>
                                             <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'CUSTOMER'" class="badge badge-primary">Com o cliente</span>
-                                            <button mat-button>{{stockItemToDisplay.customerName}}</button>
+                                            <button mat-button (click)="seeCustomer(stockItemToDisplay.customerId)">{{stockItemToDisplay.customerName}}</button>
                                         </mat-card-content>
+                                        <mat-divider inset></mat-divider>
                                         <mat-card-footer>
-                                            <button mat-button>
-                                                <mat-icon>info</mat-icon>
-                                            </button>
+                                            <mat-button-toggle-group>
+                                                <mat-button-toggle (click)="seeStockItem(stockItemToDisplay.stockItem.id)">Produto</mat-button-toggle>
+                                                <mat-button-toggle *ngIf="stockItemToDisplay.stockItem.status == 'RENTED' || stockItemToDisplay.stockItem.status == 'READY_FOR_RENTAL' || stockItemToDisplay.stockItem.status == 'CUSTOMER'" (click)="seeRental(stockItemToDisplay.rentalId)">Locação</mat-button-toggle>
+                                                <mat-button-toggle *ngIf="stockItemToDisplay.stockItem.status == 'RENTED' || stockItemToDisplay.stockItem.status == 'READY_FOR_RENTAL' || stockItemToDisplay.stockItem.status == 'CUSTOMER'" (click)="seeCustomer(stockItemToDisplay.customerId)">Cliente</mat-button-toggle>
+                                            </mat-button-toggle-group>
                                             <mat-progress-bar class="green-progress" mode="determinate" value="100" *ngIf="stockItemToDisplay.stockItem.status == 'INVENTORY'"></mat-progress-bar> 
                                             <mat-progress-bar mode="determinate" value="100" color="warn" *ngIf="stockItemToDisplay.stockItem.status == 'MAINTENANCE'"></mat-progress-bar>
                                             <mat-progress-bar mode="determinate" value="100" color="accent" *ngIf="stockItemToDisplay.stockItem.status == 'RENTED'"></mat-progress-bar>

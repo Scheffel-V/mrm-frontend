@@ -57,7 +57,8 @@ import { CreateRentalComponent } from './models-components/create-rental/create-
 import { AdditiveInvoiceComponent } from './models-components/additive-invoice/additive-invoice.component';
 import { EventsComponent } from './models-components/events/events.component';
 import { InventoryComponent } from './inventory/inventory.component';
-
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 registerLocaleData(localePt, 'pt');
@@ -120,7 +121,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatGridListModule,
     MatProgressBarModule,
     NgChartjsModule,
-    MatTabsModule 
+    MatTabsModule ,
+    MatBadgeModule,
+    MatButtonToggleModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },

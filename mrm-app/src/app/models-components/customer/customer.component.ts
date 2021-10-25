@@ -73,6 +73,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
       data => {
         this.customer = data
         this.rentals = this.customer.rentContracts
+        this.rentals = this.rentals.reverse()
         this.setRentalsPeriods()
         this.prepareRentalsCurrenciesToDisplay()
         this.displayRentals(this.rentals)
