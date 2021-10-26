@@ -1,29 +1,35 @@
-<div class="row"> 
-    <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12">
-      <div fxLayout="row wrap">
-        <mat-form-field fxFlex="100%">
-            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="{{ TEXTS.GENERAL.ACTIONS.SEARCH }}">
-          </mat-form-field>
-        <mat-form-field style="width:50%">
-          <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.STATUS }}</mat-label>
-          <mat-select (selectionChange)="doFilterForStockItemStatus($event.value)" id="invoiceStatusFilter" name="invoiceStatusFilter">
-              <mat-option value="INVENTORY">Estoque</mat-option>
-              <mat-option value="MAINTENANCE">Manutenção</mat-option>
-              <mat-option value="RENTED">Alugado</mat-option>
-              <mat-option value="READY_FOR_RENTAL">Pronto para sair</mat-option>
-              <mat-option value="CUSTOMER">Com o cliente</mat-option>
-              <mat-option>{{ TEXTS.GENERAL.LABELS.NONE }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12">  
-      <div fxLayout="row wrap" fxLayoutAlign="center center">
-      </div>
-    </div>
-  </div>
+
 <mat-card>
+  <mat-card-title>
+    <div fxLayout fxLayoutAlign="center center">
+      {{ TEXTS.PAGES.INVENTORY.INVENTORY }}
+    </div>
+  </mat-card-title>
     <mat-card-content>
+      <div class="row"> 
+        <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12">
+          <div fxLayout="row wrap">
+            <mat-form-field fxFlex="100%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="{{ TEXTS.GENERAL.ACTIONS.SEARCH }}">
+              </mat-form-field>
+            <mat-form-field style="width:50%">
+              <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.STATUS }}</mat-label>
+              <mat-select (selectionChange)="doFilterForStockItemStatus($event.value)" id="invoiceStatusFilter" name="invoiceStatusFilter">
+                  <mat-option value="INVENTORY">Estoque</mat-option>
+                  <mat-option value="MAINTENANCE">Manutenção</mat-option>
+                  <mat-option value="RENTED">Alugado</mat-option>
+                  <mat-option value="READY_FOR_RENTAL">Pronto para sair</mat-option>
+                  <mat-option value="CUSTOMER">Com o cliente</mat-option>
+                  <mat-option>{{ TEXTS.GENERAL.LABELS.NONE }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12">  
+          <div fxLayout="row wrap" fxLayoutAlign="center center">
+          </div>
+        </div>
+      </div>
         <div class="row">
             <div class="col-sm-3 mb-3 mb-sm-0" style="padding: 10px" *ngFor="let stockItemToDisplay of dataSource.filteredData; trackBy: trackItem">
 

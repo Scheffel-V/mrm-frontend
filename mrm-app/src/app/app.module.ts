@@ -63,6 +63,8 @@ import { InvoicesComponent } from './invoices/invoices.component';
 import { CreateCustomerComponent } from './models-components/create-customer/create-customer.component';
 import { CreateStockItemComponent } from './models-components/create-stock-item/create-stock-item.component';
 import { CreateSupplierComponent } from './models-components/create-supplier/create-supplier.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 
 
 registerLocaleData(localePt, 'pt');
@@ -131,7 +133,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     NgChartjsModule,
     MatTabsModule ,
     MatBadgeModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatToolbarModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },

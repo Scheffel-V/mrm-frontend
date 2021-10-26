@@ -1,6 +1,9 @@
 export const TEXTS = {
     ENGLISH : {
         GENERAL : {
+          PORTUGUESE : "Portuguese",
+          ENGLISH : "English",
+          LOGOUT : "Logout",
             ACTIONS : {
                 ACTIONS : "Actions",
                 SAVE : "Save",
@@ -266,6 +269,8 @@ export const TEXTS = {
     },
     PORTUGUESE : {
         GENERAL : {
+          PORTUGUESE : "Português",
+          ENGLISH : "Ingles",
             ACTIONS : {
               ACTIONS : "Ações",
               DELETE : "Deletar",

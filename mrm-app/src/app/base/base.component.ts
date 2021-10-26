@@ -22,6 +22,7 @@ export class BaseComponent implements OnInit {
   protected loadAPI: Promise<any>;
   protected INITIAL_ID = INITIAL_ID
   backButtonColor : string = "basic"
+  avatar = false
 
   constructor(
     protected scriptsService : ScriptsService,

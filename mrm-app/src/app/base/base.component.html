@@ -35,14 +35,23 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link">
-                    <span (click)="goToDashboard()">
+            <li class="nav-item" *ngIf="this.router.url !== '/'">
+                <a class="nav-link" (click)="goToDashboard()">
+                    <span>
                         <i class="fas fa-fw fa-home"></i>
                         <span>{{ TEXTS.LEFT_MENU.DASHBOARD }}</span>
                     </span>
                 </a>
             </li>
+            <li class="nav-item active" *ngIf="this.router.url === '/'">
+                <a class="nav-link" (click)="goToDashboard()">
+                    <span>
+                        <i class="fas fa-fw fa-home"></i>
+                        <span>{{ TEXTS.LEFT_MENU.DASHBOARD }}</span>
+                    </span>
+                </a>
+            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -52,8 +61,63 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Invoices -->
+            <li class="nav-item" *ngIf="this.router.url !== '/invoices'">
+                <a class="nav-link" (click)="invoices()">
+                    <i class="fas fa-fw fa-credit-card"></i>
+                    <span>{{ TEXTS.LEFT_MENU.INVOICES }}</span>
+                </a>
+            </li>
+            <li class="nav-item active" *ngIf="this.router.url === '/invoices'">
+                <a class="nav-link" (click)="invoices()">
+                    <i class="fas fa-fw fa-credit-card"></i>
+                    <span>{{ TEXTS.LEFT_MENU.INVOICES }}</span>
+                </a>
+            </li>
+            <!-- Inventory -->
+            <li class="nav-item" *ngIf="this.router.url !== '/inventory'">
+                <a class="nav-link" (click)="inventory()">
+                    <i class="fas fa-fw fa-cubes"></i>
+                    <span>{{ TEXTS.LEFT_MENU.INVENTORY }}</span>
+                </a>
+            </li>
+            <li class="nav-item active" *ngIf="this.router.url === '/inventory'">
+                <a class="nav-link" (click)="inventory()">
+                    <i class="fas fa-fw fa-cubes"></i>
+                    <span>{{ TEXTS.LEFT_MENU.INVENTORY }}</span>
+                </a>
+            </li>
+            <!-- Events -->
+            <li class="nav-item" *ngIf="this.router.url !== '/events'">
+                <a class="nav-link" (click)="events()">
+                    <i class="fas fa-fw fa-bell"></i>
+                    <span>{{ TEXTS.LEFT_MENU.EVENTS }}</span>
+                </a>
+            </li>
+            <li class="nav-item active" *ngIf="this.router.url === '/events'">
+                <a class="nav-link" (click)="events()">
+                    <i class="fas fa-fw fa-bell"></i>
+                    <span>{{ TEXTS.LEFT_MENU.EVENTS }}</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
             <!-- Customers -->
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!this.router.url.startsWith('/customers')">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>{{ TEXTS.LEFT_MENU.CUSTOMERS }}</span>
+                </a>
+                <div id="collapseTwo" class="collapse navbar-collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</h6>
+                        <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" (click)="createCustomer()">{{ TEXTS.LEFT_MENU.ADD_CUSTOMER }}</a>
+                        <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" (click)="listCustomers()">{{ TEXTS.LEFT_MENU.LIST_CUSTOMERS }}</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item active" *ngIf="this.router.url.startsWith('/customers')">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-users"></i>
@@ -69,7 +133,22 @@
             </li>
 
             <!-- Products -->
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!this.router.url.startsWith('/stockItems')">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-box"></i>
+                    <span>{{ TEXTS.LEFT_MENU.STOCK_ITEMS }}</span>
+                </a>
+                <div id="collapseThree" class="collapse navbar-collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</h6>
+                        <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" (click)="createStockItem()">{{ TEXTS.LEFT_MENU.ADD_STOCK_ITEM }}</a>
+                        <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" (click)="listStockItems()">{{ TEXTS.LEFT_MENU.LIST_STOCK_ITEMS }}</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item active" *ngIf="this.router.url.startsWith('/stockItems')">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-box"></i>
@@ -86,7 +165,22 @@
             </li>
 
             <!-- Suppliers -->
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!this.router.url.startsWith('/suppliers')">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-truck"></i>
+                    <span>{{ TEXTS.LEFT_MENU.SUPPLIERS }}</span>
+                </a>
+                <div id="collapseFour" class="collapse navbar-collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</h6>
+                        <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" (click)="createSupplier()">{{ TEXTS.LEFT_MENU.ADD_SUPPLIER }}</a>
+                        <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" (click)="listSuppliers()">{{ TEXTS.LEFT_MENU.LIST_SUPPLIERS }}</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item active" *ngIf="this.router.url.startsWith('/suppliers')">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-truck"></i>
@@ -103,7 +197,7 @@
             </li>
 
             <!-- Rentals -->
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!this.router.url.startsWith('/rentals')">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-shopping-cart"></i>
@@ -118,29 +212,20 @@
                     </div>
                 </div>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Events -->
-            <li class="nav-item">
-                <a class="nav-link" (click)="events()">
-                    <i class="fas fa-fw fa-bell"></i>
-                    <span>{{ TEXTS.LEFT_MENU.EVENTS }}</span>
+            <li class="nav-item active" *ngIf="this.router.url.startsWith('/rentals')">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                    <span>{{ TEXTS.LEFT_MENU.RENTALS }}</span>
                 </a>
-            </li>
-            <!-- Inventory -->
-            <li class="nav-item">
-                <a class="nav-link" (click)="inventory()">
-                    <i class="fas fa-fw fa-cubes"></i>
-                    <span>{{ TEXTS.LEFT_MENU.INVENTORY }}</span>
-                </a>
-            </li>
-            <!-- Invoices -->
-            <li class="nav-item">
-                <a class="nav-link" (click)="invoices()">
-                    <i class="fas fa-fw fa-credit-card"></i>
-                    <span>{{ TEXTS.LEFT_MENU.INVOICES }}</span>
-                </a>
+                <div id="collapseFive" class="collapse navbar-collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">{{ TEXTS.GENERAL.ACTIONS.ACTIONS }}</h6>
+                        <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" (click)="createRental()">{{ TEXTS.LEFT_MENU.ADD_RENTAL }}</a>
+                        <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" (click)="listRentals()">{{ TEXTS.LEFT_MENU.LIST_RENTALS }}</a>
+                    </div>
+                </div>
             </li>
         </ul>
         <!-- End of Sidebar -->
@@ -152,18 +237,70 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <button mat-raised-button (click)="backPage()" [color]="backButtonColor" (mouseover)="backButtonColor = 'primary'" (mouseout)="backButtonColor = 'basic'">
+                <mat-toolbar class="sidebar-dark">
+                    <button mat-button (click)="backPage()">
                         <div fxLayout="row" fxLayoutAlign="center center">
                             <i class="material-icons" style="padding-right: 5px !important;">arrow_back_ios</i>
                             {{ TEXTS.GENERAL.ACTIONS.BACK_PAGE }}
                         </div>
                     </button>
-                </nav>
+                    <span class="example-spacer"></span>
+
+                    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" class="example-icon" aria-label="Example icon-button with share icon">
+                        <mat-icon>notifications</mat-icon>
+                    </button>
+                    <mat-menu #notificationsMenu="matMenu">
+                        <button mat-menu-item>
+                            <span>
+                                <mat-icon>logout</mat-icon>
+                            </span>
+                            <span>
+                                {{ TEXTS.GENERAL.LOGOUT }}
+                            </span>
+                        </button>
+                    </mat-menu>
+                    
+                    <button mat-icon-button [matMenuTriggerFor]="accountMenu" class="example-icon" aria-label="Example icon-button with share icon">
+                        <mat-icon>person</mat-icon>
+                    </button>
+                    <mat-menu #accountMenu="matMenu">
+                        <button mat-menu-item>
+                            <span>
+                                <mat-icon>logout</mat-icon>
+                            </span>
+                            <span>
+                                {{ TEXTS.GENERAL.LOGOUT }}
+                            </span>
+                        </button>
+                    </mat-menu>
+
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with share icon">
+                      <mat-icon>language</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <span>
+                                <img src="../../assets/img/brasil.png">
+                            </span>
+                          <span>
+                              {{ TEXTS.GENERAL.PORTUGUESE }}
+                          </span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>
+                                <img src="../../assets/img/estados-unidos.png">
+                            </span>
+                          <span>
+                            {{ TEXTS.GENERAL.ENGLISH }}
+                          </span>
+                          </button>
+                      </mat-menu>
+                  </mat-toolbar>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <br>
  
                     <router-outlet></router-outlet>
 
