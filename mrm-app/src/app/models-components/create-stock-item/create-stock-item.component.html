@@ -52,7 +52,7 @@
                                             <img [src]="imageToShow"
                                                     alt="Escolher uma Imagem."
                                                     *ngIf="!isImageLoading; else noImageFound"
-                                                    style="max-width: 200px; max-height: 200px;"
+                                                    style="max-width: 150px; max-height: 150px;"
                                                     (click)="imageInput.click()"
                                                     (mouseover)="hover=true" (mouseleave)="hover=false">
                                             <ng-template #noImageFound>

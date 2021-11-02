@@ -93,6 +93,7 @@ export class CreateStockItemComponent extends BaseComponent implements OnInit {
       data => {
         this.stockItem = data
         this.uploadFile()
+        this.openSnackBar("Produto criado!")
         this.listStockItems()
       }
     )
@@ -107,6 +108,7 @@ export class CreateStockItemComponent extends BaseComponent implements OnInit {
       data => {
         this.stockItem = data
         this.uploadFile()
+        this.openSnackBar("Produto atualizado!")
         this.listStockItems()
       }
     )
@@ -115,6 +117,7 @@ export class CreateStockItemComponent extends BaseComponent implements OnInit {
   deleteStockItem(): void {
     this.stockItemService.deleteStockItem(this.stockItem.id).subscribe(
       response => {
+        this.openSnackBar("Produto deletado.")
         this.listStockItems()
       }
     )

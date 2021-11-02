@@ -105,6 +105,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
     this.removeIdFromItemsRentals()
     this.rentalService.createRental(this.rental).subscribe(
       data => {
+        this.openSnackBar("Locação criada!")
         this.listRentals()
       }
     )
@@ -114,6 +115,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
     this.updateItemRentals()
     this.rentalService.updateRental(this.rental).subscribe(
       data => {
+        this.openSnackBar("Locação atualizada!")
         this.listRentals()
       }
     )
@@ -122,6 +124,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
   deleteRental(): void {
     this.rentalService.deleteRental(this.rental.id).subscribe(
       response => {
+        this.openSnackBar("Locação deletada.")
         this.listRentals()
       }
     )

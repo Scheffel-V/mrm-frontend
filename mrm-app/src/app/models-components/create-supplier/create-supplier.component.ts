@@ -60,6 +60,7 @@ export class CreateSupplierComponent extends BaseComponent implements OnInit {
   createSupplier(): void {
     this.supplierService.createSupplier(this.supplier).subscribe(
       data => {
+        this.openSnackBar("Fornecedor criado!")
         this.listSuppliers()
       }
     )
@@ -68,6 +69,7 @@ export class CreateSupplierComponent extends BaseComponent implements OnInit {
   updateSupplier(): void {
     this.supplierService.updateSupplier(this.supplier).subscribe(
       data => {
+        this.openSnackBar("Fornecedor atualizado!")
         this.listSuppliers()
       }
     )
