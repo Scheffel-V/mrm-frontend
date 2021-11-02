@@ -144,13 +144,13 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
   }
 
   public updateAdditive(selectedAdditiveId : number): void {
-    this.openSnackBar("Not implemented.")
+    this.openSnackBar("Não implementado.")
   }
 
   public deleteAdditive(selectedAdditiveId : number): void {
     this.additiveService.deleteAdditive(selectedAdditiveId).subscribe(
       response => {
-        this.openSnackBar("Additive deleted.")
+        this.openSnackBar("Aditivo deletado.")
         this.refreshAdditives()
       }
     )
@@ -168,7 +168,7 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
            )
        })
      }).then(() => {
-       this.openSnackBar("Additives deleted.")
+       this.openSnackBar("Aditivos deletados.")
        this.refreshAdditives()
      });
   }
@@ -295,7 +295,7 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
     this.additiveService.updateAdditive(additive).subscribe(
       data => {
         this.refreshAdditives()
-        this.openSnackBar("Invoice paid!")
+        this.openSnackBar("Fatura paga!")
       }
     )
   }

@@ -81,7 +81,7 @@ export class SupplierComponent extends BaseComponent implements OnInit {
       this.supplier.active = false
       this.supplierService.updateSupplier(this.supplier).subscribe(
         data => {
-          this.openSnackBar("Supplier set to inactive.")
+          this.openSnackBar("Fornecedor posto como inativo.")
           this.listSuppliers()
         }
       )
@@ -91,7 +91,7 @@ export class SupplierComponent extends BaseComponent implements OnInit {
 
     this.supplierService.deleteSupplier(this.supplier.id).subscribe(
       response => {
-        this.openSnackBar("Supplier deleted.")
+        this.openSnackBar("Fornecedor deletado.")
         this.listSuppliers()
       }
     )
@@ -102,7 +102,7 @@ export class SupplierComponent extends BaseComponent implements OnInit {
       this.supplierService.searchCnpj(this.supplier.cnpj).subscribe(
         data => {
           if (data['error']) {
-            this.openSnackBar("CNPJ/CPF not found.")
+            this.openSnackBar("CNPJ/CPF não econtrado.")
             return
           }
           this.supplier.name = data['RAZAO SOCIAL']

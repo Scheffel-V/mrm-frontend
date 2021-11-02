@@ -159,7 +159,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
       this.prepareCurrenciesToSaveRental(rental)
       this.rentalService.updateRental(rental).subscribe(
         data => {
-          this.openSnackBar("Rental set to inactive.")
+          this.openSnackBar("Locação posta como inativa.")
           this.refreshRentals()
         }
       )
@@ -169,7 +169,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
 
     this.rentalService.deleteRental(selectedRentalId).subscribe(
       response => {
-        this.openSnackBar("Rental deleted.")
+        this.openSnackBar("Locação deletada.")
         this.refreshRentals()
       }
     )
@@ -187,7 +187,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
           )
       })
     }).then(() => {
-      this.openSnackBar("Rentals deleted.")
+      this.openSnackBar("Locações deletadas.")
       this.refreshRentals()
     });
   }
@@ -287,7 +287,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     this.rentalService.updateRental(rental).subscribe(
       data => {
         rental = data
-        this.openSnackBar("Invoice paid!")
+        this.openSnackBar("Fatura paga!")
         this.prepareRentalsCurrenciesToDisplay()
       }
     )

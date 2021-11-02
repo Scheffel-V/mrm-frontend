@@ -189,7 +189,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
       this.prepareCurrenciesToSaveRental(rental)
       this.rentalService.updateRental(rental).subscribe(
         data => {
-          this.openSnackBar("Rental set to inactive.")
+          this.openSnackBar("Locação posta como inativa.")
           this.refreshRentals()
         }
       )
@@ -199,7 +199,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
 
     this.rentalService.deleteRental(selectedRentalId).subscribe(
       response => {
-        this.openSnackBar("Rental deleted.")
+        this.openSnackBar("Locação deletada.")
         this.refreshRentals()
       }
     )

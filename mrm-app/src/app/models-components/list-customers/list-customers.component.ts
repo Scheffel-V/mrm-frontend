@@ -99,7 +99,7 @@ export class ListCustomersComponent extends BaseComponent implements OnInit, Aft
       customer.active = false
       this.customerService.updateCustomer(customer).subscribe(
         data => {
-          this.openSnackBar("Customer set to inactive.")
+          this.openSnackBar("Cliente posto como inativo.")
           this.refreshCustomers()
         }
       )
@@ -109,7 +109,7 @@ export class ListCustomersComponent extends BaseComponent implements OnInit, Aft
 
     this.customerService.deleteCustomer(customer.id).subscribe(
       response => {
-        this.openSnackBar("Customer deleted.")
+        this.openSnackBar("Cliente deletado.")
         this.refreshCustomers()
       }
     )
@@ -136,7 +136,7 @@ export class ListCustomersComponent extends BaseComponent implements OnInit, Aft
         }
       })
     }).then(() => {
-      this.openSnackBar("Customers deleted.")
+      this.openSnackBar("Clientes deletados.")
       this.refreshCustomers()
     });
   }

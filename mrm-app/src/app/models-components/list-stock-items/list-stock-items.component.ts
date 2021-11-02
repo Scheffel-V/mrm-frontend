@@ -100,7 +100,7 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit, Af
       stockItem.active = false
       this.stockItemService.updateStockItem(stockItem).subscribe(
         data => {
-          this.openSnackBar("StockItem set to inactive.")
+          this.openSnackBar("Produto posto como inativo.")
           this.refreshStockItems()
         }
       )
@@ -110,7 +110,7 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit, Af
 
     this.stockItemService.deleteStockItem(stockItem.id).subscribe(
       response => {
-        this.openSnackBar("StockItem deleted.")
+        this.openSnackBar("Produto deletado.")
         this.refreshStockItems()
       }
     )
@@ -137,7 +137,7 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit, Af
         }
       })
     }).then(() => {
-      this.openSnackBar("StockItems deleted.")
+      this.openSnackBar("Produtos deletados.")
       this.refreshStockItems()
     });
   }

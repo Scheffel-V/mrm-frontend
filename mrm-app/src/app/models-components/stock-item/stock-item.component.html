@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <mat-form-field style="width:100%" >
-                                        <mat-label>Supplier</mat-label>
+                                        <mat-label>Fornecedor</mat-label>
                                         <mat-select [(ngModel)]="stockItem.supplierId" [formControl]="supplierSelectControl" name="stockItemSupplierForm" id="stockItemSupplierForm">
                                             <mat-option>
                                                 <ngx-mat-select-search [formControl]="supplierFilterControl" placeholderLabel="Find supplier..." 
@@ -172,7 +172,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-3 mb-3 mb-sm-0">
                                     <mat-form-field style="width:100%;" >
-                                        <mat-label>Acquisition Date</mat-label>
+                                        <mat-label>Data de Aquisição</mat-label>
                                         <input matInput [matDatepicker]="acquisitionDatePicker" [(ngModel)]="stockItem.acquisitionDate" name="acquisitionDate" #acquisitionDate="ngModel">
                                         <mat-datepicker-toggle matSuffix [for]="acquisitionDatePicker"></mat-datepicker-toggle>
                                         <mat-datepicker #acquisitionDatePicker></mat-datepicker>
@@ -180,7 +180,7 @@
                                 </div>
                                 <div class="col-sm-3 mb-3 mb-sm-0">
                                     <mat-form-field style="width:100%;" >
-                                        <mat-label>Last Maintenance</mat-label>
+                                        <mat-label>Última Manutenção</mat-label>
                                         <input matInput [matDatepicker]="lastMaintenancePicker" [(ngModel)]="stockItem.lastMaintenance" name="lastMaintenance" #lastMaintenance="ngModel">
                                         <mat-datepicker-toggle matSuffix [for]="lastMaintenancePicker"></mat-datepicker-toggle>
                                         <mat-datepicker #lastMaintenancePicker></mat-datepicker>
@@ -190,11 +190,11 @@
                                     <mat-form-field style="width:100%">
                                         <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.STATUS }}</mat-label>
                                         <mat-select [(ngModel)]="stockItem.status" id="stockItemStatus" name="stockItemStatus" #stockItemStatus="ngModel">
-                                            <mat-option value="INVENTORY">Inventory</mat-option>
-                                            <mat-option value="MAINTENANCE">Maintenance</mat-option>
-                                            <mat-option value="RENTED">Rented</mat-option>
-                                            <mat-option value="READY_FOR_RENTAL">Ready for Rental</mat-option>
-                                            <mat-option value="CUSTOMER">With a Customer</mat-option>
+                                            <mat-option value="INVENTORY">Estoque</mat-option>
+                                            <mat-option value="MAINTENANCE">Manutenção</mat-option>
+                                            <mat-option value="RENTED">Alugado</mat-option>
+                                            <mat-option value="READY_FOR_RENTAL">Pronto para sair</mat-option>
+                                            <mat-option value="CUSTOMER">Com o cliente</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>

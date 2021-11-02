@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SELECTED_LANGUAGE, INITIAL_ID } from '../app.constants'
+import { PORTUGUESE, ENGLISH, INITIAL_ID } from '../app.constants'
 import { TEXTS } from '../ui-texts/texts'
 import { ScriptsService } from '../services/scripts.service'
 import { Location } from '@angular/common';
@@ -17,9 +17,11 @@ const scripts = [
 })
 export class BaseComponent implements OnInit {
 
-  public TEXTS = TEXTS[SELECTED_LANGUAGE]
+  public portuguese = PORTUGUESE
+  public english = ENGLISH
+  public TEXTS = TEXTS[this.portuguese]
   public router : Router
-  protected loadAPI: Promise<any>;
+  protected loadAPI: Promise<any>
   protected INITIAL_ID = INITIAL_ID
   backButtonColor : string = "basic"
   avatar = false
@@ -118,5 +120,10 @@ export class BaseComponent implements OnInit {
   redirectTo(uri : string){
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
     this.router.navigate([uri]));
+ }
+
+ changeLanguage(language : string) {
+  this.TEXTS = TEXTS[language]
+  window.location.reload()
  }
 }

@@ -268,23 +268,271 @@ export const TEXTS = {
           }
     },
     PORTUGUESE : {
-        GENERAL : {
-          PORTUGUESE : "Português",
-          ENGLISH : "Ingles",
-            ACTIONS : {
+      GENERAL : {
+        PORTUGUESE : "Português",
+        ENGLISH : "Inglês",
+        LOGOUT : "Sair",
+          ACTIONS : {
               ACTIONS : "Ações",
+              SAVE : "Salvar",
               DELETE : "Deletar",
               UPDATE : "Atualizar",
+              MORE_INFO : "Mais informações",
               ADD : "Adicionar",
-              EXPORT : "Exportar"
-            }
+              BACK_PAGE : "Voltar",
+              SELECT : "Selecionar",
+              DELETE_SELECTED : "Deletar Selecionados",
+              EXPORT : "Exportar",
+              SEARCH : "Pesquisar",
+              CANCEL : "Cancelar"
           },
-          MODELS : {
-            ID : "Id",
+          LABELS : {
+            ACTIVE : "Ativo",
+            INACTIVE : "Inativo",
+            NONE : "-"
+          }
+        },
+        MODELS : {
+          ID : "Id",
+          CUSTOMER : {
+            COMPANY_NAME : "Nome da Empresa",
+            COMMERCIAL_NAME : "Nome Fantasia",
+            CPF : "CPF",
+            CNPJ : "CNPJ/CPF",
+            STREET : "Rua",
+            CEP : "CEP",
+            NUMBER : "Número",
+            CITY : "Cidade",
+            PHONE_NUMBER : "Telefone",
+            MOBILE_PHONE_NUMBER : "Telefone",
+            EMAIL : "Email",
+            ACTIVE : "Ativo",
+            NEIGHBORHOOD : "Bairro"
+          },
+          PRODUCT_MODEL : {
+            NAME : "Name",
+            TYPE : "Tipo",
+            POWER : "Potência",
+            BRAND : "Marca",
+            MODEL : "Modelo",
+            STANDARD_RENTAL_VALUE : "Valor Padrão",
+            REPOSITION_VALUE : "Valor de Reposição",
+            IMAGE : "Imagem"
+          },
+          SUPPLIER : {
+            COMPANY_NAME : "Nome da Empresa",
+            COMMERCIAL_NAME : "Nome Fantasia",
+            CPF : "CPF",
+            CNPJ : "CNPJ/CPF",
+            STREET : "Rua",
+            CEP : "CEP",
+            NUMBER : "Número",
+            CITY : "Cidade",
+            PHONE_NUMBER : "Telefone",
+            EMAIL : "Email",
+            NEIGHBORHOOD : "Bairro",
+            ACTIVE : "Ativo"
+          },
+          RENTAL : {
+            CUSTOMER : "Cliente",
+            START_DATE : "Data de Início",
+            END_DATE : "Data de Término",
+            INVOICE_NUMBER : "Número da Fatura",
+            INVOICE_STATUS : "Status da Fatura",
+            INVOICE : "Fatura",
+            TOTAL_VALUE : "Valor Total",
+            TOTAL_VALUE_WITH_ADDITIVE : "Valor Total com os Aditivos",
+            STATUS : "Status",
+            APPROVED_DATE : "Data de Aprovação",
+            PAYMENT_DUE_DATE : "Vencimento",
+            PAYMENT_TYPE : "Método de Pagamento",
+            STOCK_ITEMS : "Produtos",
+            PERIOD : "Período",
+            PROGRESS : "Progresso",
+            INSTALLMENTS : "Parcelas",
+            WORKING_HOURS : "Horas de trabalho",
+            ACTIVE : "Ativo",
+            CONTRACT : "Contrato",
+            ADDITIVE_NUMBER : "Número do Aditivo"
+          },
+          ADDITIVE : {
+            CUSTOMER : "Cliente",
+            START_DATE : "Data de Início",
+            END_DATE : "Data de Término",
+            INVOICE : "Fatura",
+            INVOICE_STATUS : "Status da Fatura",
+            INVOICE_NUMBER : "Número da Fatura",
+            TOTAL_VALUE : "Valor",
+            PAYMENT_DUE_DATE : "Vencimento",
+            PAYMENT_TYPE : "Método de Pagamento",
+            STOCK_ITEMS : "Produtos",
+            PERIOD : "Período",
+            PROGRESS : "Progresso",
+            INSTALLMENTS : "Parcelas",
+            WORKING_HOURS : "Horas de trabalho",
+            ADDITIVE_NUMBER : "Número"
+          },
+          STOCK_ITEM : {
+            NAME : "Nome",
+            TYPE : "Tipo",
+            POWER : "Potência",
+            BRAND : "Marca",
+            MODEL : "Modelo",
+            PRESSURE : "Pressão",
+            THROUGHPUT : "Vazão",
+            VOLTAGE : "Voltagem",
+            SERIAL_NUMBER : "Número de Série",
+            STANDARD_RENTAL_VALUE : "Valor Padrão",
+            REPOSITION_VALUE : "Valor de Reposição",
+            IMAGE : "Imagem",
+            VALUE : "Valor",
+            CODE : "Código",
+            SUPPLIER : "Fornecedor",
+            SUPPLIER_NAME : "Nome do Fornecedor",
+            ACTIVE : "Ativo",
+            STATUS : "Status",
+            NUMBER_OF_USES : "Número de Usos"
+          },
+          STOCK_ITEM_EVENT : {
+            STOCK_ITEM_NAME : "Item",
+            STATUS : "Status",
+            COMMENT : "Comentário",
+            DATE : "Data"
+          },
+          FORMS : {
             CUSTOMER : {
-              COMPANY_NAME : "Nome da Empresa",
-              COMMERCIAL_NAME : "Nome Fantasia"
+              COMPANY_NAME_REQUIRED : "É necessário inserir o nome da empresa.",
+              CNPJ_REQUIRED : "É necessário inserir CNPJ ou CPF.",
+              CEP_REQUIRED : "É necessário inserir o CEP.",
+              CITY_REQUIRED : "É necessário inserir a cidade.",
+              STREET_REQUIRED : "É necessário inserir a rua.",
+              NEIGHBORHOOD_REQUIRED : "É necessário inserir o bairro.",
+              NUMBER_REQUIRED : "É necessário inserir o número.",
+              EMAIL_INVALID : "O email é inválido.",
+              PHONE_NUMBER_INVALID : "O telefone é inválido."
+            },
+            PRODUCT_MODEL : {
+              NAME_REQUIRED : "É necessário inserir o nome.",
+              TYPE_REQUIRED : "É necessário inserir o tipo.",
+              POWER_REQUIRED : "É necessário inserir a potência."
+            },
+            SUPPLIER : {
+              COMPANY_NAME_REQUIRED : "É necessário inserir o nome da empresa.",
+              CNPJ_REQUIRED : "É necessário inserir CNPJ ou CPF.",
+              CEP_REQUIRED : "É necessário inserir o CEP.",
+              CITY_REQUIRED : "É necessário inserir a cidade.",
+              STREET_REQUIRED : "É necessário inserir a rua.",
+              NUMBER_REQUIRED : "É necessário inserir o número.",
+              NEIGHBORHOOD_REQUIRED : "É necessário inserir o bairro."
+            },
+            RENTAL : {
+              CUSTOMER_REQUIRED : "É necessário inserir o cliente.",
+              STOCK_ITEMS_REQUIRED : "É necessário escolher produtos.",
+              START_DATE_REQUIRED : "É necessário inserir a data de início.",
+              END_DATE_REQUIRED : "É necessário inserir a data de término.",
+              TOTAL_VALUE_REQUIRED : "É necessário inserir o valor total."
+            },
+            ADDITIVE : {
+              CUSTOMER_REQUIRED : "É necessário inserir o cliente.",
+              STOCK_ITEMS_REQUIRED : "É necessário escolher produtos.",
+              START_DATE_REQUIRED : "É necessário inserir a data de início.",
+              END_DATE_REQUIRED : "É necessário inserir a data de término.",
+              TOTAL_VALUE_REQUIRED : "É necessário inserir o valor total."
+            },
+            STOCK_ITEM : {
+              NAME_REQUIRED : "É necessário inserir o nome.",
+              TYPE_REQUIRED : "É necessário inserir o tipo.",
+              POWER_REQUIRED : "É necessário inserir a potência.",
+              CODE_REQUIRED : "É necessário inserir o código."
+            },
+            INVOICE : {
+              PAYMENT_DUE_DATE : "Vencimento",
+              PAYMENT_DUE_DATE_REQUIRED : "É necessário inserir o vencimento."
             }
           }
-    }
+        },
+        LEFT_MENU : {
+          DASHBOARD : "Painel",
+          CUSTOMERS : "Clientes",
+          ADD_CUSTOMER : "Adicionar novo Cliente",
+          LIST_CUSTOMERS : "Lista de Clientes",
+          PRODUCT_MODELS : "Produtos",
+          ADD_PRODUCT_MODEL : "Adicionar novo Produto",
+          LIST_PRODUCT_MODELS : "Lista de Produtos",
+          SUPPLIERS : "Fornecedores",
+          ADD_SUPPLIER : "Adicionar novo Fornecedor",
+          LIST_SUPPLIERS : "Lista de Fornecedores",
+          RENTALS : "Locações",
+          ADD_RENTAL : "Adicionar nova Locação",
+          LIST_RENTALS : "Lista de Locações",
+          STOCK_ITEMS : "Produtos",
+          ADD_STOCK_ITEM : "Adicionar novo Produto",
+          LIST_STOCK_ITEMS : "Lista de Produtos",
+          EVENTS : "Eventos",
+          INVENTORY : "Inventário",
+          INVOICES : "Faturamento"
+        },
+        LOGOUT : {
+          READY_TO_LEAVE_MESSAGE : "Pronto para sair?",
+          SELECT_LOGOUT_MESSAGE : "Selecione 'Sair' para terminar a sua sessão.",
+          LOGOUT : "Sair",
+          CANCEL : "Cancelar"
+        },
+        PAGES : {
+          DASHBOARD : {
+            CUSTOMERS : "Clientes",
+            PRODUCT_MODELS : "Produtos",
+            SUPPLIERS : "Fornecedores",
+            RENTALS : "Locações",
+            STOCK_ITEMS : "Produtos",
+            REVENUE : "Receita",
+            RENTED_MACHINES : "Máquinas Alugadas",
+            ACTIVE_CUSTOMERS : "Clientes Ativos",
+            ACTIVE_RENTS : "Aluguéis Ativos"
+          },
+          LIST : {
+            CUSTOMERS : "Clientes",
+            PRODUCT_MODELS : "Produtos",
+            SUPPLIERS : "Fornecedores",
+            RENTALS : "Locações",
+            STOCK_ITEMS : "Produtos",
+            TOP_CUSTOMERS : "Top Clientes",
+            TOP_STOCK_ITEMS : "Top Produtos",
+            ADDITIVES : "Aditivos"
+          },
+          CREATE : {
+            CUSTOMER : "Criar Cliente",
+            PRODUCT_MODEL : "Criar Produto",
+            SUPPLIER : "Criar Fornecedor",
+            RENTAL : "Criar Locação",
+            RENTAL_2 : "Locação",
+            OVERVIEW : "Visão Geral",
+            ADDITIVES : "Aditivos",
+            ADDITIVE : "Criar Aditivo",
+            ADDITIVE_2 : "Aditivo",
+            STOCK_ITEM : "Criar Produto",
+          },
+          UPDATE : {
+            RENTAL : "Locação",
+            CUSTOMER : "Cliente",
+            STOCK_ITEM : "Produto",
+            SUPPLIER : "Fornecedor",
+          },
+          INVOICE : {
+            INVOICE : "Faturamento"
+          },
+          EVENTS : {
+            EVENTS : "Eventos"
+          },
+          INVENTORY : {
+            INVENTORY : "Inventário"
+          },
+          INVOICES : {
+            INVOICES : "Faturamento"
+          }
+        },
+        REAL_CUSTOMER : {
+          COMPANY_NAME : "GMA Compressores e Geradores"
+        }
+  }
 }

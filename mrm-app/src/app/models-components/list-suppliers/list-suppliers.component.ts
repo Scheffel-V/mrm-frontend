@@ -101,7 +101,7 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
       selectedSupplier.active = false
       this.supplierService.updateSupplier(selectedSupplier).subscribe(
         data => {
-          this.openSnackBar("Supplier set to inactive.")
+          this.openSnackBar("Fornecedor posto como inativo.")
           this.refreshSuppliers()
         }
       )
@@ -111,7 +111,7 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
 
     this.supplierService.deleteSupplier(selectedSupplier.id).subscribe(
       response => {
-        this.openSnackBar("Supplier deleted.")
+        this.openSnackBar("Fornecedor deletado.")
         this.refreshSuppliers()
       }
     )
@@ -138,7 +138,7 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
         }
       })
     }).then(() => {
-      this.openSnackBar("Suppliers deleted.")
+      this.openSnackBar("Fornecedores deletados.")
       this.refreshSuppliers()
     });
   }

@@ -277,7 +277,7 @@
                     <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with share icon">
                       <mat-icon>language</mat-icon>
                     </button>
-                    <mat-menu #menu="matMenu">
+                    <mat-menu #menu="matMenu" (click)="changeLanguage(this.portuguese)">
                         <button mat-menu-item>
                             <span>
                                 <img src="../../assets/img/brasil.png">
@@ -286,7 +286,7 @@
                               {{ TEXTS.GENERAL.PORTUGUESE }}
                           </span>
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="changeLanguage(this.english)">
                             <span>
                                 <img src="../../assets/img/estados-unidos.png">
                             </span>
@@ -294,7 +294,7 @@
                             {{ TEXTS.GENERAL.ENGLISH }}
                           </span>
                           </button>
-                      </mat-menu>
+                    </mat-menu>
                   </mat-toolbar>
                 <!-- End of Topbar -->
 

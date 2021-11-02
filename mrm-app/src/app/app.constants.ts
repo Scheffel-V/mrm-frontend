@@ -5,7 +5,9 @@ export const AUTHENTICATED_USER_USERNAME = 'authenticateUserUsername'
 export const AUTHENTICATED_USER_ID = 'authenticateUserId'
 
 // Configs
-export const SELECTED_LANGUAGE = 'ENGLISH'
+export const PORTUGUESE = 'PORTUGUESE'
+export const ENGLISH = 'ENGLISH'
+
 
 // Models
 export const INITIAL_ID = -1

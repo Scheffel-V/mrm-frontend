@@ -32,7 +32,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   id : number
   customer : Customer
   rentals : Rental[] = []
-  displayedColumns = ['actions', 'status', 'invoice', 'invoiceNumber', 'period', 'startDate', 'endDate', 'totalValue', 'active'];
+  displayedColumns = ['actions', 'status', 'invoice', 'invoiceNumber', 'period', 'startDate', 'endDate', 'totalValue'];
   rentalsToDisplay : RentalToDisplay[] = []
   customerForm : FormGroup
   searchCnpjButtonColor : string = "basic"
@@ -93,7 +93,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   createCustomer(): void {
     this.customerService.createCustomer(this.customer).subscribe(
       data => {
-        this.openSnackBar("Customer created!")
+        this.openSnackBar("Cliente criado!")
         this.listCustomers()
       }
     )
@@ -102,7 +102,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
   updateCustomer(): void {
     this.customerService.updateCustomer(this.customer).subscribe(
       data => {
-        this.openSnackBar("Customer updated!")
+        this.openSnackBar("Cliente atualizado!")
         this.listCustomers()
       }
     )
@@ -113,7 +113,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
       this.customer.active = false
       this.customerService.updateCustomer(this.customer).subscribe(
         data => {
-          this.openSnackBar("Customer set to inactive.")
+          this.openSnackBar("Cliente posto como inativo.")
           this.listCustomers()
         }
       )
@@ -123,7 +123,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
 
     this.customerService.deleteCustomer(this.customer.id).subscribe(
       response => {
-        this.openSnackBar("Customer deleted.")
+        this.openSnackBar("Cliente deletado.")
         this.listCustomers()
       }
     )
@@ -134,7 +134,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
       this.customerService.searchCnpj(this.customer.cnpj).subscribe(
         data => {
           if (data['error']) {
-            this.openSnackBar("CNPJ/CPF not found.")
+            this.openSnackBar("CNPJ/CPF não encontrado.")
             return
           }
           this.customer.name = data['RAZAO SOCIAL']
