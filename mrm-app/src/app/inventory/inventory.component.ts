@@ -41,7 +41,7 @@ export class InventoryComponent extends BaseComponent implements OnInit {
   showOnlyActive = true
   breakpoint: number;
   stockItemStatusSelectValue: any = "";
-  searchBarValue: any;
+  searchBarValue: any = "";
 
   constructor(
     private stockItemService : StockItemService,
@@ -77,6 +77,7 @@ export class InventoryComponent extends BaseComponent implements OnInit {
         if (key === 'checked' || key === 'image') {
           return currentTerm
         }
+
         return key === 'stockItem' ? currentTerm + data.stockItem.name + data.stockItem.code + data.stockItem.model + data.stockItem.power + data.stockItem.status : currentTerm;
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();

@@ -11,7 +11,7 @@
           <div fxLayout="row wrap">
             <mat-form-field fxFlex="100%">
                 <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="{{ TEXTS.GENERAL.ACTIONS.SEARCH }}">
-              </mat-form-field>
+            </mat-form-field>
             <mat-form-field style="width:50%">
               <mat-label>{{ TEXTS.MODELS.STOCK_ITEM.STATUS }}</mat-label>
               <mat-select (selectionChange)="doFilterForStockItemStatus($event.value)" id="invoiceStatusFilter" name="invoiceStatusFilter">
