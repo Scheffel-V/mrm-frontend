@@ -16,6 +16,7 @@ import { ContractPDFService } from '../services/contract-pdf.service';
 import { Additive } from '../models/additive.model';
 import { AdditiveService } from '../services/additive.service';
 import { AdditiveInvoiceComponent } from '../models-components/additive-invoice/additive-invoice.component';
+import { AuthService } from '../services/auth.service';
 
 
 class RentalToDisplay {
@@ -71,9 +72,10 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
     router : Router,
     location : Location,
     matSnackBar : MatSnackBar,
-    private contractPDFService : ContractPDFService
+    private contractPDFService : ContractPDFService,
+    authService: AuthService
   ) {
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
    }
 
   public ngOnInit(): void {

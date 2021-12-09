@@ -10,6 +10,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
 import { Additive } from '../../models/additive.model';
 import { AdditiveService } from '../../services/additive.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -31,9 +32,10 @@ export class CreateAdditiveComponent extends BaseComponent implements OnInit {
     scriptsService : ScriptsService,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService
   ) { 
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
   }
 
   ngOnInit(): void {

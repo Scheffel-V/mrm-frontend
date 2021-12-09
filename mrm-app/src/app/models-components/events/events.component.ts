@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BaseComponent } from 'src/app/base/base.component';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -25,9 +26,10 @@ export class EventsComponent extends BaseComponent implements OnInit {
     scriptsService : ScriptsService,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService
   ) {
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
    }
 
   ngOnInit(): void {

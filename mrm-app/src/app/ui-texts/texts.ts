@@ -180,6 +180,10 @@ export const TEXTS = {
               INVOICE : {
                 PAYMENT_DUE_DATE : "Payment Due Date",
                 PAYMENT_DUE_DATE_REQUIRED : "Payment due date is required."
+              },
+              LOGIN : {
+                USERNAME_REQUIRED : "Username is required.",
+                PASSWORD_REQUIRED : "Password is required."
               }
             }
           },
@@ -261,6 +265,11 @@ export const TEXTS = {
             },
             INVOICES : {
               INVOICES : "Invoices"
+            },
+            LOGIN : {
+              USERNAME : "Username",
+              PASSWORD : "Password",
+              LOGIN : "Login"
             }
           },
           REAL_CUSTOMER : {
@@ -448,6 +457,10 @@ export const TEXTS = {
             INVOICE : {
               PAYMENT_DUE_DATE : "Vencimento",
               PAYMENT_DUE_DATE_REQUIRED : "É necessário inserir o vencimento."
+            },
+            LOGIN : {
+              USERNAME_REQUIRED : "É necessário inserir o nome de usuário.",
+              PASSWORD_REQUIRED : "É necessário inserir a senha."
             }
           }
         },
@@ -529,6 +542,11 @@ export const TEXTS = {
           },
           INVOICES : {
             INVOICES : "Faturamento"
+          },
+          LOGIN : {
+            USERNAME : "Nome de Usuário",
+            PASSWORD : "Senha",
+            LOGIN : "Login"
           }
         },
         REAL_CUSTOMER : {

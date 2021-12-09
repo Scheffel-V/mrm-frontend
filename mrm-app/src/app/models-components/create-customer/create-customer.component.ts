@@ -12,6 +12,8 @@ import { Rental } from '../../models/rental.model';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from '../../services/auth.service';
+
 
 class RentalToDisplay {
   constructor(
@@ -48,9 +50,10 @@ export class CreateCustomerComponent extends BaseComponent implements OnInit {
     scriptsService : ScriptsService,
     location : Location,
     router : Router,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService
   ) { 
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
   }
 
   ngOnInit(): void {

@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { AuthService } from '../../services/auth.service';
 
 
 class CustomerToDisplay {
@@ -48,9 +49,10 @@ export class ListCustomersComponent extends BaseComponent implements OnInit, Aft
     scriptsService : ScriptsService,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService
   ) {
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
    }
 
   public ngOnInit(): void {

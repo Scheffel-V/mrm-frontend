@@ -22,7 +22,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-right" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-right">
                 <div class="sidebar-brand-icon">
                     <img src="../../assets/img/brand-logo.png">
                 </div>
@@ -264,7 +264,7 @@
                         <mat-icon>person</mat-icon>
                     </button>
                     <mat-menu #accountMenu="matMenu">
-                        <button mat-menu-item>
+                        <button [disabled]="!isUserLoggedIn()" mat-menu-item (click)="logout()">
                             <span>
                                 <mat-icon>logout</mat-icon>
                             </span>

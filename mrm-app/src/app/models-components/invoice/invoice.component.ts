@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { InvoicePdfService } from '../../services/invoicePdf.service';
 import { Additive } from '../../models/additive.model';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -29,9 +30,10 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
     router : Router,
     location : Location,
     matSnackBar : MatSnackBar,
-    private invoicePdfService : InvoicePdfService
+    private invoicePdfService : InvoicePdfService,
+    authService: AuthService
   ) { 
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
   }
 
   ngOnInit(): void {

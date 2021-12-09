@@ -12,6 +12,7 @@ import { Supplier } from '../models/supplier.model';
 import { Rental } from '../models/rental.model'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RentalService } from '../services/rental.service';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -43,13 +44,15 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     scriptsService : ScriptsService,
     location : Location,
     router : Router,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService, 
   ) {
     super(
       scriptsService,
       location,
       router,
-      matSnackBar
+      matSnackBar,
+      authService
     )
    }
 
@@ -102,7 +105,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
   getStockItemCount() {
     this.rentals.forEach((rental) => {
-      if (rental.status !== "FINISHED") {
+      if (rental.active && (rental.status !== "FINISHED")) {
         this.rentalService.getRental(rental.id).subscribe((data) => {
           let activeRental = data
 

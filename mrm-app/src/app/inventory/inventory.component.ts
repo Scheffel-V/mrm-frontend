@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BaseComponent } from 'src/app/base/base.component';
 import { Rental } from '../models/rental.model';
 import { RentalService } from '../services/rental.service';
+import { AuthService } from '../services/auth.service';
 
 
 class StockItemToDisplay {
@@ -50,9 +51,10 @@ export class InventoryComponent extends BaseComponent implements OnInit {
     scriptsService : ScriptsService,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService
   ) {
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
    }
 
   ngOnInit(): void {

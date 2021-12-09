@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.LOGIN.LOGIN }}</h1>
+                        </div>
+                        
+                        <form class="user" (ngSubmit)="!loginForm.invalid && login()" #loginForm="ngForm">
+                            <div class="form-group row">
+                                <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <mat-form-field style="width:100%;">
+                                        <mat-label>{{ TEXTS.PAGES.LOGIN.USERNAME }}</mat-label>
+                                        <input type="text" matInput id="username" name="username" required [(ngModel)]="user.username" #username="ngModel">
+                                        <mat-error *ngIf="username.invalid">{{ TEXTS.MODELS.FORMS.LOGIN.USERNAME_REQUIRED }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <mat-form-field style="width:100%;">
+                                        <mat-label>{{ TEXTS.PAGES.LOGIN.PASSWORD }}</mat-label>
+                                        <input type="password" matInput placeholder="Password" id="password" name="password" required [(ngModel)]="user.password" #password="ngModel">
+                                        <mat-error *ngIf="password.invalid">{{ TEXTS.MODELS.FORMS.LOGIN.PASSWORD_REQUIRED }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" mat-raised-button color="primary">Entrar</button>
+                        </form>
+
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

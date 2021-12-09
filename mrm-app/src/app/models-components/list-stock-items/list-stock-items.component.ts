@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { AuthService } from '../../services/auth.service';
 
 
 class StockItemToDisplay {
@@ -30,7 +31,7 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit, Af
 
   stockItemsToDisplay : StockItemToDisplay[] = []
   stockItems : StockItem[] = []
-  public displayedColumns = ['select', 'actions', 'status', 'name', 'type', 'power', 'model', 'active'];
+  public displayedColumns = ['select', 'actions', 'status', 'name', 'code', 'type', 'power', 'model', 'active'];
   public dataSource = new MatTableDataSource<StockItemToDisplay>();
   showOnlyActive : boolean = true
   message : string
@@ -49,9 +50,10 @@ export class ListStockItemsComponent extends BaseComponent implements OnInit, Af
     scriptsService : ScriptsService,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService
   ) {
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
    }
 
   public ngOnInit(): void {

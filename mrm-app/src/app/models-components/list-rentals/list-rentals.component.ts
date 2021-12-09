@@ -13,6 +13,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { ContractPDFService } from '../../services/contract-pdf.service';
+import { AuthService } from '../../services/auth.service';
 
 
 class RentalToDisplay {
@@ -59,9 +60,10 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
     router : Router,
     location : Location,
     matSnackBar : MatSnackBar,
-    private contractPDFService : ContractPDFService
+    private contractPDFService : ContractPDFService,
+    authService: AuthService
   ) {
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
    }
 
   public ngOnInit(): void {

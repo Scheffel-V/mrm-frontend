@@ -10,6 +10,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { AuthService } from '../../services/auth.service';
+
 
 const scripts = [
   "../../assets/js/demo/datatables-demo.js"
@@ -50,9 +52,10 @@ export class ListSuppliersComponent extends BaseComponent implements OnInit {
     scriptService : ScriptsService,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService
   ) {
-    super(scriptService, location, router, matSnackBar)
+    super(scriptService, location, router, matSnackBar, authService)
    }
 
    public ngOnInit(): void {

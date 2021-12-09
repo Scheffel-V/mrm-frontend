@@ -16,6 +16,7 @@ import { Rental } from '../../models/rental.model';
 import { RENTAL_ID_PARAM } from '../../app.constants';
 import { CreateAdditiveComponent } from '../create-additive/create-additive.component';
 import { AdditiveService } from '../../services/additive.service';
+import { AuthService } from '../../services/auth.service';
 
 
 class AdditiveToDisplay {
@@ -61,9 +62,10 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
     private matDialog : MatDialog,
     router : Router,
     location : Location,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar, 
+    authService: AuthService
   ) {
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
    }
 
   public ngOnInit(): void {

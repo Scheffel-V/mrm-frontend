@@ -5,6 +5,7 @@ import { ScriptsService } from '../services/scripts.service'
 import { Location } from '@angular/common';
 import { Router } from '@angular/router'
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { AuthService } from '../services/auth.service';
 
 
 const scripts = [
@@ -30,7 +31,8 @@ export class BaseComponent implements OnInit {
     protected scriptsService : ScriptsService,
     protected location : Location,
     router : Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    protected authService: AuthService 
   ) {
     this.router = router
    }
@@ -40,7 +42,7 @@ export class BaseComponent implements OnInit {
   }
 
   goToDashboard(): void {
-    this.router.navigate([''])
+    this.router.navigate(['dashboard'])
   }
 
   protected loadScripts(scripts : string[]) : void {
@@ -125,5 +127,13 @@ export class BaseComponent implements OnInit {
  changeLanguage(language : string) {
   this.TEXTS = TEXTS[language]
   window.location.reload()
+ }
+
+ logout() {
+   this.authService.logout()
+ }
+
+ isUserLoggedIn() {
+   return this.authService.isUserLoggedIn();
  }
 }

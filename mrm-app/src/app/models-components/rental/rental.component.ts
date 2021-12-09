@@ -19,6 +19,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ItemRental } from '../../models/item-rental.model';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from '../../services/auth.service';
 
 
 class ItemRentalToDisplay {
@@ -71,9 +72,10 @@ export class RentalComponent extends BaseComponent implements OnInit {
     scriptsService : ScriptsService,
     location : Location,
     router : Router,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService
   ) { 
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
   }
 
   ngOnInit(): void {

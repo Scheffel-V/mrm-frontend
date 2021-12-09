@@ -16,25 +16,29 @@ import { InvoicesComponent } from "./invoices/invoices.component";
 import { CreateCustomerComponent } from './models-components/create-customer/create-customer.component';
 import { CreateStockItemComponent } from './models-components/create-stock-item/create-stock-item.component';
 import { CreateSupplierComponent } from './models-components/create-supplier/create-supplier.component';
+import { LoginComponent } from './login/login.component';
+import { RouteGuardService } from './services/route-guard.service';
 
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'customers', component: ListCustomersComponent },
-  { path: 'customers/-1', component: CreateCustomerComponent },
-  { path: 'customers/:customerId', component: CustomerComponent },
-  { path: 'suppliers', component: ListSuppliersComponent },
-  { path: 'suppliers/-1', component: CreateSupplierComponent },
-  { path: 'suppliers/:supplierId', component: SupplierComponent },
-  { path: 'rentals', component: ListRentalsComponent },
-  { path: 'rentals/-1', component: CreateRentalComponent },
-  { path: 'rentals/:rentalId', component: RentalComponent },
-  { path: 'stockItems', component: ListStockItemsComponent },
-  { path: 'stockItems/-1', component: CreateStockItemComponent },
-  { path: 'stockItems/:stockItemId', component: StockItemComponent },
-  { path: 'events', component: EventsComponent },
-  { path: 'inventory', component: InventoryComponent },
-  { path: 'invoices', component: InvoicesComponent}
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate:[RouteGuardService] },
+  { path: 'customers', component: ListCustomersComponent, canActivate:[RouteGuardService] },
+  { path: 'customers/-1', component: CreateCustomerComponent, canActivate:[RouteGuardService] },
+  { path: 'customers/:customerId', component: CustomerComponent, canActivate:[RouteGuardService] },
+  { path: 'suppliers', component: ListSuppliersComponent, canActivate:[RouteGuardService] },
+  { path: 'suppliers/-1', component: CreateSupplierComponent, canActivate:[RouteGuardService] },
+  { path: 'suppliers/:supplierId', component: SupplierComponent, canActivate:[RouteGuardService] },
+  { path: 'rentals', component: ListRentalsComponent, canActivate:[RouteGuardService] },
+  { path: 'rentals/-1', component: CreateRentalComponent, canActivate:[RouteGuardService] },
+  { path: 'rentals/:rentalId', component: RentalComponent, canActivate:[RouteGuardService] },
+  { path: 'stockItems', component: ListStockItemsComponent, canActivate:[RouteGuardService] },
+  { path: 'stockItems/-1', component: CreateStockItemComponent, canActivate:[RouteGuardService] },
+  { path: 'stockItems/:stockItemId', component: StockItemComponent, canActivate:[RouteGuardService] },
+  { path: 'events', component: EventsComponent, canActivate:[RouteGuardService] },
+  { path: 'inventory', component: InventoryComponent, canActivate:[RouteGuardService] },
+  { path: 'invoices', component: InvoicesComponent, canActivate:[RouteGuardService]}
 ];
 
 @NgModule({

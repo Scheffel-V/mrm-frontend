@@ -90,23 +90,23 @@
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="updateRental(rentalToDisplay.rental.id)">
                 <mat-icon>info</mat-icon>
-                <span>Overview</span>
+                <span>Visualizar</span>
               </button>
               <button mat-menu-item (click)="deleteRental(rentalToDisplay.rental.id)">
                 <mat-icon>delete</mat-icon>
-                <span>Delete</span>
+                <span>Deletar</span>
               </button>
               <button mat-menu-item (click)="openInvoice(rentalToDisplay.rental.id)">
                 <mat-icon>payment</mat-icon>
-                <span>Invoice</span>
+                <span>Fatura</span>
               </button>
               <button mat-menu-item (click)="payInvoice(rentalToDisplay.rental.id)">
                 <mat-icon>attach_money</mat-icon>
-                <span>Paid</span>
+                <span>Pago</span>
               </button>
               <button mat-menu-item (click)="exportContract(rentalToDisplay.rental.id)">
                 <mat-icon>article</mat-icon>
-                <span>Export Contract</span>
+                <span>Exportar Contrato</span>
               </button>
             </mat-menu>
       </td>

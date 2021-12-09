@@ -14,6 +14,7 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { Supplier } from '../../models/supplier.model';
 import { MatSelect } from '@angular/material/select';
 import { takeUntil } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
 
 
 class ImageSnippet {
@@ -50,9 +51,10 @@ export class CreateStockItemComponent extends BaseComponent implements OnInit {
     scriptsService : ScriptsService,
     location : Location,
     router : Router,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService
   ) { 
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
   }
 
   ngOnInit(): void {

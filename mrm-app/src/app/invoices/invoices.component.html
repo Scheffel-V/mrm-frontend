@@ -50,15 +50,15 @@
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="updateRental(rentalToDisplay.rental.id)">
                 <mat-icon>info</mat-icon>
-                <span>Overview</span>
+                <span>Visualizar</span>
               </button>
               <button mat-menu-item (click)="openInvoice(rentalToDisplay.rental.id, rentalToDisplay.additive)">
                 <mat-icon>payment</mat-icon>
-                <span>Invoice</span>
+                <span>Fatura</span>
               </button>
               <button mat-menu-item (click)="payInvoice(rentalToDisplay.rental.id, rentalToDisplay.additive)">
                 <mat-icon>attach_money</mat-icon>
-                <span>Paid</span>
+                <span>Pago</span>
               </button>
             </mat-menu>
           </td>

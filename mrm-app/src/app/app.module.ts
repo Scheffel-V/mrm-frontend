@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -64,6 +64,8 @@ import { CreateCustomerComponent } from './models-components/create-customer/cre
 import { CreateStockItemComponent } from './models-components/create-stock-item/create-stock-item.component';
 import { CreateSupplierComponent } from './models-components/create-supplier/create-supplier.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './auth.interceptor';
 
 
 
@@ -96,7 +98,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     InvoicesComponent,
     CreateCustomerComponent,
     CreateStockItemComponent,
-    CreateSupplierComponent
+    CreateSupplierComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -140,7 +143,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MatPaginatorIntl, useValue: getPortuguesePaginator() },
     { provide: LOCALE_ID, useValue: 'pt' },
-    { provide:  DEFAULT_CURRENCY_CODE, useValue: 'BRL' }
+    { provide:  DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
+    { provide : HTTP_INTERCEPTORS, useClass : AuthInterceptor, multi : true}
   ],
   bootstrap: [AppComponent],
   entryComponents: [InvoiceComponent]

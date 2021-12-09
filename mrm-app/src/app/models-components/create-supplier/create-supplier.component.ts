@@ -8,6 +8,7 @@ import { BaseComponent } from 'src/app/base/base.component';
 import { ScriptsService } from 'src/app/services/scripts.service';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -28,9 +29,10 @@ export class CreateSupplierComponent extends BaseComponent implements OnInit {
     scriptsService : ScriptsService,
     location : Location,
     router : Router,
-    matSnackBar : MatSnackBar
+    matSnackBar : MatSnackBar,
+    authService: AuthService
   ) { 
-    super(scriptsService, location, router, matSnackBar)
+    super(scriptsService, location, router, matSnackBar, authService)
   }
 
   ngOnInit(): void {
