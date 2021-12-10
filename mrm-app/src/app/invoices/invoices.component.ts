@@ -315,7 +315,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   payInvoice(rentalId : number, additive : Additive) {
-    if (additive !== undefined || additive !== null) {
+    if (additive !== undefined && additive !== null) {
       this.payAdditiveInvoice(additive)
       return
     }
@@ -329,8 +329,9 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
     this.rentalService.updateRental(rental).subscribe(
       data => {
         rental = data
-        this.openSnackBar("Invoice paid!")
+        this.refreshRentals()
         this.prepareRentalsCurrenciesToDisplay()
+        this.openSnackBar("Fatura paga!")
       }
     )
   }
@@ -342,7 +343,8 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
     this.additiveService.updateAdditive(additive).subscribe(
       data => {
         this.refreshRentals()
-        this.openSnackBar("Invoice paid!")
+        this.prepareRentalsCurrenciesToDisplay()
+        this.openSnackBar("Fatura do aditivo paga!")
       }
     )
   }
