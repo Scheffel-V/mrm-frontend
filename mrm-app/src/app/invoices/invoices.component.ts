@@ -82,7 +82,6 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
     this.rentalService.getAllActiveRentals().subscribe(
       data => {
         this.rentals = data
-        this.rentals = this.rentals.reverse()
         this.setRentalsPeriods()
         this.setOverdueInvoices()
         this.prepareRentalsCurrenciesToDisplay()
@@ -172,7 +171,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
   private setFilter() {
     this.dataSource.filterPredicate = (data, filter: string)  => {
       const accumulator = (currentTerm, key) => {
-        return key === 'rental' ? currentTerm + data.rental.customer.name + data.rental.invoiceNumber + data.rental.status : currentTerm + data[key];
+        return key === 'rental' ? currentTerm + data.rental.customer.name + data.rental.contractNumber + data.rental.invoiceNumber + data.rental.status : currentTerm + data[key];
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       const transformedFilter = filter.trim().toLowerCase();
@@ -249,7 +248,8 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
 
   public doFilterForInvoiceStatus(value : string) {
     this.invoiceStatusSelectValue = value ? value.trim().toLocaleLowerCase() : ""
-    this.dataSource.filter = this.invoiceStatusSelectValue + this.searchBarValue
+    this.searchBarValue = ""
+    this.dataSource.filter = this.invoiceStatusSelectValue
   }
 
   getRentalProgressIndicatorValue(rental : Rental) {
@@ -291,6 +291,8 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
       }
       this.matDialog.open(InvoiceComponent, dialogConfig).afterClosed().subscribe(
         data => {
+          this.refreshRentals()
+          this.openSnackBar("Faturado!")
           this.prepareRentalsCurrenciesToDisplay()
         }
       )
@@ -298,7 +300,13 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
       dialogConfig.data = {
         additive : additive
       }
-      this.matDialog.open(AdditiveInvoiceComponent, dialogConfig)
+      this.matDialog.open(AdditiveInvoiceComponent, dialogConfig).afterClosed().subscribe(
+        data => {
+          this.refreshRentals()
+          this.openSnackBar("Faturado!")
+          this.prepareRentalsCurrenciesToDisplay()
+        }
+      )
     }
   }
 
@@ -347,6 +355,12 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
         this.openSnackBar("Fatura do aditivo paga!")
       }
     )
+  }
+
+  searchChange(filter) {
+    this.invoiceStatusSelectValue = ""
+    this.selectedInvoiceStatusValue = ""
+    this.doFilter(filter)
   }
 }
 

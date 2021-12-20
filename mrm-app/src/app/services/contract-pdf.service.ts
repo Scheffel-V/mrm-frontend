@@ -159,7 +159,7 @@ export class ContractPDFService {
             },
             [
               {
-                text: `Contrato - ${rental.id}`,
+                text: `Contrato - ${rental.contractNumber}`,
                 color: '#333333',
                 width: '*',
                 fontSize: 15,

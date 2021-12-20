@@ -371,7 +371,15 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
   }
 
   prepareCurrencyForOperations(value : any) : number {
-    return (typeof(value) === "number") ? value : +(value.replace(".", "").replace(",", "."))
+    if (!value) {
+      return 0
+    }
+
+    if (typeof(value) === "number") {
+      return value
+    }
+
+    return (value.match(/,/g) || []).length == 0 ? +value : +(value.replace(".", "").replace(",", "."))
   }
 
   public filterActiveCustomers(customers : Customer[]) {
