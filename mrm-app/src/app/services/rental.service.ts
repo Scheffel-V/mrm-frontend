@@ -47,4 +47,12 @@ export class RentalService {
   getRevenue() : Observable<Object> {
     return this.http.get<Object>(`${API_URL}/rentContracts/revenue`)
   }
+
+  getRevenueFromDate(formattedStartDate, formattedEndDate) {
+    return this.http.get<Object>(`${API_URL}/rentContracts/revenue/from/${formattedStartDate}/to/${formattedEndDate}`)
+  }
+
+  getRevenueFromLastTwelveMonths() {
+    return this.http.get<Object>(`${API_URL}/rentContracts/revenue/last_twelve_months`)
+  }
 }
