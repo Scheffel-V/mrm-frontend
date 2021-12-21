@@ -66,6 +66,7 @@ import { CreateSupplierComponent } from './models-components/create-supplier/cre
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './auth.interceptor';
+import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 
 
 
@@ -99,7 +100,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     CreateCustomerComponent,
     CreateStockItemComponent,
     CreateSupplierComponent,
-    LoginComponent
+    LoginComponent,
+    DeleteConfirmationComponent
   ],
   imports: [
     BrowserModule,

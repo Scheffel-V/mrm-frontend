@@ -14,6 +14,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { ContractPDFService } from '../../services/contract-pdf.service';
 import { AuthService } from '../../services/auth.service';
+import { DeleteConfirmationComponent } from '../../delete-confirmation/delete-confirmation.component';
 
 
 class RentalToDisplay {
@@ -174,6 +175,32 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
         this.refreshRentals()
       }
     )
+  }
+
+  openDeleteConfirmationPopup(rentalId) {
+    const dialogRef = this.matDialog.open(DeleteConfirmationComponent, {
+      width: '250px',
+      data: { message: "Você realmente deseja deletar a locação?"}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteRental(rentalId)
+      }
+    });
+  }
+
+  openDeleteManyConfirmationPopup() {
+    const dialogRef = this.matDialog.open(DeleteConfirmationComponent, {
+      width: '250px',
+      data: { message: "Você realmente deseja deletar as locações selecionadas?"}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteSelectedRentals()
+      }
+    });
   }
 
   public deleteSelectedRentals(): void {
