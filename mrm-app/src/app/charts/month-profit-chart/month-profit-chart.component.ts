@@ -43,7 +43,8 @@ export class MonthProfitChartComponent implements OnInit {
         var currentDate = new Date()
 
         for (let i = 11; i >= 0; i--) {
-          this.revenues[this.getMonthLabel(currentDate.getMonth() - i)] = data['revenues'][i]
+          var auxDate = new Date()
+          this.revenues[this.getMonthLabel(new Date(auxDate.setMonth(currentDate.getMonth() - i)))] = data['revenues'][i]
           this.revenuesToChart()
         }
       }
@@ -62,44 +63,32 @@ export class MonthProfitChartComponent implements OnInit {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
   }
 
-  getMonthLabel(month) {
-    switch (month) {
+  getMonthLabel(date) {
+    switch (date.getMonth()) {
       case 0:
         return "Janeiro"
-        break
       case 1:
         return "Fevereiro"
-        break
       case 2:
         return "Março"
-        break
       case 3:
         return "Abril"
-        break
       case 4:
         return "Maio"
-        break
       case 5:
         return "Junho"
-        break
       case 6:
         return "Julho"
-        break
       case 7:
         return "Agosto"
-        break
       case 8:
         return "Setembro"
-        break
       case 9:
         return "Outubro"
-        break
       case 10:
         return "Novembro"
-        break
       case 11:
         return "Dezembro"
-        break
       default:
         return "Indeterminado"
     }
