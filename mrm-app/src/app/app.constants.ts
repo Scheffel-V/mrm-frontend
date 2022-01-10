@@ -1,5 +1,5 @@
-export const API_URL = "http://localhost:80/api"
-export const AUTHENTICATION_URL = "http://localhost:80/api/authentication"
+export const API_URL = "http://localhost:3000/api"
+export const AUTHENTICATION_URL = "http://localhost:3000/api/authentication"
 export const AUTHENTICATED_TOKEN = 'token'
 export const AUTHENTICATED_USER_USERNAME = 'authenticateUserUsername'
 export const AUTHENTICATED_USER_ID = 'authenticateUserId'
