@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router'
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { AuthService } from '../services/auth.service';
+import * as $ from "jquery";
 
 
 const scripts = [
@@ -135,5 +136,10 @@ export class BaseComponent implements OnInit {
 
  isUserLoggedIn() {
    return this.authService.isUserLoggedIn();
+ }
+
+ toggleMenu() {
+    jQuery("body").toggleClass("sidebar-toggled");
+    $(".sidebar").toggleClass("toggled");
  }
 }

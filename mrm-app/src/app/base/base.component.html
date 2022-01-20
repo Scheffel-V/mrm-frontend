@@ -238,6 +238,11 @@
 
                 <!-- Topbar -->
                 <mat-toolbar class="sidebar-dark">
+
+                    <button id="sidebarToggleTop" (click)="toggleMenu()" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
                     <button mat-button (click)="backPage()">
                         <div fxLayout="row" fxLayoutAlign="center center">
                             <i class="material-icons" style="padding-right: 5px !important;">arrow_back_ios</i>
