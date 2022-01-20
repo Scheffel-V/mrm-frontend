@@ -4,21 +4,13 @@
     transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
 }
 
-mat-card{
-    width: fit-content;
+.mat-card.fit-content{
+  width: fit-content;
+  margin: 1vw;
 }
 
-.mat-card.scrollable-content {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  
-    > .mat-card-title-group {
-      display: block;
-    }
-  
-    > .mat-card-content {
-      overflow-x: auto;
-      padding-left: 1vw;
-    }
-  }
+mat-card img{
+  object-fit: cover; /*this makes the image in src fit to the size specified below*/
+  width: 225px; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: 225px;
+}

@@ -197,7 +197,7 @@ export class ContractPDFService {
             body: [
               [
                 {
-                  text: '1-) OBJECTO DO CONTRATO:',
+                  text: '1-) OBJETO DO CONTRATO:',
                   // fillColor: '#Dbcfed',
                   border: [false, false, false, false],
                   // margin: [0, 5, 0, 5],
@@ -365,40 +365,6 @@ export class ContractPDFService {
                   fillColor: '#f5f5f5',
                   margin: [0, 5, 0, 5],
                 },
-              ],
-              [
-                {
-                  text: 'Tipo de Pagamento',
-                  border: [false, false, false, true],
-                  alignment: 'right',
-                  fontSize: 10,
-                  margin: [0, 5, 0, 5],
-                },
-                {
-                  border: [false, false, false, true],
-                  text: rental.installments === 1 ? 'à vista' : `${rental.installments} vezes`,
-                  alignment: 'right',
-                  fontSize: 10,
-                  fillColor: '#f5f5f5',
-                  margin: [0, 5, 0, 5],
-                },
-              ],
-              [
-                {
-                  text: 'Forma de Pagamento',
-                  border: [false, false, false, true],
-                  alignment: 'right',
-                  fontSize: 10,
-                  margin: [0, 5, 0, 5],
-                },
-                {
-                  border: [false, false, false, true],
-                  text: rental.paymentType,
-                  alignment: 'right',
-                  fontSize: 10,
-                  fillColor: '#f5f5f5',
-                  margin: [0, 5, 0, 5],
-                },
               ]
             ],
           },
@@ -409,8 +375,8 @@ export class ContractPDFService {
             `${this.customer.address.street}, \ ${this.customer.address.number}, \ ${this.customer.address.neighborhood}, \ ${this.customer.address.city} - CEP: ${this.customer.address.cep}\n`,
             rental.period && {text: `Período: `, bold: true},
             rental.period,
-            rental.comments && {text: `\nObservações: `, bold: true},
-            rental.comments,
+            rental.comment && {text: `\nObservações: `, bold: true},
+            rental.comment,
             "\n\n"
           ],
           fontSize: 9

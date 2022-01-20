@@ -4,7 +4,8 @@
         {{ TEXTS.PAGES.EVENTS.EVENTS }}
         </div>
     </mat-card-title>
-    <table style="width: 100%;" mat-table [dataSource]="dataSource">
+    <table class="table-responsive" style="width: 100%;" mat-table [dataSource]="dataSource">
+        <div class="container-fluid" style="padding: 0%; width: 100%;">
         <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef>{{ TEXTS.MODELS.STOCK_ITEM_EVENT.DATE }}</th>
             <td mat-cell *matCellDef="let stockItemEvent">{{this.prepareDateToDisplay(stockItemEvent.createdAt)}}</td>
@@ -18,7 +19,7 @@
             </td>
         </ng-container>
         <ng-container matColumnDef="event">
-            <th mat-header-cell *matHeaderCellDef></th>
+            <th mat-header-cell *matHeaderCellDef>Ação</th>
             <td mat-cell *matCellDef="let stockItemEvent">
                 <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'INVENTORY'" class="badge badge-success">
                     Retornou ao {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
@@ -39,6 +40,7 @@
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </div>
     </table>
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10, 20]">
     </mat-paginator>

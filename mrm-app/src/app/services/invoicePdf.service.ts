@@ -303,6 +303,29 @@ export class InvoicePdfService {
     };
   }
 
+  renderPurchaseOrderNumber(number) {
+    return {
+      columns: [
+        {
+          text: 'Número do Pedido de Compra',
+          color: '#aaaaab',
+          bold: true,
+          fontSize: 10,
+          alignment: 'right',
+          width: '*',
+        },
+        {
+          text: number,
+          bold: true,
+          color: '#333333',
+          fontSize: 10,
+          alignment: 'right',
+          width: 100,
+        },
+      ],
+    };
+  }
+
   getInvoiceDefinition(rental) {
     let itemsRows = [];
     rental.itemRentals.map(item => {
@@ -394,7 +417,8 @@ export class InvoicePdfService {
                       },
                     ],
                   },
-                  this.renderPaymentDueDate(rental)
+                  this.renderPaymentDueDate(rental),
+                  this.renderPurchaseOrderNumber(rental.purchaseOrderNumber)
                 ],
               },
             ],
@@ -663,6 +687,8 @@ export class InvoicePdfService {
                 style: 'notesText',
               },
               {
+                text: "Observações:" + rental.invoiceComment,
+                style: 'notesText',
               }
             ],
               
@@ -796,7 +822,8 @@ export class InvoicePdfService {
                       },
                     ],
                   },
-                  this.renderPaymentDueDate(additive)
+                  this.renderPaymentDueDate(additive),
+                  this.renderPurchaseOrderNumber(additive.purchaseOrderNumber)
                 ],
               },
             ],
@@ -1065,6 +1092,8 @@ export class InvoicePdfService {
                 style: 'notesText',
               },
               {
+                text: "Observações:" + additive.invoiceComment,
+                style: 'notesText',
               }
             ],
               
