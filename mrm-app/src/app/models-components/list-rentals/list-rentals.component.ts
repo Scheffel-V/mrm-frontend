@@ -287,8 +287,10 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
       additive : null
     }
     this.matDialog.open(InvoiceComponent, dialogConfig).afterClosed().subscribe(
-      data => {
-        this.openSnackBar("Faturado!")
+      invoiced => {
+        if (invoiced) {
+          this.openSnackBar("Faturado!")
+        }
         this.prepareRentalsCurrenciesToDisplay()
       }
     )

@@ -55,20 +55,29 @@
                             </div>
 
                             <div class="form-group row">
-                              <div class="col-sm-4 mb-3 mb-sm-0">
+                              <div class="col-sm-2">
                                 <mat-form-field style="width:100%">
                                     <mat-label>{{ TEXTS.MODELS.ADDITIVE.TOTAL_VALUE }}</mat-label>
                                     <input matInput type="text" mask="separator.2" thousandSeparator="." prefix="R$" [(ngModel)]="additive.value" id="additiveTotalValue" name="totalValue" required="required" #totalValue="ngModel">
                                     <mat-error *ngIf="totalValue.invalid">{{ TEXTS.MODELS.FORMS.ADDITIVE.TOTAL_VALUE_REQUIRED }}</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-sm-4 mb-3 mb-sm-0">
-
-                              </div>
-                              <div class="col-sm-4">
+                              <div class="col-sm-2">
                                 <mat-form-field style="width:100%">
                                     <mat-label>{{ TEXTS.MODELS.ADDITIVE.INVOICE }}</mat-label>
                                     <input matInput readonly type="number" [(ngModel)]="additive.invoiceNumber" id="additiveFiscalNote" name="invoiceNumber">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-sm-4">
+                                <mat-form-field style="width:100%">
+                                    <mat-label>{{ TEXTS.MODELS.ADDITIVE.PURCHASE_ORDER_NUMBER }}</mat-label>
+                                    <input matInput type="text" [(ngModel)]="additive.purchaseOrderNumber" id="additivePurchaseOrderNumber" name="purchaseOrderNumber">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-sm-4">
+                                <mat-form-field style="width:100%">
+                                    <mat-label>{{ TEXTS.MODELS.ADDITIVE.INVOICE_COMMENT }}</mat-label>
+                                    <input matInput type="text" [(ngModel)]="additive.invoiceComment" id="additiveInvoiceComment" name="invoiceComment">
                                 </mat-form-field>
                               </div>
                             </div>

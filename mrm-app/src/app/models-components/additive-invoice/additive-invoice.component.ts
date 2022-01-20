@@ -41,8 +41,8 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
     this.prepareCurrenciesToDisplay()
   }
 
-  close() : void {
-    this.dialogRef.close()
+  close(invoiced) : void {
+    this.dialogRef.close(invoiced)
   }
 
   saveAdditive() : void {
@@ -51,7 +51,7 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
     this.additiveService.updateAdditive(this.additive).subscribe(
       data => {
         this.prepareCurrenciesToDisplay()
-        this.close()
+        this.close(true)
       }
     )
   }
@@ -81,7 +81,7 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
   }
 
   onCancel() : void {
-    this.close()
+    this.close(false)
   }
 
   onExport(additiveId: number) : void {

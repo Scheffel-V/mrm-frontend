@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpBackend} from '@angular/common/http';
 import { API_URL } from '../app.constants';
 import { Observable } from 'rxjs';
 import { Customer } from '../models/customer.model'
@@ -9,9 +9,14 @@ import { Customer } from '../models/customer.model'
 })
 export class CustomerService {
 
+  private httpClientWithoutInterceptor : HttpClient
+
   constructor(
-    private http : HttpClient
-  ) { }
+    private http : HttpClient,
+    private httpBackend: HttpBackend
+  ) { 
+    this.httpClientWithoutInterceptor = new HttpClient(httpBackend)
+  }
 
   getAllCustomers() : Observable<Customer[]> {
     return this.http.get<Customer[]>(`${API_URL}/customers`)
@@ -41,7 +46,7 @@ export class CustomerService {
   }
 
   searchCnpj(cnpj : string) {
-    return this.http.get(`https://api-publica.speedio.com.br/buscarcnpj?cnpj=${cnpj}`)
+    return this.httpClientWithoutInterceptor.get(`https://api-publica.speedio.com.br/buscarcnpj?cnpj=${cnpj}`)
   }
 
   getAllCustomersWithActiveContract() : Observable<Customer[]> {

@@ -290,9 +290,11 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
         additive : null
       }
       this.matDialog.open(InvoiceComponent, dialogConfig).afterClosed().subscribe(
-        data => {
+        invoiced => {
           this.refreshRentals()
-          this.openSnackBar("Faturado!")
+          if (invoiced) {
+            this.openSnackBar("Faturado!")
+          }
           this.prepareRentalsCurrenciesToDisplay()
         }
       )
@@ -301,9 +303,11 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
         additive : additive
       }
       this.matDialog.open(AdditiveInvoiceComponent, dialogConfig).afterClosed().subscribe(
-        data => {
+        invoiced => {
           this.refreshRentals()
-          this.openSnackBar("Faturado!")
+          if (invoiced) {
+            this.openSnackBar("Faturado!")
+          }
           this.prepareRentalsCurrenciesToDisplay()
         }
       )

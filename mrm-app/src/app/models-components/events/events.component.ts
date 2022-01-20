@@ -35,7 +35,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.stockItemEventService.getAllStockItemEvents().subscribe(
       data => {
-        this.stockItemEvents = data
+        this.stockItemEvents = this.filterInvalidStockItemEvents(data) //@TODO: Backend should do this.
         this.stockItemEvents = this.stockItemEvents.reverse()
         this.prepareTextToDisplay()
         this.displayStockItemEvents(this.stockItemEvents)
@@ -49,8 +49,10 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
   public prepareTextToDisplay() {
     this.stockItemEvents.forEach(stockItemEvent => {
-      stockItemEvent.createdAt = new Date(stockItemEvent.createdAt)
-      stockItemEvent.textToDisplay = "O Item " + stockItemEvent.stockItem.name + " , de código " + stockItemEvent.stockItem.code + ", foi movido para " + this.prepareStatusToDisplay(stockItemEvent.status) + " as " + this.prepareDateToDisplay(stockItemEvent.createdAt) + "."
+      if (stockItemEvent.stockItem) {
+        stockItemEvent.createdAt = new Date(stockItemEvent.createdAt)
+        stockItemEvent.textToDisplay = "O Item " + stockItemEvent.stockItem.name + " , de código " + stockItemEvent.stockItem.code + ", foi movido para " + this.prepareStatusToDisplay(stockItemEvent.status) + " as " + this.prepareDateToDisplay(stockItemEvent.createdAt) + "."
+      }
     })
   }
 
@@ -78,5 +80,9 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
   public prepareDateToDisplay(date : Date) {
     return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " - " + date.getHours() + ":" + date.getMinutes()
+  }
+
+  public filterInvalidStockItemEvents(stockItemEvents) : StockItemEvent[] {
+    return stockItemEvents.filter(stockItemEvent => stockItemEvent.stockItem)
   }
 }

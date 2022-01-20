@@ -43,8 +43,8 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
     this.prepareCurrenciesToDisplay()
   }
 
-  close() : void {
-    this.dialogRef.close()
+  close(invoiced) : void {
+    this.dialogRef.close(invoiced)
   }
 
   saveRental() : void {
@@ -53,7 +53,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
     this.rentalService.updateRental(this.rental).subscribe(
       data => {
         this.prepareCurrenciesToDisplay()
-        this.close()
+        this.close(true)
       }
     )
   }
@@ -83,7 +83,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
   }
 
   onCancel() : void {
-    this.close()
+    this.close(false)
   }
 
   onExport(invoiceId: number) : void {

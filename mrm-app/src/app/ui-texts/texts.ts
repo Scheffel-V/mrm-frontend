@@ -85,7 +85,10 @@ export const TEXTS = {
               WORKING_HOURS : "Working Hours",
               ACTIVE : "Active",
               CONTRACT : "Contract",
-              ADDITIVE_NUMBER : "Additive Number"
+              ADDITIVE_NUMBER : "Additive Number",
+              COMMENT : "Comment",
+              INVOICE_COMMENT: "Comment",
+              PURCHASE_ORDER_NUMBER: "Purchase Order Number"
             },
             ADDITIVE : {
               CUSTOMER : "Customer",
@@ -102,7 +105,10 @@ export const TEXTS = {
               PROGRESS : "Progress",
               INSTALLMENTS : "Installments",
               WORKING_HOURS : "Working Hours",
-              ADDITIVE_NUMBER : "Number"
+              ADDITIVE_NUMBER : "Number",
+              COMMENT: "Comment",
+              INVOICE_COMMENT: "Comment",
+              PURCHASE_ORDER_NUMBER: "Purchase Order Number"
             },
             STOCK_ITEM : {
               NAME : "Name",
@@ -362,7 +368,10 @@ export const TEXTS = {
             WORKING_HOURS : "Horas de trabalho",
             ACTIVE : "Ativo",
             CONTRACT : "Contrato",
-            ADDITIVE_NUMBER : "Número do Aditivo"
+            ADDITIVE_NUMBER : "Número do Aditivo",
+            COMMENT : "Observações",
+            INVOICE_COMMENT : "Observações",
+            PURCHASE_ORDER_NUMBER: "Número do Pedido de Compra"
           },
           ADDITIVE : {
             CUSTOMER : "Cliente",
@@ -379,7 +388,10 @@ export const TEXTS = {
             PROGRESS : "Progresso",
             INSTALLMENTS : "Parcelas",
             WORKING_HOURS : "Horas de trabalho",
-            ADDITIVE_NUMBER : "Número"
+            ADDITIVE_NUMBER : "Número",
+            COMMENT: "Observações",
+            INVOICE_COMMENT: "Observações",
+            PURCHASE_ORDER_NUMBER: "Número do Pedido de Compra"
           },
           STOCK_ITEM : {
             NAME : "Nome",
@@ -532,7 +544,7 @@ export const TEXTS = {
             SUPPLIER : "Fornecedor",
           },
           INVOICE : {
-            INVOICE : "Faturamento"
+            INVOICE : "Fatura"
           },
           EVENTS : {
             EVENTS : "Eventos"

@@ -55,20 +55,29 @@
                             </div>
 
                             <div class="form-group row">
-                              <div class="col-sm-4 mb-3 mb-sm-0">
+                              <div class="col-sm-2">
                                 <mat-form-field style="width:100%">
                                     <mat-label>{{ TEXTS.MODELS.RENTAL.TOTAL_VALUE }}</mat-label>
                                     <input matInput type="text" mask="separator.2" thousandSeparator="." prefix="R$" [(ngModel)]="rental.value" id="rentalTotalValue" name="totalValue" required="required" #totalValue="ngModel">
                                     <mat-error *ngIf="totalValue.invalid">{{ TEXTS.MODELS.FORMS.RENTAL.TOTAL_VALUE_REQUIRED }}</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-sm-4 mb-3 mb-sm-0">
-
-                              </div>
-                              <div class="col-sm-4">
+                              <div class="col-sm-2">
                                 <mat-form-field style="width:100%">
                                     <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE }}</mat-label>
                                     <input matInput readonly type="number" [(ngModel)]="rental.invoiceNumber" id="rentalFiscalNote" name="invoiceNumber">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-sm-4">
+                                <mat-form-field style="width:100%">
+                                    <mat-label>{{ TEXTS.MODELS.RENTAL.PURCHASE_ORDER_NUMBER }}</mat-label>
+                                    <input matInput type="text" [(ngModel)]="rental.purchaseOrderNumber" id="rentalPurchaseOrderNumber" name="purchaseOrderNumber">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-sm-4">
+                                <mat-form-field style="width:100%">
+                                    <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE_COMMENT }}</mat-label>
+                                    <input matInput type="text" [(ngModel)]="rental.invoiceComment" id="rentalInvoiceComment" name="invoiceComment">
                                 </mat-form-field>
                               </div>
                             </div>
