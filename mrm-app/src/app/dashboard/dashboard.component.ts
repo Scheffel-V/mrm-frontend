@@ -35,6 +35,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   percentValue : number = 0.10
   color : string = "primary"
   isCurrency : boolean = true
+  isShowRevenue : boolean = false
 
   constructor(
     private customerService : CustomerService,
@@ -109,12 +110,20 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         this.rentalService.getRental(rental.id).subscribe((data) => {
           let activeRental = data
 
-          activeRental.itemRentals.forEach((_) => {
-            this.activeStockItemsCounter = this.activeStockItemsCounter + 1
+          activeRental.itemRentals.forEach((itemRental) => {
+            console.log(itemRental)
+            if (this.isStockItemRented(itemRental.stockItem)) {
+              this.activeStockItemsCounter = this.activeStockItemsCounter + 1
+            }
+            console.log(this.activeStockItemsCounter)
           })
         })
       }
     })
+  }
+
+  public isStockItemRented(stockItem : StockItem) {
+    return !(stockItem.status === 'MAINTENANCE' || stockItem.status === 'INVENTORY')
   }
 
   filterDuplicateCustomers(customers): Customer[] {
@@ -123,5 +132,13 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         t.cnpj === customer.cnpj
       ))
     )
+  }
+  
+  public showRevenue() {
+    this.isShowRevenue = true
+  }
+
+  public hideRevenue() {
+    this.isShowRevenue = false
   }
 }

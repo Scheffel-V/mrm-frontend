@@ -3,7 +3,8 @@
         <mat-card class="dashboard-card" style="height: 100%;">
             <mat-card-header class="card-header-center">
                 <mat-card-title>
-                    <h1 class="value-text">{{ currentMonthRevenue | currency:'R$':'symbol':'0.0' }}</h1>
+                    <h1 class="value-text" *ngIf="isShowRevenue">{{ currentMonthRevenue | currency:'R$':'symbol':'0.0' }}</h1>
+                    <h1 class="value-text" *ngIf="!isShowRevenue">-</h1>
                 </mat-card-title>
                 <div mat-card-avatar class="card-icon">
                     <mat-icon [color]="color" class="avatar-icon">paid</mat-icon>
@@ -11,7 +12,15 @@
             </mat-card-header>
             <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
             <br>
-            <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.REVENUE }}</h3>
+            <div class="row">
+                <div class="col-xl-9">
+                    <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.REVENUE }}</h3>
+                </div>
+                <div class="col-xl-3" style="text-align: center;">
+                    <mat-icon *ngIf="!isShowRevenue" (click)="showRevenue()">visibility</mat-icon>
+                    <mat-icon *ngIf="isShowRevenue" (click)="hideRevenue()">visibility_off</mat-icon>
+                </div>
+            </div>
         </mat-card>
     </div>
     <div class="col-xl-3" style="padding-bottom: 10px;">
