@@ -49,8 +49,8 @@
                 <mat-card-footer>
                     <mat-button-toggle-group style="width: 100%;">
                         <mat-button-toggle (click)="seeStockItem(stockItemToDisplay.stockItem.id)">Produto</mat-button-toggle>
-                        <mat-button-toggle [disabled]="stockItemToDisplay.stockItem.status == 'INVENTORY' || stockItemToDisplay.stockItem.status == 'MAINTENANCE'" (click)="seeRental(stockItemToDisplay.rentalId)">Locação</mat-button-toggle>
-                        <mat-button-toggle [disabled]="stockItemToDisplay.stockItem.status == 'INVENTORY' || stockItemToDisplay.stockItem.status == 'MAINTENANCE'" (click)="seeCustomer(stockItemToDisplay.customerId)">Cliente</mat-button-toggle>
+                        <mat-button-toggle [disabled]="stockItemToDisplay.stockItem.status == 'INVENTORY' || stockItemToDisplay.stockItem.status == 'MAINTENANCE'" (click)="seeRental(stockItemToDisplay)">Locação</mat-button-toggle>
+                        <mat-button-toggle [disabled]="stockItemToDisplay.stockItem.status == 'INVENTORY' || stockItemToDisplay.stockItem.status == 'MAINTENANCE'" (click)="seeCustomer(stockItemToDisplay)">Cliente</mat-button-toggle>
                     </mat-button-toggle-group>
                     <mat-progress-bar class="green-progress" mode="determinate" value="100" *ngIf="stockItemToDisplay.stockItem.status == 'INVENTORY'"></mat-progress-bar> 
                     <mat-progress-bar mode="determinate" value="100" color="warn" *ngIf="stockItemToDisplay.stockItem.status == 'MAINTENANCE'"></mat-progress-bar>

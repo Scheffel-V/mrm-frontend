@@ -179,11 +179,15 @@ export class InventoryComponent extends BaseComponent implements OnInit {
     this.router.navigate(['stockItems', stockItemId])
   }
 
-  seeRental(rentalId : number) {
-    this.router.navigate(['rentals', rentalId])
+  seeRental(stockItemToDisplay : StockItemToDisplay) {
+    if (!(stockItemToDisplay.stockItem.status === 'MAINTENANCE' || stockItemToDisplay.stockItem.status === 'INVENTORY')) {
+      this.router.navigate(['rentals', stockItemToDisplay.rentalId])
+    }
   }
 
-  seeCustomer(customerId : number) {
-    this.router.navigate(['customers', customerId])
+  seeCustomer(stockItemToDisplay : StockItemToDisplay) {
+    if (!(stockItemToDisplay.stockItem.status === 'MAINTENANCE' || stockItemToDisplay.stockItem.status === 'INVENTORY')) {
+      this.router.navigate(['customers', stockItemToDisplay.customerId])
+    }
   }
 }
