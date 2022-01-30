@@ -79,7 +79,16 @@ export class EventsComponent extends BaseComponent implements OnInit {
   }
 
   public prepareDateToDisplay(date : Date) {
-    return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " - " + date.getHours() + ":" + date.getMinutes()
+    return this.prepareDay(date.getDate()) + "/" + this.prepareMonth(date.getMonth()) + "/" + date.getFullYear() + " - " + date.getHours() + ":" + date.getMinutes()
+  }
+
+  public prepareDay(day : number) {
+    return day <= 9 ? '0' + String(day) : day
+  }
+
+  public prepareMonth(month : number) {
+    month += 1
+    return month <= 9 ? '0' + String(month) : month
   }
 
   public filterInvalidStockItemEvents(stockItemEvents) : StockItemEvent[] {
