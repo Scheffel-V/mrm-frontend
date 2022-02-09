@@ -97,6 +97,13 @@ export class CreateStockItemComponent extends BaseComponent implements OnInit {
         this.uploadFile()
         this.openSnackBar("Produto criado!")
         this.listStockItems()
+      },
+      error => {
+        if (error.error.error.name === "SequelizeUniqueConstraintError") {
+          this.openSnackBar("Já existe um produto com este Código!")
+          return
+        }
+        this.openSnackBar("Erro ao criar produto!")
       }
     )
   }
@@ -112,6 +119,13 @@ export class CreateStockItemComponent extends BaseComponent implements OnInit {
         this.uploadFile()
         this.openSnackBar("Produto atualizado!")
         this.listStockItems()
+      },
+      error => {
+        if (error.error.error.name === "SequelizeUniqueConstraintError") {
+          this.openSnackBar("Já existe um produto com este Código!")
+          return
+        }
+        this.openSnackBar("Erro ao criar produto!")
       }
     )
   }

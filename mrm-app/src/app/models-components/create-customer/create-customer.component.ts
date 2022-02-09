@@ -93,6 +93,13 @@ export class CreateCustomerComponent extends BaseComponent implements OnInit {
       data => {
         this.openSnackBar("Cliente criado!")
         this.listCustomers()
+      },
+      error => {
+        if (error.error.error.name === "SequelizeUniqueConstraintError") {
+          this.openSnackBar("Já existe um cliente com este CNPJ/CPF!")
+          return
+        }
+        this.openSnackBar("Erro ao criar cliente!")
       }
     )
   }
@@ -102,6 +109,13 @@ export class CreateCustomerComponent extends BaseComponent implements OnInit {
       data => {
         this.openSnackBar("Cliente atualizado!")
         this.listCustomers()
+      },
+      error => {
+        if (error.error.error.name === "SequelizeUniqueConstraintError") {
+          this.openSnackBar("Já existe um cliente com este CNPJ/CPF!")
+          return
+        }
+        this.openSnackBar("Erro ao criar cliente!")
       }
     )
   }

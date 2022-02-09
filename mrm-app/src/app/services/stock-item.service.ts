@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { API_URL } from '../app.constants';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { StockItem } from '../models/stock-item.model'
 
 @Injectable({
@@ -29,6 +31,10 @@ export class StockItemService {
     return this.http.post<StockItem>(
       `${API_URL}/stockItems`,
       stockItem
+    ).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(err);  
+      })
     )
   }
 
@@ -36,6 +42,10 @@ export class StockItemService {
     return this.http.put<StockItem>(
       `${API_URL}/stockItems/${stockItem.id}`,
       stockItem
+    ).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(err);  
+      })
     )
   }
 

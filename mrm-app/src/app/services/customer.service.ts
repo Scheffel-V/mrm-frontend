@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpBackend} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpBackend, HttpErrorResponse} from '@angular/common/http';
 import { API_URL } from '../app.constants';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { Customer } from '../models/customer.model'
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +33,10 @@ export class CustomerService {
     return this.http.post<Customer>(
       `${API_URL}/customers`,
       customer
+    ).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(err);  
+      })
     )
   }
 
@@ -37,6 +44,10 @@ export class CustomerService {
     return this.http.put<Customer>(
       `${API_URL}/customers/${customer.id}`,
       customer
+    ).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(err);  
+      })
     )
   }
 
