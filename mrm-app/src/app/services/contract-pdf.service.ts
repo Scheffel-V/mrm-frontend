@@ -121,6 +121,29 @@ export class ContractPDFService {
     this.totalItemsAmount += value;
   }
 
+  renderDeliveryCost(rental) {
+    if (!rental.deliveryCost) {
+      rental.deliveryCost = 0.0;
+    }
+    return [
+      {
+        text: 'Frete',
+        border: [false, false, false, true],
+        alignment: 'right',
+        fontSize: 10,
+        margin: [0, 5, 0, 5],
+      },
+      {
+        text: this.formatter.format(rental.deliveryCost),
+        border: [false, false, false, true],
+        fillColor: '#f5f5f5',
+        alignment: 'right',
+        fontSize: 10,
+        margin: [0, 5, 0, 5],
+      },
+    ];
+  }
+
   renderClauses() {
     return CLAUSES.map(clause => {
       return {
@@ -347,6 +370,7 @@ export class ContractPDFService {
                   margin: [0, 5, 0, 5],
                 }
               ],
+              this.renderDeliveryCost(rental),
               [
                 {
                   text: 'Valor Total',
