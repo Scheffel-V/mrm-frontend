@@ -38,7 +38,7 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
 
   rentalsToDisplay : RentalToDisplay[] = []
   rentals : Rental[] = []
-  public displayedColumns = ['select', 'actions', 'status', 'invoice', 'invoiceNumber', 'customer', 'totalValue', 'startDate', 'endDate', 'period', 'progress'];
+  public displayedColumns = ['select', 'actions', 'status', 'rentalNumber', 'invoice', 'invoiceNumber', 'customer', 'totalValue', 'startDate', 'endDate', 'period', 'progress'];
   public dataSource = new MatTableDataSource<RentalToDisplay>();
   showOnlyActive : boolean = true
   message : string
