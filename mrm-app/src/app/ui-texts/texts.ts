@@ -39,7 +39,8 @@ export const TEXTS = {
               MOBILE_PHONE_NUMBER : "Mobile Phone Number",
               EMAIL : "Email",
               ACTIVE : "Active",
-              NEIGHBORHOOD : "Neighborhood"
+              NEIGHBORHOOD : "Neighborhood",
+              COMPLEMENT: "Complement"
             },
             PRODUCT_MODEL : {
               NAME : "Name",
@@ -63,6 +64,7 @@ export const TEXTS = {
               PHONE_NUMBER : "Phone Number",
               EMAIL : "Email",
               NEIGHBORHOOD : "Neighborhood",
+              COMPLEMENT: "Complement",
               ACTIVE : "Active"
             },
             RENTAL : {
@@ -323,7 +325,8 @@ export const TEXTS = {
             MOBILE_PHONE_NUMBER : "Telefone",
             EMAIL : "Email",
             ACTIVE : "Ativo",
-            NEIGHBORHOOD : "Bairro"
+            NEIGHBORHOOD : "Bairro",
+            COMPLEMENT: "Complemento"
           },
           PRODUCT_MODEL : {
             NAME : "Name",
@@ -347,6 +350,7 @@ export const TEXTS = {
             PHONE_NUMBER : "Telefone",
             EMAIL : "Email",
             NEIGHBORHOOD : "Bairro",
+            COMPLEMENT: "Complemento",
             ACTIVE : "Ativo"
           },
           RENTAL : {

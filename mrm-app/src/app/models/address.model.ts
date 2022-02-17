@@ -8,6 +8,7 @@ export class Address {
         public number : string = "",
         public street : string = "",
         public neighborhood : string = "",
+        public complement : string = "",
         public createdAt : Date = new Date(),
         public updatedAt : Date = new Date()
     ) {
