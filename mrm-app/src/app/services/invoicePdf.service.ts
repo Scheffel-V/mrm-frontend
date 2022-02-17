@@ -417,6 +417,26 @@ export class InvoicePdfService {
                       },
                     ],
                   },
+                  {
+                    columns: [
+                      {
+                        text: 'Período:',
+                        color: '#aaaaab',
+                        bold: true,
+                        width: '*',
+                        fontSize: 10,
+                        alignment: 'right',
+                      },
+                      {
+                        text: rental.period + " dia(s)",
+                        bold: true,
+                        color: '#333333',
+                        fontSize: 10,
+                        alignment: 'right',
+                        width: 100,
+                      },
+                    ],
+                  },
                   this.renderPaymentDueDate(rental),
                   this.renderPurchaseOrderNumber(rental.purchaseOrderNumber)
                 ],
@@ -814,6 +834,26 @@ export class InvoicePdfService {
                       },
                       {
                         text: this.dateFormatter.format(new Date(additive.endDate.toDateString())),
+                        bold: true,
+                        color: '#333333',
+                        fontSize: 10,
+                        alignment: 'right',
+                        width: 100,
+                      },
+                    ],
+                  },
+                  {
+                    columns: [
+                      {
+                        text: 'Período:',
+                        color: '#aaaaab',
+                        bold: true,
+                        width: '*',
+                        fontSize: 10,
+                        alignment: 'right',
+                      },
+                      {
+                        text: additive.period + " dia(s)",
                         bold: true,
                         color: '#333333',
                         fontSize: 10,
