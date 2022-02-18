@@ -219,10 +219,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-8">
                                             <mat-form-field style="width:100%">
                                                 <mat-label>{{ TEXTS.MODELS.RENTAL.COMMENT }}</mat-label>
                                                 <input matInput type="text" [(ngModel)]="rental.comment" id="rentalComment" name="comment" #comment="ngModel">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <mat-form-field style="width:100%">
+                                                <mat-label>{{ TEXTS.MODELS.RENTAL.CONTRACT_NUMBER }}</mat-label>
+                                                <input matInput type="text" [(ngModel)]="rental.contractNumber" id="contractNumber" name="contractNumber" #contractNumber="ngModel">
                                             </mat-form-field>
                                         </div>
                                     </div>
