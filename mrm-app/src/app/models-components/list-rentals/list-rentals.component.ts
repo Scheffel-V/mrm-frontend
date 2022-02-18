@@ -156,18 +156,6 @@ export class ListRentalsComponent extends BaseComponent implements OnInit, After
 
   public deleteRental(selectedRentalId : number): void {
     let rental = this.getRental(selectedRentalId)
-    if (rental.active) {
-      rental.active = false
-      this.prepareCurrenciesToSaveRental(rental)
-      this.rentalService.updateRental(rental).subscribe(
-        data => {
-          this.openSnackBar("Locação posta como inativa.")
-          this.refreshRentals()
-        }
-      )
-
-      return
-    }
 
     this.rentalService.deleteRental(selectedRentalId).subscribe(
       response => {

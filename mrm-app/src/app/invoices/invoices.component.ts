@@ -79,7 +79,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
    }
 
   public ngOnInit(): void {
-    this.rentalService.getAllActiveRentals().subscribe(
+    this.rentalService.getAllRentals().subscribe(
       data => {
         this.rentals = data
         this.setRentalsPeriods()
@@ -185,18 +185,6 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
 
   public deleteRental(selectedRentalId : number): void {
     let rental = this.getRental(selectedRentalId)
-    if (rental.active) {
-      rental.active = false
-      this.prepareCurrenciesToSaveRental(rental)
-      this.rentalService.updateRental(rental).subscribe(
-        data => {
-          this.openSnackBar("Locação posta como inativa.")
-          this.refreshRentals()
-        }
-      )
-
-      return
-    }
 
     this.rentalService.deleteRental(selectedRentalId).subscribe(
       response => {
