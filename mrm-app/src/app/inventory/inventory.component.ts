@@ -103,7 +103,9 @@ export class InventoryComponent extends BaseComponent implements OnInit {
       let rentals : Rental[] = data
       rentals.forEach(rental => {
         rental.itemRentals.forEach(itemRental => {
-          this.updateStockItemToDisplayList(itemRental.stockItemId, rental.customer, rental.id)
+          if (itemRental.returnedAt === null) {
+            this.updateStockItemToDisplayList(itemRental.stockItemId, rental.customer, rental.id)
+          }
         })
       })
     })

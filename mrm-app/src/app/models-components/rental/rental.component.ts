@@ -51,6 +51,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   public dataSource = new MatTableDataSource<ItemRentalToDisplay>();
   itemRentalsToDisplay : ItemRentalToDisplay[] = []
   itemRentalsSelectedToRemove : ItemRental[] = []
+  alreadyRentedItemRentalsInInventory : ItemRental[] = []
 
   customerSelectControl : FormControl = new FormControl(this.rental.customerId, [Validators.required])
   customerFilterControl : FormControl = new FormControl()
@@ -87,7 +88,6 @@ export class RentalComponent extends BaseComponent implements OnInit {
     }
 
     this.fetchCustomers()
-    this.fetchStockItemsInInventory()
   }
 
   fetchRental(): void {
@@ -103,8 +103,10 @@ export class RentalComponent extends BaseComponent implements OnInit {
         this.prepareCurrenciesToDisplay()
         this.updatePeriod()
         this.customerSelectControl.setValue(this.rental.customer.id)
+        this.alreadyRentedItemRentalsInInventory = this.getAlreadyRentedItemRentalsInInventory()
         this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
         this.displayItemRentals(this.rental.itemRentals)
+        this.fetchStockItemsInInventory()
       }
     )
   }
@@ -158,6 +160,9 @@ export class RentalComponent extends BaseComponent implements OnInit {
 
     oldItemRentals.forEach(
       (itemRental) => {
+        if (this.isItemRentalAlreadyRentedInThePast(itemRental)) {
+          this.stockItemService.updateStockItem(itemRental.stockItem).subscribe()
+        }
         this.itemRentalService.updateItemRental(itemRental).subscribe()
     })
 
@@ -236,7 +241,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
   fetchStockItemsInInventory(): void {
     this.stockItemService.getAllStockItems().subscribe(
       data => {
-        this.stockItems = this.getStockItemsInInventory(data)
+        this.stockItems = this.removeDuplicateStockItems(this.getStockItemsInInventory(data))
         this.filteredStockItems.next(this.stockItems.slice())
 
         this.stockItemFilterControl.valueChanges
@@ -251,6 +256,14 @@ export class RentalComponent extends BaseComponent implements OnInit {
   getStockItemsInInventory(stockItems : StockItem[]) {
     return stockItems.filter(stockItem =>
       stockItem.status === "INVENTORY")
+  }
+
+  removeDuplicateStockItems(stockItems) {
+    let test = stockItems.filter(stockItem => 
+      !(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals).includes(stockItem.id))
+    )
+
+    return test
   }
 
   getStockItemsIdsFromItemRentals(itemRentals : ItemRental[]) {
@@ -468,11 +481,8 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   removeStockItemFromRental(itemRental : ItemRental) {
-    if (itemRental.stockItem.status === 'RENTED') {
-      itemRental.stockItem.status = 'INVENTORY'
-      this.stockItems.push(itemRental.stockItem)
-    }
-
+    itemRental.stockItem.status = 'INVENTORY'
+    this.stockItems.push(itemRental.stockItem)
     this.itemRentalsSelectedToRemove.push(itemRental)
     
     this.rental.itemRentals = this.rental.itemRentals.filter(itemRentalAux => itemRentalAux.id !== itemRental.id)
@@ -503,5 +513,17 @@ export class RentalComponent extends BaseComponent implements OnInit {
     }
 
     this.rental.workingHours = event.value;
+  }
+
+  public getAlreadyRentedItemRentalsInInventory() : ItemRental[] {
+    return this.rental.itemRentals.filter(itemRental =>
+      itemRental.stockItem.status === 'INVENTORY'
+    )
+  }
+
+  public isItemRentalAlreadyRentedInThePast(itemRental) : boolean {
+    return this.alreadyRentedItemRentalsInInventory.filter(alreadyRentedItemRental => 
+      alreadyRentedItemRental.id === itemRental.id
+    ).length !== 0
   }
 }

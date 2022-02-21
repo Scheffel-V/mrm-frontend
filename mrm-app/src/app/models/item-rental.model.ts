@@ -4,7 +4,7 @@ export class ItemRental {
     constructor(
         public id : number,
         public leftAt : Date = null,
-        public ReturnedAt : Date = null,
+        public returnedAt : Date = null,
         public value : any = null,
         public stockItem : StockItem = null,
         public stockItemId : number = null,
