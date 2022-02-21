@@ -385,4 +385,13 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
   public filterActiveCustomers(customers : Customer[]) {
     return customers.filter((customer => customer.active === true))
   }
+
+  public workingHoursChanged(event) {
+    if (!event.value) {
+      this.rental.workingHours = "";
+      return;
+    }
+
+    this.rental.workingHours = event.value;
+  }
 }

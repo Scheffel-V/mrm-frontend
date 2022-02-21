@@ -129,9 +129,12 @@
                                             <div class="col-sm-6">
                                                 <mat-form-field style="width:100%">
                                                     <mat-label>{{ TEXTS.MODELS.RENTAL.WORKING_HOURS }}</mat-label>
-                                                    <mat-select [(ngModel)]="rental.workingHours" id="workingHours" name="workingHours" #workingHours="ngModel">
+                                                    <mat-select [ngModel]="rental.workingHours" (selectionChange)="workingHoursChanged($event)" id="workingHours" name="workingHours" #workingHours="ngModel">
                                                         <mat-option value="8H">8 Horas</mat-option>
+                                                        <mat-option value="12H">12 Horas</mat-option>
                                                         <mat-option value="24H">24 Horas</mat-option>
+                                                        <mat-option value="STANDBY">Stand By</mat-option>
+                                                        <mat-option>{{ TEXTS.GENERAL.LABELS.NONE }}</mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
                                             </div>
