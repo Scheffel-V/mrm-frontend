@@ -17,6 +17,7 @@ import { RENTAL_ID_PARAM } from '../../app.constants';
 import { CreateAdditiveComponent } from '../create-additive/create-additive.component';
 import { AdditiveService } from '../../services/additive.service';
 import { AuthService } from '../../services/auth.service';
+import { AdditiveComponent } from '../additive/additive.component';
 
 
 class AdditiveToDisplay {
@@ -140,13 +141,21 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
   }
 
   private setSorter() {
+    this.dataSource.sort = this.sort
     this.dataSource.sortingDataAccessor = (item, property) => {
       return item['additive'][property]
     }
   }
 
   public updateAdditive(selectedAdditiveId : number): void {
-    this.openSnackBar("Não implementado.")
+    const dialogConfig = new MatDialogConfig()
+    dialogConfig.disableClose = true
+    dialogConfig.autoFocus = false
+    dialogConfig.width = "60%"
+    dialogConfig.data = {
+      additive : this.getAdditive(selectedAdditiveId)
+    }
+    this.matDialog.open(AdditiveComponent, dialogConfig)
   }
 
   public deleteAdditive(selectedAdditiveId : number): void {

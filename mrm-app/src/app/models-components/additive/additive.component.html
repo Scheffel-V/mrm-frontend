@@ -7,8 +7,7 @@
                 <div class="col-lg-12">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 *ngIf="additive.id == -1" class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.ADDITIVE }}</h1>
-                            <h1 *ngIf="additive.id != -1" class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.ADDITIVE_2 }}</h1>
+                            <h1 class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.UPDATE.ADDITIVE }} {{ additive.additiveNumber }}</h1>
                         </div>
                         
                         <form class="user" (ngSubmit)="!additiveForm.invalid && saveRental()" #additiveForm="ngForm">

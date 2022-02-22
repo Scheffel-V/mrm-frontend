@@ -381,11 +381,11 @@ export const TEXTS = {
           },
           ADDITIVE : {
             CUSTOMER : "Cliente",
-            START_DATE : "Data de Início",
-            END_DATE : "Data de Término",
+            START_DATE : "Início",
+            END_DATE : "Término",
             INVOICE : "Fatura",
             INVOICE_STATUS : "Status da Fatura",
-            INVOICE_NUMBER : "Número da Fatura",
+            INVOICE_NUMBER : "Fatura",
             TOTAL_VALUE : "Valor",
             PAYMENT_DUE_DATE : "Vencimento",
             PAYMENT_TYPE : "Método de Pagamento",
@@ -548,6 +548,7 @@ export const TEXTS = {
             CUSTOMER : "Cliente",
             STOCK_ITEM : "Produto",
             SUPPLIER : "Fornecedor",
+            ADDITIVE : "Aditivo"
           },
           INVOICE : {
             INVOICE : "Fatura"
