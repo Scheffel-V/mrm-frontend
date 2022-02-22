@@ -355,8 +355,8 @@ export const TEXTS = {
           },
           RENTAL : {
             CUSTOMER : "Cliente",
-            START_DATE : "Data de Início",
-            END_DATE : "Data de Término",
+            START_DATE : "Início",
+            END_DATE : "Término",
             CONTRACT_NUMBER : "Contrato",
             INVOICE_NUMBER : "Fatura",
             INVOICE_STATUS : "Status da Fatura",

@@ -33,8 +33,7 @@ class RentalToDisplay {
     public invoiceStatus : string = null,
     public progressIndicatorValue : number = null,
     public progressIndicatorColor : string = "warn",
-    public trashButtonColor : string = "basic",
-    public infoButtonColor : string = "basic"
+    public paymentDueDate : Date
   ) { }
 }
 
@@ -47,7 +46,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
 
   rentalsToDisplay : RentalToDisplay[] = []
   rentals : Rental[] = []
-  public displayedColumns = ['actions', 'invoice', 'invoiceNumber', 'contract', 'additiveNumber', 'customer', 'totalValue', 'startDate', 'endDate', 'period', 'progress'];
+  public displayedColumns = ['actions', 'startDate', 'endDate', 'paymentDueDate', 'invoiceNumber', 'period', 'totalValue', 'invoice', 'contract', 'additiveNumber', 'customer', 'progress'];
   public dataSource = new MatTableDataSource<RentalToDisplay>();
   showOnlyActive : boolean = true
   message : string
@@ -211,13 +210,13 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
     rentals.forEach((rental) => {
       additiveNumber = 0
       this.rentalsToDisplay.push(
-        new RentalToDisplay(false, rental, null, 0, rental.invoiceNumber, rental.value, rental.startDate, rental.endDate, rental.period, rental.invoiceStatus, this.getRentalProgressIndicatorValue(rental), this.getRentalProgressIndicatorColor(rental))
+        new RentalToDisplay(false, rental, null, 0, rental.invoiceNumber, rental.value, rental.startDate, rental.endDate, rental.period, rental.invoiceStatus, this.getRentalProgressIndicatorValue(rental), this.getRentalProgressIndicatorColor(rental), rental.paymentDueDate)
       )
 
       rental.additives.forEach(additive => {
         additiveNumber = additiveNumber + 1
         this.rentalsToDisplay.push(
-          new RentalToDisplay(true, rental, additive, additiveNumber, additive.invoiceNumber, additive.value, additive.startDate, additive.endDate, additive.period, additive.invoiceStatus, this.getAdditiveProgressIndicatorValue(additive), this.getAdditiveProgressIndicatorColor(additive))
+          new RentalToDisplay(true, rental, additive, additiveNumber, additive.invoiceNumber, additive.value, additive.startDate, additive.endDate, additive.period, additive.invoiceStatus, this.getAdditiveProgressIndicatorValue(additive), this.getAdditiveProgressIndicatorColor(additive), additive.paymentDueDate)
         )
       })
     })
