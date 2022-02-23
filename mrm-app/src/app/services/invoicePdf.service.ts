@@ -129,6 +129,7 @@ export class InvoicePdfService {
         this.rental.startDate = new Date(this.rental.startDate)
         this.rental.endDate = new Date(this.rental.endDate)
         this.rental.paymentDueDate = this.rental.paymentDueDate == null ? null : new Date(this.rental.paymentDueDate)
+        this.rental.invoicedAt = this.rental.invoicedAt == null ? null : new Date(this.rental.invoicedAt)
 
         this.items = this.rental.itemRentals;
 
@@ -149,6 +150,7 @@ export class InvoicePdfService {
         this.additive.startDate = new Date(this.additive.startDate)
         this.additive.endDate = new Date(this.additive.endDate)
         this.additive.paymentDueDate = this.additive.paymentDueDate == null ? null : new Date(this.additive.paymentDueDate)
+        this.additive.invoicedAt = this.additive.invoicedAt == null ? null : new Date(this.additive.invoicedAt)
 
         this.rentalService.getRental(this.additive.rentContractId).subscribe(
           data => {
@@ -303,6 +305,29 @@ export class InvoicePdfService {
     };
   }
 
+  renderInvoicedAtDate(invoice) {
+    return {
+      columns: [
+        {
+          text: 'Data de Emissão da Fatura',
+          color: '#aaaaab',
+          bold: true,
+          fontSize: 10,
+          alignment: 'right',
+          width: '*',
+        },
+        {
+          text: this.dateFormatter.format(new Date(invoice.invoicedAt.toDateString())),
+          bold: true,
+          color: '#333333',
+          fontSize: 10,
+          alignment: 'right',
+          width: 100,
+        },
+      ],
+    };
+  }
+
   renderPurchaseOrderNumber(number) {
     return {
       columns: [
@@ -438,6 +463,7 @@ export class InvoicePdfService {
                     ],
                   },
                   this.renderPaymentDueDate(rental),
+                  this.renderInvoicedAtDate(rental),
                   this.renderPurchaseOrderNumber(rental.purchaseOrderNumber)
                 ],
               },
@@ -863,6 +889,7 @@ export class InvoicePdfService {
                     ],
                   },
                   this.renderPaymentDueDate(additive),
+                  this.renderInvoicedAtDate(additive),
                   this.renderPurchaseOrderNumber(additive.purchaseOrderNumber)
                 ],
               },

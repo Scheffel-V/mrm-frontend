@@ -273,9 +273,19 @@ export class ListAdditivesComponent extends BaseComponent implements OnInit, Aft
     dialogConfig.autoFocus = false
     dialogConfig.width = "60%"
     dialogConfig.data = {
-      additive : this.getAdditive(additiveId)
+      additive :  this.prepareDates(this.getAdditive(additiveId))
     }
     this.matDialog.open(AdditiveInvoiceComponent, dialogConfig)
+  }
+
+  public prepareDates(additive) {
+    if (additive === null) {
+      return null
+    }
+
+    additive.invoicedAt = additive.invoicedAt == null ? null : new Date(additive.invoicedAt)
+
+    return additive
   }
 
   public openCreateAdditive() : void {

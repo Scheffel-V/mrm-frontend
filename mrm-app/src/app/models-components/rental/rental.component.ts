@@ -99,6 +99,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
         this.rental.approvalDate = this.rental.approvalDate == null ? null : new Date(this.rental.approvalDate)
         this.rental.paymentDueDate = this.rental.paymentDueDate == null ? null : new Date(this.rental.paymentDueDate)
         this.rental.paidAt = this.rental.paidAt == null ? null : new Date(this.rental.paidAt)
+        this.rental.invoicedAt = this.rental.invoicedAt == null ? null : new Date(this.rental.invoicedAt)
         this.setTotalValueWithAdditives()
         this.prepareCurrenciesToDisplay()
         this.updatePeriod()

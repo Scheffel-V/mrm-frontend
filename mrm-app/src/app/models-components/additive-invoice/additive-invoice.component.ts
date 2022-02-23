@@ -36,7 +36,7 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.additive = this.data.additive
-    this.additive = this.data.additive
+    this.additive.invoicedAt = this.additive.invoicedAt == null ? null : new Date(this.additive.invoicedAt)
     this.additive.installments = this.additive.installments.toString()
     this.prepareCurrenciesToDisplay()
   }
@@ -47,6 +47,7 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
 
   saveAdditive() : void {
     this.additive.invoiceStatus = "INVOICED"
+    this.additive.invoicedAt = this.additive.invoicedAt === null ? new Date() : this.additive.invoicedAt
     this.prepareCurrenciesToSaveInvoice()
     this.additiveService.updateAdditive(this.additive).subscribe(
       data => {

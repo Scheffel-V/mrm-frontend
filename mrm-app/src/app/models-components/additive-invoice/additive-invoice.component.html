@@ -12,14 +12,24 @@
                         <form class="user" (ngSubmit)="!additiveForm.invalid && saveAdditive()" #additiveForm="ngForm">
                             <div class="form-group row">
                                 <div class="col-sm-4">
-                                    <div class="col-sm-12" style="padding: 0em;">
-                                    <mat-form-field style="width:100%" >
-                                        <mat-label>{{ TEXTS.MODELS.ADDITIVE.PAYMENT_DUE_DATE }}</mat-label>
-                                        <input matInput [matDatepicker]="paymentDueDatePicker"  [(ngModel)]="additive.paymentDueDate" required="required" name="paymentDueDate" #paymentDueDate="ngModel">
-                                        <mat-datepicker-toggle matSuffix [for]="paymentDueDatePicker"></mat-datepicker-toggle>
-                                        <mat-datepicker #paymentDueDatePicker></mat-datepicker>
-                                        <mat-error *ngIf="paymentDueDate.invalid">{{ TEXTS.MODELS.FORMS.INVOICE.PAYMENT_DUE_DATE_REQUIRED }}</mat-error>
-                                      </mat-form-field>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <mat-form-field style="width:100%">
+                                                <mat-label>{{ TEXTS.MODELS.ADDITIVE.PAYMENT_DUE_DATE }}</mat-label>
+                                                <input matInput [matDatepicker]="paymentDueDatePicker"  [(ngModel)]="additive.paymentDueDate" required="required" name="paymentDueDate" #paymentDueDate="ngModel">
+                                                <mat-datepicker-toggle matSuffix [for]="paymentDueDatePicker"></mat-datepicker-toggle>
+                                                <mat-datepicker #paymentDueDatePicker></mat-datepicker>
+                                                <mat-error *ngIf="paymentDueDate.invalid">{{ TEXTS.MODELS.FORMS.INVOICE.PAYMENT_DUE_DATE_REQUIRED }}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <mat-form-field style="width:100%">
+                                                <mat-label>{{ TEXTS.MODELS.ADDITIVE.INVOICED_AT }}</mat-label>
+                                                <input matInput [matDatepicker]="invoicedAtDatePicker" [(ngModel)]="additive.invoicedAt" name="invoicedAt" #invoicedAt="ngModel">
+                                                <mat-datepicker-toggle matSuffix [for]="invoicedAtDatePicker"></mat-datepicker-toggle>
+                                                <mat-datepicker #invoicedAtDatePicker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4 mb-3 mb-sm-0">

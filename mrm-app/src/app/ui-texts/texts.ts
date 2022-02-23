@@ -377,7 +377,8 @@ export const TEXTS = {
             ADDITIVE_NUMBER : "Número do Aditivo",
             COMMENT : "Observações",
             INVOICE_COMMENT : "Observações",
-            PURCHASE_ORDER_NUMBER: "Número do Pedido de Compra"
+            PURCHASE_ORDER_NUMBER: "Número do Pedido de Compra",
+            INVOICED_AT : "Emissão"
           },
           ADDITIVE : {
             CUSTOMER : "Cliente",
@@ -397,7 +398,8 @@ export const TEXTS = {
             ADDITIVE_NUMBER : "Número",
             COMMENT: "Observações",
             INVOICE_COMMENT: "Observações",
-            PURCHASE_ORDER_NUMBER: "Número do Pedido de Compra"
+            PURCHASE_ORDER_NUMBER: "Número do Pedido de Compra",
+            INVOICED_AT : "Emissão"
           },
           STOCK_ITEM : {
             NAME : "Nome",

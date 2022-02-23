@@ -152,14 +152,24 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12" style="padding: 0em;">
-                                                <mat-form-field style="width:100%">
-                                                    <mat-label>{{ TEXTS.MODELS.RENTAL.STATUS }}</mat-label>
-                                                    <mat-select [(ngModel)]="rental.status" id="rentalStatus" name="status" #status="ngModel">
-                                                        <mat-option value="APPROVED">Aprovado</mat-option>
-                                                        <mat-option value="ON GOING">Em Andamento</mat-option>
-                                                        <mat-option value="FINISHED">Finalizado</mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <mat-form-field style="width:100%">
+                                                            <mat-label>{{ TEXTS.MODELS.RENTAL.STATUS }}</mat-label>
+                                                            <mat-select [(ngModel)]="rental.status" id="rentalStatus" name="status" #status="ngModel">
+                                                                <mat-option value="APPROVED">Aprovado</mat-option>
+                                                                <mat-option value="ON GOING">Em Andamento</mat-option>
+                                                                <mat-option value="FINISHED">Finalizado</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <mat-form-field style="width:100%">
+                                                            <mat-label>{{ TEXTS.MODELS.RENTAL.CONTRACT_NUMBER }}</mat-label>
+                                                            <input matInput type="text" [(ngModel)]="rental.contractNumber" id="contractNumber" name="contractNumber" #contractNumber="ngModel">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -214,10 +224,10 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <mat-form-field style="width:100%;" >
-                                                <mat-label>Data em que foi pago</mat-label>
-                                                <input matInput [matDatepicker]="paidAtPicker" [(ngModel)]="rental.paidAt" name="paidAt" #paidAt="ngModel">
-                                                <mat-datepicker-toggle matSuffix [for]="paidAtPicker"></mat-datepicker-toggle>
-                                                <mat-datepicker #paidAtPicker></mat-datepicker>
+                                                <mat-label>Data em que foi faturado</mat-label>
+                                                <input matInput [matDatepicker]="invoicedAtPicker" [(ngModel)]="rental.invoicedAt" name="invoicedAt" #invoicedAt="ngModel">
+                                                <mat-datepicker-toggle matSuffix [for]="invoicedAtPicker"></mat-datepicker-toggle>
+                                                <mat-datepicker #invoicedAtPicker></mat-datepicker>
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -229,9 +239,11 @@
                                             </mat-form-field>
                                         </div>
                                         <div class="col-sm-4">
-                                            <mat-form-field style="width:100%">
-                                                <mat-label>{{ TEXTS.MODELS.RENTAL.CONTRACT_NUMBER }}</mat-label>
-                                                <input matInput type="text" [(ngModel)]="rental.contractNumber" id="contractNumber" name="contractNumber" #contractNumber="ngModel">
+                                            <mat-form-field style="width:100%;" >
+                                                <mat-label>Data em que foi pago</mat-label>
+                                                <input matInput [matDatepicker]="paidAtPicker" [(ngModel)]="rental.paidAt" name="paidAt" #paidAt="ngModel">
+                                                <mat-datepicker-toggle matSuffix [for]="paidAtPicker"></mat-datepicker-toggle>
+                                                <mat-datepicker #paidAtPicker></mat-datepicker>
                                             </mat-form-field>
                                         </div>
                                     </div>

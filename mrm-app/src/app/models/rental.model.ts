@@ -33,7 +33,8 @@ export class Rental {
         public comment : string = null,
         public invoiceComment : string = "",
         public purchaseOrderNumber : string = null,
-        public active : boolean = true
+        public active : boolean = true,
+        public invoicedAt : Date = null
     ) {
 
     }
