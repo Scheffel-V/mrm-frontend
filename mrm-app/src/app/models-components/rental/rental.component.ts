@@ -466,7 +466,11 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   prepareCurrencyToDisplay(value : any) : string {
-    return value ? ((typeof(value) === "string") ? value : value.toString().replace(".", ",")) : null
+    if (value == null) {
+      return null
+    }
+
+    return typeof(value) === "string" ? value : value.toString().replace(".", ",")
   }
 
   prepareCurrencyForOperations(value : any) : number {
