@@ -89,6 +89,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
 
   onExport(invoiceId: number) : void {
     this.rental.invoiceStatus = "INVOICED"
+    this.rental.invoicedAt = this.rental.invoicedAt === null ? new Date() : this.rental.invoicedAt
     this.prepareCurrenciesToSaveInvoice()
     this.rentalService.updateRental(this.rental).subscribe(
       data => {

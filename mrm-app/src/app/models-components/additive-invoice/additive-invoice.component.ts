@@ -87,6 +87,7 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
 
   onExport(additiveId: number) : void {
     this.additive.invoiceStatus = "INVOICED"
+    this.additive.invoicedAt = this.additive.invoicedAt === null ? new Date() : this.additive.invoicedAt
     this.prepareCurrenciesToSaveInvoice()
     this.additiveService.updateAdditive(this.additive).subscribe(
       data => {
