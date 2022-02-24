@@ -58,23 +58,27 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
   public prepareStatusToDisplay(status : string) {
     if (status === 'INVENTORY') {
-      return "estoque"
+      return "Retornou ao estoque."
     }
     
     if (status === 'RENTED') {
-      return "Alugado"
+      return "Foi alugado."
+    }
+
+    if (status === 'RESERVED') {
+      return "Foi reservado."
     }
 
     if (status === 'MAINTENANCE') {
-      return "a manutenção"
+      return "Movido para a manutenção."
     }
 
     if (status === 'READY_FOR_RENTAL') {
-      return "Pronto para sair"
+      return "Está pronto para sair."
     }
 
     if (status === 'CUSTOMER') {
-      return "cliente"
+      return "Está com o cliente."
     }
   }
 

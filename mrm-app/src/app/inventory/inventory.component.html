@@ -17,6 +17,7 @@
               <mat-select (selectionChange)="doFilterForStockItemStatus($event.value)" id="invoiceStatusFilter" name="invoiceStatusFilter">
                   <mat-option value="INVENTORY">Estoque</mat-option>
                   <mat-option value="MAINTENANCE">Manutenção</mat-option>
+                  <mat-option value="RESERVED">Reservado</mat-option>
                   <mat-option value="RENTED">Alugado</mat-option>
                   <mat-option value="READY_FOR_RENTAL">Pronto para sair</mat-option>
                   <mat-option value="CUSTOMER">Com o cliente</mat-option>
@@ -41,6 +42,7 @@
                 <mat-card-content>
                     <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'INVENTORY'" class="badge badge-success">Estoque</span>
                     <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'MAINTENANCE'" class="badge badge-warn">Manutenção</span>
+                    <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'RESERVED'" class="badge badge-accent">Reservado</span>
                     <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'RENTED'" class="badge badge-accent">Alugado para o cliente</span>
                     <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'READY_FOR_RENTAL'" class="badge badge-accent">Pronto para ir ao cliente</span>
                     <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'CUSTOMER'" class="badge badge-primary">Com o cliente</span>
@@ -49,12 +51,13 @@
                 <mat-card-footer>
                     <mat-button-toggle-group style="width: 100%;">
                         <mat-button-toggle (click)="seeStockItem(stockItemToDisplay.stockItem.id)">Produto</mat-button-toggle>
-                        <mat-button-toggle [disabled]="stockItemToDisplay.stockItem.status == 'INVENTORY' || stockItemToDisplay.stockItem.status == 'MAINTENANCE'" (click)="seeRental(stockItemToDisplay)">Locação</mat-button-toggle>
-                        <mat-button-toggle [disabled]="stockItemToDisplay.stockItem.status == 'INVENTORY' || stockItemToDisplay.stockItem.status == 'MAINTENANCE'" (click)="seeCustomer(stockItemToDisplay)">Cliente</mat-button-toggle>
+                        <mat-button-toggle [disabled]="stockItemToDisplay.stockItem.status == 'INVENTORY' || stockItemToDisplay.stockItem.status == 'MAINTENANCE' || stockItemToDisplay.stockItem.status == 'RESERVED'" (click)="seeRental(stockItemToDisplay)">Locação</mat-button-toggle>
+                        <mat-button-toggle [disabled]="stockItemToDisplay.stockItem.status == 'INVENTORY' || stockItemToDisplay.stockItem.status == 'MAINTENANCE' || stockItemToDisplay.stockItem.status == 'RESERVED'" (click)="seeCustomer(stockItemToDisplay)">Cliente</mat-button-toggle>
                     </mat-button-toggle-group>
                     <mat-progress-bar class="green-progress" mode="determinate" value="100" *ngIf="stockItemToDisplay.stockItem.status == 'INVENTORY'"></mat-progress-bar> 
                     <mat-progress-bar mode="determinate" value="100" color="warn" *ngIf="stockItemToDisplay.stockItem.status == 'MAINTENANCE'"></mat-progress-bar>
                     <mat-progress-bar mode="determinate" value="100" color="accent" *ngIf="stockItemToDisplay.stockItem.status == 'RENTED'"></mat-progress-bar>
+                    <mat-progress-bar mode="determinate" value="100" color="accent" *ngIf="stockItemToDisplay.stockItem.status == 'RESERVED'"></mat-progress-bar>
                     <mat-progress-bar mode="determinate" value="100" color="accent" *ngIf="stockItemToDisplay.stockItem.status == 'READY_FOR_RENTAL'"></mat-progress-bar>
                     <mat-progress-bar mode="determinate" value="100" *ngIf="stockItemToDisplay.stockItem.status == 'CUSTOMER'"></mat-progress-bar>
                 </mat-card-footer>                                

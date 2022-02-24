@@ -182,13 +182,13 @@ export class InventoryComponent extends BaseComponent implements OnInit {
   }
 
   seeRental(stockItemToDisplay : StockItemToDisplay) {
-    if (!(stockItemToDisplay.stockItem.status === 'MAINTENANCE' || stockItemToDisplay.stockItem.status === 'INVENTORY')) {
+    if (!(stockItemToDisplay.stockItem.status === 'MAINTENANCE' || stockItemToDisplay.stockItem.status === 'INVENTORY' || stockItemToDisplay.stockItem.status === 'RESERVED')) {
       this.router.navigate(['rentals', stockItemToDisplay.rentalId])
     }
   }
 
   seeCustomer(stockItemToDisplay : StockItemToDisplay) {
-    if (!(stockItemToDisplay.stockItem.status === 'MAINTENANCE' || stockItemToDisplay.stockItem.status === 'INVENTORY')) {
+    if (!(stockItemToDisplay.stockItem.status === 'MAINTENANCE' || stockItemToDisplay.stockItem.status === 'INVENTORY' || stockItemToDisplay.stockItem.status === 'RESERVED')) {
       this.router.navigate(['customers', stockItemToDisplay.customerId])
     }
   }

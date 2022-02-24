@@ -22,19 +22,22 @@
             <th mat-header-cell *matHeaderCellDef>Ação</th>
             <td mat-cell *matCellDef="let stockItemEvent">
                 <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'INVENTORY'" class="badge badge-success">
-                    Retornou ao {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
+                    {{this.prepareStatusToDisplay(stockItemEvent.status)}}
                 </span>
                 <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'MAINTENANCE'" class="badge badge-warn">
-                    Movido para {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
+                    {{this.prepareStatusToDisplay(stockItemEvent.status)}}
                 </span>
                 <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'RENTED'" class="badge badge-accent">
-                    {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
+                    {{this.prepareStatusToDisplay(stockItemEvent.status)}}
+                </span>
+                <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'RESERVED'" class="badge badge-accent">
+                    {{this.prepareStatusToDisplay(stockItemEvent.status)}}
                 </span>
                 <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'READY_FOR_RENTAL'" class="badge badge-accent">
-                    {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
+                    {{this.prepareStatusToDisplay(stockItemEvent.status)}}
                 </span>
                 <span style="font-size: 15px;" *ngIf="stockItemEvent.status == 'CUSTOMER'" class="badge badge-primary">
-                    Saiu para o {{this.prepareStatusToDisplay(stockItemEvent.status)}}.
+                    {{this.prepareStatusToDisplay(stockItemEvent.status)}}
                 </span>    
             </td>
         </ng-container>

@@ -112,10 +112,11 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
           activeRental.itemRentals.forEach((itemRental) => {
             console.log(itemRental)
-            if (this.isStockItemRented(itemRental.stockItem)) {
-              this.activeStockItemsCounter = this.activeStockItemsCounter + 1
+            if (!itemRental.returnedAt) {            
+              if (this.isStockItemRented(itemRental.stockItem)) {
+                this.activeStockItemsCounter = this.activeStockItemsCounter + 1
+              }
             }
-            console.log(this.activeStockItemsCounter)
           })
         })
       }
@@ -123,7 +124,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   }
 
   public isStockItemRented(stockItem : StockItem) {
-    return !(stockItem.status === 'MAINTENANCE' || stockItem.status === 'INVENTORY')
+    return !(stockItem.status === 'MAINTENANCE' || stockItem.status === 'INVENTORY' || stockItem.status === 'RESERVED')
   }
 
   filterDuplicateCustomers(customers): Customer[] {

@@ -75,6 +75,7 @@
           <td mat-cell *matCellDef="let stockItemToDisplay">
             <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'INVENTORY'" class="badge badge-success">Estoque</span>
             <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'MAINTENANCE'" class="badge badge-warn">Manutenção</span>
+            <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'RESERVED'" class="badge badge-accent">Reservado</span>
             <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'RENTED'" class="badge badge-accent">Alugado</span>
             <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'READY_FOR_RENTAL'" class="badge badge-accent">Pronto para Sair</span>
             <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'CUSTOMER'" class="badge badge-primary">Com um cliente</span>
