@@ -47,8 +47,11 @@ export class RentalComponent extends BaseComponent implements OnInit {
   durationMode : string = "CUSTOM"
   isPeriodEditable = false
   displayedColumns = ['actions', 'name', 'status', 'type', 'power', 'value']
+  historyTableDisplayedColumns = ['name', 'status', 'type', 'leftAt', 'returnedAt', 'value']
   totalValueWithAdditives : any = 0
   public dataSource = new MatTableDataSource<ItemRentalToDisplay>();
+  public historyTableDataSource = new MatTableDataSource<ItemRentalToDisplay>();
+  historyItemRentalsToDisplay : ItemRentalToDisplay[] = []
   itemRentalsToDisplay : ItemRentalToDisplay[] = []
   itemRentalsSelectedToRemove : ItemRental[] = []
   alreadyRentedItemRentalsInInventory : ItemRental[] = []
@@ -105,8 +108,9 @@ export class RentalComponent extends BaseComponent implements OnInit {
         this.updatePeriod()
         this.customerSelectControl.setValue(this.rental.customer.id)
         this.alreadyRentedItemRentalsInInventory = this.getAlreadyRentedItemRentalsInInventory()
-        this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
+        this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.getActualItemRentals(this.rental.itemRentals)))
         this.displayItemRentals(this.rental.itemRentals)
+        this.displayItemRentalsHistory(this.rental.itemRentals)
         this.fetchStockItemsInInventory()
       }
     )
@@ -261,10 +265,16 @@ export class RentalComponent extends BaseComponent implements OnInit {
 
   removeDuplicateStockItems(stockItems) {
     let test = stockItems.filter(stockItem => 
-      !(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals).includes(stockItem.id))
+      !(this.getStockItemsIdsFromItemRentals(this.getActualItemRentals(this.rental.itemRentals)).includes(stockItem.id))
     )
 
     return test
+  }
+
+  getActualItemRentals(itemRentals : ItemRental[]) {
+    return itemRentals.filter(itemRental => {
+      itemRental.returnedAt === null
+    })
   }
 
   getStockItemsIdsFromItemRentals(itemRentals : ItemRental[]) {
@@ -500,11 +510,25 @@ export class RentalComponent extends BaseComponent implements OnInit {
   public displayItemRentals(itemRentals : ItemRental[]): void {
     this.itemRentalsToDisplay = []
     itemRentals.forEach((itemRental) => {
-      this.itemRentalsToDisplay.push(
-        new ItemRentalToDisplay(false, itemRental)
-      )
+      if (itemRental.returnedAt === null) {
+        this.itemRentalsToDisplay.push(
+          new ItemRentalToDisplay(false, itemRental)
+        )
+      }
     })
     this.dataSource.data = this.itemRentalsToDisplay
+  }
+
+  public displayItemRentalsHistory(itemRentals : ItemRental[]) : void {
+    this.historyItemRentalsToDisplay = []
+    itemRentals.forEach((itemRental) => {
+      if (itemRental.returnedAt) {
+        this.historyItemRentalsToDisplay.push(
+          new ItemRentalToDisplay(false, itemRental)
+        )
+      }
+    })
+    this.historyTableDataSource.data = this.historyItemRentalsToDisplay
   }
 
   public filterActiveCustomers(customers : Customer[]) {
