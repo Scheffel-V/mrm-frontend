@@ -55,6 +55,13 @@ export class InvoicePdfService {
     this.totalItemsAmount += value;
   }
 
+  public getActualItemRentals(itemRentals : ItemRental[]) {
+    let actualItemRentals = itemRentals.filter(itemRental => 
+      itemRental.returnedAt === null
+    )
+    return actualItemRentals
+  }
+
   async getCustomer(customerId: number) {
     console.log("Customer id", customerId);
     this.customer = await this.customerService.getCustomer(customerId).toPromise();
@@ -353,7 +360,7 @@ export class InvoicePdfService {
 
   getInvoiceDefinition(rental) {
     let itemsRows = [];
-    rental.itemRentals.map(item => {
+    this.getActualItemRentals(rental.itemRentals).map(item => {
       itemsRows.push(this.getContractFromStockItem(item));
       this.addItemValue(item.value);
     });

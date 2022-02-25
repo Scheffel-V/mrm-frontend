@@ -57,6 +57,12 @@ export class ContractPDFService {
     this.items = [];
   }
 
+  public getActualItemRentals(itemRentals : ItemRental[]) {
+    let actualItemRentals = itemRentals.filter(itemRental => 
+      itemRental.returnedAt === null
+    )
+    return actualItemRentals
+  }
 
   async generateContract(rentalId: number) {
     this.totalItemsAmount = 0.0;
@@ -162,7 +168,7 @@ export class ContractPDFService {
 
   generatePDFTemplate(rental) {
     let itemsRows = [];
-    rental.itemRentals.map(item => {
+    this.getActualItemRentals(rental.itemRentals).map(item => {
       itemsRows.push(this.getContractFromStockItem(item));
       this.addItemValue(item.value);
     });

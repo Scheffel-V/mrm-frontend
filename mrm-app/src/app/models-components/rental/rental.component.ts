@@ -271,10 +271,11 @@ export class RentalComponent extends BaseComponent implements OnInit {
     return test
   }
 
-  getActualItemRentals(itemRentals : ItemRental[]) {
-    return itemRentals.filter(itemRental => {
+  public getActualItemRentals(itemRentals : ItemRental[]) {
+    let actualItemRentals = itemRentals.filter(itemRental => 
       itemRental.returnedAt === null
-    })
+    )
+    return actualItemRentals
   }
 
   getStockItemsIdsFromItemRentals(itemRentals : ItemRental[]) {
@@ -432,7 +433,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     let totalValue = 0
     let itemRental : ItemRental
     
-    for (itemRental of this.rental.itemRentals) {
+    for (itemRental of this.getActualItemRentals(this.rental.itemRentals)) {
       totalValue = totalValue + this.prepareCurrencyForOperations(itemRental.value)
     }
 
