@@ -44,6 +44,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
   protected _onDestroy = new Subject<void>();
   @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
   hover = false
+  stockItemInitialStatus = ""
 
   constructor(
     private stockItemService : StockItemService,
@@ -74,6 +75,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
     this.stockItemService.getStockItem(this.id).subscribe(
       data => {
         this.stockItem = data
+        this.stockItemInitialStatus = this.stockItem.status
         this.stockItem.acquisitionDate = this.stockItem.acquisitionDate == null ? null : new Date(this.stockItem.acquisitionDate)
         this.stockItem.lastMaintenance = this.stockItem.lastMaintenance == null ? null : new Date(this.stockItem.lastMaintenance)
         this.prepareCurrenciesToDisplay()
