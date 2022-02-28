@@ -4710,6 +4710,11 @@ a.badge:hover, a.badge:focus {
   background-color: #ffd740;
 }
 
+.badge-accent-blue {
+  color: #fff;
+  background-color: #3d85c6;
+}
+
 a.badge-primary:hover, a.badge-primary:focus {
   color: #fff;
   background-color: #2653d4;

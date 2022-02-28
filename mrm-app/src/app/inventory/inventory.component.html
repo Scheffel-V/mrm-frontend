@@ -42,7 +42,7 @@
                 <mat-card-content>
                     <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'INVENTORY'" class="badge badge-success">Estoque</span>
                     <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'MAINTENANCE'" class="badge badge-warn">Manutenção</span>
-                    <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'RESERVED'" class="badge badge-accent">Reservado</span>
+                    <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'RESERVED'" class="badge badge-accent-blue">Reservado</span>
                     <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'RENTED'" class="badge badge-accent">Alugado para o cliente</span>
                     <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'READY_FOR_RENTAL'" class="badge badge-accent">Pronto para ir ao cliente</span>
                     <span style="font-size: 15px;" *ngIf="stockItemToDisplay.stockItem.status == 'CUSTOMER'" class="badge badge-primary">Com o cliente</span>
