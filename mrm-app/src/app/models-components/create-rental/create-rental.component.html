@@ -155,32 +155,38 @@
                             </div>
 
                             <div class="form-group row">
-                            <div class="col-sm-4 mb-3 mb-sm-0">
-                                <mat-form-field style="width:100%">
-                                    <mat-label>Frete</mat-label>
-                                    <mat-select [(ngModel)]="rental.deliveryMode" id="deliveryMode" name="deliveryMode" #deliveryMode="ngModel">
-                                        <mat-option value="PICKUP">Retirar</mat-option>
-                                        <mat-option value="DELIVERY">Enviar </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-sm-4 mb-3 mb-sm-0">
-                                <mat-form-field style="width:100%">
-                                    <mat-label>Custo do Frete</mat-label>
-                                    <input matInput type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" (ngModelChange)="shippingCostChange($event)" [ngModel]="rental.deliveryCost" id="deliveryCost" name="deliveryCost" #deliveryCost="ngModel">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-sm-4">
-                                <mat-form-field style="width:100%">
-                                    <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE_STATUS }}</mat-label>
-                                    <mat-select [(ngModel)]="rental.invoiceStatus" id="invoiceStatus" name="invoiceStatus" #invoiceStatus="ngModel">
-                                        <mat-option value="PENDING">Pendente</mat-option>
-                                        <mat-option value="INVOICED">Faturado</mat-option>
-                                        <mat-option value="PAID">Pago</mat-option>
-                                        <mat-option value="OVERDUE">Em Aberto</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
+                                <div class="col-sm-2 mb-3 mb-sm-0">
+                                    <mat-form-field style="width:100%">
+                                        <mat-label>Frete</mat-label>
+                                        <mat-select [(ngModel)]="rental.deliveryMode" id="deliveryMode" name="deliveryMode" #deliveryMode="ngModel">
+                                            <mat-option value="PICKUP">Retirar</mat-option>
+                                            <mat-option value="DELIVERY">Enviar </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-2 mb-3 mb-sm-0">
+                                    <mat-form-field style="width:100%">
+                                        <mat-label>Custo do Frete</mat-label>
+                                        <input matInput type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" (ngModelChange)="shippingCostChange($event)" [ngModel]="rental.deliveryCost" id="deliveryCost" name="deliveryCost" #deliveryCost="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-4">
+                                    <mat-form-field style="width:100%">
+                                        <mat-label>Custo Mão de Obra e Deslocamento</mat-label>
+                                        <input matInput type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" (ngModelChange)="laborAndDisplacementPriceChange($event)" [ngModel]="rental.laborAndDisplacementPrice" id="laborAndDisplacementPrice" name="laborAndDisplacementPrice" #laborAndDisplacementPrice="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-4">
+                                    <mat-form-field style="width:100%">
+                                        <mat-label>{{ TEXTS.MODELS.RENTAL.INVOICE_STATUS }}</mat-label>
+                                        <mat-select [(ngModel)]="rental.invoiceStatus" id="invoiceStatus" name="invoiceStatus" #invoiceStatus="ngModel">
+                                            <mat-option value="PENDING">Pendente</mat-option>
+                                            <mat-option value="INVOICED">Faturado</mat-option>
+                                            <mat-option value="PAID">Pago</mat-option>
+                                            <mat-option value="OVERDUE">Em Aberto</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-4">

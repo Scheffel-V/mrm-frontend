@@ -17,6 +17,8 @@ const CLAUSES = [
   { id: "Quinta", content: "O locador é responsável a indenizar o locatário na ordem inversa deste se os equipamentos objeto deste contrato não atender a finalidade a que foi locado, no caso de falhas irreversíveis e de que dependa a substituição dos equipamentos.Toda assistência técnica é por conta do locador. Danos externos serão de responsabilidade do locatário (queima de motor por tensão roubo ou furto, incêndio ou avarias)." },
   { id: "Sexta", content: "O locatário é responsável pela notificação de falhas irreversíveis nos equipamentos devendo o locador solucionar de plano tais ocorrências." },
   { id: "Sétima", content: "O locador poderá dar como rescindido, de pleno direito, independentemente de qualquer interpelação judicial ou extrajudicial, o presente contrato e sem que assista ao locatário direito a qualquer indenização ou reclamação: a) se o locatário não pagar pontualmente qualquer das prestações mensais do aluguel ou faltar ao exato cumprimento de qualquer das obrigações agora assumidas; b) se o locatário usar a máquina, objeto deste contrato, para fins diversos daqueles para que foi locado." },
+  { id: "Oitava", content: "O locatário é sempre  responsável pelos transportes de ida e volta dos equipamentos locados da base da GMA para suas instalações ou local de operação, inclusive nos casos de troca de máquina por motivos de falha e/ou excesso de uso de sua capacidade. Somente em casos previamente combinados o frete será por conta da locadora." },
+  { id: "Nona", content: "Do cumprimento do período de locação estipulado: O período de locação é decidido no ato da aprovação do Orçamento, sendo as opções de mensal, quinzena e diárias de no mínimo 5 dias. Havendo a necessidade de alteração no período, é executável apenas na renovação do contrato, após a finalização do primeiro período contratado." }
 ];
 
 const DISCLAMER = "LOCAÇÃO DE BENS MÓVEIS, DISPENSADA DE EMISSÃO DE NOTA FISCAL DE SERVIÇO POR NÃO CONFIGURAR ATIVIDADE DE PRESTAÇÃO DE SERVIÇO."
@@ -137,6 +139,29 @@ export class ContractPDFService {
       },
       {
         text: this.formatter.format(rental.deliveryCost),
+        border: [false, false, false, true],
+        fillColor: '#f5f5f5',
+        alignment: 'right',
+        fontSize: 10,
+        margin: [0, 5, 0, 5],
+      },
+    ];
+  }
+
+  renderLaborAndDisplacementPrice(rental) {
+    if (!rental.laborAndDisplacementPrice) {
+      rental.laborAndDisplacementPrice = 0.0;
+    }
+    return [
+      {
+        text: 'Mão de Obra e Deslocamento',
+        border: [false, false, false, true],
+        alignment: 'right',
+        fontSize: 10,
+        margin: [0, 5, 0, 5],
+      },
+      {
+        text: this.formatter.format(rental.laborAndDisplacementPrice),
         border: [false, false, false, true],
         fillColor: '#f5f5f5',
         alignment: 'right',
@@ -373,6 +398,7 @@ export class ContractPDFService {
                 }
               ],
               this.renderDeliveryCost(rental),
+              this.renderLaborAndDisplacementPrice(rental),
               [
                 {
                   text: 'Valor Total',

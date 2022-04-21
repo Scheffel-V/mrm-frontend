@@ -209,6 +209,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
       itemRental.value = this.prepareCurrencyForOperations(itemRental.value)
     })
     this.rental.deliveryCost = this.prepareCurrencyForOperations(this.rental.deliveryCost)
+    this.rental.laborAndDisplacementPrice = this.prepareCurrencyForOperations(this.rental.laborAndDisplacementPrice)    
   }
 
   prepareCurrenciesToDisplay() {
@@ -218,6 +219,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     })
     this.totalValueWithAdditives = this.prepareCurrencyToDisplay(this.totalValueWithAdditives)
     this.rental.deliveryCost = this.prepareCurrencyToDisplay(this.rental.deliveryCost)
+    this.rental.laborAndDisplacementPrice = this.prepareCurrencyToDisplay(this.rental.laborAndDisplacementPrice)
   }
 
   removeIdFromItemsRentals(): void {
@@ -397,6 +399,11 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.fillTotalValue()
   }
 
+  laborAndDisplacementPriceChange(value : string) {
+    this.rental.laborAndDisplacementPrice = this.formatCurrency(value)
+    this.fillTotalValue()
+  }
+
   startDateChange(startDate : Date)  {
     this.rental.startDate = startDate
 
@@ -437,7 +444,9 @@ export class RentalComponent extends BaseComponent implements OnInit {
       totalValue = totalValue + this.prepareCurrencyForOperations(itemRental.value)
     }
 
-    totalValue = totalValue + (this.rental.deliveryCost ? this.prepareCurrencyForOperations(this.rental.deliveryCost) : 0)
+    totalValue = totalValue 
+      + (this.rental.deliveryCost ? this.prepareCurrencyForOperations(this.rental.deliveryCost) : 0)
+      + (this.rental.laborAndDisplacementPrice ? this.prepareCurrencyForOperations(this.rental.laborAndDisplacementPrice) : 0)
 
     this.rental.value = this.prepareCurrencyToDisplay(Math.round(totalValue * 100) / 100)
   }

@@ -44,7 +44,7 @@ export class CreateAdditiveComponent extends BaseComponent implements OnInit {
     this.additive.startDate = new Date(mostRecentAdditive ? mostRecentAdditive.endDate : this.rental.endDate)
     this.additive.endDate = new Date(mostRecentAdditive ? mostRecentAdditive.endDate : this.rental.endDate)
     this.additive.endDate.setDate(this.additive.endDate.getDate() + this.rental.period)
-    this.additive.value = this.rental.value - (this.rental.deliveryCost ? this.rental.deliveryCost : 0)
+    this.additive.value = this.rental.value - (this.rental.deliveryCost ? this.rental.deliveryCost : 0) - (this.rental.laborAndDisplacementPrice ? this.rental.laborAndDisplacementPrice : 0)
     this.prepareCurrenciesToDisplay()
     this.additive.period = this.rental.period
   }
