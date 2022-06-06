@@ -194,11 +194,15 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   public refreshRentals(): void {
-    this.rentalService.getAllActiveRentals().subscribe(
+    this.rentalService.getAllRentals().subscribe(
       data => {
         this.rentals = data
         this.setRentalsPeriods()
-        this.displayRentals(this.rentals);
+        this.setOverdueInvoices()
+        this.prepareRentalsCurrenciesToDisplay()
+        this.displayRentals(this.rentals)
+        this.invoiceStatusSelectValue = 'PENDING'.trim().toLocaleLowerCase()
+        this.dataSource.filter = this.invoiceStatusSelectValue
       }
     )
   }

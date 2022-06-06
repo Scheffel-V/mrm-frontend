@@ -51,6 +51,7 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
     this.prepareCurrenciesToSaveInvoice()
     this.additiveService.updateAdditive(this.additive).subscribe(
       data => {
+        this.additive.invoiceNumber = data.invoiceNumber
         this.prepareCurrenciesToDisplay()
         this.close(true)
       }
@@ -91,6 +92,7 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
     this.prepareCurrenciesToSaveInvoice()
     this.additiveService.updateAdditive(this.additive).subscribe(
       data => {
+        this.additive.invoiceNumber = data.invoiceNumber
         this.invoicePdfService.generateInvoicePdfByAdditive(additiveId)
         this.prepareCurrenciesToDisplay()
       }
