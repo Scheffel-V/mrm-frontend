@@ -31,11 +31,13 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   activeRentals : Rental[] = []
   currentMonthRevenue : number = 0
   lastMonthRevenue : number = 0
+  currentMonthInvoicedValue : number = 0
   isIncrease : boolean = true
   percentValue : number = 0.10
   color : string = "primary"
   isCurrency : boolean = true
   isShowRevenue : boolean = false
+  isShowInvoicedValue : boolean = false
 
   constructor(
     private customerService : CustomerService,
@@ -102,6 +104,12 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         this.lastMonthRevenue = revenue['last_month_revenue']
       }
     )
+
+    this.rentalService.getInvoicedValue().subscribe(
+      response => {
+        this.currentMonthInvoicedValue = response['current_month_invoiced_value']
+      }
+    )
   }
 
   getStockItemCount() {
@@ -141,5 +149,13 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
   public hideRevenue() {
     this.isShowRevenue = false
+  }
+
+  public showInvoicedValue() {
+    this.isShowInvoicedValue = true
+  }
+
+  public hideInvoicedValue() {
+    this.isShowInvoicedValue = false
   }
 }

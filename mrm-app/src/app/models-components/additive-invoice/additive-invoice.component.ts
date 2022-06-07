@@ -39,6 +39,10 @@ export class AdditiveInvoiceComponent extends BaseComponent implements OnInit {
     this.additive.invoicedAt = this.additive.invoicedAt == null ? null : new Date(this.additive.invoicedAt)
     this.additive.installments = this.additive.installments.toString()
     this.prepareCurrenciesToDisplay()
+
+    if (this.additive.invoiceStatus === "PENDING" && this.additive.invoicedAt === null) {
+      this.additive.invoicedAt = new Date()
+    }
   }
 
   close(invoiced) : void {

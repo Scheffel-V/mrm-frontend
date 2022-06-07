@@ -27,6 +27,30 @@
         <mat-card class="dashboard-card" style="height: 100%;">
             <mat-card-header class="card-header-center">
                 <mat-card-title>
+                    <h1 class="value-text" *ngIf="isShowInvoicedValue">{{ currentMonthInvoicedValue | currency:'R$':'symbol':'0.0' }}</h1>
+                    <h1 class="value-text" *ngIf="!isShowInvoicedValue">-</h1>
+                </mat-card-title>
+                <div mat-card-avatar class="card-icon">
+                    <mat-icon [color]="color" class="avatar-icon">paid</mat-icon>
+                </div>
+            </mat-card-header>
+            <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+            <br>
+            <div class="row">
+                <div class="col-xl-9">
+                    <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.INVOICED }}</h3>
+                </div>
+                <div class="col-xl-3" style="text-align: center;">
+                    <mat-icon *ngIf="!isShowInvoicedValue" (click)="showInvoicedValue()">visibility</mat-icon>
+                    <mat-icon *ngIf="isShowInvoicedValue" (click)="hideInvoicedValue()">visibility_off</mat-icon>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    <div class="col-xl-2" style="padding-bottom: 10px;">
+        <mat-card class="dashboard-card" style="height: 100%;">
+            <mat-card-header class="card-header-center">
+                <mat-card-title>
                     <h1 class="value-text">{{ activeStockItemsCounter }}</h1>
                 </mat-card-title>
                 <div mat-card-avatar class="card-icon">
@@ -38,7 +62,7 @@
             <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.RENTED_MACHINES }}</h3>
         </mat-card>
     </div>
-    <div class="col-xl-3" style="padding-bottom: 10px;">
+    <div class="col-xl-2" style="padding-bottom: 10px;">
         <mat-card class="dashboard-card" style="height: 100%;">
             <mat-card-header class="card-header-center">
                 <mat-card-title>
@@ -53,7 +77,7 @@
             <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.ACTIVE_CUSTOMERS }}</h3>
         </mat-card>
     </div>
-    <div class="col-xl-3" style="padding-bottom: 10px;">
+    <div class="col-xl-2" style="padding-bottom: 10px;">
         <mat-card class="dashboard-card" style="height: 100%;">
             <mat-card-header class="card-header-center">
                 <mat-card-title>

@@ -519,6 +519,7 @@ export const TEXTS = {
             RENTALS : "Locações",
             STOCK_ITEMS : "Produtos",
             REVENUE : "Receita",
+            INVOICED : "Faturado",
             RENTED_MACHINES : "Máquinas Alugadas",
             ACTIVE_CUSTOMERS : "Clientes Ativos",
             ACTIVE_RENTS : "Aluguéis Ativos"

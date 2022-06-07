@@ -201,7 +201,6 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
         this.setOverdueInvoices()
         this.prepareRentalsCurrenciesToDisplay()
         this.displayRentals(this.rentals)
-        this.invoiceStatusSelectValue = 'PENDING'.trim().toLocaleLowerCase()
         this.dataSource.filter = this.invoiceStatusSelectValue
       }
     )
@@ -282,11 +281,11 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
       }
       this.matDialog.open(InvoiceComponent, dialogConfig).afterClosed().subscribe(
         invoiced => {
-          this.refreshRentals()
           if (invoiced) {
+            this.refreshRentals()
             this.openSnackBar("Faturado!")
+            this.prepareRentalsCurrenciesToDisplay()
           }
-          this.prepareRentalsCurrenciesToDisplay()
         }
       )
     } else {
@@ -295,11 +294,11 @@ export class InvoicesComponent extends BaseComponent implements OnInit, AfterVie
       }
       this.matDialog.open(AdditiveInvoiceComponent, dialogConfig).afterClosed().subscribe(
         invoiced => {
-          this.refreshRentals()
           if (invoiced) {
+            this.refreshRentals()
             this.openSnackBar("Faturado!")
+            this.prepareRentalsCurrenciesToDisplay()
           }
-          this.prepareRentalsCurrenciesToDisplay()
         }
       )
     }

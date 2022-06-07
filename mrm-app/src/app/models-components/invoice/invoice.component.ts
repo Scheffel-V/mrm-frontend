@@ -41,6 +41,10 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
     this.additive = this.data.additive
     this.rental.installments = this.rental.installments.toString()
     this.prepareCurrenciesToDisplay()
+
+    if (this.rental.invoiceStatus === "PENDING" && this.rental.invoicedAt === null) {
+      this.rental.invoicedAt = new Date()
+    }
   }
 
   close(invoiced) : void {
