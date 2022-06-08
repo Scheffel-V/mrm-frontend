@@ -62,57 +62,36 @@ export class DashboardComponent extends BaseComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.customerService.getAllCustomers().subscribe(
-      customers => {
-        this.customers = customers
-      }
-    )
+    this.displayData();
+  }
 
+  async displayData() {
+    let customers = await this.customerService.getAllCustomers().toPromise()
+    this.customers = customers
     
-    this.stockItemService.getAllStockItems().subscribe(
-      stockItems => {
-        this.stockItems = stockItems
-      }
-    )
+    let stockItems = await this.stockItemService.getAllStockItems().toPromise()
+    this.stockItems = stockItems
 
-    this.supplierService.getAllSuppliers().subscribe(
-      suppliers => {
-        this.suppliers = suppliers
-      }
-    )
+    let suppliers = await this.supplierService.getAllSuppliers().toPromise()
+    this.suppliers = suppliers
 
-    this.rentalService.getAllRentals().subscribe(
-      rentals => {
-        this.rentals = rentals
-      }
-    )
+    let rentals = await this.rentalService.getAllRentals().toPromise()
+    this.rentals = rentals
 
-    this.customerService.getAllCustomersWithActiveContract().subscribe(
-      customers => {
-        this.activeCustomers = this.filterDuplicateCustomers(customers)
-      }
-    )
+    let activeCustomers = await this.customerService.getAllCustomersWithActiveContract().toPromise()
+    this.activeCustomers = this.filterDuplicateCustomers(activeCustomers)
 
-    this.rentalService.getAllActiveRentals().subscribe(
-      rentals => {
-        this.activeRentals = rentals
-        this.getStockItemCount()
-      }
-    )
+    let activeRentals = await this.rentalService.getAllActiveRentals().toPromise()
+    this.activeRentals = activeRentals
+    this.getStockItemCount()
 
-    this.rentalService.getRevenue().subscribe(
-      revenue => {
-        this.currentMonthRevenue = revenue['current_month_revenue'] ? revenue['current_month_revenue'] : 0
-        this.lastMonthRevenue = revenue['last_month_revenue'] ? revenue['last_month_revenue'] : 0
-      }
-    )
+    let revenue = await this.rentalService.getRevenue().toPromise()
+    this.currentMonthRevenue = revenue['current_month_revenue'] ? revenue['current_month_revenue'] : 0
+    this.lastMonthRevenue = revenue['last_month_revenue'] ? revenue['last_month_revenue'] : 0
 
-    this.rentalService.getInvoicedValue().subscribe(
-      response => {
-        this.currentMonthInvoicedValue = response['current_month_invoiced_value'] ? response['current_month_invoiced_value'] : 0
-        this.lastMonthInvoicedValue = response['last_month_invoiced_value'] ? response['last_month_invoiced_value'] : 0
-      }
-    )
+    let invoicedValue = await this.rentalService.getInvoicedValue().toPromise()
+    this.currentMonthInvoicedValue = invoicedValue['current_month_invoiced_value'] ? invoicedValue['current_month_invoiced_value'] : 0
+    this.lastMonthInvoicedValue = invoicedValue['last_month_invoiced_value'] ? invoicedValue['last_month_invoiced_value'] : 0
   }
 
   getStockItemCount() {
