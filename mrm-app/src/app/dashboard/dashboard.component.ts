@@ -196,6 +196,61 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     )
   }
 
+  public downloadCurrentMonthPaidInvoices() {
+    this.rentalService.getPaidInvoicesFromCurrentMonth().subscribe(
+      response => {
+        let teste = response
+        const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(response);
+
+        var wscols = [
+          {wch:17},
+          {wch:17},
+          {wch:17},
+          {wch:30},
+          {wch:10},
+          {wch:10},
+          {wch:10}
+        ];
+        ws['!cols'] = wscols;
+        
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+        var currentDate = new Date()
+        XLSX.writeFile(wb, "Receita_" + this.getMonthLabel(currentDate) + "_" + currentDate.getFullYear() + ".xlsx")
+      }
+    )
+  }
+
+  public downloadLastMonthPaidInvoices() {
+    this.rentalService.getPaidInvoicesFromLastMonth().subscribe(
+      response => {
+        let teste = response
+        const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(response);
+
+        var wscols = [
+          {wch:17},
+          {wch:17},
+          {wch:17},
+          {wch:30},
+          {wch:10},
+          {wch:10},
+          {wch:10}
+        ];
+        ws['!cols'] = wscols;
+        
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+        var auxDate = new Date()
+        var currentDate = new Date()
+        XLSX.writeFile(wb, "Receita_" + this.getMonthLabel(new Date(auxDate.setMonth(currentDate.getMonth() - 1))) + "_" + currentDate.getFullYear() + ".xlsx")
+      }
+    )
+  }
+
   getMonthLabel(date) {
     switch (date.getMonth()) {
       case 0:

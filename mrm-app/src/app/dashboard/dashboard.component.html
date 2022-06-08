@@ -22,6 +22,21 @@
                 </div>
                 <div class="col-xl-6" style="text-align: center;">
                     <div class="row">
+                        <div class="col-xl-4">
+                            <button mat-button [matMenuTriggerFor]="revenueMenu">
+                                <mat-icon style="transform: scale(1.5);" [color]="color">cloud_download</mat-icon>
+                            </button>
+                            <mat-menu #revenueMenu="matMenu">
+                                <button mat-menu-item (click)="downloadCurrentMonthPaidInvoices()">
+                                  <mat-icon>keyboard_arrow_down</mat-icon>
+                                  <span>Mês atual</span>
+                                </button>
+                                <button mat-menu-item (click)="downloadLastMonthPaidInvoices()">
+                                  <mat-icon>keyboard_arrow_left</mat-icon>
+                                  <span>Mês passado</span>
+                                </button>
+                              </mat-menu>
+                        </div>
                         <div class="col-xl-4" *ngIf="!isShowRevenue">
                             <button (click)="showRevenue()" mat-button>
                                 <mat-icon>visibility</mat-icon>

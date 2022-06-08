@@ -67,4 +67,12 @@ export class RentalService {
   getInvoicesFromLastMonth() : Observable<unknown[]> {
     return this.http.get<unknown[]>(`${API_URL}/rentContracts/invoicesFromLastMonth`)
   }
+
+  getPaidInvoicesFromCurrentMonth() : Observable<unknown[]> {
+    return this.http.get<unknown[]>(`${API_URL}/rentContracts/paidInvoicesFromCurrentMonth`)
+  }
+
+  getPaidInvoicesFromLastMonth() : Observable<unknown[]> {
+    return this.http.get<unknown[]>(`${API_URL}/rentContracts/paidInvoicesFromLastMonth`)
+  }
 }
