@@ -13,6 +13,7 @@ import { Rental } from '../models/rental.model'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RentalService } from '../services/rental.service';
 import { AuthService } from '../services/auth.service';
+import  * as XLSX from 'xlsx';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   currentMonthRevenue : number = 0
   lastMonthRevenue : number = 0
   currentMonthInvoicedValue : number = 0
+  lastMonthInvoicedValue : number = 0
   isIncrease : boolean = true
   percentValue : number = 0.10
   color : string = "primary"
@@ -100,14 +102,15 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
     this.rentalService.getRevenue().subscribe(
       revenue => {
-        this.currentMonthRevenue = revenue['current_month_revenue']
-        this.lastMonthRevenue = revenue['last_month_revenue']
+        this.currentMonthRevenue = revenue['current_month_revenue'] ? revenue['current_month_revenue'] : 0
+        this.lastMonthRevenue = revenue['last_month_revenue'] ? revenue['last_month_revenue'] : 0
       }
     )
 
     this.rentalService.getInvoicedValue().subscribe(
       response => {
-        this.currentMonthInvoicedValue = response['current_month_invoiced_value']
+        this.currentMonthInvoicedValue = response['current_month_invoiced_value'] ? response['current_month_invoiced_value'] : 0
+        this.lastMonthInvoicedValue = response['last_month_invoiced_value'] ? response['last_month_invoiced_value'] : 0
       }
     )
   }
@@ -157,5 +160,91 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
   public hideInvoicedValue() {
     this.isShowInvoicedValue = false
+  }
+
+  public downloadCurrentMonthInvoices() {
+    this.rentalService.getInvoicesFromCurrentMonth().subscribe(
+      response => {
+        let teste = response
+        const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(response);
+
+        var wscols = [
+          {wch:17},
+          {wch:17},
+          {wch:17},
+          {wch:30},
+          {wch:10},
+          {wch:10},
+          {wch:10}
+        ];
+        ws['!cols'] = wscols;
+        
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+        var currentDate = new Date()
+        XLSX.writeFile(wb, "Faturas_" + this.getMonthLabel(currentDate) + "_" + currentDate.getFullYear() + ".xlsx")
+      }
+    )
+  }
+
+  public downloadLastMonthInvoices() {
+    this.rentalService.getInvoicesFromLastMonth().subscribe(
+      response => {
+        let teste = response
+        const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(response);
+
+        var wscols = [
+          {wch:17},
+          {wch:17},
+          {wch:17},
+          {wch:30},
+          {wch:10},
+          {wch:10},
+          {wch:10}
+        ];
+        ws['!cols'] = wscols;
+        
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+        var auxDate = new Date()
+        var currentDate = new Date()
+        XLSX.writeFile(wb, "Faturas_" + this.getMonthLabel(new Date(auxDate.setMonth(currentDate.getMonth() - 1))) + "_" + currentDate.getFullYear() + ".xlsx")
+      }
+    )
+  }
+
+  getMonthLabel(date) {
+    switch (date.getMonth()) {
+      case 0:
+        return "Janeiro"
+      case 1:
+        return "Fevereiro"
+      case 2:
+        return "Marco"
+      case 3:
+        return "Abril"
+      case 4:
+        return "Maio"
+      case 5:
+        return "Junho"
+      case 6:
+        return "Julho"
+      case 7:
+        return "Agosto"
+      case 8:
+        return "Setembro"
+      case 9:
+        return "Outubro"
+      case 10:
+        return "Novembro"
+      case 11:
+        return "Dezembro"
+      default:
+        return "Indeterminado"
+    }
   }
 }

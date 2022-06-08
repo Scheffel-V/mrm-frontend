@@ -59,4 +59,12 @@ export class RentalService {
   getInvoicedValue() : Observable<Object> {
     return this.http.get<Object>(`${API_URL}/rentContracts/invoicedValue`)
   }
+
+  getInvoicesFromCurrentMonth() : Observable<unknown[]> {
+    return this.http.get<unknown[]>(`${API_URL}/rentContracts/invoicesFromCurrentMonth`)
+  }
+
+  getInvoicesFromLastMonth() : Observable<unknown[]> {
+    return this.http.get<unknown[]>(`${API_URL}/rentContracts/invoicesFromLastMonth`)
+  }
 }

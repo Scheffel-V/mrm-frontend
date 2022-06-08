@@ -6,6 +6,10 @@
                     <h1 class="value-text" *ngIf="isShowRevenue">{{ currentMonthRevenue | currency:'R$':'symbol':'0.0' }}</h1>
                     <h1 class="value-text" *ngIf="!isShowRevenue">-</h1>
                 </mat-card-title>
+                <mat-card-subtitle>
+                    <h6 class="value-text" *ngIf="isShowRevenue">Mês passado: {{ lastMonthRevenue | currency:'R$':'symbol':'0.0' }}</h6>
+                    <h6 class="value-text" *ngIf="!isShowRevenue">-</h6>
+                </mat-card-subtitle>
                 <div mat-card-avatar class="card-icon">
                     <mat-icon [color]="color" class="avatar-icon">paid</mat-icon>
                 </div>
@@ -13,12 +17,22 @@
             <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
             <br>
             <div class="row">
-                <div class="col-xl-9">
+                <div class="col-xl-6">
                     <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.REVENUE }}</h3>
                 </div>
-                <div class="col-xl-3" style="text-align: center;">
-                    <mat-icon *ngIf="!isShowRevenue" (click)="showRevenue()">visibility</mat-icon>
-                    <mat-icon *ngIf="isShowRevenue" (click)="hideRevenue()">visibility_off</mat-icon>
+                <div class="col-xl-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-xl-4" *ngIf="!isShowRevenue">
+                            <button (click)="showRevenue()" mat-button>
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                        </div>
+                        <div class="col-xl-4" *ngIf="isShowRevenue">
+                            <button (click)="hideRevenue()" mat-button>
+                                <mat-icon>visibility_off</mat-icon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </mat-card>
@@ -30,6 +44,10 @@
                     <h1 class="value-text" *ngIf="isShowInvoicedValue">{{ currentMonthInvoicedValue | currency:'R$':'symbol':'0.0' }}</h1>
                     <h1 class="value-text" *ngIf="!isShowInvoicedValue">-</h1>
                 </mat-card-title>
+                <mat-card-subtitle>
+                    <h6 class="value-text" *ngIf="isShowInvoicedValue">Mês passado: {{ lastMonthInvoicedValue | currency:'R$':'symbol':'0.0' }}</h6>
+                    <h6 class="value-text" *ngIf="!isShowInvoicedValue">-</h6>
+                </mat-card-subtitle>
                 <div mat-card-avatar class="card-icon">
                     <mat-icon [color]="color" class="avatar-icon">paid</mat-icon>
                 </div>
@@ -37,12 +55,37 @@
             <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
             <br>
             <div class="row">
-                <div class="col-xl-9">
+                <div class="col-xl-6">
                     <h3 class="title-text">{{ TEXTS.PAGES.DASHBOARD.INVOICED }}</h3>
                 </div>
-                <div class="col-xl-3" style="text-align: center;">
-                    <mat-icon *ngIf="!isShowInvoicedValue" (click)="showInvoicedValue()">visibility</mat-icon>
-                    <mat-icon *ngIf="isShowInvoicedValue" (click)="hideInvoicedValue()">visibility_off</mat-icon>
+                <div class="col-xl-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <button mat-button [matMenuTriggerFor]="menu">
+                                <mat-icon style="transform: scale(1.5);" [color]="color">cloud_download</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="downloadCurrentMonthInvoices()">
+                                  <mat-icon>keyboard_arrow_down</mat-icon>
+                                  <span>Mês atual</span>
+                                </button>
+                                <button mat-menu-item (click)="downloadLastMonthInvoices()">
+                                  <mat-icon>keyboard_arrow_left</mat-icon>
+                                  <span>Mês passado</span>
+                                </button>
+                              </mat-menu>
+                        </div>
+                        <div class="col-xl-4" *ngIf="!isShowInvoicedValue">
+                            <button (click)="showInvoicedValue()" mat-button>
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                        </div>
+                        <div class="col-xl-4" *ngIf="isShowInvoicedValue">
+                            <button (click)="hideInvoicedValue()" mat-button>
+                                <mat-icon>visibility_off</mat-icon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </mat-card>

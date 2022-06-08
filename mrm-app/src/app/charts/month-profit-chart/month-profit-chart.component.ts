@@ -10,7 +10,7 @@ import { RentalService } from '../../services/rental.service';
 })
 export class MonthProfitChartComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [
-    { data: [], label: 'Faturamento' },
+    { data: [], label: 'Receita' },
   ];
   public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
@@ -55,7 +55,7 @@ export class MonthProfitChartComponent implements OnInit {
     this.lineChartLabels = Object.keys(this.revenues)
     let values = Object.keys(this.revenues).map((v) => { return this.revenues[v] })
     this.lineChartData = [
-      { data: values, label: 'Faturamento' },
+      { data: values, label: 'Receita' },
     ]
   }
 
@@ -97,7 +97,7 @@ export class MonthProfitChartComponent implements OnInit {
   getRevenuesForChart() : ChartDataSets[] {
     let values = Object.keys(this.revenues).map(function(v) { return this.revenues[v]; }.bind(this));
     return [
-      { data: values , label: 'Faturamento' },
+      { data: values , label: 'Receita' },
     ]
   }
 }
