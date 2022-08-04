@@ -80,7 +80,7 @@ export class StockItemComponent extends BaseComponent implements OnInit {
         this.stockItem.lastMaintenance = this.stockItem.lastMaintenance == null ? null : new Date(this.stockItem.lastMaintenance)
         this.prepareCurrenciesToDisplay()
         this.getImageFromService()
-        this.supplierSelectControl.setValue(this.stockItem.supplier.id)
+        this.supplierSelectControl.setValue(this.stockItem.supplier ? this.stockItem.supplier.id : null)
       }
     )
   }
