@@ -377,7 +377,7 @@ export const TEXTS = {
             ADDITIVE_NUMBER : "Número do Aditivo",
             COMMENT : "Observações",
             INVOICE_COMMENT : "Observações",
-            PURCHASE_ORDER_NUMBER: "Número do Pedido de Compra",
+            PURCHASE_ORDER_NUMBER: "Número do Pedido de Locação",
             INVOICED_AT : "Emissão"
           },
           ADDITIVE : {
@@ -398,7 +398,7 @@ export const TEXTS = {
             ADDITIVE_NUMBER : "Número",
             COMMENT: "Observações",
             INVOICE_COMMENT: "Observações",
-            PURCHASE_ORDER_NUMBER: "Número do Pedido de Compra",
+            PURCHASE_ORDER_NUMBER: "Número do Pedido de Locação",
             INVOICED_AT : "Emissão"
           },
           STOCK_ITEM : {
@@ -410,7 +410,7 @@ export const TEXTS = {
             PRESSURE : "Pressão",
             THROUGHPUT : "Vazão",
             VOLTAGE : "Voltagem",
-            SERIAL_NUMBER : "Número de Série",
+            SERIAL_NUMBER : "Nota Fiscal",
             STANDARD_RENTAL_VALUE : "Valor Padrão",
             REPOSITION_VALUE : "Valor de Reposição",
             IMAGE : "Imagem",

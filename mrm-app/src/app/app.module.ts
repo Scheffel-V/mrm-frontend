@@ -68,6 +68,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 import { AdditiveComponent } from './models-components/additive/additive.component';
+import {DatePipe} from '@angular/common';
 
 
 
@@ -144,6 +145,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatToolbarModule
   ],
   providers: [
+    DatePipe,
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MatPaginatorIntl, useValue: getPortuguesePaginator() },
     { provide: LOCALE_ID, useValue: 'pt' },
