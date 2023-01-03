@@ -10,15 +10,59 @@ const LOGO_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAAyCAYAAA
 
 const SECTION_1 = `A Locadora aluga os bens móveis, abaixo descritos de sua propriedade para uso exclusivo no endereço aqui especificado:`
 const CLAUSES = [
-  { id: "Primeira", content: "Caso haja interesse das partes em renovar o contrato que será feito mediante comunicado, e não havendo comunicado se renovará automaticamente." },
-  { id: "Segunda", content: "Bastando para rescisão do presente contrato a comunicação da parte interessada na rescisão, com antecedência mínima de dois dias, ou o não pagamento do valor da locação ajustado. Incidirá a parte que der causa ao inadimplemento deste contrato uma multa de 10% (dez por cento) do valor total do mesmo" },
-  { id: "Terceira", content: "O valor do aluguel será reajustado anualmente pelo IGPM, acrescido de 10 pontos percentuais se houver acordo entre as partes e ocorrer a renovação do contrato. A cessão ou transferência da presente locação, ou sublocação, no todo ou em parte do objeto deste contrato ficará a critério do locador, este responsável pelo cumprimento de sua obrigação original do contrato." },
-  { id: "Quarta", content: "O locatário declara ter recebido a máquina ora locada em perfeitas condições para o trabalho após a vistoria dos equipamentos e com o aceite do termo de recebimento e funcionamento dos equipamentos, e deverá entregar nas mesmas condições que recebeu." },
-  { id: "Quinta", content: "O locador é responsável a indenizar o locatário na ordem inversa deste se os equipamentos objeto deste contrato não atender a finalidade a que foi locado, no caso de falhas irreversíveis e de que dependa a substituição dos equipamentos.Toda assistência técnica é por conta do locador. Danos externos serão de responsabilidade do locatário (queima de motor por tensão roubo ou furto, incêndio ou avarias)." },
-  { id: "Sexta", content: "O locatário é responsável pela notificação de falhas irreversíveis nos equipamentos devendo o locador solucionar de plano tais ocorrências." },
-  { id: "Sétima", content: "O locador poderá dar como rescindido, de pleno direito, independentemente de qualquer interpelação judicial ou extrajudicial, o presente contrato e sem que assista ao locatário direito a qualquer indenização ou reclamação: a) se o locatário não pagar pontualmente qualquer das prestações mensais do aluguel ou faltar ao exato cumprimento de qualquer das obrigações agora assumidas; b) se o locatário usar a máquina, objeto deste contrato, para fins diversos daqueles para que foi locado." },
-  { id: "Oitava", content: "O locatário é sempre  responsável pelos transportes de ida e volta dos equipamentos locados da base da GMA para suas instalações ou local de operação, inclusive nos casos de troca de máquina por motivos de falha e/ou excesso de uso de sua capacidade. Somente em casos previamente combinados o frete será por conta da locadora." },
-  { id: "Nona", content: "Do cumprimento do período de locação estipulado: O período de locação é decidido no ato da aprovação do Orçamento, sendo as opções de mensal, quinzena e diárias de no mínimo 5 dias. Havendo a necessidade de alteração no período, é executável apenas na renovação do contrato, após a finalização do primeiro período contratado." }
+  { id: "\n\n1) DO LOCAL DE UTILIZAÇÃO DO BEM LOCADO", content: "" },
+  { id: "1.1", content: "Além do bem acima descrito, compõem também o objeto contratual os acessórios citados acima." },
+  { id: "1.2", content: "O local de utilização do bem é exclusivamente no endereço citado no campo \"local de entrega\"." },
+  { id: "1.3", content: "O local de utilização do bem locado é exclusivamente o descrito no item 1.2." },
+  { id: "1.4", content: "Sendo o bem instalado ou utilizado em local diverso ao previsto na cláusula a LOCATÁRIA assume a responsabilidade por qualquer intercorrência, bem como, permanecerá integralmente responsável por todas as cláusulas e condições deste contrato." },
+  { id: "\n\n2) DAS CONDIÇÕES PRÉVIAS DO OBJETO CONTRATUAL E DO FRETE", content: "" },
+  { id: "2.1", content: "Após a realização de vistoria e inspeção prévia dos equipamentos locados, incluindo os acessórios, a LOCATÁRIA declara ter recebido os bens ora locados em perfeitas condições para o trabalho, aportando o aceite do termo de recebimento e funcionamento dos equipamentos, comprometendo-se a devolver os bens locados nas mesmas condições em que as recebeu." },
+  { id: "2.2", content: "O frete do equipamento locado será previamente combinado no envio do orçamento. É de responsabilidade da LOCATÁRIA o pagamento do valor de transporte de ida até as dependências da LOCATÁRIA e de retorno a sede da LOCADORA. Podendo a LOCADORA cobrá-lo embutido na locação, também pode a LOCATÁRIA agendar com transporte terceirizado ou realizar a coleta na sede de LOCADORA, cabendo tomar a decisão juntas, entretanto prevalecendo a decisão da LOCADORA." },
+  { id: "2.3", content: "Quando a LOCADORA for responsável pelo frete de devolução (retorno) do equipamento locado, a LOCATÁRIA terá a obrigação de avisar formalmente , no prazo de 48 horas do término de locação, que o contrato irá se encerrar e que declina de interesse de renovação. Caso a LOCADORA não seja informada, poderá ser cobrado o valor de uma diária proporcional." },
+  { id: "2.4", content: "A descarga do equipamento, havendo necessidade de Munck ou empilhadeira, é responsabilidade da locatária." },
+  { id: "\n\n3) DA INSTALAÇÃO", content: "" },
+  { id: "3.1", content: "A instalação dos equipamentos pode ou não ser feita pelo técnicos da GMA, sendo eles capacitados e disporem das respectivas NRs, a instalação não terá nenhum custo para a LOCATÁRIA desde que o equipamento se encontre até 100km das dependências da locatária, ou mediante prévio combinado. Sendo a instalação feita pela LOCATÁRIA, a mesma se compromete em seguir todas as instruções da GMA, dispor de pessoal capacitado, e seguir as normas de segurança, desligando o disjuntor para fazê-lo e utilizando cabos de boa qualidade." },
+  { id: "3.2", content: "Grupo Gerador de Energia: a LOCATÁRIA é responsável por deixar pronto disjuntores e rede interna da empresa do cliente, onde os técnicos da LOCADORA farão a ligação dos cabos na rede elétrica do cliente. A LOCADORA não fará troca de disjuntores ou de cabos da rede interna da locatária, devendo ser chamado eletricista próprio ou terceirizado. O abastecimento do Gerador de energia deve ser previamente combinado e formalizado no Orçamento e nas observações deste contrato, entretanto fica estabelecido que sendo por conta do cliente, o mesmo deve abastecê-lo com Diesel S10." },
+  { id: "3.3", content: "Compressores de ar, secadores de ar, schiller de refrigeração: : a LOCATÁRIA é responsável por deixar pronto disjuntores e rede interna da empresa do cliente, onde os técnicos da LOCADORA farão a ligação dos cabos na rede elétrica do cliente. A LOCADORA não fará troca de disjuntores ou de cabos da rede interna da locatária, devendo ser chamado eletricista próprio ou terceirizado. Também deve deixar pronta a rede de ar ou qualquer que deva ser conectada a máquina locada." },
+  { id: "3.4", content: "Para a instalação, a LOCADORA disponibiliza 5 metros de cabo para ligação da máquina, havendo necessidade de maior quantidade, deve ser informado a LOCADORA no ato de confirmação da locação, e um valor a mais será cobrado quando for quantidade acima de 5 metros." },
+  { id: "\n\n4) DO PRAZO CONTRATUAL", content: "" },
+  { id: "4.1", content: "O presente contrato tem prazo determinado, conforme citado na Clausula 1 (data de inicio e data de término)." },
+  { id: "4.2", content: "O primeiro período de locação que for contratado deve ser cumprido em sua totalidade, mesmo que a máquina seja devolvida antes do final do período, não haverá reembolso e sequer cobrança proporcional da locação." },
+  { id: "4.3", content: "No término do prazo acima estipulado, acaso haja interesse das partes em renovar o contato, a parte que demonstrar interesse na renovação deverá comunicar a outra parte por escrito, com antecedência mínima de 3 (três) dias antes do término do contrato, especificando o prazo total de duração da referida renovação contratual pretendida." },
+  { id: "4.4", content: "O contrato será renovado automaticamente, pelo mesmo período, se o Locatário não efetuar a devolução da máquina alugada ao Locador, impreterivelmente até o dia do vencimento do contrato." },
+  { id: "4.5", content: "Entretanto, não havendo interesse na renovação, haverá a rescisão do contrato, bastando para isso a comunicação da LOCATÁRIA do dia e horário em que a LOCADORA receberá em sua sede a restituição dos bens locados, com a realização de vistoria no ato da entrega do bem." },
+  { id: "4.6", content: "Se o prazo for igual a 30 dias, se renovará pelo mesmo período. Sendo inferior a 30 dias, se renovará por igual período." },
+  { id: "4.7", content: "Após o cumprimento total do primeiro período de locação contratado, na renovação, poderá não ser cumprido totalmente, neste caso será calculado e cobrado o valor proporcional aos dias usados (calculo: período locado dividido pelo valor da locação, multiplicado pelos dias usados)." },
+  { id: "4.8", content: "Quando a LOCADORA for responsável pelo frete de devolução (retorno) do equipamento locado, a LOCATÁRIA terá a obrigação de avisar formalmente , no prazo de 48 horas do término de locação, que o contrato irá se encerrar e que declina de interesse de renovação. Caso a LOCADORA não seja informada, poderá ser cobrado o valor de uma diária proporcional." },
+  { id: "\n\n5) DO VALOR", content: "" },
+  { id: "5.1", content: "O valor do aluguel mensal, quinzenal ou diárias, citado no campo 1.0, deverá ser pago diretamente para a empresa LOCADORA, até o dia e mês citado no campo 1.0;" },
+  { id: "5.2", content: "O pagamento pode se dar mediante BOLETO, DEPÓSITO OU CARTÃO DE CRÉDITO (neste último caso, com taxas da máquina de cartão a acrescer), que será negociado entre LOCATÁRIO E LOCADOR." },
+  { id: "5.3", content: "Acaso ocorra a hipótese prevista nas cláusulas 4.3 e 4.4, o valor do aluguel será reajustado anualmente pelo IGP-M, acrescido de 10 pontos percentuais." },
+  { id: "\n\n6) DA MORA", content: "" },
+  { id: "6.1", content: "Em caso de atraso no pagamento do aluguel, o valor em aberto será corrigido pelo IGP-M e, sobre ele, incidirá juros de 1% ao mês, desde o vencimento do valor devido até a data do efetivo pagamento." },
+  { id: "6.2", content: "Além da correção monetária e da incidência de juros, sobre o valor vencido incidirá multa compensatória de 10% (dez por cento) do valor total em atraso." },
+  { id: "\n\n7) DA CESSÃO OU SUBLOCAÇÃO", content: "" },
+  { id: "7.1", content: "A cessão ou transferência da presente locação, ou sublocação, no todo ou em parte do objeto deste contrato, somente poderá ocorrer mediante autorização escrita da LOCADORA, sob pena de plena rescisão do presente contrato." },
+  { id: "7.2", content: "Ocorrendo a hipótese prevista na cláusula 7.1, a LOCATÁRIA arcará com multa contratual de 20% (vinte por cento) do valor total do contrato, ficando inteiramente responsável pelos bens locados, inclusive por sua conservação." },
+  { id: "\n\n8) DAS OBRIGAÇÕES DA LOCADORA", content: "" },
+  { id: "8.1", content: "A LOCADORA é responsável por indenizar a LOCATÁRIA na ordem inversa deste, se os equipamentos objeto deste contrato não atenderem a finalidade a que foram locados, no caso de falhas irreversíveis e de que dependa a substituição dos equipamentos." },
+  { id: "8.2", content: "Durante o período em que os bens permanecerem locados para a LOCATÁRIA, e sendo necessário qualquer assistência técnica, ou manutenção corretiva advindas de desgaste natural de peças, essa será prestada exclusivamente pela LOCADORA, ou sob sua supervisão, sob pena de rescisão contratual." },
+  { id: "8.3", content: "Instruir e estar à disposição do cliente para eventuais dúvidas referente ao uso do equipamento." },
+  { id: "8.4", content: "Dispor de máquina reserva igual ou similar em estoque, em caso de problemas sérios com a máquina locada, salvo o frete que deverá ser por conta da LOCATÁRIA. Havendo necessidade de envio de máquina de maior potência, o valor de locação será reajustado conforme a tabela de locação vigente." },
+  { id: "8.5", content: "As manutenções preventivas das máquinas são por conta e responsabilidade da LOCADORA, e os intervalos podem variar de acordo com o regime de uso diário da máquina por parte do cliente ou pelo nível de sujeira dentro das dependências do mesmo." },
+  { id: "\n\n9) DAS OBRIGAÇÕES DA LOCATÁRIA", content: "" },
+  { id: "9.1", content: "Em caso de ocorrência de danos externos aos bens locados, tais como: queima de motor por tensão, trava da unidade compressora por ligação do equipamento em fase invertida, dano na válvula de admissão por estrangulamento da saída de ar, uso por parte da locatária de cabos danificados ou mal colocados ou sem aterramento quando é necessário que seja feito, roubo ou furto, incêndio ou avarias, esses serão de responsabilidade exclusiva da LOCATÁRIA. As movimentações de máquinas dentro da empresa LOCATÁRIA também devem ser informadas a LOCADORA." },
+  { id: "9.2", content: "Em caso de ocorrência de falha ou dificuldade de funcionamento adequado no equipamento locado, a LOCATÁRIA deverá comunicar imediatamente e inclusive por escrito a LOCADORA, para que possa solucionar de plano tais ocorrências. Não podendo a LOCATÁRIA realizar a substituição de peças da máquina sem autorização por escrito da LOCADORA, entre eles: troca de filtro de ar, filtro de óleo, filtro separador, contactores, e especialmente óleo quando for um diferente do óleo usado pela LOCADORA, sem a autorização da LOCADORA." },
+  { id: "9.3", content: "Em caso de a LOCATÁRIA observar mau funcionamento no equipamento locado e não comunicar a LOCADORA imediatamente, e o equipamento tiver seu funcionamento ainda mais prejudicado por esse motivo, a LOCATÁRIA arcará com os custos necessários para os devidos consertos." },
+  { id: "9.4", content: "Responsabilidade da LOCATÁRIA monitorar o funcionamento do equipamento enquanto locado, realizando testes e rotinas, afim de garantir o perfeito desempenho do equipamento." },
+  { id: "\n\n10) DA DEVOLUÇÃO DO BEM LOCADO", content: "" },
+  { id: "10.1", content: "Na entrega dos bens locados, as partes farão uma vistoria relatando o estado em que se encontram os bens. Estando nas mesmas condições em que foram locados, e sendo quitados todos os aluguéis e encargos, o presente contrato se dá por rescindido." },
+  { id: "\n\n11) DA RESCISÃO CONTRATUAL", content: "" },
+  { id: "11.1", content: "Entretanto, a LOCADORA poderá dar como rescindido o presente contrato, de plano direto, independentemente de qualquer interpelação judicial ou extrajudicial nos seguintes casos: a) se o locatário não pagar pontualmente qualquer das prestações mensais do aluguel ou faltar ao exato cumprimento de qualquer das obrigações assumidas no presente contrato; b) se o locatário usar a máquina, objeto deste contrato, para fins diversos daqueles para que foi locado; c) ou se a LOCATÁRIA locar ou ceder à terceiros os objetos locados." },
+  { id: "11.2", content: "Na ocorrência de quaisquer das hipóteses previstas na cláusula 11.1, não assistirá ao locatário qualquer direito à indenização ou reclamação." },
+  { id: "\n\n12) DAS DISPOSIÇÕES FINAIS", content: "" },
+  { id: "12.1", content: "Por se tratar de locação de bens móveis, dispensada de emissão de nota fiscal de serviço por não configurar atividade de prestação de serviço." },
+  { id: "12.2", content: "As partes elegem o Foro da Comarca de Campo Bom-RS, para dirimir dúvidas do contrato com exclusão de qualquer outra por privilégio que seja, firmam o presente para fins de direito, em duas (2) vias igual teor e forma, juntamente com duas testemunhas a tudo cientes.'\n\n'" }
 ];
 
 const DISCLAMER = "LOCAÇÃO DE BENS MÓVEIS, DISPENSADA DE EMISSÃO DE NOTA FISCAL DE SERVIÇO POR NÃO CONFIGURAR ATIVIDADE DE PRESTAÇÃO DE SERVIÇO."
@@ -175,9 +219,8 @@ export class ContractPDFService {
     return CLAUSES.map(clause => {
       return {
         text: [
-          {text: `${clause.id}: `, bold: true},
+          {text: `${clause.id} `, bold: true},
           clause.content,
-          '\n\n'
         ],
         fontSize: 9,
       }
@@ -223,7 +266,7 @@ export class ContractPDFService {
         {
           text: 'Contrato de Locação de Bens Móveis',
           bold: true,
-          fontSize: 12,
+          fontSize: 20,
           alignment: 'center',
           border: [false, false, false, true],
           margin: [0, 5, 0, 5],
@@ -231,6 +274,21 @@ export class ContractPDFService {
         {
           text: this.renderContractStart(),
           fontSize: 9,
+        },
+        {
+          width: '100%',
+          alignment: 'center',
+          text: 'CLÁUSULAS DO CONTRATO DE LOCAÇÃO:',
+          bold: true,
+          margin: [0, 0, 0, 0],
+          fontSize: 18,
+        },
+        {
+          text: [
+            {text: `\n1.0 `, bold: true},
+            "\n\n"
+          ],
+          fontSize: 12
         },
         {
           width: '100%',
@@ -247,7 +305,7 @@ export class ContractPDFService {
             body: [
               [
                 {
-                  text: '1-) OBJETO DO CONTRATO:',
+                  text: '1.1 OBJETO DO CONTRATO:',
                   // fillColor: '#Dbcfed',
                   border: [false, false, false, false],
                   // margin: [0, 5, 0, 5],
