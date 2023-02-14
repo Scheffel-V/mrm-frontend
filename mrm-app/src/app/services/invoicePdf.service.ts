@@ -803,7 +803,7 @@ export class InvoicePdfService {
 
   getInvoiceDefinitionByAdditive(additive, rental) {
     let itemsRows = [];
-    rental.itemRentals.map(item => {
+    this.getActualItemRentals(rental.itemRentals).map(item => {
       itemsRows.push(this.getContractFromStockItem(item));
       this.addItemValue(item.value);
     });
