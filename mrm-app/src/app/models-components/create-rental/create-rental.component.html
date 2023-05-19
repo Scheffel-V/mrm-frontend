@@ -170,10 +170,16 @@
                                         <input matInput type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" (ngModelChange)="shippingCostChange($event)" [ngModel]="rental.deliveryCost" id="deliveryCost" name="deliveryCost" #deliveryCost="ngModel">
                                     </mat-form-field>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-2 mb-3 mb-sm-0">
                                     <mat-form-field style="width:100%">
                                         <mat-label>Custo Mão de Obra e Deslocamento</mat-label>
                                         <input matInput type="text" matInput mask="separator.2" thousandSeparator="." prefix="R$" (ngModelChange)="laborAndDisplacementPriceChange($event)" [ngModel]="rental.laborAndDisplacementPrice" id="laborAndDisplacementPrice" name="laborAndDisplacementPrice" #laborAndDisplacementPrice="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-2 mb-3 mb-sm-0">
+                                    <mat-form-field style="width:100%">
+                                        <mat-label>Local de Entrega</mat-label>
+                                        <input matInput type="text" [(ngModel)]="rental.addressToDeliver" id="rentalAddressToDeliver" name="addressToDeliver" #addressToDeliver="ngModel">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-sm-4">

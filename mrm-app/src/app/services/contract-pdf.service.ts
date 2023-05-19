@@ -502,7 +502,7 @@ export class ContractPDFService {
         {
           text: [
             {text: `\nLocal de entrega: `, bold: true},
-            `${this.customer.address.street}, \ ${this.customer.address.number}, \ ${this.customer.address.neighborhood}, \ ${this.customer.address.city} - CEP: ${this.customer.address.cep}\n`, 
+            this.getAddressToDeliver(rental), 
             rental.startDate && {text: `Data de Início: `, bold: true},
             rental.startDate && this.dateFormatter.format(new Date(rental.startDate.toDateString())) + "\n",
             rental.endDate && {text: `Data de Término: `, bold: true},
@@ -745,6 +745,14 @@ export class ContractPDFService {
         //font: 'Quicksand',
       },
     };
+  }
+
+  getAddressToDeliver(rental: Rental) {
+    if (rental.addressToDeliver === null || rental.addressToDeliver === "") {
+      return `${this.customer.address.street}, \ ${this.customer.address.number}, \ ${this.customer.address.neighborhood}, \ ${this.customer.address.city} - CEP: ${this.customer.address.cep}\n`;
+    }
+    
+    return rental.addressToDeliver;
   }
 
   getContractFromStockItem(itemRental: ItemRental) {

@@ -35,7 +35,8 @@ export class Rental {
         public purchaseOrderNumber : string = null,
         public active : boolean = true,
         public invoicedAt : Date = null,
-        public laborAndDisplacementPrice : any = 0
+        public laborAndDisplacementPrice : any = 0,
+        public addressToDeliver : string = ""
     ) {
 
     }
