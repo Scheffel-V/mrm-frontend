@@ -752,7 +752,7 @@ export class ContractPDFService {
       return `${this.customer.address.street}, \ ${this.customer.address.number}, \ ${this.customer.address.neighborhood}, \ ${this.customer.address.city} - CEP: ${this.customer.address.cep}\n`;
     }
     
-    return rental.addressToDeliver;
+    return rental.addressToDeliver + "\n";
   }
 
   getContractFromStockItem(itemRental: ItemRental) {
