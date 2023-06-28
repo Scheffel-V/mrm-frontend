@@ -1,0 +1,8 @@
+{
+  "appId": "com.gma",
+  "appName": "gma-admin",
+  "webDir": "dist/mrm-app",
+  "server": {
+    "androidScheme": "https"
+  }
+}
