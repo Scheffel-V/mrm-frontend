@@ -23,7 +23,8 @@ export class Additive {
         public invoiceComment : string = "",
         public deliveryCost : number = 0,
         public purchaseOrderNumber : string = null,
-        public invoicedAt : Date = null
+        public invoicedAt : Date = null,
+        public entryValue : any = 0,
     ) {
 
     }

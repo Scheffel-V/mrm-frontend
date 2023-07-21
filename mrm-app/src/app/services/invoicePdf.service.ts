@@ -46,7 +46,7 @@ export class InvoicePdfService {
     this.formatter = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
-    
+
       // These options are needed to round to whole numbers if that's what you want.
       //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
       //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
@@ -58,7 +58,7 @@ export class InvoicePdfService {
   }
 
   public getActualItemRentals(itemRentals : ItemRental[]) {
-    let actualItemRentals = itemRentals.filter(itemRental => 
+    let actualItemRentals = itemRentals.filter(itemRental =>
       itemRental.returnedAt === null
     )
     return actualItemRentals
@@ -71,8 +71,8 @@ export class InvoicePdfService {
 
   /**
    * Producers one item row in the items table
-   * @param stockItem 
-   * @param itemRental 
+   * @param stockItem
+   * @param itemRental
    * @returns Object[]
    */
   getContractFromStockItem(itemRental: ItemRental) {
@@ -113,7 +113,7 @@ export class InvoicePdfService {
 
   /**
    * Given a rental id, generates the invoice PDF
-   * @param rentalId 
+   * @param rentalId
    */
   async generateInvoicePdfByRental(rentalId: number) {
 
@@ -131,7 +131,7 @@ export class InvoicePdfService {
 
     /**
    * Given a rental id, generates the invoice PDF
-   * @param rentalId 
+   * @param rentalId
    */
   async generateInvoicePdfByAdditive(additiveId: number) {
 
@@ -181,7 +181,7 @@ export class InvoicePdfService {
           data => {
             this.rental = data
             this.items = this.rental.itemRentals;
-    
+
             console.log(this.items);
 
             this.customerService.getCustomer(this.rental.customerId).subscribe(
@@ -217,28 +217,25 @@ export class InvoicePdfService {
     }
   }
 
-
-  renderDiscount() {
-    console.log(this.discount)
-    const hadDiscount = this.discount < 0;
+  renderEntry(rental : any) {
+    const hadEntry = rental.entryValue > 0;
     return [
-        {
-          text: 'Desconto',
-          border: [false, false, false, true],
-          alignment: 'right',
-          fontSize: 10,
-          margin: [0, 5, 0, 5],
-        },
-        {
-          text: hadDiscount ? this.formatter.format(this.discount) : this.formatter.format(0),
-          border: [false, false, false, true],
-          fillColor: '#f5f5f5',
-          alignment: 'right',
-          fontSize: 10,
-          margin: [0, 5, 0, 5],
-        },
-      ];
-  
+      {
+        text: 'Entrada',
+        border: [false, false, false, true],
+        alignment: 'right',
+        fontSize: 10,
+        margin: [0, 5, 0, 5],
+      },
+      {
+        text: hadEntry ? this.formatter.format(rental.entryValue) : this.formatter.format(0),
+        border: [false, false, false, true],
+        fillColor: '#f5f5f5',
+        alignment: 'right',
+        fontSize: 10,
+        margin: [0, 5, 0, 5],
+      },
+    ];
   }
 
   renderDeliveryCost(invoice) {
@@ -384,7 +381,7 @@ export class InvoicePdfService {
     });
     this.discount = rental.value - (this.totalItemsAmount + rental.deliveryCost);
     this.updateAdditiveCode(rental);
-    console.log(itemsRows); 
+    console.log(itemsRows);
 
 
     return {
@@ -699,7 +696,7 @@ export class InvoicePdfService {
                 },
               ],
               this.renderDeliveryCost(rental),
-              this.renderDiscount(),
+              this.renderEntry(rental),
               [
                 {
                   text: 'Valor Total',
@@ -762,7 +759,7 @@ export class InvoicePdfService {
                 style: 'notesText',
               }
             ],
-              
+
               [
                 {
                   text: 'Assinatura do Sacado:',
@@ -809,7 +806,7 @@ export class InvoicePdfService {
     });
     this.discount = additive.value - (this.totalItemsAmount);
     this.updateAdditiveCode(rental);
-    console.log(itemsRows); 
+    console.log(itemsRows);
 
 
     return {
@@ -1125,7 +1122,7 @@ export class InvoicePdfService {
                 },
               ],
               this.renderDeliveryCost(additive),
-              this.renderDiscount(),
+              this.renderEntry(rental),
               [
                 {
                   text: 'Valor Total',
@@ -1188,7 +1185,7 @@ export class InvoicePdfService {
                 style: 'notesText',
               }
             ],
-              
+
               [
                 {
                   text: 'Assinatura do Sacado:',

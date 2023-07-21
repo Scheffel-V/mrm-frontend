@@ -36,7 +36,8 @@ export class Rental {
         public active : boolean = true,
         public invoicedAt : Date = null,
         public laborAndDisplacementPrice : any = 0,
-        public addressToDeliver : string = ""
+        public addressToDeliver : string = "",
+        public entryValue : any = 0,
     ) {
 
     }

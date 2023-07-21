@@ -32,7 +32,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
     matSnackBar : MatSnackBar,
     private invoicePdfService : InvoicePdfService,
     authService: AuthService
-  ) { 
+  ) {
     super(scriptsService, location, router, matSnackBar, authService)
   }
 
@@ -66,6 +66,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
 
   prepareCurrenciesToDisplay() {
     this.rental.value = this.prepareCurrencyToDisplay(this.rental.value)
+    this.rental.entryValue = this.prepareCurrencyToDisplay(this.rental.entryValue)
   }
 
   prepareCurrencyToDisplay(value : any) : string {
@@ -74,6 +75,7 @@ export class InvoiceComponent extends BaseComponent implements OnInit {
 
   prepareCurrenciesToSaveInvoice() {
     this.rental.value = this.prepareCurrencyForOperations(this.rental.value)
+    this.rental.entryValue = this.prepareCurrencyForOperations(this.rental.entryValue)
   }
 
   prepareCurrencyForOperations(value : any) : number {

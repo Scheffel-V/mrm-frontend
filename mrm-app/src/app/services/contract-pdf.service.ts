@@ -124,7 +124,7 @@ export class ContractPDFService {
   }
 
   public getActualItemRentals(itemRentals : ItemRental[]) {
-    let actualItemRentals = itemRentals.filter(itemRental => 
+    let actualItemRentals = itemRentals.filter(itemRental =>
       itemRental.returnedAt === null
     )
     return actualItemRentals
@@ -136,7 +136,7 @@ export class ContractPDFService {
     this.rental = null;
     this.items = [];
     await this.lazyLoadPDFLibraries();
-   
+
     try {
       this.fetchRental(rentalId, this.generatePdf.bind(this));
     } catch (e) {
@@ -502,13 +502,13 @@ export class ContractPDFService {
         {
           text: [
             {text: `\nLocal de entrega: `, bold: true},
-            this.getAddressToDeliver(rental), 
+            this.getAddressToDeliver(rental),
             rental.startDate && {text: `Data de Início: `, bold: true},
             rental.startDate && this.dateFormatter.format(new Date(rental.startDate.toDateString())) + "\n",
             rental.endDate && {text: `Data de Término: `, bold: true},
             rental.endDate && this.dateFormatter.format(new Date(rental.endDate.toDateString())) + "\n",
             {text: `Período: `, bold: true},
-            rental.period + " dia(s)" + "\n", 
+            rental.period + " dia(s)" + "\n",
             rental.comment && {text: `\nObservações: `, bold: true},
             rental.comment,
             "\n\n"
@@ -727,7 +727,7 @@ export class ContractPDFService {
             ],
           }
         },
-    
+
       ],
       fontSize: 9,
       styles: {
@@ -751,7 +751,7 @@ export class ContractPDFService {
     if (rental.addressToDeliver === null || rental.addressToDeliver === "") {
       return `${this.customer.address.street}, \ ${this.customer.address.number}, \ ${this.customer.address.neighborhood}, \ ${this.customer.address.city} - CEP: ${this.customer.address.cep}\n`;
     }
-    
+
     return rental.addressToDeliver + "\n";
   }
 

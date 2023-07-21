@@ -8,7 +8,7 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.INVOICE.INVOICE }}</h1>
                         </div>
-                        
+
                         <form class="user" (ngSubmit)="!additiveForm.invalid && saveAdditive()" #additiveForm="ngForm">
                             <div class="form-group row">
                                 <div class="col-sm-4">
@@ -43,7 +43,7 @@
                                         </mat-select>
                                     </mat-form-field>
                                   </div>
-                                  <div class="col-sm-4">
+                                  <div class="col-sm-2">
                                     <mat-form-field style="width:100%">
                                         <mat-label>{{ TEXTS.MODELS.ADDITIVE.INSTALLMENTS }}</mat-label>
                                         <mat-select [(ngModel)]="additive.installments" required id="installments" name="installments" #installments="ngModel">
@@ -60,6 +60,12 @@
                                             <mat-option value="11">11x</mat-option>
                                             <mat-option value="12">12x</mat-option>
                                         </mat-select>
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-sm-2">
+                                    <mat-form-field style="width:100%">
+                                      <mat-label>Entrada</mat-label>
+                                      <input matInput type="text" mask="separator.2" thousandSeparator="." prefix="R$" [(ngModel)]="additive.entryValue" id="additiveEntryValue" name="entryValue" #entryValue="ngModel">
                                     </mat-form-field>
                                   </div>
                             </div>
