@@ -1,34 +1,37 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Rental } from '../../models/rental.model'
-import { Location } from '@angular/common';
-import { RentalService } from '../../services/rental.service'
-import { CustomerService } from '../../services/customer.service'
-import { StockItemService } from '../../services/stock-item.service'
-import { ItemRentalService } from '../../services/item-rental.service'
-import { RENTAL_ID_PARAM , INITIAL_ID } from '../../app.constants'
-import { BaseComponent } from 'src/app/base/base.component';
-import { ScriptsService } from 'src/app/services/scripts.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Customer } from '../../models/customer.model';
-import { StockItem } from '../../models/stock-item.model';
-import { ReplaySubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { MatSelect } from '@angular/material/select';
-import { MatRadioChange } from '@angular/material/radio';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ItemRental } from '../../models/item-rental.model';
-import { MatTableDataSource } from '@angular/material/table';
-import { AuthService } from '../../services/auth.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Rental} from '../../models/rental.model'
+import {Location} from '@angular/common';
+import {RentalService} from '../../services/rental.service'
+import {CustomerService} from '../../services/customer.service'
+import {StockItemService} from '../../services/stock-item.service'
+import {ItemRentalService} from '../../services/item-rental.service'
+import {RENTAL_ID_PARAM, INITIAL_ID} from '../../app.constants'
+import {BaseComponent} from 'src/app/base/base.component';
+import {ScriptsService} from 'src/app/services/scripts.service';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {Customer} from '../../models/customer.model';
+import {StockItem} from '../../models/stock-item.model';
+import {ReplaySubject, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {MatSelect} from '@angular/material/select';
+import {MatRadioChange} from '@angular/material/radio';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {ItemRental} from '../../models/item-rental.model';
+import {MatTableDataSource} from '@angular/material/table';
+import {AuthService} from '../../services/auth.service';
+import {ContractPDFService} from "../../services/contract-pdf.service";
+import {ListPdfContractsComponent} from "../list-pdf-contracts/list-pdf-contracts.component";
 
 
 class ItemRentalToDisplay {
   constructor(
-    public checked : boolean,
-    public itemRental : ItemRental,
-    public trashButtonColor : string = "basic",
-    public infoButtonColor : string = "basic"
-  ) { }
+    public checked: boolean,
+    public itemRental: ItemRental,
+    public trashButtonColor: string = "basic",
+    public infoButtonColor: string = "basic"
+  ) {
+  }
 }
 
 @Component({
@@ -38,47 +41,51 @@ class ItemRentalToDisplay {
 })
 export class RentalComponent extends BaseComponent implements OnInit {
 
-  id : number
-  rental : Rental = new Rental(-1, null, null, [], [])
-  rentalForm : FormGroup
-  customers : Customer[] = []
-  stockItems : StockItem[] = []
-  selectedStockItems : StockItem[] = []
-  durationMode : string = "CUSTOM"
+  id: number
+  rental: Rental = new Rental(-1, null, null, [], [])
+  rentalForm: FormGroup
+  customers: Customer[] = []
+  stockItems: StockItem[] = []
+  selectedStockItems: StockItem[] = []
+  durationMode: string = "CUSTOM"
   isPeriodEditable = false
   displayedColumns = ['actions', 'name', 'status', 'type', 'power', 'value']
   historyTableDisplayedColumns = ['name', 'status', 'type', 'leftAt', 'returnedAt', 'value']
-  totalValueWithAdditives : any = 0
+  totalValueWithAdditives: any = 0
   public dataSource = new MatTableDataSource<ItemRentalToDisplay>();
   public historyTableDataSource = new MatTableDataSource<ItemRentalToDisplay>();
-  historyItemRentalsToDisplay : ItemRentalToDisplay[] = []
-  itemRentalsToDisplay : ItemRentalToDisplay[] = []
-  itemRentalsSelectedToRemove : ItemRental[] = []
-  alreadyRentedItemRentalsInInventory : ItemRental[] = []
+  historyItemRentalsToDisplay: ItemRentalToDisplay[] = []
+  itemRentalsToDisplay: ItemRentalToDisplay[] = []
+  itemRentalsSelectedToRemove: ItemRental[] = []
+  alreadyRentedItemRentalsInInventory: ItemRental[] = []
 
-  customerSelectControl : FormControl = new FormControl(this.rental.customerId, [Validators.required])
-  customerFilterControl : FormControl = new FormControl()
-  filteredCustomers : ReplaySubject<Customer[]> = new ReplaySubject<Customer[]>(1)
+  customerSelectControl: FormControl = new FormControl(this.rental.customerId, [Validators.required])
+  customerFilterControl: FormControl = new FormControl()
+  filteredCustomers: ReplaySubject<Customer[]> = new ReplaySubject<Customer[]>(1)
   protected _onDestroy = new Subject<void>();
-  @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
+  @ViewChild('singleSelect', {static: true}) singleSelect: MatSelect;
 
-  stockItemSelectControl : FormControl = new FormControl()
-  stockItemFilterControl : FormControl = new FormControl()
-  filteredStockItems : ReplaySubject<StockItem[]> = new ReplaySubject<StockItem[]>(1)
-  @ViewChild('multiSelect', { static: true }) multiSelect: MatSelect;
+  stockItemSelectControl: FormControl = new FormControl()
+  stockItemFilterControl: FormControl = new FormControl()
+  filteredStockItems: ReplaySubject<StockItem[]> = new ReplaySubject<StockItem[]>(1)
+  @ViewChild('multiSelect', {static: true}) multiSelect: MatSelect;
+
+  selectedFile: any
+  public isNewPdfContract: boolean = false;
+  @ViewChild('listPdfContractsComponent') listPdfContractsComponent: ListPdfContractsComponent;
 
   constructor(
-    private rentalService : RentalService,
-    private customerService : CustomerService,
-    private stockItemService : StockItemService,
-    private itemRentalService : ItemRentalService,
-    private activatedRoute : ActivatedRoute,
-    scriptsService : ScriptsService,
-    location : Location,
-    router : Router,
-    matSnackBar : MatSnackBar,
-    authService: AuthService
-  ) { 
+    private rentalService: RentalService,
+    private customerService: CustomerService,
+    private stockItemService: StockItemService,
+    private itemRentalService: ItemRentalService,
+    private activatedRoute: ActivatedRoute,
+    scriptsService: ScriptsService,
+    location: Location,
+    router: Router,
+    matSnackBar: MatSnackBar,
+    authService: AuthService,
+  ) {
     super(scriptsService, location, router, matSnackBar, authService)
   }
 
@@ -145,8 +152,12 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.updateItemRentals()
     this.updatePaidAt()
     this.rentalService.updateRental(this.rental).subscribe(
-      data => {
-        this.listRentals()
+      rental => {
+        if (this.isNewPdfContract) {
+          this.listPdfContractsComponent.uploadPdfContractOnSave(rental);
+        }
+
+        this.listRentals();
       }
     )
   }
@@ -169,12 +180,12 @@ export class RentalComponent extends BaseComponent implements OnInit {
           this.stockItemService.updateStockItem(itemRental.stockItem).subscribe()
         }
         this.itemRentalService.updateItemRental(itemRental).subscribe()
-    })
+      })
 
     newItemRentals.forEach(
       (itemRental) => {
         this.itemRentalService.createItemRental(itemRental).subscribe()
-    })
+      })
   }
 
   updatePaidAt(): void {
@@ -185,13 +196,13 @@ export class RentalComponent extends BaseComponent implements OnInit {
 
   getNewItemRentals(): ItemRental[] {
     return this.rental.itemRentals.filter(itemRental => {
-      return this.stockItems.map(({ id }) => id).indexOf(itemRental.id) !== -1
+      return this.stockItems.map(({id}) => id).indexOf(itemRental.id) !== -1
     })
   }
 
   getOldItemRentals(): ItemRental[] {
     return this.rental.itemRentals.filter(itemRental => {
-      return this.stockItems.map(({ id }) => id).indexOf(itemRental.id) === -1
+      return this.stockItems.map(({id}) => id).indexOf(itemRental.id) === -1
     })
   }
 
@@ -209,7 +220,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
       itemRental.value = this.prepareCurrencyForOperations(itemRental.value)
     })
     this.rental.deliveryCost = this.prepareCurrencyForOperations(this.rental.deliveryCost)
-    this.rental.laborAndDisplacementPrice = this.prepareCurrencyForOperations(this.rental.laborAndDisplacementPrice)    
+    this.rental.laborAndDisplacementPrice = this.prepareCurrencyForOperations(this.rental.laborAndDisplacementPrice)
   }
 
   prepareCurrenciesToDisplay() {
@@ -223,8 +234,8 @@ export class RentalComponent extends BaseComponent implements OnInit {
   }
 
   removeIdFromItemsRentals(): void {
-    let itemRental : ItemRental
-    
+    let itemRental: ItemRental
+
     for (itemRental of this.rental.itemRentals) {
       delete itemRental['id']
     }
@@ -260,28 +271,28 @@ export class RentalComponent extends BaseComponent implements OnInit {
     )
   }
 
-  getStockItemsInInventory(stockItems : StockItem[]) {
+  getStockItemsInInventory(stockItems: StockItem[]) {
     return stockItems.filter(stockItem =>
       stockItem.status === "INVENTORY" || stockItem.status === "READY_FOR_RENTAL")
   }
 
   removeDuplicateStockItems(stockItems) {
-    let test = stockItems.filter(stockItem => 
+    let test = stockItems.filter(stockItem =>
       !(this.getStockItemsIdsFromItemRentals(this.getActualItemRentals(this.rental.itemRentals)).includes(stockItem.id))
     )
 
     return test
   }
 
-  public getActualItemRentals(itemRentals : ItemRental[]) {
-    let actualItemRentals = itemRentals.filter(itemRental => 
+  public getActualItemRentals(itemRentals: ItemRental[]) {
+    let actualItemRentals = itemRentals.filter(itemRental =>
       itemRental.returnedAt === null
     )
     return actualItemRentals
   }
 
-  getStockItemsIdsFromItemRentals(itemRentals : ItemRental[]) {
-    return itemRentals.map(({ stockItem }) => stockItem ? stockItem.id : null);
+  getStockItemsIdsFromItemRentals(itemRentals: ItemRental[]) {
+    return itemRentals.map(({stockItem}) => stockItem ? stockItem.id : null);
   }
 
   ngOnDestroy() {
@@ -293,7 +304,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     if (!this.customers) {
       return;
     }
-    
+
     let search = this.customerFilterControl.value;
     if (!search) {
       this.filteredCustomers.next(this.customers.slice());
@@ -301,7 +312,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     } else {
       search = search.toLowerCase();
     }
-    
+
     this.filteredCustomers.next(
       this.customers.filter(customer => customer.name.toLowerCase().indexOf(search) > -1)
     );
@@ -311,7 +322,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     if (!this.stockItems) {
       return;
     }
-    
+
     let search = this.stockItemFilterControl.value;
     if (!search) {
       this.filteredStockItems.next(this.stockItems.slice());
@@ -319,13 +330,13 @@ export class RentalComponent extends BaseComponent implements OnInit {
     } else {
       search = search.toLowerCase();
     }
-    
+
     this.filteredStockItems.next(
       this.stockItems.filter(stockItem => stockItem.name.toLowerCase().indexOf(search) > -1)
     );
   }
 
-  durationRadioChange(event : MatRadioChange) {
+  durationRadioChange(event: MatRadioChange) {
     this.durationMode = event.value;
 
     switch (this.durationMode) {
@@ -351,7 +362,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.updatePeriod()
   }
 
-  stockItemSelectChange(stockItemsIds : number[]) {
+  stockItemSelectChange(stockItemsIds: number[]) {
     let newItemRentals = this.createItemRentalsFromStockItemsIds(stockItemsIds)
 
     this.itemRentalsSelectedToRemove.forEach(itemRentalToRemove => {
@@ -362,29 +373,29 @@ export class RentalComponent extends BaseComponent implements OnInit {
           itemRentalToRemove.stockItem.status = 'RENTED'
           this.stockItems = this.stockItems.filter(stockItem => stockItem.id !== itemRentalToRemove.stockItem.id)
         }
-    
+
         this.itemRentalsSelectedToRemove = this.itemRentalsSelectedToRemove.filter(itemRentalToRemoveAux => itemRentalToRemoveAux.stockItem.id !== itemRentalToRemove.stockItem.id)
         this.rental.itemRentals.push(itemRentalToRemove)
         newItemRentals = newItemRentals.filter(itemRental => itemRental.stockItem.id !== itemRentalToRemove.stockItem.id)
         this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
         this.filterStockItems()
       }
-   })
+    })
 
     this.rental.itemRentals = this.joinNewAndOldItemRentals(newItemRentals)
     this.displayItemRentals(this.rental.itemRentals)
     this.fillTotalValue()
   }
 
-  joinNewAndOldItemRentals(newItemRentals : ItemRental[]) : ItemRental[] {
-    let oldItemRentals : ItemRental[] = this.rental.itemRentals.filter(itemRental => {
-      return this.stockItems.map(({ id }) => id).indexOf(itemRental.id) === -1
+  joinNewAndOldItemRentals(newItemRentals: ItemRental[]): ItemRental[] {
+    let oldItemRentals: ItemRental[] = this.rental.itemRentals.filter(itemRental => {
+      return this.stockItems.map(({id}) => id).indexOf(itemRental.id) === -1
     })
 
     return oldItemRentals.concat(newItemRentals)
   }
 
-  itemRentalValueChange(value : string, currentItemRental : ItemRental) {
+  itemRentalValueChange(value: string, currentItemRental: ItemRental) {
     for (let i = 0; i < this.rental.itemRentals.length; i++) {
       if (this.rental.itemRentals[i].id === currentItemRental.id) {
         this.rental.itemRentals[i].value = this.formatCurrency(value)
@@ -394,17 +405,17 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.fillTotalValue()
   }
 
-  shippingCostChange(value : string) {
+  shippingCostChange(value: string) {
     this.rental.deliveryCost = this.formatCurrency(value)
     this.fillTotalValue()
   }
 
-  laborAndDisplacementPriceChange(value : string) {
+  laborAndDisplacementPriceChange(value: string) {
     this.rental.laborAndDisplacementPrice = this.formatCurrency(value)
     this.fillTotalValue()
   }
 
-  startDateChange(startDate : Date)  {
+  startDateChange(startDate: Date) {
     this.rental.startDate = startDate
 
     if (this.durationMode === "CUSTOM") {
@@ -417,7 +428,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.updatePeriod()
   }
 
-  endDateChange(endDate : Date) {
+  endDateChange(endDate: Date) {
     this.rental.endDate = endDate
 
     if (this.durationMode === "CUSTOM") {
@@ -438,22 +449,22 @@ export class RentalComponent extends BaseComponent implements OnInit {
 
   fillTotalValue() {
     let totalValue = 0
-    let itemRental : ItemRental
-    
+    let itemRental: ItemRental
+
     for (itemRental of this.getActualItemRentals(this.rental.itemRentals)) {
       totalValue = totalValue + this.prepareCurrencyForOperations(itemRental.value)
     }
 
-    totalValue = totalValue 
+    totalValue = totalValue
       + (this.rental.deliveryCost ? this.prepareCurrencyForOperations(this.rental.deliveryCost) : 0)
       + (this.rental.laborAndDisplacementPrice ? this.prepareCurrencyForOperations(this.rental.laborAndDisplacementPrice) : 0)
 
     this.rental.value = this.prepareCurrencyToDisplay(Math.round(totalValue * 100) / 100)
   }
 
-  createItemRentalsFromStockItemsIds(stockItemsIds : number[]) {
+  createItemRentalsFromStockItemsIds(stockItemsIds: number[]) {
     let itemRentals = []
-    let stockItem : StockItem
+    let stockItem: StockItem
 
     for (stockItem of this.stockItems) {
       if (stockItemsIds.find(id => id === stockItem.id)) {
@@ -464,13 +475,13 @@ export class RentalComponent extends BaseComponent implements OnInit {
     return itemRentals
   }
 
-  createItemRentalOrReturnExisting(stockItem : StockItem) : ItemRental {
+  createItemRentalOrReturnExisting(stockItem: StockItem): ItemRental {
     let itemRental = this.findItemRentalById(stockItem.id)
     return itemRental ? itemRental : new ItemRental(stockItem.id, null, null, this.prepareCurrencyToDisplay(stockItem.rentValue), stockItem, stockItem.id, this.id, "")
   }
 
-  findItemRentalById(itemRentalId : number) : ItemRental {
-    let itemRental : ItemRental
+  findItemRentalById(itemRentalId: number): ItemRental {
+    let itemRental: ItemRental
 
     for (itemRental of this.rental.itemRentals) {
       if (itemRental.id === itemRentalId) {
@@ -481,43 +492,43 @@ export class RentalComponent extends BaseComponent implements OnInit {
     return null
   }
 
-  formatCurrency(value : string) : string {
-    return typeof(value) === "number" ? value : value.replace(".", ",")
+  formatCurrency(value: string): string {
+    return typeof (value) === "number" ? value : value.replace(".", ",")
   }
 
-  prepareCurrencyToDisplay(value : any) : string {
+  prepareCurrencyToDisplay(value: any): string {
     if (value == null) {
       return null
     }
 
-    return typeof(value) === "string" ? value : value.toString().replace(".", ",")
+    return typeof (value) === "string" ? value : value.toString().replace(".", ",")
   }
 
-  prepareCurrencyForOperations(value : any) : number {
+  prepareCurrencyForOperations(value: any): number {
     if (!value) {
       return 0
     }
 
-    if (typeof(value) === "number") {
+    if (typeof (value) === "number") {
       return value
     }
 
     return (value.match(/,/g) || []).length == 0 ? +value : +(value.replace(".", "").replace(",", "."))
   }
 
-  removeStockItemFromRental(itemRental : ItemRental) {
+  removeStockItemFromRental(itemRental: ItemRental) {
     itemRental.stockItem.status = 'INVENTORY'
     this.stockItems.push(itemRental.stockItem)
     this.itemRentalsSelectedToRemove.push(itemRental)
-    
+
     this.rental.itemRentals = this.rental.itemRentals.filter(itemRentalAux => itemRentalAux.id !== itemRental.id)
     this.displayItemRentals(this.rental.itemRentals)
     this.stockItemSelectControl.setValue(this.getStockItemsIdsFromItemRentals(this.rental.itemRentals))
     this.filterStockItems()
     this.fillTotalValue()
   }
-  
-  public displayItemRentals(itemRentals : ItemRental[]): void {
+
+  public displayItemRentals(itemRentals: ItemRental[]): void {
     this.itemRentalsToDisplay = []
     itemRentals.forEach((itemRental) => {
       if (itemRental.returnedAt === null) {
@@ -529,7 +540,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.dataSource.data = this.itemRentalsToDisplay
   }
 
-  public displayItemRentalsHistory(itemRentals : ItemRental[]) : void {
+  public displayItemRentalsHistory(itemRentals: ItemRental[]): void {
     this.historyItemRentalsToDisplay = []
     itemRentals.forEach((itemRental) => {
       if (itemRental.returnedAt) {
@@ -541,7 +552,7 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.historyTableDataSource.data = this.historyItemRentalsToDisplay
   }
 
-  public filterActiveCustomers(customers : Customer[]) {
+  public filterActiveCustomers(customers: Customer[]) {
     return customers.filter((customer => customer.active === true))
   }
 
@@ -554,15 +565,19 @@ export class RentalComponent extends BaseComponent implements OnInit {
     this.rental.workingHours = event.value;
   }
 
-  public getAlreadyRentedItemRentalsInInventory() : ItemRental[] {
+  public getAlreadyRentedItemRentalsInInventory(): ItemRental[] {
     return this.rental.itemRentals.filter(itemRental =>
       itemRental.stockItem.status === 'INVENTORY'
     )
   }
 
-  public isItemRentalAlreadyRentedInThePast(itemRental) : boolean {
-    return this.alreadyRentedItemRentalsInInventory.filter(alreadyRentedItemRental => 
+  public isItemRentalAlreadyRentedInThePast(itemRental): boolean {
+    return this.alreadyRentedItemRentalsInInventory.filter(alreadyRentedItemRental =>
       alreadyRentedItemRental.id === itemRental.id
     ).length !== 0
+  }
+
+  public changeIsNewPdfContract(): void {
+    this.isNewPdfContract = !this.isNewPdfContract;
   }
 }

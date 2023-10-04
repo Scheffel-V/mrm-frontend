@@ -69,6 +69,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 import { AdditiveComponent } from './models-components/additive/additive.component';
 import {DatePipe} from '@angular/common';
+import { ListPdfContractsComponent } from './models-components/list-pdf-contracts/list-pdf-contracts.component';
 
 
 
@@ -104,7 +105,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     CreateSupplierComponent,
     LoginComponent,
     DeleteConfirmationComponent,
-    AdditiveComponent
+    AdditiveComponent,
+    ListPdfContractsComponent
   ],
   imports: [
     BrowserModule,

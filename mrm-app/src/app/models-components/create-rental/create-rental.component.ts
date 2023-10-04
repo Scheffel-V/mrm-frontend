@@ -20,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ItemRental } from '../../models/item-rental.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from '../../services/auth.service';
+import {ContractPDFService} from "../../services/contract-pdf.service";
 
 
 @Component({
@@ -61,8 +62,9 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
     location : Location,
     router : Router,
     matSnackBar : MatSnackBar,
-    authService: AuthService
-  ) { 
+    authService: AuthService,
+    private contractPDFService: ContractPDFService
+  ) {
     super(scriptsService, location, router, matSnackBar, authService)
   }
 
@@ -105,8 +107,9 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
   createRental(): void {
     this.removeIdFromItemsRentals()
     this.rentalService.createRental(this.rental).subscribe(
-      data => {
+      rental => {
         this.openSnackBar("Locação criada!")
+        this.addFirstPdfContractHistory(rental);
         this.listRentals()
       }
     )
@@ -158,7 +161,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
 
   removeIdFromItemsRentals(): void {
     let itemRental : ItemRental
-    
+
     for (itemRental of this.rental.itemRentals) {
       delete itemRental['id']
     }
@@ -212,7 +215,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
     if (!this.customers) {
       return;
     }
-    
+
     let search = this.customerFilterControl.value;
     if (!search) {
       this.filteredCustomers.next(this.customers.slice());
@@ -220,7 +223,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
     } else {
       search = search.toLowerCase();
     }
-    
+
     this.filteredCustomers.next(
       this.customers.filter(customer => customer.name.toLowerCase().indexOf(search) > -1)
     );
@@ -230,7 +233,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
     if (!this.stockItems) {
       return;
     }
-    
+
     let search = this.stockItemFilterControl.value;
     if (!search) {
       this.filteredStockItems.next(this.stockItems.slice());
@@ -238,7 +241,7 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
     } else {
       search = search.toLowerCase();
     }
-    
+
     this.filteredStockItems.next(
       this.stockItems.filter(stockItem => stockItem.name.toLowerCase().indexOf(search) > -1)
     );
@@ -329,12 +332,12 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
   fillTotalValue() {
     let totalValue = 0
     let itemRental : ItemRental
-    
+
     for (itemRental of this.rental.itemRentals) {
       totalValue = totalValue + this.prepareCurrencyForOperations(itemRental.value)
     }
 
-    totalValue = totalValue 
+    totalValue = totalValue
       + (this.rental.deliveryCost ? this.prepareCurrencyForOperations(this.rental.deliveryCost) : 0)
       + (this.rental.laborAndDisplacementPrice ? this.prepareCurrencyForOperations(this.rental.laborAndDisplacementPrice) : 0)
 
@@ -402,5 +405,12 @@ export class CreateRentalComponent extends BaseComponent implements OnInit {
     }
 
     this.rental.workingHours = event.value;
+  }
+
+  public async addFirstPdfContractHistory(rental: Rental) {
+      const builder = await this.contractPDFService.getContractBlob(rental.id);
+      builder.getBlob((blob) => {
+        this.contractPDFService.uploadPdfContract(rental.id, blob).subscribe();
+      });
   }
 }

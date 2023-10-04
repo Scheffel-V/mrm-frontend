@@ -12,7 +12,7 @@
                                     <h1 *ngIf="rental.id == -1" class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.RENTAL }}</h1>
                                     <h1 *ngIf="rental.id != -1" class="h4 text-gray-900 mb-4">{{ TEXTS.PAGES.CREATE.RENTAL_2 }}</h1>
                                 </div>
-                                
+
                                 <form class="user" (ngSubmit)="!rentalForm.invalid && saveRental()" #rentalForm="ngForm">
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -20,7 +20,7 @@
                                                 <mat-label>Cliente</mat-label>
                                                 <mat-select [(ngModel)]="rental.customerId" [formControl]="customerSelectControl" name="rentalCustomer" required="required">
                                                     <mat-option>
-                                                        <ngx-mat-select-search [formControl]="customerFilterControl" placeholderLabel="Find customer..." 
+                                                        <ngx-mat-select-search [formControl]="customerFilterControl" placeholderLabel="Find customer..."
                                                         noEntriesFoundLabel="'no matching customer found'"></ngx-mat-select-search>
                                                     </mat-option>
                                                     <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer.id">
@@ -36,7 +36,7 @@
                                                 <mat-label>Produtos</mat-label>
                                                 <mat-select [ngModel]="selectedStockItems" [formControl]="stockItemSelectControl" name="rentalStockItems" (selectionChange)="stockItemSelectChange($event.value)"  multiple required>
                                                 <mat-option>
-                                                    <ngx-mat-select-search [formControl]="stockItemFilterControl" placeholderLabel="Find products..." 
+                                                    <ngx-mat-select-search [formControl]="stockItemFilterControl" placeholderLabel="Find products..."
                                                     noEntriesFoundLabel="'no matching products found'"></ngx-mat-select-search>
                                                 </mat-option>
                                                 <mat-option *ngFor="let stockItem of filteredStockItems | async" [value]="stockItem.id">
@@ -297,6 +297,9 @@
                                         </div>
                                     </div>
                                     <button [disabled]="rentalForm.invalid" type="submit" mat-raised-button color="primary">{{ TEXTS.GENERAL.ACTIONS.SAVE }}</button>
+                                    <mat-checkbox [checked]="isNewPdfContract" (change)="changeIsNewPdfContract()" style="padding-left: 10px">
+                                      Salvar novo contrato no histórico?
+                                    </mat-checkbox>
                                 </form>
 
                                 <hr>
@@ -306,6 +309,12 @@
                 </mat-tab>
                 <mat-tab *ngIf="rental.id !== -1" label="{{ TEXTS.PAGES.CREATE.ADDITIVES }}">
                     <app-list-additives></app-list-additives>
+                </mat-tab>
+                <mat-tab label="Histórico de Contratos">
+                    <app-list-pdf-contracts
+                      #listPdfContractsComponent
+                      [rental]="rental"
+                    ></app-list-pdf-contracts>
                 </mat-tab>
               </mat-tab-group>
         </div>

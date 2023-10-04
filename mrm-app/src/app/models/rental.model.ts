@@ -1,6 +1,7 @@
 import { Customer } from "./customer.model";
 import { ItemRental } from "./item-rental.model"
 import { Additive } from "./additive.model";
+import {PdfContract} from "./pdfContract.model";
 
 export class Rental {
     constructor(
@@ -38,6 +39,7 @@ export class Rental {
         public laborAndDisplacementPrice : any = 0,
         public addressToDeliver : string = "",
         public entryValue : any = 0,
+        public pdfContracts : PdfContract[] = [],
     ) {
 
     }
