@@ -261,6 +261,29 @@ export class InvoicePdfService {
     ];
   }
 
+  renderLaborAndDisplacementPrice(rental) {
+    if (!rental.laborAndDisplacementPrice) {
+      rental.laborAndDisplacementPrice = 0.0;
+    }
+    return [
+      {
+        text: 'Mão de Obra e Deslocamento',
+        border: [false, false, false, true],
+        alignment: 'right',
+        fontSize: 10,
+        margin: [0, 5, 0, 5],
+      },
+      {
+        text: this.formatter.format(rental.laborAndDisplacementPrice),
+        border: [false, false, false, true],
+        fillColor: '#f5f5f5',
+        alignment: 'right',
+        fontSize: 10,
+        margin: [0, 5, 0, 5],
+      },
+    ];
+  }
+
   updateAdditiveCode(rental) {
     let additives = rental.additives;
     let latestAdditiveEndDate: Date = new Date(0);
@@ -696,6 +719,7 @@ export class InvoicePdfService {
                 },
               ],
               this.renderDeliveryCost(rental),
+              this.renderLaborAndDisplacementPrice(rental),
               this.renderEntry(rental),
               [
                 {
